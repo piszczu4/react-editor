@@ -1,0 +1,44 @@
+{
+	"name": "react-editor",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"@benrbray/prosemirror-math": "^0.2.2",
+		"@stackoverflow/stacks-editor": "^0.8.7",
+		"prosemirror-highlightjs": "^0.9.1",
+		"@tiptap/pm": "^2.0.3",
+		"@tiptap/react": "^2.0.3",
+		"@tiptap/starter-kit": "^2.0.3",
+		"@tiptap/extension-color": "^2.0.3",
+		"@tiptap/extension-text-style": "^2.0.3",
+		"@tiptap/extension-underline": "^2.0.3",
+		"@tiptap/extension-subscript": "^2.0.3",
+		"@tiptap/extension-superscript": "^2.0.3",
+		"@tiptap/extension-highlight": "^2.0.3",
+		"@tiptap/extension-placeholder": "^2.0.3",
+		"@tiptap/extension-font-family": "^2.0.3",
+		"@tiptap/extension-text-align": "^2.0.3"
+	},
+	"devDependencies": {
+		"@types/react": "^18.2.14",
+		"@types/react-dom": "^18.2.6",
+		"@typescript-eslint/eslint-plugin": "^5.61.0",
+		"@typescript-eslint/parser": "^5.61.0",
+		"@vitejs/plugin-react": "^4.0.1",
+		"eslint": "^8.44.0",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-react-refresh": "^0.4.1",
+		"typescript": "^5.0.2",
+		"vite": "^4.4.0",
+		"sass": "^1.63.6"
+	}
+}
