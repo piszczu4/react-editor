@@ -49,3 +49,74 @@ body {
 .s-btn:active {
 	background-color: var(--theme-secondary-150) !important;
 }
+
+.mw-menu-block__separator {
+	width: 1px;
+	// color: #333;
+	background-color: #ccced1;
+	align-self: stretch;
+	// height: 30px;
+	// display: inline-block;
+}
+
+div[id^="heading-dropdown-popover"] p,
+div[id^="heading-dropdown-popover"] h1,
+div[id^="heading-dropdown-popover"] h2,
+div[id^="heading-dropdown-popover"] h3,
+div[id^="heading-dropdown-popover"] h4,
+div[id^="heading-dropdown-popover"] h5,
+div[id^="heading-dropdown-popover"] h6 {
+	margin: 0;
+}
+
+div[id^="heading-dropdown-popover"] .s-editor--dropdown-item {
+	min-height: 30px;
+}
+
+button[data-key^="heading-dropdown"] span[data-key="innerText"] {
+	width: 70px;
+}
+button[data-key^="font-size-dropdown"] span[data-key="innerText"] {
+	width: 30px;
+}
+
+button[id^="font-family-dropdown"] {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+button[id^="font-family-dropdown"] span[data-key="innerText"] {
+	width: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+// Task List
+ul[data-type="taskList"] {
+	list-style: none !important;
+	padding: 0 !important;
+
+	p {
+		margin: 0 !important;
+	}
+
+	li {
+		display: flex !important;
+
+		> label {
+			flex: 0 0 auto !important;
+			margin-right: 0.5rem !important;
+			user-select: none !important;
+
+			input {
+				vertical-align: middle;
+			}
+		}
+
+		> div {
+			flex: 1 1 auto !important;
+		}
+	}
+}

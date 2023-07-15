@@ -14,13 +14,13 @@ type Props = {
 	active?: boolean;
 	tooltipData?: string | { title: string; description: string };
 	children: JSX.Element[];
-	nCols?: number;
+	nCols: number;
 	iconName?: string | null;
 	cssStyles?: Record<string, string>;
 	innerText?: string | null;
 };
 
-export const MenuDropdownButton = ({
+export const MenuDropdownItem = ({
 	id,
 	disabled = false,
 	active = false,
@@ -61,27 +61,34 @@ export const MenuDropdownButton = ({
 				dropdown={true}
 				innerText={innerText}
 				cssStyles={cssStyles}
-				tooltipData={tooltipData}
 			/>
 			<MenuPopover id={popoverId} children={children} nCols={nCols} />
 		</span>
 	);
 };
 
-// return (
-//     <div
-//         data-controller="s-popover"
-//         data-s-popover-toggle-class="is-selected"
-//         data-s-popover-placement="bottom"
-//         data-s-popover-reference-selector={`#${buttonId}`}
-//     >
-//         <MenuButton
-//             id={id}
-//             iconName={iconName}
-//             command={() => true}
-//             ariaControls={popoverId}
-//             dataAction="s-popover#toggle"
-//         />
-//         <MenuPopover id={popoverId} children={children} nCols={nCols} />
-//     </div>
-// );
+// export function makeDropdownItem(
+// 	innerHTML: string,
+// 	command: Pick<MenuItem, "richText" | "commonmark">,
+// 	key: string,
+// 	cssClasses?: string[]
+// ): MenuItem {
+// 	let wrapper = document.createElement("button");
+// 	wrapper.role = "button";
+// 	wrapper.setAttribute("role", "menuitem");
+// 	wrapper.className =
+// 		"s-block-link s-editor--dropdown-item js-editor-btn d-flex ai-center";
+// 	wrapper.dataset.action = "s-popover#hide";
+
+// 	if (cssClasses) {
+// 		wrapper.classList.add(...cssClasses);
+// 	}
+
+// 	let Item = document.createElement("div");
+// 	Item.innerHTML = innerHTML;
+// 	wrapper.appendChild(Item);
+
+// 	return Object.assign(Object.assign({ key: key }, command), {
+// 		display: wrapper,
+// 	});
+// }

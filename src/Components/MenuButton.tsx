@@ -7,6 +7,8 @@ type Props = {
 	id: string;
 	iconName?: string | null;
 	innerText?: string | null;
+	innerHTML?: string | null;
+
 	command: () => boolean;
 	disabled?: boolean;
 	active?: boolean;
@@ -15,12 +17,16 @@ type Props = {
 	dataAction?: string | null;
 	cssClasses?: string[];
 	cssStyles?: Record<string, string>;
+	dropdown?: boolean;
+	role?: string | null;
+	dropdownItem?: boolean;
 };
 
 export const MenuButton = ({
 	id,
 	iconName = null,
 	innerText = null,
+	innerHTML = null,
 	command,
 	disabled = false,
 	active = false,
@@ -29,6 +35,9 @@ export const MenuButton = ({
 	dataAction = null,
 	cssClasses = [],
 	cssStyles = {},
+	dropdown = false,
+	dropdownItem = false,
+	role = null,
 }: Props) => {
 	let activeClass = active ? "is-selected" : "";
 
@@ -44,10 +53,11 @@ export const MenuButton = ({
 	return (
 		<button
 			id={id}
-			className={`s-editor-btn s-btn js-editor-btn js-${id} ${activeClass} ${classes}`}
+			className={`s-editor-btn s-btn js-editor-btn js-${id} ${activeClass} ${classes} d-flex ai-center`}
 			style={cssStyles}
 			onClick={command}
 			disabled={disabled}
+			role={role ? role : undefined}
 			type="button"
 			title={title}
 			aria-label={title}
@@ -56,7 +66,7 @@ export const MenuButton = ({
 					? escapeHTML`<p class="mb4">${title}</p><p class="fs-caption fc-light m0">${description}</p>`
 					: null
 			}
-			data-controller="s-tooltip"
+			data-controller={dropdownItem ? null : "s-tooltip"}
 			data-action={dataAction != null ? (dataAction as string) : null}
 			data-s-tooltip-placement="bottom"
 			data-key={id}
@@ -70,7 +80,27 @@ export const MenuButton = ({
 					data-key={iconName}
 				></span>
 			) : null}
-			{innerText ? <span>{innerText}</span> : null}
+			{innerHTML || innerText ? (
+				<span
+					data-key="innerText"
+					style={{
+						textAlign: "left",
+						marginLeft: "8px",
+						marginRight: "8px",
+					}}
+					dangerouslySetInnerHTML={
+						innerHTML ? { __html: innerHTML as string } : undefined
+					}
+				>
+					{innerText ? innerText : undefined}
+				</span>
+			) : null}
+			{dropdown ? (
+				<span
+					className={`svg-icon-bg iconArrowDownAlt`}
+					data-key={iconName}
+				></span>
+			) : null}
 		</button>
 	);
 };

@@ -9,6 +9,7 @@ type Props = {
 	iconName: string;
 	command: () => boolean;
 	active?: boolean;
+	tooltipData?: string | { title: string; description: string };
 	children: JSX.Element[];
 };
 
@@ -17,6 +18,7 @@ export const MenuSplitButton = ({
 	iconName,
 	command,
 	active = false,
+	tooltipData = "",
 	children,
 }: Props) => {
 	return (
@@ -30,8 +32,19 @@ export const MenuSplitButton = ({
 					borderTopRightRadius: "0px",
 					borderBottomRightRadius: "0px",
 				}}
+				tooltipData={tooltipData}
 			/>
-			<MenuDropdownButton id={id} nCols={1} children={children} />
+			<MenuDropdownButton
+				id={id}
+				nCols={1}
+				children={children}
+				cssStyles={{
+					paddingLeft: "3px",
+					paddingRight: "3px",
+					borderTopLeftRadius: "0px",
+					borderBottomLeftRadius: "0px",
+				}}
+			/>
 		</div>
 	);
 };
