@@ -32,6 +32,7 @@ import React from "react";
 
 import { Editor } from "@tiptap/react";
 import { MenuButton } from "./Components/MenuButton";
+import { MenuInput } from "./Components/MenuInput";
 import MenuBlock from "./Components/MenuBlock";
 
 import { _t } from "./helpers/strings";
@@ -58,77 +59,58 @@ const MenuBar = ({ editor }: Props) => {
 		return null;
 	}
 
+	let test = (
+		<MenuInput
+			key="test"
+			id="test"
+			iconName="Bold"
+			tooltipData="Dupa" //{{ title: "siema", description: "elo" }}
+			command={() => true}
+		/>
+	);
+
 	let boldButton = (
-		<MenuButton
+		<MenuInput
 			key="bold-btn"
 			id="bold-btn"
 			iconName="Bold"
 			command={() => editor.chain().focus().toggleBold().run()}
-			disabled={
-				!editor
-					.can()
-					.chain()
-					.command(({ state, tr }) => {
-						let { doc } = tr;
-						let { ranges } = tr.selection;
-						let type = getMarkType("italic", state.schema);
-						for (let i = 0; i < ranges.length; i++) {
-							let { $from, $to } = ranges[i];
-							let can =
-								$from.depth == 0
-									? doc.inlineContent && doc.type.allowsMarkType(type)
-									: false;
-							doc.nodesBetween($from.pos, $to.pos, (node) => {
-								if (can) return false;
-								can = node.inlineContent && node.type.allowsMarkType(type);
-							});
-							if (can) return true;
-						}
-						return false;
-					})
-					.focus()
-					.toggleBold()
-					.run() || editor.isActive("codeBlock")
-			}
+			disabled={!editor.can().chain().focus().toggleBold().run()}
 			active={editor.isActive("bold")}
-			tooltipData={_t("commands.bold", { shortcut: getShortcut("Mod-B") })}
+			tooltipData={{
+				title: _t("commands.bold", { shortcut: getShortcut("Mod-B") }),
+			}}
 		/>
 	);
 
 	let italicButton = (
-		<MenuButton
+		<MenuInput
 			key="italic-btn"
 			id="italic-btn"
 			iconName="Italic"
 			command={() => editor.chain().focus().toggleItalic().run()}
-			disabled={
-				!editor
-					.can()
-					.chain()
-					.focus()
-					.isMarkAllowed("italic")
-					.toggleItalic()
-					.run()
-			}
+			disabled={!editor.can().chain().focus().toggleItalic().run()}
 			active={editor.isActive("italic")}
-			tooltipData={_t("commands.emphasis", { shortcut: getShortcut("Mod-I") })}
+			tooltipData={{
+				title: _t("commands.emphasis", { shortcut: getShortcut("Mod-I") }),
+			}}
 		/>
 	);
 
 	let underlineButton = (
-		<MenuButton
+		<MenuInput
 			key="underline-btn"
 			id="underline-btn"
 			iconName="Underline"
 			command={() => editor.chain().focus().toggleUnderline().run()}
 			disabled={!editor.can().chain().focus().toggleUnderline().run()}
 			active={editor.isActive("underline")}
-			tooltipData={_t("commands.underline")}
+			tooltipData={{ title: _t("commands.underline") }}
 		/>
 	);
 
 	let subscriptButton = (
-		<MenuButton
+		<MenuInput
 			key="subscript-btn"
 			id="subscript-btn"
 			iconName="Subscript"
@@ -140,14 +122,14 @@ const MenuBar = ({ editor }: Props) => {
 	);
 
 	let superscriptButton = (
-		<MenuButton
+		<MenuInput
 			key="superscript-btn"
 			id="superscript-btn"
 			iconName="Superscript"
 			command={() => editor.chain().focus().toggleSuperscript().run()}
 			disabled={!editor.can().chain().focus().toggleSuperscript().run()}
 			active={editor.isActive("sueprscript")}
-			tooltipData={_t("commands.sup")}
+			tooltipData={{ title: _t("commands.sup") }}
 		/>
 	);
 
@@ -457,6 +439,7 @@ const MenuBar = ({ editor }: Props) => {
 		<>
 			<div className="d-flex overflow-x-auto ai-center px12 py4 pb0">
 				<div className="d-flex g16 fl-grow1 ai-center js-editor-menu">
+					<MenuBlock children={[test]} />
 					<span className="mw-menu-block__separator"></span>
 					<MenuBlock
 						children={[orderedListButton, bulletListButton, taskListButton]}

@@ -10,26 +10,27 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
 		"@benrbray/prosemirror-math": "^0.2.2",
 		"@stackoverflow/stacks-editor": "^0.8.7",
-		"prosemirror-highlightjs": "^0.9.1",
+		"@tiptap/extension-color": "^2.0.3",
+		"@tiptap/extension-font-family": "^2.0.3",
+		"@tiptap/extension-highlight": "^2.0.3",
+		"@tiptap/extension-link": "^2.0.3",
+		"@tiptap/extension-placeholder": "^2.0.3",
+		"@tiptap/extension-subscript": "^2.0.3",
+		"@tiptap/extension-superscript": "^2.0.3",
+		"@tiptap/extension-task-item": "^2.0.3",
+		"@tiptap/extension-task-list": "^2.0.3",
+		"@tiptap/extension-text-align": "^2.0.3",
+		"@tiptap/extension-text-style": "^2.0.3",
+		"@tiptap/extension-underline": "^2.0.3",
 		"@tiptap/pm": "^2.0.3",
 		"@tiptap/react": "^2.0.3",
 		"@tiptap/starter-kit": "^2.0.3",
-		"@tiptap/extension-color": "^2.0.3",
-		"@tiptap/extension-text-style": "^2.0.3",
-		"@tiptap/extension-underline": "^2.0.3",
-		"@tiptap/extension-subscript": "^2.0.3",
-		"@tiptap/extension-superscript": "^2.0.3",
-		"@tiptap/extension-highlight": "^2.0.3",
-		"@tiptap/extension-placeholder": "^2.0.3",
-		"@tiptap/extension-font-family": "^2.0.3",
-		"@tiptap/extension-text-align": "^2.0.3",
-		"@tiptap/extension-link": "^2.0.3",
-		"@tiptap/extension-task-list": "^2.0.3",
-		"@tiptap/extension-task-item": "^2.0.3"
+		"prosemirror-highlightjs": "^0.9.1",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"tiptap": "github:piszczu4/tiptap#develop"
 	},
 	"devDependencies": {
 		"@types/react": "^18.2.14",
@@ -40,8 +41,8 @@
 		"eslint": "^8.44.0",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-react-refresh": "^0.4.1",
+		"sass": "^1.63.6",
 		"typescript": "^5.0.2",
-		"vite": "^4.4.0",
-		"sass": "^1.63.6"
+		"vite": "^4.4.0"
 	}
 }

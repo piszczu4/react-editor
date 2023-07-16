@@ -56,7 +56,6 @@ export const MenuDropdownButton = ({
 				command={() => false}
 				ariaControls={popoverId}
 				dataAction="s-popover#toggle"
-				data-controller="s-tooltip"
 				active={active}
 				dropdown={true}
 				innerText={innerText}
