@@ -75,6 +75,7 @@ const MenuBar = ({ editor }: Props) => {
 			key="test-btn"
 			id="test-btn"
 			iconName="test"
+			tooltipData={{ title: "Tootlip!", placement: "top" }}
 			command={() => {
 				console.log(editor.getHTML());
 				return true;
@@ -92,7 +93,6 @@ const MenuBar = ({ editor }: Props) => {
 					"editor-container"
 				) as HTMLDivElement;
 				container.classList.toggle("mw-editor--fullscreen");
-				container.classList.toggle("s-editor-resizable");
 				container.classList.toggle("m0");
 
 				document.body.classList.toggle("overflow-hidden");
@@ -953,15 +953,19 @@ const App = () => {
 	return (
 		<div
 			id="editor-container"
-			className="ps-relative z-base s-textarea overflow-auto p0 d-flex fd-column s-editor-resizable"
+			className="ps-relative z-modal s-textarea p0 d-flex fd-column"
 			style={{ width: "1500px" }}
 		>
 			<div className="js-sticky py6 bg-inherit btr-sm w100 ps-sticky t0 l0 z-nav s-editor-shadow js-plugin-container js-sticky">
 				<MenuBar editor={editor as Editor} />
 			</div>
-			<div className="fl-grow1 outline-none p12 pt6 w100 s-prose js-editor ProseMirror">
+			<div
+				id="editor-content"
+				className="overflow-scroll fl-grow1 outline-none p12 pt6 w100 s-prose js-editor ProseMirror"
+			>
 				<EditorContent editor={editor} />
 			</div>
+			<div id="editor-resize-container"></div>
 		</div>
 	);
 };

@@ -7,14 +7,13 @@ import "@stackoverflow/stacks-editor/dist/styles.css";
 import "@stackoverflow/stacks/dist/css/stacks.css";
 import "@stackoverflow/stacks/dist/js/stacks.js";
 import "@stackoverflow/stacks";
+import "./main.js";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<div>
 			<App />
 		</div>
-
-		<button>siema</button>
 
 		{/* <aside
 			className="s-modal"

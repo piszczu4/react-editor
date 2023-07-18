@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css"
+		/>
+
+		<script src="https://unpkg.com/@stackoverflow/stacks/dist/js/stacks.min.js"></script>
+	</head>
+	<body>
+		<div>
+			<h1>Header</h1>
+		</div>
+
+		<!-- style="position: relative; z-index: 10"> -->
+		<div>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi velit
+				dolorum quos vel corrupti? Quis, asperiores numquam! Cumque numquam
+				quidem reprehenderit repellat iusto ea cupiditate alias quasi ad porro.
+				Debitis!
+			</p>
+			<div
+				style="
+					width: 100%;
+					height: 300px;
+					background-color: red;
+					margin-bottom: 20px;
+				"
+			></div>
+		</div>
+
+		<div
+			id="editor-container"
+			class="ps-relative s-textarea p0 d-flex fd-column s-editor-resizable"
+			style="margin-top: 0px; z-index: 20"
+		>
+			<div id="editor-menu" style="border: solid green 3px">
+				<button
+					class="s-btn"
+					role="button"
+					data-controller="s-tooltip"
+					data-s-tooltip-placement="top"
+					title="This is a tooltip"
+				>
+					Tooltip
+				</button>
+				<button
+					class="s-btn s-btn__dropdown"
+					role="button"
+					aria-expanded="false"
+					aria-controls="popover-example"
+					data-action="s-popover#toggle"
+					data-controller="s-popover"
+					data-s-popover-placement="bottom"
+					data-s-popover-toggle-class="is-selected"
+				>
+					Popover
+				</button>
+
+				<div class="s-popover" id="popover-example" role="menu">
+					<div class="s-popover--arrow"></div>
+					<button class="s-btn d-block">Button1</button>
+					<button class="s-btn d-block">Button2</button>
+					<button class="s-btn d-block">Button3</button>
+				</div>
+			</div>
+
+			<div
+				id="editor-content"
+				class="fl-grow1 outline-none p12 pt6 w100"
+				style="border: solid blue 3px"
+			>
+				<div>
+					<div
+						contenteditable="true"
+						tabindex="0"
+						translate="no"
+						class="ProseMirror"
+					>
+						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt
+						excepturi eos esse id reiciendis omnis a illo repudiandae distinctio
+						vero consequatur, soluta, assumenda natus consequuntur maxime itaque
+						blanditiis quod molestias. Lorem ipsum dolor sit amet consectetur
+						adipisicing elit. Vero magni non, earum velit tempore aut facere
+						nihil veritatis ut, possimus aperiam? Deleniti ad pariatur eligendi
+						magnam unde cumque vitae? Itaque. Lorem, ipsum dolor sit amet
+						consectetur adipisicing elit. Cum sunt, ad quos nobis quia
+						accusantium voluptates repellendus et laboriosam necessitatibus fuga
+						temporibus doloremque sed vero eveniet ullam delectus minima modi.
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
