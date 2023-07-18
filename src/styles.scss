@@ -231,3 +231,53 @@ ul[data-type="taskList"] {
 	background-color: gold;
 	cursor: pointer;
 }
+
+.ProseMirror {
+	[data-type="details"] {
+		display: flex;
+		margin: 1rem 0;
+		border: 1.5px solid black;
+		background-color: rgba(170, 153, 57, 0.288);
+
+		border-radius: 3px;
+		padding: 0.5rem;
+		&.is-open {
+			outline: 0 0 3px var(--su-static4) lightgrey;
+			box-shadow: 0 0 3px var(--su-static4) lightgrey; //var(--_in-bs-focus);
+			// border-color: var(--_in-bc-focus);
+		}
+
+		summary {
+			list-style: none;
+		}
+
+		> button {
+			display: flex;
+			cursor: pointer;
+			background: transparent;
+			border: none;
+			padding: 0;
+
+			&::before {
+				content: "\25B6";
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 1.5em;
+				height: 1.5em;
+			}
+		}
+
+		&.is-open > button::before {
+			content: "\25BC";
+		}
+
+		> div {
+			flex: 1 1 auto;
+		}
+
+		:last-child {
+			margin-bottom: 0;
+		}
+	}
+}

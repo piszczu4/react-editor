@@ -35,6 +35,9 @@ import { CustomCommands } from "./Extensions/extension-custom-commands/custom-co
 import { EditorContent, isActive, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Capitalize from "./Extensions/extension-capitalize";
+import Details from "@tiptap-pro/extension-details";
+import DetailsSummary from "@tiptap-pro/extension-details-summary";
+import DetailsContent from "@tiptap-pro/extension-details-content";
 import React from "react";
 
 import { Editor } from "@tiptap/react";
@@ -82,6 +85,16 @@ const MenuBar = ({ editor }: Props) => {
 				console.log(editor.getHTML());
 				return true;
 			}}
+		/>
+	);
+
+	let detailsButton = (
+		<MenuButton
+			key="details-btn"
+			id="details-btn"
+			iconName="Details"
+			tooltipData={{ title: "Details", placement: "bottom" }}
+			command={() => editor.chain().focus().setDetails().run()}
 		/>
 	);
 
@@ -750,7 +763,9 @@ const MenuBar = ({ editor }: Props) => {
 				<div className="d-flex g16 fl-grow1 ai-center js-editor-menu">
 					<MenuBlock children={[test]} />
 					<span className="mw-menu-block__separator"></span>
-					<MenuBlock children={[alignDropdownButton, capitalizeButton]} />
+					<MenuBlock
+						children={[detailsButton, alignDropdownButton, capitalizeButton]}
+					/>
 					<span className="mw-menu-block__separator"></span>
 					<MenuBlock children={[fullscreenButton]} />
 					<span className="mw-menu-block__separator"></span>
@@ -896,6 +911,19 @@ const App = () => {
 			Placeholder,
 			TextAlign.configure({ types: ["paragraph", "heading"] }),
 			CustomCommands,
+			Details,
+			DetailsSummary,
+			DetailsContent,
+			Placeholder.configure({
+				includeChildren: true,
+				placeholder: ({ node }) => {
+					if (node.type.name === "detailsSummary") {
+						return "Summary";
+					}
+
+					return "";
+				},
+			}),
 			StarterKit.configure({
 				bulletList: false,
 				orderedList: false,
