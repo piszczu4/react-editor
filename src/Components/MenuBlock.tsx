@@ -1,7 +1,3 @@
-import React from "react";
-import { ReactDOM } from "react";
-import { MenuButton } from "./MenuButton";
-
 type Props = {
 	children: JSX.Element[];
 };
@@ -11,5 +7,3 @@ const MenuBlock = ({ children }: Props) => {
 };
 
 export default MenuBlock;
-
-

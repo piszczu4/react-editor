@@ -5,46 +5,38 @@ import { MenuButton } from "./MenuButton";
 import { MenuDropdownButton } from "./MenuDropdownButton";
 
 type Props = {
+	/**
+	 * Unique id for a button, for example `bold`.
+	 */
 	id: string;
-	iconName: string;
-	command: () => boolean;
-	active?: boolean;
-	tooltipData?: string | { title: string; description: string };
-	children: JSX.Element[];
+	/**
+	 * Main button
+	 */
+	button: JSX.Element;
+	/**
+	 * Dropdown button
+	 */
+	dropdownButton: JSX.Element;
+	/**
+	 * Additional css classes to be applied to the `button` element
+	 */
+	cssClasses?: string[];
 };
 
 export const MenuSplitButton = ({
 	id,
-	iconName,
-	command,
-	active = false,
-	tooltipData = "",
-	children,
+	button,
+	dropdownButton,
+	cssClasses = [],
 }: Props) => {
 	return (
-		<div className="mw-split-button" style={{ display: "flex" }}>
-			<MenuButton
-				id={id}
-				iconName={iconName}
-				command={command}
-				active={active}
-				cssStyles={{
-					borderTopRightRadius: "0px",
-					borderBottomRightRadius: "0px",
-				}}
-				tooltipData={tooltipData}
-			/>
-			<MenuDropdownButton
-				id={id}
-				nCols={1}
-				children={children}
-				cssStyles={{
-					paddingLeft: "3px",
-					paddingRight: "3px",
-					borderTopLeftRadius: "0px",
-					borderBottomLeftRadius: "0px",
-				}}
-			/>
+		<div
+			id={id}
+			className={`mw-split-button ${cssClasses.join(" ")}`}
+			style={{ display: "flex" }}
+		>
+			{button}
+			{dropdownButton}
 		</div>
 	);
 };

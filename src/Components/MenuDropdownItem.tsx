@@ -55,12 +55,11 @@ export const MenuDropdownItem = ({
 				iconName={iconName}
 				command={() => false}
 				ariaControls={popoverId}
-				dataAction="s-popover#toggle"
 				data-controller="s-tooltip"
 				active={active}
-				dropdown={true}
 				innerText={innerText}
 				cssStyles={cssStyles}
+				kind={"dropdown-item"}
 			/>
 			<MenuPopover id={popoverId} children={children} nCols={nCols} />
 		</span>

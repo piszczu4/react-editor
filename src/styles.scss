@@ -1,5 +1,7 @@
+html {
+}
+
 body {
-	width: 1200px;
 }
 
 .svg-icon-bg.iconArrowDownAlt {
@@ -19,6 +21,34 @@ body {
 	--bg-icon: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 339 511.27"><path fill-rule="nonzero" d="M321.18 2.61v288.83c0 24.07-3.51 45.36-10.5 63.83-7.04 18.57-17.61 34.28-31.67 47.13-14.05 12.82-30.21 22.46-48.47 28.89-18.21 6.41-38.51 9.63-60.89 9.63-22.55 0-42.96-3.22-61.23-9.64-18.37-6.45-34.55-16.13-48.54-29-14.04-12.92-24.58-28.65-31.59-47.18-6.98-18.46-10.47-39.68-10.47-63.66V2.61c0-1.44 1.17-2.61 2.61-2.61h16.16c1.43 0 2.61 1.17 2.61 2.61v288.83c0 20.15 3.03 38.09 9.1 53.78 6.03 15.62 15.1 29.08 27.19 40.35 12.16 11.33 26.06 19.8 41.69 25.42 15.67 5.64 33.16 8.45 52.47 8.45 19.21 0 36.62-2.81 52.24-8.45 15.58-5.62 29.46-14.09 41.62-25.42 12.09-11.27 21.15-24.73 27.19-40.35 6.07-15.69 9.1-33.63 9.1-53.78V2.61c0-1.44 1.17-2.61 2.61-2.61h16.16c1.44 0 2.61 1.17 2.61 2.61zM0 491.75h339v19.52H0v-19.52z"/></svg>');
 }
 
+.svg-icon-bg.iconIndent {
+	--bg-icon: url('data:image/svg+xml;utf-8,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4H2V2H16V4Z" fill="black"/><path d="M8 6V8H16V6H8Z" fill="black"/><path d="M16 16H2V14H16V16Z" fill="black"/><path d="M8 12H16V10H8V12Z" fill="black"/><path d="M6.5 9L2 5V13L6.5 9Z" fill="black"/></svg>');
+}
+
+.svg-icon-bg.iconOutdent {
+	--bg-icon: url('data:image/svg+xml;utf-8,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4H2V2H16V4Z" fill="black"/><path d="M8 6V8H16V6H8Z" fill="black"/><path d="M16 16H2V14H16V16Z" fill="black"/><path d="M8 12H16V10H8V12Z" fill="black"/><path d="M1.5 9L6 5V13L1.5 9Z" fill="black"/></svg>');
+}
+
+.svg-icon-bg.iconScreenFull {
+	--bg-icon: url('data:image/svg+xml;utf-8,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 1H7V3H3V7H1V3C1 1.89543 1.89543 1 3 1Z" fill="black"/><path d="M11 3V1H15C16.1046 1 17 1.89543 17 3V7H15V3H11Z" fill="black"/><path d="M3 11H1V15C1 16.1046 1.89543 17 3 17H7V15H3V11Z" fill="black"/><path d="M15 11H17V15C17 16.1046 16.1046 17 15 17H11V15H15V11Z" fill="black"/></svg>');
+}
+
+.svg-icon-bg.iconScreenNormal {
+	--bg-icon: url('data:image/svg+xml;utf-8,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 7L1 7L1 5L5 5L5 1L7 1L7 5C7 6.10457 6.10457 7 5 7Z" fill="black"/><path d="M17 5V7L13 7C11.8954 7 11 6.10457 11 5L11 1L13 1L13 5L17 5Z" fill="black"/><path d="M5 17H7L7 13C7 11.8954 6.10457 11 5 11L1 11L1 13L5 13L5 17Z" fill="black"/><path d="M13 17H11V13C11 11.8954 11.8954 11 13 11H17V13H13V17Z" fill="black"/></svg>');
+}
+.s-editor-btn.is-disabled {
+	cursor: not-allowed;
+	background: 0 0 !important;
+}
+
+.s-editor-btn.is-disabled:hover {
+	background: var(--_bu-bg-hover) !important;
+}
+
+.s-editor-btn:focus {
+	background-color: initial !important;
+}
+
 .s-btn__dropdown {
 	padding-right: unset !important;
 }
@@ -33,6 +63,11 @@ body {
 	box-shadow: 0 0 0 1px var(--theme-secondary-100) inset;
 }
 
+.mw-split-button > button {
+	border-bottom-right-radius: 0px;
+	border-top-right-radius: 0px;
+}
+
 :focus-visible {
 	outline: none;
 }
@@ -43,6 +78,31 @@ body {
 
 .s-btn:focus {
 	box-shadow: none !important;
+}
+
+.mw-dropdown-button {
+	border-radius: 3px;
+
+	[data-key="dropdown-icon"] {
+		margin-left: 8px;
+	}
+}
+
+.mw-split-button {
+	[data-key="dropdown-icon"] {
+		margin-left: initial;
+	}
+}
+
+.mw-dropdown-button.is-selected {
+	background-color: var(--theme-secondary-150) !important;
+}
+
+.mw-split-button .mw-dropdown-button {
+	padding-left: 3px !important;
+	padding-right: 3px !important;
+	border-top-left-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
 }
 
 .s-btn.is-selected,
@@ -119,4 +179,26 @@ ul[data-type="taskList"] {
 			flex: 1 1 auto !important;
 		}
 	}
+}
+
+// ul {
+// 	list-style-type: initial;
+// }
+
+.mw-editor--fullscreen {
+	border-radius: 0 !important;
+	bottom: 0 !important;
+	height: 100vh !important;
+	left: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	position: fixed !important;
+	right: 0 !important;
+	top: 0 !important;
+	width: 100% !important;
+	z-index: 500;
+}
+
+#editor-container {
+	margin: 200px;
 }

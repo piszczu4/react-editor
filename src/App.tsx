@@ -25,20 +25,25 @@ import OrderedList from "@tiptap/extension-ordered-list";
 import TaskList from "@tiptap/extension-task-list";
 import TaskItem from "@tiptap/extension-task-item";
 import Placeholder from "@tiptap/extension-placeholder";
+import CodeIndent from "./Extensions/extension-code-indent";
+import TextAlign from "@tiptap/extension-text-align";
+import Indent from "./Extensions/extension-indent";
+import { CodeIndentV2 } from "./Extensions/extension-code-indent/vs2";
 import { CustomCommands } from "./Extensions/extension-custom-commands/custom-commands";
 import { EditorContent, isActive, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Capitalize from "./Extensions/extension-capitalize";
 import React from "react";
 
 import { Editor } from "@tiptap/react";
-import { MenuButton } from "./Components/MenuButton";
-import { MenuInput } from "./Components/MenuInput";
-import MenuBlock from "./Components/MenuBlock";
+import { MenuButton } from "./components/MenuButton";
+import MenuBlock from "./components/MenuBlock";
 
 import { _t } from "./helpers/strings";
 import { getShortcut } from "@stackoverflow/stacks-editor/dist/shared/utils";
-import { MenuSplitButton } from "./Components/MenuSplitButton";
-import { MenuDropdownButton } from "./Components/MenuDropdownButton";
+import { MenuSplitButton } from "./components/MenuSplitButton";
+import { MenuDropdownButton } from "./components/MenuDropdownButton";
+import { MenuDropdownItem } from "./components/MenuDropdownItem";
 
 import { Level } from "@tiptap/extension-heading";
 import { escapeHTML } from "@stackoverflow/stacks-editor/dist/shared/utils";
@@ -49,6 +54,12 @@ import { getMarkType } from "@tiptap/react";
 import { isTextSelection } from "@tiptap/react";
 
 import { ResolvedPos } from "@tiptap/pm/model";
+import DropdownSection from "./components/DropdownSection";
+
+import { TextSelection } from "@tiptap/pm/state";
+
+import { Extension } from "@tiptap/react";
+import { Range } from "@tiptap/core";
 
 type Props = {
 	editor: Editor;
@@ -60,17 +71,57 @@ const MenuBar = ({ editor }: Props) => {
 	}
 
 	let test = (
-		<MenuInput
-			key="test"
-			id="test"
-			iconName="Bold"
-			tooltipData="Dupa" //{{ title: "siema", description: "elo" }}
-			command={() => true}
+		<MenuButton
+			key="test-btn"
+			id="test-btn"
+			iconName="test"
+			command={() => {
+				console.log(editor.getHTML());
+				return true;
+			}}
+		/>
+	);
+
+	let fullscreenButton = (
+		<MenuButton
+			key="fullscreen-btn"
+			id="fullscreen-btn"
+			iconName="ScreenFull"
+			command={() => {
+				let container = document.getElementById(
+					"editor-container"
+				) as HTMLDivElement;
+				container.classList.toggle("mw-editor--fullscreen");
+				container.classList.toggle("s-editor-resizable");
+				container.classList.toggle("m0");
+
+				document.body.classList.toggle("overflow-hidden");
+
+				let button = document.querySelector(
+					`[data-key="fullscreen-btn"]`
+				) as HTMLButtonElement;
+				button.classList.toggle("is-selected");
+
+				let iconSpan = document.querySelector(
+					`[data-key="fullscreen-btn__icon"]`
+				) as HTMLSpanElement;
+
+				if (container.classList.contains("mw-editor--fullscreen")) {
+					iconSpan.className = "svg-icon-bg iconScreenNormal";
+				} else {
+					iconSpan.className = "svg-icon-bg iconScreenFull";
+				}
+				editor.commands.focus();
+				return true;
+			}}
+			tooltipData={{
+				title: _t("commands.bold", { shortcut: getShortcut("Mod-B") }),
+			}}
 		/>
 	);
 
 	let boldButton = (
-		<MenuInput
+		<MenuButton
 			key="bold-btn"
 			id="bold-btn"
 			iconName="Bold"
@@ -84,7 +135,7 @@ const MenuBar = ({ editor }: Props) => {
 	);
 
 	let italicButton = (
-		<MenuInput
+		<MenuButton
 			key="italic-btn"
 			id="italic-btn"
 			iconName="Italic"
@@ -98,7 +149,7 @@ const MenuBar = ({ editor }: Props) => {
 	);
 
 	let underlineButton = (
-		<MenuInput
+		<MenuButton
 			key="underline-btn"
 			id="underline-btn"
 			iconName="Underline"
@@ -110,19 +161,19 @@ const MenuBar = ({ editor }: Props) => {
 	);
 
 	let subscriptButton = (
-		<MenuInput
+		<MenuButton
 			key="subscript-btn"
 			id="subscript-btn"
 			iconName="Subscript"
 			command={() => editor.chain().focus().toggleSubscript().run()}
 			disabled={!editor.can().chain().focus().toggleSubscript().run()}
 			active={editor.isActive("subscript")}
-			tooltipData={_t("commands.sub")}
+			tooltipData={{ title: _t("commands.sub") }}
 		/>
 	);
 
 	let superscriptButton = (
-		<MenuInput
+		<MenuButton
 			key="superscript-btn"
 			id="superscript-btn"
 			iconName="Superscript"
@@ -141,7 +192,7 @@ const MenuBar = ({ editor }: Props) => {
 			command={() => editor.chain().focus().toggleStrike().run()}
 			disabled={!editor.can().chain().focus().toggleStrike().run()}
 			active={editor.isActive("strike")}
-			tooltipData={_t("commands.strikethrough")}
+			tooltipData={{ title: _t("commands.strikethrough") }}
 		/>
 	);
 
@@ -185,9 +236,11 @@ const MenuBar = ({ editor }: Props) => {
 			iconName="Quote"
 			command={() => editor.chain().focus().toggleBlockquote().run()}
 			active={editor.isActive("blockquote")}
-			tooltipData={_t("commands.blockquote", {
-				shortcut: getShortcut("Mod-Q"),
-			})}
+			tooltipData={{
+				title: _t("commands.blockquote", {
+					shortcut: getShortcut("Mod-Q"),
+				}),
+			}}
 		/>
 	);
 
@@ -197,9 +250,11 @@ const MenuBar = ({ editor }: Props) => {
 			id="horiontal-rule-btn"
 			iconName="HorizontalRule"
 			command={() => editor.chain().focus().setHorizontalRule().run()}
-			tooltipData={_t("commands.horizontal_rule", {
-				shortcut: getShortcut("Mod-R"),
-			})}
+			tooltipData={{
+				title: _t("commands.horizontal_rule", {
+					shortcut: getShortcut("Mod-R"),
+				}),
+			}}
 		/>
 	);
 
@@ -235,14 +290,31 @@ const MenuBar = ({ editor }: Props) => {
 	// 	/>
 	// );
 
-	let textColorSplitButton = (
-		<MenuSplitButton
+	// Text Color Split Button
+	let textColorButton = (
+		<MenuButton
 			key="text-color-btn"
 			id="text-color-btn"
 			iconName="Bold"
 			command={() => editor.chain().focus().toggleBold().run()}
+			tooltipData={{ title: _t("commands.text_color") }}
+		/>
+	);
+
+	let textColorDropdown = (
+		<MenuDropdownButton
+			key="text-color-dropdown-btn"
+			id="text-color-dropdown-btn"
+			tooltipData={{ title: _t("commands.text_color") }}
 			children={[boldButton, italicButton]}
-			tooltipData={_t("commands.text_color")}
+		/>
+	);
+
+	let textColorSplitButton = (
+		<MenuSplitButton
+			id="text-color-split-btn"
+			button={textColorButton}
+			dropdownButton={textColorDropdown}
 		/>
 	);
 
@@ -252,7 +324,7 @@ const MenuBar = ({ editor }: Props) => {
 			id="clear-formatting-btn"
 			innerText="clear"
 			command={() => editor.chain().focus().unsetAllMarks().run()}
-			tooltipData={_t("commands.clear_formatting")}
+			tooltipData={{ title: _t("commands.clear_formatting") }}
 		/>
 	);
 
@@ -282,8 +354,7 @@ const MenuBar = ({ editor }: Props) => {
 						: editor.isActive("heading", { level: lev })
 				}
 				role="menuitem"
-				dataAction="s-popover#hide"
-				dropdownItem={true}
+				kind="dropdown-item"
 			/>
 		);
 	});
@@ -296,10 +367,11 @@ const MenuBar = ({ editor }: Props) => {
 			iconName={"Header"}
 			active={false}
 			children={headerDropdownItems}
-			tooltipData={_t("commands.heading.dropdown", {
-				shortcut: getShortcut("Mod-H"),
-			})}
-			// command={() => editor.chain().focus().toggleBold().run()}
+			tooltipData={{
+				title: _t("commands.heading.dropdown", {
+					shortcut: getShortcut("Mod-H"),
+				}),
+			}}
 		/>
 	);
 
@@ -335,7 +407,8 @@ const MenuBar = ({ editor }: Props) => {
 					}
 				}}
 				active={editor.isActive("textStyle", { fontFamily: font })}
-				dropdownItem={true}
+				role="menuitem"
+				kind="dropdown-item"
 			/>
 		);
 	});
@@ -348,8 +421,7 @@ const MenuBar = ({ editor }: Props) => {
 			iconName={"Header"}
 			active={false}
 			children={fontFamilyDropdownItems}
-			tooltipData={_t("commands.font_family")}
-			// command={() => editor.chain().focus().toggleBold().run()}
+			tooltipData={{ title: _t("commands.font_family") }}
 		/>
 	);
 
@@ -369,7 +441,8 @@ const MenuBar = ({ editor }: Props) => {
 				innerHTML={html}
 				command={() => editor.chain().focus().toggleFontSize(size).run()}
 				active={editor.isActive("textStyle", { fontSize: size })}
-				dropdownItem={true}
+				role="menuitem"
+				kind="dropdown-item"
 			/>
 		);
 	});
@@ -382,8 +455,7 @@ const MenuBar = ({ editor }: Props) => {
 			iconName={"Header"}
 			active={false}
 			children={fontSizeDropdownItems}
-			tooltipData={_t("commands.font_size")}
-			// command={() => editor.chain().focus().toggleBold().run()}
+			tooltipData={{ title: _t("commands.font_size") }}
 		/>
 	);
 
@@ -394,10 +466,13 @@ const MenuBar = ({ editor }: Props) => {
 			iconName="Link"
 			command={() => editor.chain().focus().run()}
 			active={editor.isActive("link")}
-			tooltipData={_t("commands.link", { shortcut: getShortcut("Mod-L") })}
+			tooltipData={{
+				title: _t("commands.link", { shortcut: getShortcut("Mod-L") }),
+			}}
 		/>
 	);
 
+	// Ordered List
 	let orderedListButton = (
 		<MenuButton
 			key="ordered-list"
@@ -405,12 +480,85 @@ const MenuBar = ({ editor }: Props) => {
 			iconName="OrderedList"
 			command={() => editor.chain().focus().toggleOrderedList().run()}
 			active={editor.isActive("orderedList")}
-			tooltipData={_t("commands.ordered_list", {
-				shortcut: getShortcut("Mod-O"),
-			})}
+			tooltipData={{
+				title: _t("commands.ordered_list", {
+					shortcut: getShortcut("Mod-O"),
+				}),
+			}}
 		/>
 	);
 
+	let orderedListDropdownItems = [
+		"decimal",
+		"lower-alpha",
+		"lower-greek",
+		"lower-roman",
+		"upper-alpha",
+		"upper-roman",
+	].map((type, index) => {
+		let command = () => {
+			if (editor.isActive("orderedList")) {
+				return editor
+					.chain()
+					.focus()
+					.updateAttributes("orderedList", { type: type })
+					.run();
+			} else {
+				return editor
+					.chain()
+					.focus()
+					.toggleOrderedList()
+					.updateAttributes("orderedList", { type: type })
+					.run();
+			}
+		};
+
+		return (
+			<MenuButton
+				id={`orderedList__${type}`}
+				key={index}
+				data-type={type}
+				iconName={`orderedList__${type}`}
+				command={command}
+				disabled={
+					!editor
+						.can()
+						.chain()
+						.focus()
+						.updateAttributes("orderedList", { type: type })
+						.run()
+				}
+				active={editor.isActive("orderedList", { type: type })}
+				tooltipData={type
+					.split("-")
+					.map((atom) => {
+						return atom.charAt(0).toUpperCase() + atom.slice(1);
+					})
+					.join(" ")}
+				kind="dropdown-item"
+			/>
+		);
+	});
+
+	let orderedListDropdownButton = (
+		<MenuDropdownButton
+			key="ordered-list-dropdown"
+			id="ordered-list-dropdown"
+			children={orderedListDropdownItems}
+			nCols={3}
+		/>
+	);
+
+	let orderedListSplitButton = (
+		<MenuSplitButton
+			key="ordered-list-split-button"
+			id="ordered-list-split-button"
+			button={orderedListButton}
+			dropdownButton={orderedListDropdownButton}
+		/>
+	);
+
+	// Bullet List
 	let bulletListButton = (
 		<MenuButton
 			key="bullet-list"
@@ -418,9 +566,71 @@ const MenuBar = ({ editor }: Props) => {
 			iconName="UnorderedList"
 			command={() => editor.chain().focus().toggleBulletList().run()}
 			active={editor.isActive("bulletList")}
-			tooltipData={_t("commands.unordered_list", {
-				shortcut: getShortcut("Mod-U"),
-			})}
+			tooltipData={{
+				title: _t("commands.unordered_list", {
+					shortcut: getShortcut("Mod-U"),
+				}),
+			}}
+		/>
+	);
+
+	let bulletListDropdownItems = ["disc", "circle", "square"].map(
+		(type, index) => {
+			let command = () => {
+				if (editor.isActive("bulletList")) {
+					return editor
+						.chain()
+						.focus()
+						.updateAttributes("bulletList", { type: type })
+						.run();
+				} else {
+					return editor
+						.chain()
+						.focus()
+						.toggleOrderedList()
+						.updateAttributes("bulletList", { type: type })
+						.run();
+				}
+			};
+
+			return (
+				<MenuButton
+					id={`bulletList__${type}`}
+					key={index}
+					data-type={type}
+					iconName={`BulletList__${type}`}
+					command={command}
+					disabled={
+						!editor
+							.can()
+							.chain()
+							.focus()
+							.updateAttributes("bulletList", { type: type })
+							.run()
+					}
+					active={editor.isActive("bulletList", { type: type })}
+					tooltipData={type.charAt(0).toUpperCase() + type.slice(1)}
+					kind="dropdown-item"
+				/>
+			);
+		}
+	);
+
+	let bulletListDropdownButton = (
+		<MenuDropdownButton
+			key="bullet-list-dropdown"
+			id="bullet-list-dropdown"
+			children={bulletListDropdownItems}
+			nCols={3}
+		/>
+	);
+
+	let bulletListSplitButton = (
+		<MenuSplitButton
+			key="bullet-list-split-button"
+			id="bullet-list-split-button"
+			button={bulletListButton}
+			dropdownButton={bulletListDropdownButton}
 		/>
 	);
 
@@ -431,7 +641,104 @@ const MenuBar = ({ editor }: Props) => {
 			iconName="UnorderedList"
 			command={() => editor.chain().focus().toggleTaskList().run()}
 			active={editor.isActive("taskList")}
-			tooltipData={_t("commands.task_list")}
+			tooltipData={{ title: _t("commands.task_list") }}
+		/>
+	);
+
+	// Align
+	let alignDropdownItems = ["left", "center", "right", "justify"].map(
+		(align, index) => {
+			return (
+				<MenuButton
+					id={`text-align__${align}`}
+					key={index}
+					data-type={align}
+					iconName={`TextAlign__${align}`}
+					innerText={align.charAt(0).toUpperCase() + align.slice(1)}
+					command={() => editor.chain().focus().setTextAlign(align).run()}
+					active={editor.isActive({ textAlign: align })}
+					kind="dropdown-item"
+				/>
+			);
+		}
+	);
+
+	let alignSection = <DropdownSection label="Align" />;
+	let indentSection = <DropdownSection label="Indent" />;
+
+	let indentDropdownItem = (
+		<MenuButton
+			id="indent-btn"
+			key="indent-btn"
+			iconName="Indent"
+			innerText="Indent"
+			command={() => editor.chain().focus().indent().run()}
+			kind="dropdown-item"
+		/>
+	);
+
+	let outdentDropdownItem = (
+		<MenuButton
+			id="outdent-btn"
+			key="outdent-btn"
+			iconName="Outdent"
+			innerText="Outdent"
+			command={() => editor.chain().focus().outdent().run()}
+			kind="dropdown-item"
+		/>
+	);
+	let alignDropdownButton = (
+		<MenuDropdownButton
+			id="text-align-dropdown"
+			key="text-align-dropdown"
+			iconName="TextAlign__left"
+			children={[
+				alignSection,
+				...alignDropdownItems,
+				indentSection,
+				indentDropdownItem,
+				outdentDropdownItem,
+			]}
+			tooltipData={{ title: "Text Align" }}
+		/>
+	);
+
+	let lowercaseButton = (
+		<MenuButton
+			id="lowercase-btn"
+			key="lowercase-btn"
+			command={() => editor.chain().focus().capitalize("lowercase").run()}
+			innerText="lowercase"
+			kind="dropdown-item"
+		/>
+	);
+
+	let uppercaseButton = (
+		<MenuButton
+			id="uppercase-btn"
+			key="uppercase-btn"
+			command={() => editor.chain().focus().capitalize("uppercase").run()}
+			innerText="UPPERCASE"
+			kind="dropdown-item"
+		/>
+	);
+
+	let titlecaseButton = (
+		<MenuButton
+			id="titlecase-btn"
+			key="titlecase-btn"
+			command={() => editor.chain().focus().capitalize("titlecase").run()}
+			innerText="Title Case"
+			kind="dropdown-item"
+		/>
+	);
+
+	let capitalizeButton = (
+		<MenuDropdownButton
+			id="capitalize-dropdown-btn"
+			key="capitalize-dropdown-btn"
+			iconName={"Header"}
+			children={[lowercaseButton, uppercaseButton, titlecaseButton]}
 		/>
 	);
 
@@ -441,15 +748,26 @@ const MenuBar = ({ editor }: Props) => {
 				<div className="d-flex g16 fl-grow1 ai-center js-editor-menu">
 					<MenuBlock children={[test]} />
 					<span className="mw-menu-block__separator"></span>
+
+					<MenuBlock children={[alignDropdownButton, capitalizeButton]} />
+					<span className="mw-menu-block__separator"></span>
+					<MenuBlock children={[fullscreenButton]} />
+					<span className="mw-menu-block__separator"></span>
+
 					<MenuBlock
-						children={[orderedListButton, bulletListButton, taskListButton]}
+						children={[
+							orderedListSplitButton,
+							bulletListSplitButton,
+							taskListButton,
+						]}
 					/>
 					<span className="mw-menu-block__separator"></span>
 
 					<MenuBlock children={[clearFormattingButton]} />
 					<span className="mw-menu-block__separator"></span>
 
-					<MenuBlock children={[textColorSplitButton, clearFormattingButton]} />
+					<MenuBlock children={[textColorSplitButton]} />
+					<span className="mw-menu-block__separator"></span>
 					<MenuBlock
 						children={[
 							boldButton,
@@ -515,6 +833,46 @@ const App = () => {
 		},
 	});
 
+	let BulletListExtension = BulletList.extend({
+		addAttributes() {
+			return {
+				...this.parent?.(),
+				type: {
+					default: "disc",
+					// Take the attribute values
+					renderHTML: (attributes) => {
+						// … and return an object with HTML attributes.
+						return {
+							"data-style-tyle": attributes.type,
+							style: `list-style-type: ${attributes.type}`,
+						};
+					},
+					parseHTML: (element) => element.getAttribute("data-style-type"),
+				},
+			};
+		},
+	});
+
+	let OrderedListExtension = OrderedList.extend({
+		addAttributes() {
+			return {
+				...this.parent?.(),
+				type: {
+					default: "decimal",
+					// Take the attribute values
+					renderHTML: (attributes) => {
+						// … and return an object with HTML attributes.
+						return {
+							"data-style-tyle": attributes.type,
+							style: `list-style-type: ${attributes.type}`,
+						};
+					},
+					parseHTML: (element) => element.getAttribute("data-style-type"),
+				},
+			};
+		},
+	});
+
 	const editor = useEditor({
 		extensions: [
 			Color.configure({ types: [TextStyle.name, ListItem.name] }),
@@ -522,27 +880,26 @@ const App = () => {
 			Underline,
 			Subscript,
 			Superscript,
+			Capitalize,
 			HeadingExtension,
 			FontFamily,
 			FontSize,
 			Link,
-			OrderedList,
-			BulletList,
+			OrderedListExtension,
+			BulletListExtension,
+			Indent,
+			CodeIndent,
+			// CodeIndentV2,
 			TaskList,
 			TaskItem.configure({
 				nested: true,
 			}),
 			Placeholder,
+			TextAlign.configure({ types: ["paragraph", "heading"] }),
 			CustomCommands,
 			StarterKit.configure({
-				bulletList: {
-					keepMarks: true,
-					keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-				},
-				orderedList: {
-					keepMarks: true,
-					keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-				},
+				bulletList: false,
+				orderedList: false,
 				heading: false,
 			}),
 		],
@@ -596,8 +953,8 @@ const App = () => {
 	return (
 		<div
 			id="editor-container"
-			className="ps-relative z-base s-textarea overflow-auto hmn2 w100 p0 d-flex fd-column s-editor-resizable"
-			style={{ margin: "200px" }}
+			className="ps-relative z-base s-textarea overflow-auto p0 d-flex fd-column s-editor-resizable"
+			style={{ width: "1500px" }}
 		>
 			<div className="js-sticky py6 bg-inherit btr-sm w100 ps-sticky t0 l0 z-nav s-editor-shadow js-plugin-container js-sticky">
 				<MenuBar editor={editor as Editor} />
