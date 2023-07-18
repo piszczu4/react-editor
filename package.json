@@ -16,6 +16,7 @@
 		"@tiptap/extension-font-family": "^2.0.3",
 		"@tiptap/extension-highlight": "^2.0.3",
 		"@tiptap/extension-link": "^2.0.3",
+		"@tiptap/extension-mention": "^2.0.3",
 		"@tiptap/extension-placeholder": "^2.0.3",
 		"@tiptap/extension-subscript": "^2.0.3",
 		"@tiptap/extension-superscript": "^2.0.3",
@@ -27,9 +28,11 @@
 		"@tiptap/pm": "^2.0.3",
 		"@tiptap/react": "^2.0.3",
 		"@tiptap/starter-kit": "^2.0.3",
+		"@tiptap/suggestion": "^2.0.4",
 		"prosemirror-highlightjs": "^0.9.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"tippy.js": "^6.3.7",
 		"tiptap": "github:piszczu4/tiptap#develop"
 	},
 	"devDependencies": {

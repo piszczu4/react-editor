@@ -28,6 +28,8 @@ import Placeholder from "@tiptap/extension-placeholder";
 import CodeIndent from "./Extensions/extension-code-indent";
 import TextAlign from "@tiptap/extension-text-align";
 import Indent from "./Extensions/extension-indent";
+import Mention from "@tiptap/extension-mention";
+import suggestion from "./Extensions/extension-mention/suggestion";
 import { CodeIndentV2 } from "./Extensions/extension-code-indent/vs2";
 import { CustomCommands } from "./Extensions/extension-custom-commands/custom-commands";
 import { EditorContent, isActive, useEditor } from "@tiptap/react";
@@ -748,12 +750,10 @@ const MenuBar = ({ editor }: Props) => {
 				<div className="d-flex g16 fl-grow1 ai-center js-editor-menu">
 					<MenuBlock children={[test]} />
 					<span className="mw-menu-block__separator"></span>
-
 					<MenuBlock children={[alignDropdownButton, capitalizeButton]} />
 					<span className="mw-menu-block__separator"></span>
 					<MenuBlock children={[fullscreenButton]} />
 					<span className="mw-menu-block__separator"></span>
-
 					<MenuBlock
 						children={[
 							orderedListSplitButton,
@@ -762,10 +762,8 @@ const MenuBar = ({ editor }: Props) => {
 						]}
 					/>
 					<span className="mw-menu-block__separator"></span>
-
 					<MenuBlock children={[clearFormattingButton]} />
 					<span className="mw-menu-block__separator"></span>
-
 					<MenuBlock children={[textColorSplitButton]} />
 					<span className="mw-menu-block__separator"></span>
 					<MenuBlock
@@ -885,6 +883,7 @@ const App = () => {
 			FontFamily,
 			FontSize,
 			Link,
+			Mention.configure({ suggestion }),
 			OrderedListExtension,
 			BulletListExtension,
 			Indent,
