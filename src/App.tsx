@@ -1,15 +1,3 @@
-// import Tiptap from "./Tiptap.tsx";
-
-// const App = () => {
-// 	return (
-// 		<div className="App">
-// 			<Tiptap />
-// 		</div>
-// 	);
-// };
-
-// export default App;
-
 import "./styles.scss";
 
 import { Color } from "@tiptap/extension-color";
@@ -30,7 +18,6 @@ import TextAlign from "@tiptap/extension-text-align";
 import Indent from "./Extensions/extension-indent";
 import Mention from "@tiptap/extension-mention";
 import suggestion from "./Extensions/extension-mention/suggestion";
-import { CodeIndentV2 } from "./Extensions/extension-code-indent/vs2";
 import { CustomCommands } from "./Extensions/extension-custom-commands/custom-commands";
 import { EditorContent, isActive, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -38,6 +25,8 @@ import Capitalize from "./Extensions/extension-capitalize";
 import Details from "@tiptap-pro/extension-details";
 import DetailsSummary from "@tiptap-pro/extension-details-summary";
 import DetailsContent from "@tiptap-pro/extension-details-content";
+import Keyboard from "./Extensions/extension-keyboard";
+import Spoiler from "./Extensions/extension-spoiler";
 import React from "react";
 
 import { Editor } from "@tiptap/react";
@@ -85,6 +74,26 @@ const MenuBar = ({ editor }: Props) => {
 				console.log(editor.getHTML());
 				return true;
 			}}
+		/>
+	);
+
+	let keyboardButton = (
+		<MenuButton
+			key="keyboard-btn"
+			id="keyboard-btn"
+			iconName="Keyboard"
+			tooltipData={{ title: "Keyboard", placement: "bottom" }}
+			command={() => editor.chain().focus().toggleKeyboard().run()}
+		/>
+	);
+
+	let spoilerButton = (
+		<MenuButton
+			key="spoiler-btn"
+			id="spoiler-btn"
+			iconName="Spoiler"
+			tooltipData={{ title: "Spoiler", placement: "bottom" }}
+			command={() => editor.chain().focus().toggleSpoiler().run()}
 		/>
 	);
 
@@ -764,7 +773,13 @@ const MenuBar = ({ editor }: Props) => {
 					<MenuBlock children={[test]} />
 					<span className="mw-menu-block__separator"></span>
 					<MenuBlock
-						children={[detailsButton, alignDropdownButton, capitalizeButton]}
+						children={[
+							keyboardButton,
+							spoilerButton,
+							detailsButton,
+							alignDropdownButton,
+							capitalizeButton,
+						]}
 					/>
 					<span className="mw-menu-block__separator"></span>
 					<MenuBlock children={[fullscreenButton]} />
@@ -902,7 +917,9 @@ const App = () => {
 			OrderedListExtension,
 			BulletListExtension,
 			Indent,
+			Spoiler,
 			CodeIndent,
+			Keyboard,
 			// CodeIndentV2,
 			TaskList,
 			TaskItem.configure({
