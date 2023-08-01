@@ -27,7 +27,20 @@ import DetailsSummary from "@tiptap-pro/extension-details-summary";
 import DetailsContent from "@tiptap-pro/extension-details-content";
 import Keyboard from "./Extensions/extension-keyboard";
 import Spoiler from "./Extensions/extension-spoiler";
-import React from "react";
+import CodeView from "./Extensions/extension-code-view";
+import { showImageUploader } from "./Extensions/extension-resizable-media/ImageUpload";
+import { ResizableMedia } from "./Extensions/extension-resizable-media";
+import { ImageButton } from "./Extensions/extension-resizable-media/ImageUpload";
+import { Caption } from "./Extensions/extension-caption";
+import { ResizableMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
+
+import React, {
+	useRef,
+	useState,
+	useImperativeHandle,
+	useEffect,
+	useMemo,
+} from "react";
 
 import { Editor } from "@tiptap/react";
 import { MenuButton } from "./components/MenuButton";
@@ -42,24 +55,46 @@ import { MenuDropdownItem } from "./components/MenuDropdownItem";
 import { Level } from "@tiptap/extension-heading";
 import { escapeHTML } from "@stackoverflow/stacks-editor/dist/shared/utils";
 import { FontSize } from "./Extensions/extension-font-size";
-import Link from "@tiptap/extension-link";
+import { Link } from "./Extensions/extension-link/link";
 import { orderedList } from "@tiptap/pm/schema-list";
 import { getMarkType } from "@tiptap/react";
 import { isTextSelection } from "@tiptap/react";
 
-import { ResolvedPos } from "@tiptap/pm/model";
+import { Node, NodeType, ResolvedPos } from "@tiptap/pm/model";
 import DropdownSection from "./components/DropdownSection";
 
-import { TextSelection } from "@tiptap/pm/state";
+import { EditorState, TextSelection } from "@tiptap/pm/state";
 
 import { Extension } from "@tiptap/react";
 import { Range } from "@tiptap/core";
+import { menuBar } from "@tiptap/pm/menu";
+import { BubbleMenu } from "@tiptap/extension-bubble-menu";
+
+import codemirror from "codemirror";
+import "codemirror/lib/codemirror.css"; // import base style
+import "codemirror/mode/xml/xml.js"; // language
+import "codemirror/addon/selection/active-line.js"; // require active-line.js
+import "codemirror/addon/edit/closetag.js"; // autoCloseTags
+
+// import "@stackoverflow/stacks/dist/js/stacks.min.js";
+
+import { showModal } from "@stackoverflow/stacks";
+import { EditorView } from "@tiptap/pm/view";
+
+import { showLinkEditor } from "./Extensions/extension-link/commands/showLinkEditor";
+
+import { LinkButton, LinkBubbleMenu } from "./components/LinkEditorModal";
+
+import { DialogModalTester, ImageBubbleMenu } from "./components/Modal";
+
+import { setMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
 
 type Props = {
 	editor: Editor;
+	onViewChanged: any;
 };
 
-const MenuBar = ({ editor }: Props) => {
+const MenuBar = ({ editor, onViewChanged }: Props) => {
 	if (!editor) {
 		return null;
 	}
@@ -483,19 +518,6 @@ const MenuBar = ({ editor }: Props) => {
 		/>
 	);
 
-	let linkButton = (
-		<MenuButton
-			key="link"
-			id="link"
-			iconName="Link"
-			command={() => editor.chain().focus().run()}
-			active={editor.isActive("link")}
-			tooltipData={{
-				title: _t("commands.link", { shortcut: getShortcut("Mod-L") }),
-			}}
-		/>
-	);
-
 	// Ordered List
 	let orderedListButton = (
 		<MenuButton
@@ -766,11 +788,72 @@ const MenuBar = ({ editor }: Props) => {
 		/>
 	);
 
+	let codeViewRef = useRef(null);
+
+	let [isCodeViewMode, setIsCodeViewMode] = useState(false);
+
+	// useImperativeHandle(
+	// 	ref,
+	// 	() => ({
+	// 		getIsCodeViewMode: () => {
+	// 			return isCodeViewMode;
+	// 		},
+	// 	}),
+	// 	[isCodeViewMode]
+	// );
+
+	useEffect(() => {
+		onViewChanged(isCodeViewMode);
+	}, [isCodeViewMode]);
+
+	let codeViewButton = (
+		<MenuButton
+			id="code-view-btn"
+			key="code-view-btn"
+			iconName="CodeView"
+			active={isCodeViewMode}
+			command={() => {
+				setIsCodeViewMode(!isCodeViewMode);
+				// editor.commands.focus();
+				return true;
+			}}
+		/>
+	);
+
+	let linkButton = (
+		<MenuButton
+			key="link"
+			id="link"
+			iconName="Link"
+			command={() => {
+				showLinkEditor(editor.view);
+				return editor.chain().focus().run();
+			}}
+			active={editor.isActive("link")}
+			tooltipData={{
+				title: _t("commands.link", { shortcut: getShortcut("Mod-L") }),
+			}}
+		/>
+	);
+
 	return (
 		<>
+			<DialogModalTester editor={editor} />
+			<button
+				onClick={() =>
+					editor.commands.setMediaWithCaption({
+						"media-type": "img",
+						src: "https://i.ibb.co/F699RW5/leby.jpg",
+					})
+				}
+			>
+				ImgeWithCaption
+			</button>
+			<LinkButton view={editor.view} />
+			<ImageButton view={editor.view} editor={editor} />
 			<div className="d-flex overflow-x-auto ai-center px12 py4 pb0">
 				<div className="d-flex g16 fl-grow1 ai-center js-editor-menu">
-					<MenuBlock children={[test]} />
+					<MenuBlock children={[codeViewButton, test]} />
 					<span className="mw-menu-block__separator"></span>
 					<MenuBlock
 						children={[
@@ -931,6 +1014,16 @@ const App = () => {
 			Details,
 			DetailsSummary,
 			DetailsContent,
+			ResizableMedia,
+			ResizableMediaWithCaption,
+			Caption,
+			new CodeView({
+				codemirror,
+				codemirrorOptions: {
+					styleActiveLine: true,
+					autoCloseTags: true,
+				},
+			}),
 			Placeholder.configure({
 				includeChildren: true,
 				placeholder: ({ node }) => {
@@ -994,22 +1087,130 @@ const App = () => {
     `,
 	});
 
+	const [isCodeViewMode, setIsCodeViewMode] = useState(false);
+
+	console.log("editorView");
+	console.log(isCodeViewMode);
+
+	let cmTextAreaRef = useRef(null);
+
+	console.log("Renredring!");
+
+	// let state: any;
+	// if (editor) {
+	// 	const codeView = (editor as Editor).extensionManager.extensions.find(
+	// 		(e) => e.name === "code_view"
+	// 	);
+
+	// 	if (codeView) {
+	// 		const { codemirror, codemirrorOptions } = codeView.options;
+	// 		if (codemirror) {
+	// 			// merge options
+	// 			const cmOptions = {
+	// 				...codemirrorOptions,
+	// 				readOnly: !(editor as Editor).isEditable,
+	// 			};
+	// 			state = codemirror.fromTextArea(cmTextAreaRef.current, cmOptions);
+	// 		}
+	// 	}
+	// }
+
+	let [cmInstance, setCmInstance] = useState<any>(null);
+
+	useEffect(() => {
+		if (!editor) return;
+		let state = cmInstance;
+		if (isCodeViewMode && !cmInstance) {
+			const codeView = (editor as Editor).extensionManager.extensions.find(
+				(e) => e.name === "code_view"
+			);
+			if (codeView) {
+				const { codemirror, codemirrorOptions } = codeView.options;
+				if (codemirror) {
+					// merge options
+					const cmOptions = {
+						...codemirrorOptions,
+						readOnly: !(editor as Editor).isEditable,
+					};
+
+					state = codemirror.fromTextArea(cmTextAreaRef.current, cmOptions);
+					setCmInstance(state);
+				}
+			}
+		}
+
+		if (isCodeViewMode) {
+			state.setValue((editor as Editor).getHTML()); // init content
+			// Format code
+			state.execCommand("selectAll");
+			const selectedRange = {
+				from: state.getCursor(true),
+				to: state.getCursor(false),
+			};
+			state.autoFormatRange(selectedRange.from, selectedRange.to);
+			state.setCursor(0);
+		} else {
+			if (!state) return;
+			const content = state.getValue();
+			(editor as Editor).commands.setContent(content, true);
+			// Destroy code mirror
+			const element = state.doc.cm.getWrapperElement();
+			element && element.remove && element.remove();
+			setCmInstance(null);
+			state = null;
+		}
+	}, [isCodeViewMode, cmInstance]);
+
 	return (
 		<div
 			id="editor-container"
-			className="ps-relative z-modal s-textarea p0 d-flex fd-column"
-			style={{ width: "1500px" }}
+			className="ps-relative s-textarea p0 d-flex fd-column"
+			style={{ width: "1500px", minWidth: "600 px", zIndex: 10 }}
 		>
 			<div className="js-sticky py6 bg-inherit btr-sm w100 ps-sticky t0 l0 z-nav s-editor-shadow js-plugin-container js-sticky">
-				<MenuBar editor={editor as Editor} />
+				<MenuBar editor={editor as Editor} onViewChanged={setIsCodeViewMode} />
 			</div>
+			{editor ? <LinkBubbleMenu editor={editor} href="" /> : null}
+			{editor ? <ImageBubbleMenu editor={editor} /> : null}
+
 			<div
 				id="editor-content"
-				className="overflow-scroll fl-grow1 outline-none p12 pt6 w100 s-prose js-editor ProseMirror"
+				className={`overflow-scroll fl-grow1 outline-none p12 pt6 w100 s-prose js-editor ProseMirror ${
+					!isCodeViewMode ? "" : "d-none"
+				}`}
 			>
 				<EditorContent editor={editor} />
 			</div>
-			<div id="editor-resize-container"></div>
+
+			{isCodeViewMode ? (
+				<div
+					className={`mw-editor__codemirror ${isCodeViewMode ? "" : "d-none"}`}
+				>
+					<textarea ref={cmTextAreaRef}></textarea>
+				</div>
+			) : null}
+
+			{isCodeViewMode ? null : <div id="editor-resize-container"></div>}
+
+			{editor ? (
+				<div id="editor-dialog" role="dialog">
+					<div
+						data-controller="s-modal"
+						id="modal-base"
+						// data-s-modal-return-element="#mw-content"
+					>
+						<aside
+							id="link-editor"
+							className="s-modal"
+							data-s-modal-target="modal"
+							role="dialog"
+							aria-labelledby="modal-title"
+							aria-describedby="modal-description"
+							aria-hidden="true"
+						></aside>
+					</div>
+				</div>
+			) : null}
 		</div>
 	);
 };

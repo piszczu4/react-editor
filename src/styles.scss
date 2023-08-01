@@ -337,3 +337,334 @@ ul[data-type="taskList"] {
 	transition: opacity 0.1s ease-in-out;
 	visibility: var(--_pr-soiler-child-visibility);
 }
+
+.mw-editor__codemirror {
+	display: flex;
+	flex-grow: 1;
+	font-size: 16px;
+	line-height: 24px;
+
+	.CodeMirror {
+		flex-grow: 1;
+		height: auto;
+		max-height: 600px;
+	}
+}
+
+.mw-link {
+	cursor: pointer !important;
+}
+
+.mw-popover {
+	--_po-bg: var(--white);
+	--_po-bc: var(--bc-medium);
+	--_po-bs: var(--bs-md);
+	--_po-d: none;
+	--_po-wmn: 12rem;
+	--_po-w: 100%;
+	--_po-arrow-fc: var(--white);
+	--_po-arrow-b: unset;
+	--_po-arrow-l: unset;
+	--_po-arrow-r: unset;
+	--_po-arrow-t: unset;
+	--_po-arrow-ps: calc(var(--su6) * -1);
+	--_po-arrow-after-b: unset;
+	--_po-arrow-after-l: unset;
+	--_po-arrow-after-r: unset;
+	--_po-arrow-after-t: unset;
+	--_po-arrow-after-bs: unset;
+	background-color: var(--_po-bg);
+	border: 1px solid #1683ff; //var(--_po-bc);;
+	box-shadow: var(--_po-bs);
+	// display: var(--_po-d);
+	// min-width: var(--_po-wmn);
+	// width: var(--_po-w);
+	// border-radius: var(--br-md);
+	color: var(--fc-dark);
+	font-size: var(--fs-body1);
+	margin-bottom: 0px;
+	padding: var(--su4);
+	white-space: normal;
+}
+
+.ProseMirror.s-prose div {
+	&.tippy-content {
+		margin-bottom: 0px;
+	}
+}
+
+.modal-dialog {
+	--te-smooth: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+	border-radius: 8px;
+	border: 1px solid #888;
+
+	opacity: 1;
+	transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+	transition: opacity 100ms var(--te-smooth) 10ms, z-index 0s 0s,
+		visibility 0s 0s, transform 100ms var(--te-smooth) 10ms,
+		transform 100ms var(--te-smooth) 10ms;
+	visibility: visible;
+	z-index: 9000;
+
+	.header {
+		display: flex;
+
+		.close-btn {
+			cursor: pointer;
+			background-color: inherit;
+			border: none;
+			padding: 12px;
+			position: absolute;
+			top: 8px;
+			right: 8px;
+
+			&:hover {
+				--_bu-bg-hover: hsl(210, 8%, 97.5%);
+				background-color: var(--_bu-bg-hover);
+			}
+
+			img {
+				width: 16px;
+			}
+		}
+	}
+
+	&::backdrop {
+		--_mo-bg: hsla(210, 8%, 5%, 0.5);
+		background: var(--_mo-bg) !important;
+	}
+}
+
+body.modal-open {
+	overflow: hidden; /* see "modal-open" in Modal.tsx */
+}
+
+#image-modal {
+	border-radius: 10px;
+	padding: 20px;
+
+	.upload-container {
+		width: 500px;
+		background: white;
+		.drag-area,
+		.image-preview {
+			width: 100%;
+			height: 300px;
+			border: 3px dashed #e0eafc;
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			margin: 10px auto;
+
+			&.drag-active * {
+				pointer-events: none;
+			}
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+
+			&.drag-active {
+				border: 2px solid #1683ff;
+			}
+
+			.icon {
+				width: 50px;
+				svg {
+					fill: #1683ff;
+				}
+			}
+
+			.drag-and-drop,
+			.paste-image,
+			.paste-url {
+				font-size: 20px;
+				font-weight: 700; // 500
+				color: #34495e;
+			}
+
+			.browse {
+				font-size: 20px;
+				font-weight: 700; // 500
+				color: #34495e;
+				.browse-btn {
+					color: #1683ff;
+					cursor: pointer;
+				}
+			}
+
+			.paste-url {
+				background-color: inherit;
+				border: none;
+				color: #1683ff;
+				cursor: pointer;
+			}
+
+			.support {
+				font-size: 12px;
+				color: gray;
+				margin: 10px 0 15px 0;
+			}
+		}
+	}
+}
+
+// .node-resizableMedia {
+// 	margin-bottom: 0px !important;
+// }
+
+.media-node-view {
+	// margin-bottom: 0px;
+	display: flex;
+	max-width: 100%;
+	margin-bottom: 0.5rem;
+	margin-top: 0.5rem;
+	position: relative;
+	z-index: 20;
+
+	&.f-left {
+		float: left;
+		margin-right: 10px;
+	}
+
+	&.f-right {
+		float: right;
+		margin-left: 10px;
+	}
+
+	&.justify-left {
+		justify-content: flex-start;
+	}
+
+	&.justify-center {
+		justify-content: center;
+	}
+
+	&.justify-right {
+		justify-content: flex-end;
+	}
+
+	.group:hover .group-hover\:bg-black {
+		--tw-bg-opacity: 1;
+		background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+	}
+
+	.group:hover .group-hover\:border-white {
+		--tw-border-opacity: 1;
+		border-color: rgb(255 255 255 / var(--tw-border-opacity));
+	}
+
+	.group:hover .group-hover\:border-2 {
+		border-width: 2px;
+	}
+
+	img {
+		margin-bottom: 0px !important;
+		cursor: pointer;
+	}
+
+	figcaption {
+		text-align: center;
+		font-size: 2rem;
+	}
+
+	.media-container {
+		width: fit-content;
+		display: flex;
+		position: relative;
+
+		transition-property: all;
+		transition-duration: 0.15s;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+		.rounded-lg {
+			border-radius: 0.5rem;
+		}
+
+		.horizontal-resize-handle {
+			position: absolute;
+			top: 25%;
+			bottom: 25%;
+			right: 0.5rem;
+			z-index: 50;
+			// height: 6rem;
+			width: 1rem;
+			// --tw-translate-y: -50%;
+			// transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+			// 	rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+			// 	scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+			cursor: col-resize;
+			border-radius: 0.25rem;
+			opacity: 0.5;
+			border: 2px solid transparent;
+		}
+
+		.media-control-buttons {
+			position: absolute;
+			top: 0.5rem;
+			right: 0.5rem;
+			box-sizing: border-box;
+			overflow: hidden;
+			border-radius: 0.125rem;
+			border-width: 1px;
+			--tw-border-opacity: 1;
+			border-color: rgb(226 232 240 / var(--tw-border-opacity));
+			--tw-bg-opacity: 1;
+			background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+			--tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+				0 8px 10px -6px rgb(0 0 0 / 0.1);
+			--tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color),
+				0 8px 10px -6px var(--tw-shadow-color);
+			box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+				var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+			transition-property: all;
+			transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+			transition-duration: 0.2s;
+			transition-timing-function: linear;
+		}
+	}
+
+	// img,
+	// div {
+	// 	max-width: 100%;
+	// 	margin-bottom: 0px !important;
+	// 	cursor: pointer;
+	// }
+
+	// .horizontal-resize-handle,
+	// .vertical-resize-handle {
+	// 	position: absolute;
+	// 	z-index: 50;
+	// 	opacity: 0.5;
+
+	// 	&:hover {
+	// 		background-color: lightskyblue;
+	// 		z-index: 50;
+	// 	}
+	// }
+
+	// .horizontal-resize-handle {
+	// 	height: 100%;
+	// 	width: 15px;
+	// 	top: 0;
+	// 	right: 0;
+	// 	cursor: col-resize;
+	// }
+
+	// .vertical-resize-handle {
+	// 	width: 100%;
+	// 	height: 15px;
+	// 	bottom: 0;
+	// 	left: 0;
+	// 	cursor: row-resize;
+	// }
+}
+
+/* For SVG arrow (Round) */
+.tippy-box .tippy-svg-arrow {
+	fill: #1683ff;
+}
