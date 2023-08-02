@@ -33,6 +33,9 @@ import { ResizableMedia } from "./Extensions/extension-resizable-media";
 import { ImageButton } from "./Extensions/extension-resizable-media/ImageUpload";
 import { Caption } from "./Extensions/extension-caption";
 import { ResizableMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
+import { ResizableMediaWithCaptionBubbleMenu } from "./Extensions/extension-resizable-media-with-caption/ResizableMediaWithCaptionBubbleMenu";
+
+import { Media, MediaBubbleMenu } from "./Extensions/extension-media";
 
 import React, {
 	useRef,
@@ -849,6 +852,19 @@ const MenuBar = ({ editor, onViewChanged }: Props) => {
 			>
 				ImgeWithCaption
 			</button>
+
+			<button
+				onClick={() =>
+					editor.commands.SetMedia({
+						"media-type": "img",
+						src: "https://i.ibb.co/F699RW5/leby.jpg",
+						caption: true,
+					})
+				}
+			>
+				Insert Media
+			</button>
+
 			<LinkButton view={editor.view} />
 			<ImageButton view={editor.view} editor={editor} />
 			<div className="d-flex overflow-x-auto ai-center px12 py4 pb0">
@@ -1008,7 +1024,6 @@ const App = () => {
 			TaskItem.configure({
 				nested: true,
 			}),
-			Placeholder,
 			TextAlign.configure({ types: ["paragraph", "heading"] }),
 			CustomCommands,
 			Details,
@@ -1016,6 +1031,7 @@ const App = () => {
 			DetailsContent,
 			ResizableMedia,
 			ResizableMediaWithCaption,
+			Media,
 			Caption,
 			new CodeView({
 				codemirror,
@@ -1026,12 +1042,14 @@ const App = () => {
 			}),
 			Placeholder.configure({
 				includeChildren: true,
-				placeholder: ({ node }) => {
+				showOnlyCurrent: true,
+
+				placeholder: ({ node, editor }) => {
 					if (node.type.name === "detailsSummary") {
 						return "Summary";
 					}
 
-					return "";
+					return "Write something...";
 				},
 			}),
 			StarterKit.configure({
@@ -1171,7 +1189,9 @@ const App = () => {
 				<MenuBar editor={editor as Editor} onViewChanged={setIsCodeViewMode} />
 			</div>
 			{editor ? <LinkBubbleMenu editor={editor} href="" /> : null}
-			{editor ? <ImageBubbleMenu editor={editor} /> : null}
+			{/* {editor ? <ImageBubbleMenu editor={editor} /> : null} */}
+			{editor ? <ResizableMediaWithCaptionBubbleMenu editor={editor} /> : null}
+			{editor ? <MediaBubbleMenu editor={editor} /> : null}
 
 			<div
 				id="editor-content"

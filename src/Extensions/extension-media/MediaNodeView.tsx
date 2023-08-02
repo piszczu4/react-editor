@@ -1,21 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/media-has-caption */
-
-import { useEffect, useRef, useState } from "react";
-import { NodeViewWrapper, NodeViewProps } from "@tiptap/react";
-
-import { resizableMediaActions } from "./resizableMediaMenuUtil";
+import React, { useRef, useState, useEffect } from "react";
+import { NodeViewWrapper, NodeViewProps, NodeViewContent } from "@tiptap/react";
 
 // ! had to manage this state outside of the component because `useState` isn't fast enough and creates problem cause
 // ! the function is getting old data even though new data is set by `useState` before the execution of function
 let lastClientX: number;
 
-export const ResizableMediaNodeViewV2 = ({
+export function MediaNodeView({
 	node,
 	updateAttributes,
 	deleteNode,
-}: NodeViewProps) => {
+}: NodeViewProps) {
 	const [mediaType, setMediaType] = useState<"img" | "video">();
 
 	useEffect(() => {
@@ -26,27 +20,9 @@ export const ResizableMediaNodeViewV2 = ({
 
 	const [proseMirrorContainerWidth, setProseMirrorContainerWidth] = useState(0);
 
-	const [mediaActionActiveState, setMediaActionActiveState] = useState<
-		Record<string, boolean>
-	>({});
-
 	const resizableImgRef = useRef<HTMLImageElement | HTMLVideoElement | null>(
 		null
 	);
-
-	const calculateMediaActionActiveStates = () => {
-		const activeStates: Record<string, boolean> = {};
-
-		resizableMediaActions.forEach(({ tooltip, isActive }) => {
-			activeStates[tooltip] = !!isActive?.(node.attrs);
-		});
-
-		setMediaActionActiveState(activeStates);
-	};
-
-	useEffect(() => {
-		calculateMediaActionActiveStates();
-	}, [node.attrs]);
 
 	const mediaSetupOnLoad = () => {
 		// ! TODO: move this to extension storage
@@ -78,8 +54,6 @@ export const ResizableMediaNodeViewV2 = ({
 				);
 			};
 		}
-
-		setTimeout(() => calculateMediaActionActiveStates(), 200);
 	};
 
 	const setLastClientX = (x: number) => {
@@ -192,17 +166,6 @@ export const ResizableMediaNodeViewV2 = ({
 	let isWidthInPercentages =
 		typeof node.attrs.width === "string" && node.attrs.width.endsWith("%");
 
-	let [caption, setCaption] = useState(node.attrs.caption);
-	let captionRef = useRef<any>(null);
-	function onCaptionInput() {
-		setCaption(captionRef.current.innerText);
-		const end = captionRef.current.innerText.length;
-
-		// ✅ Move focus to END of input field
-		captionRef.current.setSelectionRange(end, end);
-		captionRef.current.focus();
-	}
-
 	let style: React.CSSProperties;
 	let transform = [
 		node.attrs["data-rotate"] ? `rotate(${node.attrs["data-rotate"]}deg)` : "",
@@ -220,70 +183,83 @@ export const ResizableMediaNodeViewV2 = ({
 
 	return (
 		<NodeViewWrapper
-			as="article"
-			className={`
-        media-node-view not-prose transition-all ease-in-out w-full
-        ${(isFloat && `f-${node.attrs.dataFloat}`) || ""}
-        ${(isAlign && `justify-${node.attrs.dataAlign}`) || ""}
-      `}
-			// style={isWidthInPercentages ? { width: node.attrs.width } : {}}
+			as="div"
+			className={
+				"media-with-caption-node-view " +
+				(isFloat
+					? "f-" + node.attrs.dataFloat
+					: isAlign
+					? "justify-" + node.attrs.dataAlign
+					: "")
+			}
+			style={{
+				width: isWidthInPercentages ? node.attrs.width : undefined,
+
+				marginRight:
+					(isWidthInPercentages && node.attrs.dataAlign === "left") ||
+					node.attrs.dataAlign === "center"
+						? "auto"
+						: undefined,
+				marginLeft:
+					(isWidthInPercentages && node.attrs.dataAlign === "right") ||
+					node.attrs.dataAlign === "center"
+						? "auto"
+						: undefined,
+			}}
 		>
-			<div className="media-container group">
-				{mediaType === "img" && (
-					<img
-						src={node.attrs.src}
-						ref={resizableImgRef as any}
-						className="rounded-lg"
-						alt={node.attrs.src}
-						// width={!isWidthInPercentages ? node.attrs.width : null}
-						width={node.attrs.width}
-						height={!isWidthInPercentages ? node.attrs.height : null}
-						style={style}
+			<figure
+			// style={{
+			// 	margin:
+			// 		node.attrs.dataFloat === "center"
+			// 			? "auto"
+			// 			: node.attrs.dataFloat === "left"
+			// 			? "0 auto"
+			// 			: node.attrs.dataFloat === "right"
+			// 			? "auto 0"
+			// 			: undefined,
+			// }}
+			>
+				<div className="media-container group">
+					{mediaType === "img" && (
+						<img
+							src={node.attrs.src}
+							ref={resizableImgRef as any}
+							className="rounded-lg"
+							alt={node.attrs.src}
+							// width={!isWidthInPercentages ? node.attrs.width : null}
+							width={isWidthInPercentages ? "100%" : node.attrs.width}
+							height={!isWidthInPercentages ? node.attrs.height : null}
+							style={style}
+						/>
+					)}
+
+					{mediaType === "video" && (
+						<video
+							ref={resizableImgRef as any}
+							className="rounded-lg"
+							controls
+							width={node.attrs.width}
+							height={node.attrs.height}
+						>
+							<source src={node.attrs.src} />
+						</video>
+					)}
+
+					<div
+						className="horizontal-resize-handle group-hover:bg-black group-hover:border-2 group-hover:border-white"
+						title="Resize"
+						onClick={({ clientX }) => setLastClientX(clientX)}
+						onMouseDown={startHorizontalResize}
+						onMouseUp={stopHorizontalResize}
 					/>
+				</div>
+
+				{node.attrs.caption && (
+					<figcaption>
+						<NodeViewContent></NodeViewContent>
+					</figcaption>
 				)}
-
-				{mediaType === "video" && (
-					<video
-						ref={resizableImgRef as any}
-						className="rounded-lg"
-						controls
-						width={node.attrs.width}
-						height={node.attrs.height}
-					>
-						<source src={node.attrs.src} />
-					</video>
-				)}
-
-				<div
-					className="horizontal-resize-handle group-hover:bg-black group-hover:border-2 group-hover:border-white"
-					title="Resize"
-					onClick={({ clientX }) => setLastClientX(clientX)}
-					onMouseDown={startHorizontalResize}
-					onMouseUp={stopHorizontalResize}
-				/>
-
-				{/* <section className="media-control-buttons hidden group-hover:flex">
-					{resizableMediaActions.map((btn) => {
-                        return (
-                            // TODO: figure out why tooltips are not working
-							<button
-                            key={btn.tooltip}
-                            type="button"
-                            className={`btn rounded-none h-8 px-2 ${
-                                mediaActionActiveState[btn.tooltip] ? "active" : ""
-                            }`}
-                            onClick={() =>
-                                btn.tooltip === "Delete"
-                                ? deleteNode()
-                                : btn.action?.(updateAttributes)
-                            }
-                            >
-                            <i className={`${btn.icon} scale-150`} />
-                            </button>
-                            );
-                        })}
-                    </section> */}
-			</div>
+			</figure>
 		</NodeViewWrapper>
 	);
-};
+}

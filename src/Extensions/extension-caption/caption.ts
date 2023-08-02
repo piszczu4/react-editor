@@ -18,6 +18,19 @@ export const Caption = Node.create<CaptionOptions>({
 		};
 	},
 
+	addAttributes() {
+		return {
+			caption: {
+				default: true,
+				// renderHTML: (attributes) => ({
+				// 	"data-caption": attributes["caption"],
+				// }),
+				// parseHTML: (element: HTMLElement) =>
+				// 	element.getAttribute("data-caption"),
+			},
+		};
+	},
+
 	isolating: true,
 	selectable: false,
 
@@ -29,11 +42,10 @@ export const Caption = Node.create<CaptionOptions>({
 		];
 	},
 
-	renderHTML() {
-		const attrs: Record<string, string> = {
-			"data-caption": "true",
-		};
-
-		return ["figcaption", attrs, 0];
+	renderHTML(HTMLAttributes) {
+		let attrs = mergeAttributes(this.options.HTMLAttributes, HTMLAttributes);
+		if (attrs.caption) {
+			return ["figcaption", attrs, 0];
+		} else return ["figcaption", attrs, 0]; //return ["figcaption"];
 	},
 });

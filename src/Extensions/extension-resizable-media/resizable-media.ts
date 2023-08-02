@@ -18,6 +18,10 @@ declare module "@tiptap/core" {
 				width?: string;
 				height?: string;
 			}) => ReturnType;
+			/**
+			 * Rotate
+			 */
+			rotate: (deg: number, mode: "" | "-x" | "-y") => ReturnType;
 		};
 	}
 }
@@ -77,6 +81,27 @@ export const ResizableMedia = Node.create<MediaOptions>({
 			dataFloat: {
 				default: null, // 'left' | 'right'
 			},
+			"data-rotate": {
+				default: null,
+				renderHTML: ({ "data-rotate": rotate }) => ({
+					"data-rotate": rotate,
+					style: rotate ? `transform: rotate(${rotate}deg)` : null,
+				}),
+				parseHTML: (element: HTMLElement) =>
+					element.getAttribute("data-rotate"),
+			},
+			"data-rotate-x": {
+				default: null,
+				renderHTML: ({ "data-rotate-x": rotateX }) => ({
+					"data-rotate-x": rotateX,
+					style: rotateX ? `transform: rotateX(${rotateX}deg)` : null,
+				}),
+				parseHTML: (element: HTMLElement) =>
+					element.getAttribute("data-rotate-x"),
+			},
+			"data-rotate-y": {
+				default: null,
+			},
 		};
 	},
 
@@ -86,18 +111,22 @@ export const ResizableMedia = Node.create<MediaOptions>({
 		return [
 			{
 				tag: 'img[src]:not([src^="data:"])',
-				getAttrs: (el) => ({
-					src: (el as HTMLImageElement).getAttribute("src"),
-					"media-type": "img",
-				}),
+				getAttrs: (el) => {
+					let element = el as HTMLImageElement;
+					return {
+						src: element.getAttribute("src"),
+						"media-type": "img",
+						"data-rotate": element.getAttribute("data-rotate"),
+					};
+				},
 			},
-			{
-				tag: "video",
-				getAttrs: (el) => ({
-					src: (el as HTMLVideoElement).getAttribute("src"),
-					"media-type": "video",
-				}),
-			},
+			// {
+			// 	tag: "video",
+			// 	getAttrs: (el) => ({
+			// 		src: el.getAttribute("src"),
+			// 		"media-type": "video",
+			// 	}),
+			// },
 		];
 	},
 
@@ -107,7 +136,10 @@ export const ResizableMedia = Node.create<MediaOptions>({
 		if (mediaType === "img") {
 			return [
 				"img",
-				mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+				{
+					...mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+				},
+				,
 			];
 		} else if (mediaType === "video") {
 			return [
@@ -159,6 +191,17 @@ export const ResizableMedia = Node.create<MediaOptions>({
 						type: this.name,
 						attrs: options,
 					});
+				},
+
+			rotate:
+				(deg, mode) =>
+				({ commands, editor }) => {
+					let attr: string = `data-rotate${mode}`;
+					let currDeg = editor.getAttributes(this.name)[attr];
+					currDeg = currDeg ?? 0;
+					let attrs: Record<string, any> = {};
+					attrs[attr] = currDeg + deg;
+					return commands.updateAttributes(this.name, attrs);
 				},
 		};
 	},

@@ -627,44 +627,134 @@ body.modal-open {
 			transition-timing-function: linear;
 		}
 	}
-
-	// img,
-	// div {
-	// 	max-width: 100%;
-	// 	margin-bottom: 0px !important;
-	// 	cursor: pointer;
-	// }
-
-	// .horizontal-resize-handle,
-	// .vertical-resize-handle {
-	// 	position: absolute;
-	// 	z-index: 50;
-	// 	opacity: 0.5;
-
-	// 	&:hover {
-	// 		background-color: lightskyblue;
-	// 		z-index: 50;
-	// 	}
-	// }
-
-	// .horizontal-resize-handle {
-	// 	height: 100%;
-	// 	width: 15px;
-	// 	top: 0;
-	// 	right: 0;
-	// 	cursor: col-resize;
-	// }
-
-	// .vertical-resize-handle {
-	// 	width: 100%;
-	// 	height: 15px;
-	// 	bottom: 0;
-	// 	left: 0;
-	// 	cursor: row-resize;
-	// }
 }
 
 /* For SVG arrow (Round) */
 .tippy-box .tippy-svg-arrow {
 	fill: #1683ff;
 }
+
+.media-with-caption-node-view {
+	// margin-bottom: 0px;
+	display: flex;
+	max-width: 100%;
+	margin-bottom: 0.5rem;
+	margin-top: 0.5rem;
+	position: relative;
+	z-index: 20;
+
+	&.f-left {
+		float: left;
+		margin-right: 10px;
+	}
+
+	&.f-right {
+		float: right;
+		margin-left: 10px;
+	}
+
+	&.justify-left {
+		justify-content: flex-start;
+	}
+
+	&.justify-center {
+		justify-content: center;
+	}
+
+	&.justify-right {
+		justify-content: flex-end;
+	}
+
+	.group:hover .group-hover\:bg-black {
+		--tw-bg-opacity: 1;
+		background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+	}
+
+	.group:hover .group-hover\:border-white {
+		--tw-border-opacity: 1;
+		border-color: rgb(255 255 255 / var(--tw-border-opacity));
+	}
+
+	.group:hover .group-hover\:border-2 {
+		border-width: 2px;
+	}
+
+	img {
+		margin-bottom: 0px !important;
+		cursor: pointer;
+	}
+
+	// figcaption {
+	// 	text-align: center;
+	// 	font-size: 2rem;
+	// }
+
+	.media-container {
+		width: fit-content;
+		display: flex;
+		position: relative;
+
+		transition-property: all;
+		transition-duration: 0.15s;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+		.rounded-lg {
+			border-radius: 0.5rem;
+		}
+
+		.horizontal-resize-handle {
+			position: absolute;
+			top: 25%;
+			bottom: 25%;
+			right: 0.5rem;
+			z-index: 50;
+			// height: 6rem;
+			width: 1rem;
+			// --tw-translate-y: -50%;
+			// transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+			// 	rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+			// 	scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+			cursor: col-resize;
+			border-radius: 0.25rem;
+			opacity: 0.5;
+			border: 2px solid transparent;
+		}
+
+		.media-control-buttons {
+			position: absolute;
+			top: 0.5rem;
+			right: 0.5rem;
+			box-sizing: border-box;
+			overflow: hidden;
+			border-radius: 0.125rem;
+			border-width: 1px;
+			--tw-border-opacity: 1;
+			border-color: rgb(226 232 240 / var(--tw-border-opacity));
+			--tw-bg-opacity: 1;
+			background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+			--tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+				0 8px 10px -6px rgb(0 0 0 / 0.1);
+			--tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color),
+				0 8px 10px -6px var(--tw-shadow-color);
+			box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+				var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+			transition-property: all;
+			transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+			transition-duration: 0.2s;
+			transition-timing-function: linear;
+		}
+	}
+}
+
+figcaption p {
+	text-overflow: wrap;
+}
+
+// /* Placeholder (on every new line) */
+// .ProseMirror figcaption p.is-empty::before {
+// 	content: attr("data-placeholder");
+// 	float: left;
+// 	color: #adb5bd;
+// 	pointer-events: none;
+// 	height: 0;
+// }

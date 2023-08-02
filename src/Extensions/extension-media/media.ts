@@ -1,38 +1,43 @@
 import { mergeAttributes, Node, nodeInputRule } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 
-import { ResizableMediaWithCaptionNodeView } from "./ResizableMediaWithCaptionNodeView";
+import { MediaNodeView } from "./MediaNodeView";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
-		resizableMediaWithCapton: {
+		media: {
 			/**
 			 * Set media
 			 */
-			setMediaWithCaption: (options: {
+			SetMedia: (options: {
 				"media-type": "img" | "video";
 				src: string;
 				alt?: string;
 				title?: string;
 				width?: string;
 				height?: string;
+				dataAlign?: string;
+				dataFloat?: string;
+				caption?: boolean;
 			}) => ReturnType;
 			/**
 			 * Toggle caption
 			 */
 			toggleCaption: () => ReturnType;
+			/**
+			 * Rotate
+			 */
+			rotate: (deg: number, mode: "" | "-x" | "-y") => ReturnType;
 		};
 	}
 }
 
-export interface MediaWithCaptionOptions {
-	// inline: boolean, // we have floating support, so block is good enough
-	// allowBase64: boolean, // we're not going to allow this
+export interface MediaOptions {
 	HTMLAttributes: Record<string, any>;
 }
 
-export const ResizableMediaWithCaption = Node.create<MediaWithCaptionOptions>({
-	name: "resizableMediaWithCaption",
+export const Media = Node.create<MediaOptions>({
+	name: "media",
 
 	addOptions() {
 		return {
@@ -48,7 +53,7 @@ export const ResizableMediaWithCaption = Node.create<MediaWithCaptionOptions>({
 
 	draggable: true,
 
-	content: "resizableMedia caption*",
+	content: "paragraph",
 
 	selectable: true,
 
@@ -71,53 +76,72 @@ export const ResizableMediaWithCaption = Node.create<MediaWithCaptionOptions>({
 			},
 			alt: {
 				default: null,
+				parseHTML: (element: HTMLElement) => element.getAttribute("alt"),
 			},
 			title: {
 				default: null,
+				parseHTML: (element: HTMLElement) => element.getAttribute("title"),
 			},
 			width: {
-				default: null,
+				default: "75%",
+				parseHTML: (element: HTMLElement) => element.getAttribute("width"),
 			},
 			height: {
 				default: "auto",
+				parseHTML: (element: HTMLElement) => element.getAttribute("height"),
 			},
 			dataAlign: {
 				default: "center", // 'left' | 'center' | 'right'
+				parseHTML: (element: HTMLElement) => element.getAttribute("data-align"),
 			},
 			dataFloat: {
 				default: null, // 'left' | 'right'
+				parseHTML: (element: HTMLElement) => element.getAttribute("data-float"),
+			},
+			"data-rotate": {
+				default: null,
+				renderHTML: ({ "data-rotate": rotate }) => ({
+					"data-rotate": rotate,
+					style: rotate ? `transform: rotate(${rotate}deg)` : null,
+				}),
+				parseHTML: (element: HTMLElement) =>
+					element.getAttribute("data-rotate"),
+			},
+			"data-rotate-x": {
+				default: null,
+				renderHTML: ({ "data-rotate-x": rotateX }) => ({
+					"data-rotate-x": rotateX,
+					style: rotateX ? `transform: rotateX(${rotateX}deg)` : null,
+				}),
+				parseHTML: (element: HTMLElement) =>
+					element.getAttribute("data-rotate-x"),
+			},
+			"data-rotate-y": {
+				default: null,
 			},
 			caption: {
 				default: false,
+				parseHTML: (element: HTMLElement) =>
+					element.getAttribute("data-caption"),
 			},
 		};
 	},
 
 	addCommands() {
 		return {
-			setMediaWithCaption:
+			SetMedia:
 				(options) =>
-				({ commands, editor }) => {
+				({ editor }) => {
 					return editor.commands.insertContent({
-						type: "resizableMediaWithCaption",
-						attrs: { caption: true },
+						type: this.name,
+						attrs: options,
 						content: [
 							{
-								type: "resizableMedia",
-								attrs: options,
-							},
-							{
-								type: "caption",
-								attrs: { caption: true },
+								type: "paragraph",
 								content: [
 									{
-										type: "paragraph",
-										content: [
-											{
-												type: "text",
-												text: "Caption",
-											},
-										],
+										type: "text",
+										text: "Caption",
 									},
 								],
 							},
@@ -127,7 +151,7 @@ export const ResizableMediaWithCaption = Node.create<MediaWithCaptionOptions>({
 
 			toggleCaption:
 				() =>
-				({ commands, editor }) => {
+				({ editor }) => {
 					let { caption } = editor.getAttributes(this.name);
 					return editor.commands.updateAttributes("caption", {
 						caption: !caption,
@@ -161,6 +185,17 @@ export const ResizableMediaWithCaption = Node.create<MediaWithCaptionOptions>({
 					// 	return true;
 					// }
 				},
+
+			rotate:
+				(deg, mode) =>
+				({ commands, editor }) => {
+					let attr: string = `data-rotate${mode}`;
+					let currDeg = editor.getAttributes(this.name)[attr];
+					currDeg = currDeg ?? 0;
+					let attrs: Record<string, any> = {};
+					attrs[attr] = currDeg + deg;
+					return commands.updateAttributes(this.name, attrs);
+				},
 		};
 	},
 
@@ -181,6 +216,6 @@ export const ResizableMediaWithCaption = Node.create<MediaWithCaptionOptions>({
 	},
 
 	addNodeView() {
-		return ReactNodeViewRenderer(ResizableMediaWithCaptionNodeView);
+		return ReactNodeViewRenderer(MediaNodeView);
 	},
 });
