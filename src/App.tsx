@@ -37,6 +37,13 @@ import { ResizableMediaWithCaptionBubbleMenu } from "./Extensions/extension-resi
 
 import { Media, MediaBubbleMenu } from "./Extensions/extension-media";
 
+import { Table } from "./Extensions/extension-table";
+import { TableCell } from "./Extensions/extension-table-cell";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableHeader } from "@tiptap/extension-table-header";
+
+import { TableBubbleMenu } from "./Extensions/extension-table/TableBubbleMenu";
+
 import React, {
 	useRef,
 	useState,
@@ -90,7 +97,7 @@ import { LinkButton, LinkBubbleMenu } from "./components/LinkEditorModal";
 
 import { DialogModalTester, ImageBubbleMenu } from "./components/Modal";
 
-import { setMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
+// import { setMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
 
 type Props = {
 	editor: Editor;
@@ -841,6 +848,17 @@ const MenuBar = ({ editor, onViewChanged }: Props) => {
 
 	return (
 		<>
+			<button
+				onClick={() =>
+					editor
+						.chain()
+						.focus()
+						.insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+						.run()
+				}
+			>
+				insertTable
+			</button>
 			<DialogModalTester editor={editor} />
 			<button
 				onClick={() =>
@@ -1033,6 +1051,12 @@ const App = () => {
 			ResizableMediaWithCaption,
 			Media,
 			Caption,
+			Table.configure({
+				resizable: true,
+			}),
+			TableCell,
+			TableRow,
+			TableHeader,
 			new CodeView({
 				codemirror,
 				codemirrorOptions: {
@@ -1192,6 +1216,7 @@ const App = () => {
 			{/* {editor ? <ImageBubbleMenu editor={editor} /> : null} */}
 			{editor ? <ResizableMediaWithCaptionBubbleMenu editor={editor} /> : null}
 			{editor ? <MediaBubbleMenu editor={editor} /> : null}
+			{editor ? <TableBubbleMenu editor={editor} /> : null}
 
 			<div
 				id="editor-content"
