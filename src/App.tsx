@@ -41,8 +41,10 @@ import { Table } from "./Extensions/extension-table";
 import { TableCell } from "./Extensions/extension-table-cell";
 import { TableRow } from "@tiptap/extension-table-row";
 import { TableHeader } from "@tiptap/extension-table-header";
+import { DBlock } from "./Extensions/extension-dBlock";
 
 import { TableBubbleMenu } from "./Extensions/extension-table/TableBubbleMenu";
+import { Document as Doc } from "./Extensions/extension-document";
 
 import React, {
 	useRef,
@@ -1057,6 +1059,8 @@ const App = () => {
 			TableCell,
 			TableRow,
 			TableHeader,
+			DBlock,
+			Doc,
 			new CodeView({
 				codemirror,
 				codemirrorOptions: {
@@ -1080,6 +1084,7 @@ const App = () => {
 				bulletList: false,
 				orderedList: false,
 				heading: false,
+				document: false,
 			}),
 		],
 		onFocus: () => {
