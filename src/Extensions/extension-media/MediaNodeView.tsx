@@ -1,15 +1,11 @@
-import React, { useRef, useState, useEffect } from "react";
-import { NodeViewWrapper, NodeViewProps, NodeViewContent } from "@tiptap/react";
+import { NodeViewContent, NodeViewProps, NodeViewWrapper } from "@tiptap/react";
+import React, { useEffect, useRef, useState } from "react";
 
 // ! had to manage this state outside of the component because `useState` isn't fast enough and creates problem cause
 // ! the function is getting old data even though new data is set by `useState` before the execution of function
 let lastClientX: number;
 
-export function MediaNodeView({
-	node,
-	updateAttributes,
-	deleteNode,
-}: NodeViewProps) {
+export function MediaNodeView({ node, updateAttributes }: NodeViewProps) {
 	const [mediaType, setMediaType] = useState<"img" | "video">();
 
 	useEffect(() => {
@@ -64,8 +60,8 @@ export function MediaNodeView({
 		mediaSetupOnLoad();
 	});
 
-	const [isHorizontalResizeActive, setIsHorizontalResizeActive] =
-		useState(false);
+	// const [isHorizontalResizeActive, setIsHorizontalResizeActive] =
+	// 	useState(false);
 
 	interface WidthAndHeight {
 		width: number;
@@ -80,7 +76,7 @@ export function MediaNodeView({
 	};
 
 	const startHorizontalResize = (e: { clientX: number }) => {
-		setIsHorizontalResizeActive(true);
+		// setIsHorizontalResizeActive(true);
 		lastClientX = e.clientX;
 
 		setTimeout(() => {
@@ -90,7 +86,7 @@ export function MediaNodeView({
 	};
 
 	const stopHorizontalResize = () => {
-		setIsHorizontalResizeActive(false);
+		// setIsHorizontalResizeActive(false);
 		lastClientX = -1;
 
 		document.removeEventListener("mousemove", documentHorizontalMouseMove);

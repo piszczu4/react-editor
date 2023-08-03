@@ -1,13 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { toggleMark } from "prosemirror-commands";
-import { TextSelection } from "prosemirror-state";
-import { Decoration, DecorationSet } from "prosemirror-view";
-import { _t } from "../../helpers/strings";
 import { EditorView } from "@tiptap/pm/view";
+import { TextSelection } from "prosemirror-state";
+import { _t } from "../../helpers/strings";
 
-import { useEffect, useRef } from "react";
 import { hideModal, showModal } from "@stackoverflow/stacks";
 // rudimentary link validation that's roughly in line with what Stack Overflow's backend uses for validation
 const validLinkRegex =

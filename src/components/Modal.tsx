@@ -1,20 +1,17 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 
 import { MouseEvent, useEffect, useRef } from "react";
-import CloseIcon from "../assets/close-icon.svg";
 import { ImagesIcon } from ".";
-import { CircleCheckIcon } from ".";
+import CloseIcon from "../assets/close-icon.svg";
 import { _t } from "../helpers/strings";
 
-import { stackOverflowValidateLink as validateLink } from "../Extensions/extension-link/utils";
 import { Editor } from "@tiptap/react";
+import { stackOverflowValidateLink as validateLink } from "../Extensions/extension-link/utils";
 
-import { getNodeAttributes } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react";
 
 import { InfinitySpin } from "react-loader-spinner";
 
-import tippy, { roundArrow } from "tippy.js";
 import "tippy.js/dist/svg-arrow.css";
 
 /**
@@ -66,7 +63,7 @@ export interface ImageUploadOptions {
 type ImageBubbleMenuProps = { editor: Editor };
 
 export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
-	const linkAttrs = getNodeAttributes(editor.state, "resizableMedia");
+	// const linkAttrs = getNodeAttributes(editor.state, "resizableMedia");
 
 	return (
 		<BubbleMenu
@@ -210,11 +207,11 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
 	);
 }
 
-enum ValidationResult {
-	Ok,
-	FileTooLarge,
-	InvalidFileType,
-}
+// enum ValidationResult {
+// 	Ok,
+// 	FileTooLarge,
+// 	InvalidFileType,
+// }
 
 /**
  * Default image upload callback that posts to `/image/upload`,
@@ -258,7 +255,7 @@ type ImageProps = {
 
 export function ImageModal({
 	uploadOptions,
-	isOpened,
+	// isOpened,
 	setIsOpened,
 	isVisible,
 	setIsVisible,
@@ -345,7 +342,7 @@ export function ImageModal({
 			title: "",
 		};
 		setIsOpened(false);
-		editor?.chain().focus().setMedia(image).run();
+		editor?.chain().focus().SetMedia(image).run();
 	};
 
 	let onClose = () => setIsOpened(false);

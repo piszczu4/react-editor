@@ -1,8 +1,3 @@
-import React from "react";
-import { ReactDOM } from "react";
-
-import { escapeHTML } from "@stackoverflow/stacks-editor/dist/shared/utils";
-
 type Props = {
 	id: string;
 	nCols: number;

@@ -1,9 +1,3 @@
-import React from "react";
-import { ReactDOM } from "react";
-
-import { MenuButton } from "./MenuButton";
-import { MenuDropdownButton } from "./MenuDropdownButton";
-
 type Props = {
 	/**
 	 * Unique id for a button, for example `bold`.

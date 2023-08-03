@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 
 import { ResourcedEmoji } from "@atlaskit/emoji/element";
 import { EmojiResourceConfig } from "@atlaskit/emoji/resource";

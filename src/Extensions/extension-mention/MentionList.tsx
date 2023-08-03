@@ -1,12 +1,6 @@
-import { Editor, Range } from "@tiptap/react";
 import "./MentionList.scss";
 
-import React, {
-	forwardRef,
-	useEffect,
-	useImperativeHandle,
-	useState,
-} from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
 export default forwardRef(
 	(

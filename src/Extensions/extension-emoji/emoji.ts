@@ -1,4 +1,4 @@
-import { mergeAttributes, Node } from "@tiptap/core";
+import { Node } from "@tiptap/core";
 import { acNameToEmoji, acShortcutToEmoji } from "./utils";
 
 /**

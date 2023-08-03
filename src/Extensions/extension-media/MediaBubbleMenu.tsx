@@ -1,4 +1,4 @@
-import { BubbleMenu, Editor, getNodeAttributes } from "@tiptap/react";
+import { BubbleMenu, Editor } from "@tiptap/react";
 
 type MediaBubbleMenuProps = { editor: Editor };
 

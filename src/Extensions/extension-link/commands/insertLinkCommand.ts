@@ -1,6 +1,7 @@
 import { toggleMark } from "@tiptap/pm/commands";
-import { getCurrentTextNode } from "../../../helpers/getCurrentTextNode";
 import { TextSelection } from "@tiptap/pm/state";
+import { getCurrentTextNode } from "../../../helpers/getCurrentTextNode";
+import { showLinkEditor } from "./showLinkEditor";
 /**
  * Inserts a link into the document and opens the link edit tooltip at the cursor
  * @param state The current editor state

@@ -1,12 +1,6 @@
-import React from "react";
-import { ReactDOM } from "react";
-
-import { escapeHTML } from "@stackoverflow/stacks-editor/dist/shared/utils";
-
-import { MenuButton } from "./MenuButton";
 import { generateRandomId } from "@stackoverflow/stacks-editor/dist/shared/utils";
+import { MenuButton } from "./MenuButton";
 import { MenuPopover } from "./MenuPopover";
-import { useState } from "react";
 
 type Props = {
 	id: string;
@@ -22,21 +16,20 @@ type Props = {
 
 export const MenuDropdownItem = ({
 	id,
-	disabled = false,
 	active = false,
-	tooltipData = "",
+	// tooltipData = "",
 	children,
 	nCols = 1,
 	iconName = null,
 	innerText = null,
 	cssStyles = {},
 }: Props) => {
-	let title = tooltipData as string;
-	let description = null;
-	if (typeof tooltipData !== "string") {
-		title = tooltipData.title;
-		description = tooltipData.description;
-	}
+	// let title = tooltipData as string;
+	// let description = null;
+	// if (typeof tooltipData !== "string") {
+	// 	// title = tooltipData.title;
+	// 	description = tooltipData.description;
+	// }
 
 	const randomId = generateRandomId();
 	const popoverId = `${id}-popover-${randomId}`;

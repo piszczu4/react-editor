@@ -1,104 +1,81 @@
 import "./styles.scss";
 
+import Details from "@tiptap-pro/extension-details";
+import DetailsContent from "@tiptap-pro/extension-details-content";
+import DetailsSummary from "@tiptap-pro/extension-details-summary";
+import BulletList from "@tiptap/extension-bullet-list";
 import { Color } from "@tiptap/extension-color";
+import FontFamily from "@tiptap/extension-font-family";
+import Heading from "@tiptap/extension-heading";
 import ListItem from "@tiptap/extension-list-item";
-import TextStyle from "@tiptap/extension-text-style";
+import Mention from "@tiptap/extension-mention";
+import OrderedList from "@tiptap/extension-ordered-list";
+import Placeholder from "@tiptap/extension-placeholder";
 import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
-import Underline from "@tiptap/extension-underline";
-import Heading from "@tiptap/extension-heading";
-import FontFamily from "@tiptap/extension-font-family";
-import BulletList from "@tiptap/extension-bullet-list";
-import OrderedList from "@tiptap/extension-ordered-list";
-import TaskList from "@tiptap/extension-task-list";
 import TaskItem from "@tiptap/extension-task-item";
-import Placeholder from "@tiptap/extension-placeholder";
-import CodeIndent from "./Extensions/extension-code-indent";
+import TaskList from "@tiptap/extension-task-list";
 import TextAlign from "@tiptap/extension-text-align";
-import Indent from "./Extensions/extension-indent";
-import Mention from "@tiptap/extension-mention";
-import suggestion from "./Extensions/extension-mention/suggestion";
-import { CustomCommands } from "./Extensions/extension-custom-commands/custom-commands";
-import { EditorContent, isActive, useEditor } from "@tiptap/react";
+import TextStyle from "@tiptap/extension-text-style";
+import Underline from "@tiptap/extension-underline";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Capitalize from "./Extensions/extension-capitalize";
-import Details from "@tiptap-pro/extension-details";
-import DetailsSummary from "@tiptap-pro/extension-details-summary";
-import DetailsContent from "@tiptap-pro/extension-details-content";
-import Keyboard from "./Extensions/extension-keyboard";
-import Spoiler from "./Extensions/extension-spoiler";
-import CodeView from "./Extensions/extension-code-view";
-import { showImageUploader } from "./Extensions/extension-resizable-media/ImageUpload";
-import { ResizableMedia } from "./Extensions/extension-resizable-media";
-import { ImageButton } from "./Extensions/extension-resizable-media/ImageUpload";
 import { Caption } from "./Extensions/extension-caption";
-import { ResizableMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
-import { ResizableMediaWithCaptionBubbleMenu } from "./Extensions/extension-resizable-media-with-caption/ResizableMediaWithCaptionBubbleMenu";
+import CodeIndent from "./Extensions/extension-code-indent";
+import CodeView from "./Extensions/extension-code-view";
+import { CustomCommands } from "./Extensions/extension-custom-commands/custom-commands";
+import Indent from "./Extensions/extension-indent";
+import Keyboard from "./Extensions/extension-keyboard";
+import suggestion from "./Extensions/extension-mention/suggestion";
+// import { ResizableMedia } from "./Extensions/extension-resizable-media";
+// import { ResizableMediaWithCaptionBubbleMenu } from "./Extensions/extension-resizable-media-with-caption/ResizableMediaWithCaptionBubbleMenu";
+// import { ResizableMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
+// import { ImageButton } from "./Extensions/extension-resizable-media/ImageUpload";
+import Spoiler from "./Extensions/extension-spoiler";
 
 import { Media, MediaBubbleMenu } from "./Extensions/extension-media";
 
+import { TableHeader } from "@tiptap/extension-table-header";
+import { TableRow } from "@tiptap/extension-table-row";
+import { DBlock } from "./Extensions/extension-dBlock";
+// import { Panel, PanelType } from "./Extensions/extension-panel/panel";
 import { Table } from "./Extensions/extension-table";
 import { TableCell } from "./Extensions/extension-table-cell";
-import { TableRow } from "@tiptap/extension-table-row";
-import { TableHeader } from "@tiptap/extension-table-header";
-import { DBlock } from "./Extensions/extension-dBlock";
-import { Panel, PanelType } from "./Extensions/extension-panel/panel";
 
-import { TableBubbleMenu } from "./Extensions/extension-table/TableBubbleMenu";
 import { Document as Doc } from "./Extensions/extension-document";
+import { TableBubbleMenu } from "./Extensions/extension-table/TableBubbleMenu";
 
-import React, {
-	useRef,
-	useState,
-	useImperativeHandle,
-	useEffect,
-	useMemo,
-} from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Editor } from "@tiptap/react";
-import { MenuButton } from "./components/MenuButton";
 import MenuBlock from "./components/MenuBlock";
+import { MenuButton } from "./components/MenuButton";
 
-import { _t } from "./helpers/strings";
 import { getShortcut } from "@stackoverflow/stacks-editor/dist/shared/utils";
-import { MenuSplitButton } from "./components/MenuSplitButton";
 import { MenuDropdownButton } from "./components/MenuDropdownButton";
-import { MenuDropdownItem } from "./components/MenuDropdownItem";
+import { MenuSplitButton } from "./components/MenuSplitButton";
+import { _t } from "./helpers/strings";
 
 import { Level } from "@tiptap/extension-heading";
-import { escapeHTML } from "@stackoverflow/stacks-editor/dist/shared/utils";
 import { FontSize } from "./Extensions/extension-font-size";
 import { Link } from "./Extensions/extension-link/link";
-import { orderedList } from "@tiptap/pm/schema-list";
-import { getMarkType } from "@tiptap/react";
-import { isTextSelection } from "@tiptap/react";
 
-import { Node, NodeType, ResolvedPos } from "@tiptap/pm/model";
 import DropdownSection from "./components/DropdownSection";
 
-import { EditorState, TextSelection } from "@tiptap/pm/state";
-
-import { Extension } from "@tiptap/react";
-import { Range } from "@tiptap/core";
-import { menuBar } from "@tiptap/pm/menu";
-import { BubbleMenu } from "@tiptap/extension-bubble-menu";
-
 import codemirror from "codemirror";
+import "codemirror/addon/edit/closetag.js"; // autoCloseTags
+import "codemirror/addon/selection/active-line.js"; // require active-line.js
 import "codemirror/lib/codemirror.css"; // import base style
 import "codemirror/mode/xml/xml.js"; // language
-import "codemirror/addon/selection/active-line.js"; // require active-line.js
-import "codemirror/addon/edit/closetag.js"; // autoCloseTags
 
 // import "@stackoverflow/stacks/dist/js/stacks.min.js";
 
-import { showModal } from "@stackoverflow/stacks";
-import { EditorView } from "@tiptap/pm/view";
-
 import { showLinkEditor } from "./Extensions/extension-link/commands/showLinkEditor";
 
-import { LinkButton, LinkBubbleMenu } from "./components/LinkEditorModal";
+import { LinkBubbleMenu, LinkButton } from "./components/LinkEditorModal";
 
-import { DialogModalTester, ImageBubbleMenu } from "./components/Modal";
+import { DialogModalTester } from "./components/Modal";
 
 // import { setMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
 
@@ -801,8 +778,6 @@ const MenuBar = ({ editor, onViewChanged }: Props) => {
 		/>
 	);
 
-	let codeViewRef = useRef(null);
-
 	let [isCodeViewMode, setIsCodeViewMode] = useState(false);
 
 	// useImperativeHandle(
@@ -863,16 +838,16 @@ const MenuBar = ({ editor, onViewChanged }: Props) => {
 				insertTable
 			</button>
 
-			<button
+			{/* <button
 				onClick={() =>
 					editor.chain().focus().setPanel({ panelType: PanelType.INFO }).run()
 				}
 			>
 				insertPanel
-			</button>
+			</button> */}
 
 			<DialogModalTester editor={editor} />
-			<button
+			{/* <button
 				onClick={() =>
 					editor.commands.setMediaWithCaption({
 						"media-type": "img",
@@ -881,7 +856,7 @@ const MenuBar = ({ editor, onViewChanged }: Props) => {
 				}
 			>
 				ImgeWithCaption
-			</button>
+			</button> */}
 
 			<button
 				onClick={() =>
@@ -896,7 +871,7 @@ const MenuBar = ({ editor, onViewChanged }: Props) => {
 			</button>
 
 			<LinkButton view={editor.view} />
-			<ImageButton view={editor.view} editor={editor} />
+			{/* <ImageButton view={editor.view} editor={editor} /> */}
 			<div className="d-flex overflow-x-auto ai-center px12 py4 pb0">
 				<div className="d-flex g16 fl-grow1 ai-center js-editor-menu">
 					<MenuBlock children={[codeViewButton, test]} />
@@ -1059,8 +1034,6 @@ const App = () => {
 			Details,
 			DetailsSummary,
 			DetailsContent,
-			ResizableMedia,
-			ResizableMediaWithCaption,
 			Media,
 			Caption,
 			Table.configure({
@@ -1069,7 +1042,6 @@ const App = () => {
 			TableCell,
 			TableRow,
 			TableHeader,
-			Panel,
 			DBlock,
 			Doc,
 			new CodeView({
@@ -1083,7 +1055,7 @@ const App = () => {
 				includeChildren: true,
 				showOnlyCurrent: true,
 
-				placeholder: ({ node, editor }) => {
+				placeholder: ({ node }) => {
 					if (node.type.name === "detailsSummary") {
 						return "Summary";
 					}
@@ -1230,7 +1202,7 @@ const App = () => {
 			</div>
 			{editor ? <LinkBubbleMenu editor={editor} href="" /> : null}
 			{/* {editor ? <ImageBubbleMenu editor={editor} /> : null} */}
-			{editor ? <ResizableMediaWithCaptionBubbleMenu editor={editor} /> : null}
+			{/* {editor ? <ResizableMediaWithCaptionBubbleMenu editor={editor} /> : null} */}
 			{editor ? <MediaBubbleMenu editor={editor} /> : null}
 			{editor ? <TableBubbleMenu editor={editor} /> : null}
 
