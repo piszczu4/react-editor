@@ -42,6 +42,7 @@ import { TableCell } from "./Extensions/extension-table-cell";
 import { TableRow } from "@tiptap/extension-table-row";
 import { TableHeader } from "@tiptap/extension-table-header";
 import { DBlock } from "./Extensions/extension-dBlock";
+import { Panel, PanelType } from "./Extensions/extension-panel/panel";
 
 import { TableBubbleMenu } from "./Extensions/extension-table/TableBubbleMenu";
 import { Document as Doc } from "./Extensions/extension-document";
@@ -861,6 +862,15 @@ const MenuBar = ({ editor, onViewChanged }: Props) => {
 			>
 				insertTable
 			</button>
+
+			<button
+				onClick={() =>
+					editor.chain().focus().setPanel({ panelType: PanelType.INFO }).run()
+				}
+			>
+				insertPanel
+			</button>
+
 			<DialogModalTester editor={editor} />
 			<button
 				onClick={() =>
@@ -1059,6 +1069,7 @@ const App = () => {
 			TableCell,
 			TableRow,
 			TableHeader,
+			Panel,
 			DBlock,
 			Doc,
 			new CodeView({
