@@ -20,7 +20,7 @@ export const Capitalize = Extension.create({
 		return {
 			capitalize:
 				(type) =>
-				({ tr, state, editor, dispatch }) => {
+				({ tr, state, dispatch }) => {
 					// grab the current transaction and selection
 					const selection = tr.selection;
 

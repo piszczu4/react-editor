@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/media-has-caption */
 
+import { NodeViewProps, NodeViewWrapper } from "@tiptap/react";
 import { useEffect, useRef, useState } from "react";
-import { NodeViewWrapper, NodeViewProps } from "@tiptap/react";
 
 import { resizableMediaActions } from "./resizableMediaMenuUtil";
 
@@ -14,7 +14,6 @@ let lastClientX: number;
 export const ResizableMediaNodeViewV2 = ({
 	node,
 	updateAttributes,
-	deleteNode,
 }: NodeViewProps) => {
 	const [mediaType, setMediaType] = useState<"img" | "video">();
 
@@ -26,9 +25,9 @@ export const ResizableMediaNodeViewV2 = ({
 
 	const [proseMirrorContainerWidth, setProseMirrorContainerWidth] = useState(0);
 
-	const [mediaActionActiveState, setMediaActionActiveState] = useState<
-		Record<string, boolean>
-	>({});
+	// const [mediaActionActiveState, setMediaActionActiveState] = useState<
+	// 	Record<string, boolean>
+	// >({});
 
 	const resizableImgRef = useRef<HTMLImageElement | HTMLVideoElement | null>(
 		null
@@ -41,7 +40,7 @@ export const ResizableMediaNodeViewV2 = ({
 			activeStates[tooltip] = !!isActive?.(node.attrs);
 		});
 
-		setMediaActionActiveState(activeStates);
+		// setMediaActionActiveState(activeStates);
 	};
 
 	useEffect(() => {
@@ -90,8 +89,8 @@ export const ResizableMediaNodeViewV2 = ({
 		mediaSetupOnLoad();
 	});
 
-	const [isHorizontalResizeActive, setIsHorizontalResizeActive] =
-		useState(false);
+	// const [isHorizontalResizeActive, setIsHorizontalResizeActive] =
+	// 	useState(false);
 
 	interface WidthAndHeight {
 		width: number;
@@ -106,7 +105,7 @@ export const ResizableMediaNodeViewV2 = ({
 	};
 
 	const startHorizontalResize = (e: { clientX: number }) => {
-		setIsHorizontalResizeActive(true);
+		// setIsHorizontalResizeActive(true);
 		lastClientX = e.clientX;
 
 		setTimeout(() => {
@@ -116,7 +115,7 @@ export const ResizableMediaNodeViewV2 = ({
 	};
 
 	const stopHorizontalResize = () => {
-		setIsHorizontalResizeActive(false);
+		// setIsHorizontalResizeActive(false);
 		lastClientX = -1;
 
 		document.removeEventListener("mousemove", documentHorizontalMouseMove);
@@ -192,16 +191,16 @@ export const ResizableMediaNodeViewV2 = ({
 	let isWidthInPercentages =
 		typeof node.attrs.width === "string" && node.attrs.width.endsWith("%");
 
-	let [caption, setCaption] = useState(node.attrs.caption);
-	let captionRef = useRef<any>(null);
-	function onCaptionInput() {
-		setCaption(captionRef.current.innerText);
-		const end = captionRef.current.innerText.length;
+	// let [caption, setCaption] = useState(node.attrs.caption);
+	// let captionRef = useRef<any>(null);
+	// function onCaptionInput() {
+	// 	setCaption(captionRef.current.innerText);
+	// 	const end = captionRef.current.innerText.length;
 
-		// ✅ Move focus to END of input field
-		captionRef.current.setSelectionRange(end, end);
-		captionRef.current.focus();
-	}
+	// 	// ✅ Move focus to END of input field
+	// 	captionRef.current.setSelectionRange(end, end);
+	// 	captionRef.current.focus();
+	// }
 
 	let style: React.CSSProperties;
 	let transform = [

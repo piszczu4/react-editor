@@ -1,6 +1,5 @@
 import { MarkType } from "@tiptap/pm/model";
-import { getMarkType } from "@tiptap/react";
-import { RawCommands } from "@tiptap/react";
+import { RawCommands, getMarkType } from "@tiptap/react";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
@@ -15,7 +14,7 @@ declare module "@tiptap/core" {
 
 export const isMarkAllowed: RawCommands["isMarkAllowed"] =
 	(typeOrName: string | MarkType) =>
-	({ editor, view }) => {
+	({ view }) => {
 		let state = view.state;
 		let { doc, tr } = state;
 		let { ranges } = tr.selection;

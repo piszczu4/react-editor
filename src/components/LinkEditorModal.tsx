@@ -1,22 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom";
 
-import { toggleMark } from "prosemirror-commands";
-import { TextSelection } from "prosemirror-state";
-import { Decoration, DecorationSet } from "prosemirror-view";
-import { _t } from "../helpers/strings";
 import { EditorView } from "@tiptap/pm/view";
+import { TextSelection } from "prosemirror-state";
+import { _t } from "../helpers/strings";
 
-import { useEffect, useRef } from "react";
 import { hideModal, showModal } from "@stackoverflow/stacks";
+import { useEffect, useRef } from "react";
 
-import { BubbleMenu } from "@tiptap/react";
-import { Editor } from "@tiptap/react";
+import { BubbleMenu, Editor } from "@tiptap/react";
 
-import tippy, { roundArrow } from "tippy.js";
 import "tippy.js/dist/svg-arrow.css";
 
-import { getMarkRange, getMarkAttributes } from "@tiptap/react";
+import { getMarkAttributes, getMarkRange } from "@tiptap/react";
 import { stackOverflowValidateLink } from "../Extensions/extension-link/utils";
 
 type LinkButtonProps = {
@@ -234,11 +230,11 @@ type BubbleMenuProps = {
 	href: string;
 };
 
-export function LinkBubbleMenu({ editor, href }: BubbleMenuProps) {
+export function LinkBubbleMenu({ editor }: BubbleMenuProps) {
 	let ref = useRef<any>(null);
-	let editButtonRef = useRef<any>(null);
-	let removeButtonRef = useRef<any>(null);
-	let linkRef = useRef<any>(null);
+	// let editButtonRef = useRef<any>(null);
+	// let removeButtonRef = useRef<any>(null);
+	// let linkRef = useRef<any>(null);
 
 	const popoverId = "link-tooltip-popover";
 

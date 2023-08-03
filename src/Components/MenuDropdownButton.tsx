@@ -1,10 +1,4 @@
 import React from "react";
-import { ReactDOM } from "react";
-
-import { escapeHTML } from "@stackoverflow/stacks-editor/dist/shared/utils";
-
-import { generateRandomId } from "@stackoverflow/stacks-editor/dist/shared/utils";
-import { useState } from "react";
 
 import { MenuButton } from "./MenuButton";
 import { MenuPopover } from "./MenuPopover";

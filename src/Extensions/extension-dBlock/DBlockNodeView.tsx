@@ -40,6 +40,7 @@ export const DBlockNodeView: React.FC<NodeViewProps> = ({
 					onClick={createNodeAfter}
 				>
 					<i className="i-mdi-plus" />
+					plus
 				</button>
 				<div
 					className="d-block-button group-hover:opacity-100"
@@ -48,6 +49,7 @@ export const DBlockNodeView: React.FC<NodeViewProps> = ({
 					data-drag-handle
 				>
 					<i className="i-ic-baseline-drag-indicator" />
+					drag
 				</div>
 			</section>
 

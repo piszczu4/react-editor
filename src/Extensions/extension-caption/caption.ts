@@ -1,4 +1,4 @@
-import { mergeAttributes, Node, nodeInputRule } from "@tiptap/core";
+import { mergeAttributes, Node } from "@tiptap/core";
 
 export interface CaptionOptions {
 	// inline: boolean, // we have floating support, so block is good enough

@@ -1,5 +1,4 @@
 import { EditorView } from "@tiptap/pm/view";
-import { showModal } from "@stackoverflow/stacks";
 import { LinkEditor } from "../link-editor";
 
 import { createRoot } from "react-dom/client";

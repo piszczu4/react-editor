@@ -1,8 +1,6 @@
 import { mergeAttributes, Node, wrappingInputRule } from "@tiptap/core";
+import { EditorState, Plugin, PluginKey, Transaction } from "@tiptap/pm/state";
 import { _t } from "../../helpers/strings";
-import { Plugin, PluginKey } from "@tiptap/pm/state";
-import { Transaction, EditorState } from "@tiptap/pm/state";
-import { Editor } from "@tiptap/react";
 
 /**
  * Compares two states and returns true if the doc has changed between them.
