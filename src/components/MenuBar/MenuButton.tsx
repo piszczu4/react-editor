@@ -50,7 +50,7 @@ export const MenuButton = ({
 			onClick={!disabled ? command : () => false}
 		>
 			{icon !== null && icon}
-			{text && <span className="mw-btn--text">{text}</span>}
+			{text && <div className="mw-btn--text">{text}</div>}
 			{dropdown?.isDropdownButton && (
 				<DropdownIcon className="mw-btn--dropdown-icon" />
 			)}
@@ -70,19 +70,21 @@ export const MenuButton = ({
 		</Tippy>
 	);
 
-	if (!dropdown?.isDropdownButton) return buttonWithTooltip;
+	if (!dropdown?.isDropdownButton) return <div>{buttonWithTooltip}</div>;
 
 	return (
-		<Tippy
-			className="mw-popover"
-			content={dropdown.dropdownContent}
-			animation={false}
-			placement="bottom"
-			interactive={true}
-			visible={dropdown.isOpen}
-			onClickOutside={() => dropdown.setIsOpen && dropdown.setIsOpen(false)}
-		>
-			{buttonWithTooltip}
-		</Tippy>
+		<div>
+			<Tippy
+				className="mw-popover"
+				content={dropdown.dropdownContent}
+				animation={false}
+				placement="bottom"
+				interactive={true}
+				visible={dropdown.isOpen}
+				onClickOutside={() => dropdown.setIsOpen && dropdown.setIsOpen(false)}
+			>
+				{buttonWithTooltip}
+			</Tippy>
+		</div>
 	);
 };

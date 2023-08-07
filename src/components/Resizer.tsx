@@ -1,12 +1,15 @@
 import { useRef } from "react";
 
-type Props = { ref: any };
-
 // ! had to manage this state outside of the component because `useState` isn't fast enough and creates problem cause
 // ! the function is getting old data even though new data is set by `useState` before the execution of function
+
 let lastClientX: number;
 
-export const Resizer = ({ ref }: Props) => {
+type Props = {
+	targetId: string;
+};
+
+export const Resizer = ({ targetId }: Props) => {
 	// const setLastClientX = (x: number) => {
 	// 	lastClientX = x;
 	// };
@@ -92,9 +95,9 @@ export const Resizer = ({ ref }: Props) => {
 		if (e.touches) currentPosition = e.touches[0].clientY;
 		else currentPosition = e.clientY;
 
-		lastClientY = ref.current?.offsetHeight;
-		console.log("LastClientY");
-		console.log(lastClientY);
+		lastClientY = document.getElementById(targetId)?.offsetHeight;
+		// console.log("LastClientY");
+		// console.log(lastClientY);
 
 		// document.addEventListener("mousemove", documentHorizontalMouseMove);
 		// document.addEventListener("mouseup", stopHorizontalResize);
@@ -104,11 +107,11 @@ export const Resizer = ({ ref }: Props) => {
 		e.preventDefault();
 		mouseDown = false;
 
-		lastClientY = document.getElementById("editor-content")?.offsetHeight;
+		lastClientY = document.getElementById(targetId)?.offsetHeight;
 
 		// lastClientY = ref.current?.offsetHeight;
-		console.log("LastClientY");
-		console.log(lastClientY);
+		// console.log("LastClientY");
+		// console.log(lastClientY);
 	}
 
 	function touchMouseMove(e: any) {
@@ -117,15 +120,15 @@ export const Resizer = ({ ref }: Props) => {
 		if (e.touches) var pozycja = e.touches[0].clientY;
 		else var pozycja = e.clientY;
 
-		console.log("pozycja");
-		console.log(pozycja);
+		// console.log("pozycja");
+		// console.log(pozycja);
 
 		var wysokosc = pozycja - currentPosition;
 
-		console.log("wysokosc");
-		console.log(wysokosc);
+		// console.log("wysokosc");
+		// console.log(wysokosc);
 
-		document.getElementById("editor-content")!.style.height =
+		document.getElementById(targetId)!.style.height =
 			lastClientY + wysokosc + "px";
 	}
 

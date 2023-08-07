@@ -7,9 +7,9 @@ type Props = {
 
 export const TooltipContent = ({ content, shortcut }: Props): JSX.Element => {
 	return (
-		<p>
+		<span>
 			{content}
 			{shortcut && <span className="mw-shortcut">{getShortcut(shortcut)}</span>}
-		</p>
+		</span>
 	);
 };

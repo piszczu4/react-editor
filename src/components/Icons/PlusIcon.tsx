@@ -13,8 +13,8 @@ export default ({ className }: Props) => {
 			xmlns="http://www.w3.org/2000/svg"
 		>
 			<path
-				fill-rule="evenodd"
-				clip-rule="evenodd"
+				fillRule="evenodd"
+				clipRule="evenodd"
 				d="M10 2H8V8H2V10H8V16H10V10H16V8H10V2Z"
 				fill="black"
 			/>

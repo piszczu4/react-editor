@@ -59,26 +59,22 @@ export const FontSize = Extension.create<FontSizeOptions>({
 		return {
 			setFontSize:
 				(fontSize) =>
-				({ chain }) => {
-					return chain().setMark("textStyle", { fontSize: fontSize }).run();
+				({ commands }) => {
+					return commands.setMark("textStyle", { fontSize: fontSize });
 				},
 			unsetFontSize:
 				() =>
-				({ chain }) => {
-					return (
-						chain()
-							.setMark("textStyle", { fontSize: null })
-							// .removeEmptyTextStyle()
-							.run()
-					);
+				({ commands }) => {
+					return commands.setMark("textStyle", { fontSize: null });
+					// .removeEmptyTextStyle();
 				},
 			toggleFontSize:
 				(fontSize) =>
-				({ chain }) => {
+				({ commands }) => {
 					if (this.editor.isActive("textStyle", { fontSize: fontSize })) {
-						return chain().focus().unsetFontSize().run();
+						return commands.unsetFontSize();
 					} else {
-						return chain().focus().setFontSize(fontSize).run();
+						return commands.setFontSize(fontSize);
 					}
 				},
 		};

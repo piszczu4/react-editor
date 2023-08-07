@@ -29,12 +29,12 @@ export const DBlockNodeView: React.FC<NodeViewProps> = ({
 	};
 
 	return (
-		<NodeViewWrapper as="div" className="flex gap-2 group w-full relative">
-			<section
-				className="flex gap-1"
-				aria-label="left-menu"
-				contentEditable="false"
-			>
+		<NodeViewWrapper
+			as="div"
+			data-block
+			className="flex gap-2 group w-full relative"
+		>
+			<section className="flex gap-1" aria-label="left-menu">
 				<button
 					type="button"
 					className="d-block-button plus-btn group-hover:opacity-100"
