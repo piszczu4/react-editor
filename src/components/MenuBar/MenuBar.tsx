@@ -39,6 +39,7 @@ import Tippy from "@tippyjs/react";
 import { TextColorSplitButton } from "./TextColorSplitButton";
 import { TableButton } from "./TableButton";
 import { CodeViewButton } from "./CodeViewButton";
+import { BackgroundColorSplitButton } from "./BackgroundColorSplitButton";
 
 type MenuBarProps = {
 	editor: Editor;
@@ -74,6 +75,9 @@ export const MenuBar = ({
 						<UnderlineButton editor={editor} />
 						<ItalicButton editor={editor} />
 						<StrikethroughButton editor={editor} />
+						<SubscriptButton editor={editor} />
+						<TextColorSplitButton editor={editor} />
+						<BackgroundColorSplitButton editor={editor} />
 					</MenuBlock>
 					<MenuBlock>
 						<CodeButton editor={editor} />
@@ -89,7 +93,6 @@ export const MenuBar = ({
 
 					<MenuBlock>
 						<FullscreenButton
-							editor={editor}
 							isFullscreenMode={isFullscreenMode}
 							setIsFullscreenMode={setIsFullscreenMode}
 						/>
@@ -107,11 +110,9 @@ export const MenuBar = ({
 							setIsCodeViewMode={setIsCodeViewMode}
 						/>
 						<TableButton editor={editor} />
-						<TextColorSplitButton editor={editor} />
 						<KeyboardButton editor={editor} />
 						<SpoilerButton editor={editor} />
 						{/* <DetailsButton editor={editor} /> */}
-						<SubscriptButton editor={editor} />
 						<SuperscriptButton editor={editor} />
 						<ClearFormattingButton editor={editor} />
 						<TaskListButton editor={editor} />

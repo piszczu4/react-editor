@@ -1,29 +1,5 @@
-// const COLORS = [
-// 	{ label: "Dark grey", color: "rgb(23, 43, 77)" },
-// 	{ label: "Light gray", color: "rgb(117, 129, 149)" },
-// 	{ label: "White", color: "rgb(255, 255, 255)" },
-// 	{ label: "Dark blue", color: "rgb(0, 85, 204)" },
-// 	{ label: "Blue", color: "rgb(29, 122, 252)" },
-// 	{ label: "Light blue", color: "rgb(204, 224, 255)" },
-// 	{ label: "Dark teal", color: "rgb(32, 107, 116)" },
-// 	{ label: "Teal", color: "rgb(29, 154, 170)" },
-// 	{ label: "Light teal", color: "rgb(193, 240, 245)" },
-// 	{ label: "Dark green", color: "rgb(33, 110, 78)" },
-// 	{ label: "Green", color: "rgb(34, 160, 107)" },
-// 	{ label: "Light green", color: "rgb(186, 243, 219)" },
-// 	{ label: "Dark Orange", color: "rgb(217, 112, 8)" },
-// 	{ label: "Orange", color: "rgb(250, 165, 61)" },
-// 	{ label: "Light yellow", color: "rgb(248, 230, 160)" },
-// 	{ label: "Dark red", color: "rgb(174, 42, 25)" },
-// 	{ label: "Red", color: "rgb(227, 73, 53)" },
-// 	{ label: "Light red", color: "rgb(255, 210, 204)" },
-// 	{ label: "Dark purple", color: "rgb(94, 77, 178)" },
-// 	{ label: "Purple", color: "rgb(130, 112, 219)" },
-// 	{ label: "Light purple", color: "rgb(223, 216, 253)" },
-// ];
-
 import { TrashIcon } from ".";
-import { MenuDropdown } from "./MenuDropdown";
+import { useState } from "react";
 
 const COLORS = [
 	{ color: "rgb(191, 237, 210)", label: "Light Green" },
@@ -50,45 +26,113 @@ const COLORS = [
 	{ color: "white", label: "White" },
 ];
 
-type ColorItemProps = {
-	color: string;
-	label: string;
+const isColor = (strColor: string) => {
+	const s = new Option().style;
+	s.color = strColor;
+	return s.color !== "";
 };
 
-const ColorItem = ({ color, label }: ColorItemProps) => {
+type ColorItemProps = {
+	color: string;
+	label?: string;
+	disabled?: boolean;
+	colorCommand?: any;
+};
+
+const ColorItem = ({
+	color,
+	label,
+	disabled = false,
+	colorCommand,
+}: ColorItemProps) => {
 	return (
 		<button
+			onClick={colorCommand(color)}
 			className="mw-color-palette--color-btn"
 			title={label}
 			style={{
 				backgroundColor: color,
 			}}
+			disabled={disabled}
 		></button>
 	);
 };
 
-export const ColorPalette = () => {
+const ColorInput = ({ colorCommand }: { colorCommand: any }) => {
+	let [color, setColor] = useState<string>("");
+	let [disabled, setDisabled] = useState<boolean>(true);
+
+	function handleInput(value: string) {
+		setColor(value);
+
+		if (isColor(value)) {
+			setDisabled(false);
+		} else {
+			setDisabled(true);
+		}
+	}
+
+	return (
+		<div
+			className={`color-input-container ${
+				color === "" ? "" : disabled ? "has-error" : "has-success"
+			}`}
+		>
+			<label className="s-label mb4">Color</label>
+			<div className="color-input">
+				<input
+					onInput={(e) => handleInput((e.target as HTMLInputElement).value)}
+					className="s-input"
+				></input>
+				<ColorItem
+					color={disabled ? "darkgrey" : color}
+					disabled={disabled}
+					colorCommand={colorCommand}
+				/>
+			</div>
+			<p className="s-input-message mt4">
+				{color === ""
+					? "Enter valid CSS color"
+					: disabled
+					? "Color is invalid!"
+					: "Color is correct!"}
+			</p>
+		</div>
+	);
+};
+
+type Props = {
+	colorCommand: any;
+	deleteCommand: any;
+};
+
+export const ColorPalette = ({ colorCommand, deleteCommand }: Props) => {
 	let colorItems = COLORS.map(({ color, label }, index) => {
-		return <ColorItem key={index} color={color} label={label} />;
+		return (
+			<ColorItem
+				key={index}
+				color={color}
+				label={label}
+				colorCommand={colorCommand}
+			/>
+		);
 	});
 
 	let deleteButton = (
-		<button className="mw-color-palette--delete-btn" title="Delete">
+		<button
+			onClick={deleteCommand}
+			className="mw-color-palette--delete-btn"
+			title="Delete"
+		>
 			<TrashIcon />
 		</button>
 	);
 
-	let colorInput = (
-		<div className="mw-color-palette--color-input">
-			<input placeholder="color name/rgb/hsl"></input>
-			<button>OK</button>
-		</div>
-	);
-
 	let palette = (
-		<div>
+		<div id="color-palette-popover">
+			<label className="s-label mb4">Presets</label>
 			<div id="mw-color-palette">{...colorItems} {deleteButton}</div>
-			{colorInput}
+			{<ColorInput colorCommand={colorCommand} />}
 		</div>
 	);
 	return palette;

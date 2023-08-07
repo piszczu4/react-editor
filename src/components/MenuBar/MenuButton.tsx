@@ -70,10 +70,11 @@ export const MenuButton = ({
 		</Tippy>
 	);
 
-	if (!dropdown?.isDropdownButton) return <div>{buttonWithTooltip}</div>;
+	if (!dropdown?.isDropdownButton)
+		return <div className="tippy">{buttonWithTooltip}</div>;
 
 	return (
-		<div>
+		<span className="tippy">
 			<Tippy
 				className="mw-popover"
 				content={dropdown.dropdownContent}
@@ -85,6 +86,6 @@ export const MenuButton = ({
 			>
 				{buttonWithTooltip}
 			</Tippy>
-		</div>
+		</span>
 	);
 };

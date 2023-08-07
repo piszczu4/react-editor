@@ -69,6 +69,11 @@ import { LinkBubbleMenu } from "./components/LinkEditorModal";
 import { Resizer } from "./components/Resizer";
 import { initialContent } from "./initialContent";
 import { TrailingNode } from "./extensions/extension-trailing-node";
+
+import { Resizable, ResizableBox } from "react-resizable";
+
+import Highlight from "@tiptap/extension-highlight";
+
 // import { setMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
 
 const App = () => {
@@ -83,6 +88,7 @@ const App = () => {
 			// Doc,
 			// DBlock,
 			Color.configure({ types: [TextStyle.name, ListItem.name] }),
+			Highlight.configure({ multicolor: true }),
 			TextStyle,
 			Underline,
 			Subscript,
@@ -238,7 +244,8 @@ const App = () => {
 			)}
 
 			{/* {!isCodeViewMode && !isFullscreenMode && (
-				<Resizer targetId={"editor-content"} />
+				<div>Empty div...</div>
+				// <Resizer targetId={"editor-content"} />
 			)} */}
 
 			{

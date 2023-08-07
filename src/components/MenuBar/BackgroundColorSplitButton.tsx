@@ -11,19 +11,19 @@ type Props = {
 	editor: Editor;
 };
 
-export const TextColorSplitButton = ({ editor }: Props) => {
+export const BackgroundColorSplitButton = ({ editor }: Props) => {
 	return (
 		<MenuSplitButton
-			id="text-color-split-button"
-			button={<TextColorButton editor={editor} />}
-			dropdownButton={<TextColorDropdownButton editor={editor} />}
+			id="background-color-split-button"
+			button={<BackgroundColorButton editor={editor} />}
+			dropdownButton={<BackgroundColorDropdownButton editor={editor} />}
 		/>
 	);
 };
 
 let lastColor = "";
 
-export const TextColorDropdownButton = ({ editor }: Props) => {
+export const BackgroundColorDropdownButton = ({ editor }: Props) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
@@ -32,7 +32,6 @@ export const TextColorDropdownButton = ({ editor }: Props) => {
 				setIsOpen(!isOpen);
 				return true;
 			}}
-			disabled={!editor.can().chain().focus().toggleBulletList()}
 			tooltip={{
 				content: <TooltipContent content="Text color" />,
 			}}
@@ -42,12 +41,12 @@ export const TextColorDropdownButton = ({ editor }: Props) => {
 				dropdownContent: (
 					<ColorPalette
 						colorCommand={(color: string) => () => {
-							editor.chain().focus().setColor(color).run();
+							editor.chain().focus().toggleHighlight({ color: color }).run();
 							setIsOpen(false);
 							lastColor = color;
 						}}
 						deleteCommand={() => {
-							editor.chain().focus().unsetColor().run();
+							editor.chain().focus().unsetHighlight().run();
 							setIsOpen(false);
 						}}
 					/>
@@ -59,14 +58,18 @@ export const TextColorDropdownButton = ({ editor }: Props) => {
 	);
 };
 
-export const TextColorButton = ({ editor }: Props) => {
+export const BackgroundColorButton = ({ editor }: Props) => {
 	return (
 		<MenuButton
 			icon={<TextColorIcon color={lastColor} />}
-			command={() => editor.chain().focus().setColor(lastColor).run()}
-			disabled={!editor.can().chain().focus().setColor(lastColor)}
+			command={() =>
+				editor.chain().focus().setHighlight({ color: lastColor }).run()
+			}
+			disabled={
+				!editor.can().chain().focus().setHighlight({ color: lastColor })
+			}
 			tooltip={{
-				content: <TooltipContent content="Text color" />,
+				content: <TooltipContent content="Background color" />,
 			}}
 		/>
 	);

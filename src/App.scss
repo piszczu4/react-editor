@@ -874,7 +874,7 @@ figcaption p {
 	border-radius: var(--_bu-br);
 	border: var(--_bu-baw) solid var(--_bu-bc);
 	background-color: inherit;
-
+	width: 100%;
 	&.is-disabled {
 		cursor: not-allowed;
 		opacity: 0.5;
@@ -911,14 +911,19 @@ figcaption p {
 	display: flex;
 	border-radius: 6px;
 
-	> button:nth-child(1) {
-		border-bottom-right-radius: 0px;
-		border-top-right-radius: 0px;
+	> .tippy:nth-child(1) > button {
+		border-bottom-right-radius: 0px !important;
+		border-top-right-radius: 0px !important;
+		padding-left: 2px;
+		padding-right: 2px;
 	}
 
-	> button:nth-child(2) {
+	.tippy:nth-child(2) > button {
 		border-bottom-left-radius: 0px;
 		border-top-left-radius: 0px;
+		width: 15px;
+		padding-left: 2px;
+		padding-right: 2px;
 	}
 
 	&:hover {
@@ -995,40 +1000,52 @@ figcaption p {
 	border-radius: 10px;
 }
 
-#mw-color-palette {
-	border-radius: 4px !important;
-	overflow: hidden;
-	padding: 0px !important;
-	display: grid !important;
-	grid-template-columns: repeat(5, minmax(0, 5fr)) !important;
-	.mw-color-palette--color-btn {
-		border: 0;
-		width: 30px;
-		height: 30px;
-		&:hover {
-			box-shadow: 0 0 0 1px rgba(127, 127, 127, 0.3) inset;
-			transform: scale(0.8);
-		}
+#color-palette-popover {
+	padding: 5px;
 
-		transition: transform 0.15s;
-	}
+	#mw-color-palette {
+		overflow: hidden;
+		padding: 0px !important;
+		display: grid !important;
+		grid-template-columns: repeat(5, minmax(0, 5fr)) !important;
 
-	.mw-color-palette--delete-btn {
-		width: 30px;
-		height: 30px;
-		background-color: inherit;
-		border: none;
-		transition: transform 0.15s;
-		&:hover {
-			box-shadow: 0 0 0 1px rgba(127, 127, 127, 0.3) inset;
-			transform: scale(0.8);
+		.mw-color-palette--delete-btn {
+			width: 30px;
+			height: 30px;
+			background-color: inherit;
+			border: none;
+			transition: transform 0.15s;
+			&:hover {
+				box-shadow: 0 0 0 1px rgba(127, 127, 127, 0.3) inset;
+				transform: scale(0.8);
+			}
 		}
 	}
 }
 
-.mw-color-palette--color-input {
-	input {
-		width: 100px;
+.mw-color-palette--color-btn {
+	border: 0;
+	width: 30px;
+	height: 30px;
+	&:hover {
+		box-shadow: 0 0 0 1px rgba(127, 127, 127, 0.3) inset;
+		transform: scale(0.8);
+	}
+
+	transition: transform 0.15s;
+}
+
+.color-input-container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	.color-input {
+		display: flex;
+		gap: 8px;
+		input {
+			width: 110px;
+		}
 	}
 }
 
@@ -1042,6 +1059,10 @@ figcaption p {
 
 .d-none {
 	display: none !important;
+}
+
+.tippy {
+	width: 100%;
 }
 
 // body {

@@ -5,13 +5,11 @@ import { TooltipContent } from "../TooltipContent";
 import { useState } from "react";
 
 type Props = {
-	editor: Editor;
 	isFullscreenMode: boolean;
 	setIsFullscreenMode: (isCodeViewMode: boolean) => void;
 };
 
 export const FullscreenButton = ({
-	editor,
 	isFullscreenMode,
 	setIsFullscreenMode,
 }: Props) => {

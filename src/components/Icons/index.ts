@@ -21,13 +21,13 @@ export { default as ScreenNormalIcon } from "./ScreenNormalIcon";
 export { default as TrashIcon } from "./TrashIcon";
 export { default as UnderlineIcon } from "./UnderlineIcon";
 export { default as TableIcon } from "./TableIcon";
+export { default as SubscriptIcon } from "./SubscriptIcon";
 
 export { default as CodeViewIcon } from "./BoldIcon";
 export { default as KeyboardIcon } from "./BoldIcon";
 export { default as PanelIcon } from "./BoldIcon";
 export { default as SpoilerIcon } from "./BoldIcon";
 export { default as DetailsIcon } from "./BoldIcon";
-export { default as SubscriptIcon } from "./BoldIcon";
 export { default as SuperscriptIcon } from "./BoldIcon";
 export { default as ClearFormattingIcon } from "./BoldIcon";
 export { default as TaskListIcon } from "./BoldIcon";
