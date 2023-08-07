@@ -73,8 +73,12 @@ import { TrailingNode } from "./extensions/extension-trailing-node";
 import { Resizable, ResizableBox } from "react-resizable";
 
 import Highlight from "@tiptap/extension-highlight";
+import { Panel } from "./extensions/extension-panel/panel";
+import { PanelBubbleMenu } from "./extensions/extension-panel/PanelBubbleMenu";
 
 // import { setMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
+
+import "tippy.js/animations/shift-toward-subtle.css";
 
 const App = () => {
 	const editor = useEditor({
@@ -104,6 +108,7 @@ const App = () => {
 			Indent,
 			Spoiler,
 			CodeIndent,
+			Panel,
 			Keyboard,
 			TaskList,
 			TaskItem.configure({
@@ -280,6 +285,7 @@ const App = () => {
 			{/* {editor ? <ImageBubbleMenu editor={editor} /> : null} */}
 			{editor ? <MediaBubbleMenu editor={editor} /> : null}
 			{editor ? <TableBubbleMenu editor={editor} /> : null}
+			{editor ? <PanelBubbleMenu editor={editor} /> : null}
 		</div>
 	);
 };

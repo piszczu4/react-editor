@@ -1,19 +1,77 @@
-// import React, { useRef, useState, useEffect } from "react";
-// import { NodeViewWrapper, NodeViewProps, NodeViewContent } from "@tiptap/react";
+import React, { useRef, useState, useEffect } from "react";
+import { NodeViewWrapper, NodeViewProps, NodeViewContent } from "@tiptap/react";
+import ErrorIcon from "../../components/Icons/ErrorIcon";
+import { PanelType } from "./panel";
+import InfoIcon from "../../components/Icons/InfoIcon";
+import NoteIcon from "../../components/Icons/NoteIcon";
+import SuccessIcon from "../../components/Icons/SuccessIcon";
+import WarningIcon from "../../components/Icons/WarningIcon";
+import TipIcon from "../../components/Icons/TipIcon";
 
-// // ! had to manage this state outside of the component because `useState` isn't fast enough and creates problem cause
-// // ! the function is getting old data even though new data is set by `useState` before the execution of function
-// let lastClientX: number;
+function getIcon(panelType: PanelType) {
+	return panelType === PanelType.INFO ? (
+		<InfoIcon />
+	) : panelType === PanelType.ERROR ? (
+		<ErrorIcon />
+	) : panelType === PanelType.NOTE ? (
+		<NoteIcon />
+	) : panelType === PanelType.SUCCESS ? (
+		<SuccessIcon />
+	) : panelType === PanelType.WARNING ? (
+		<WarningIcon />
+	) : (
+		<TipIcon />
+	);
+}
 
-// export function MediaNodeView({
-// 	node,
-// 	updateAttributes,
-// 	deleteNode,
-// }: NodeViewProps) {
-// 	let x = node;
-// 	return (
-// 		<NodeViewWrapper as="div">
-// 			<div></div>
-// 		</NodeViewWrapper>
-// 	);
-// }
+function getColor(panelType: PanelType) {
+	return panelType === PanelType.INFO
+		? "rgb(233, 242, 255)"
+		: panelType === PanelType.ERROR
+		? "rgb(255, 237, 235)"
+		: panelType === PanelType.NOTE
+		? "rgb(243, 240, 255)"
+		: panelType === PanelType.SUCCESS
+		? "rgb(223, 252, 240)"
+		: panelType === PanelType.WARNING
+		? "rgb(255, 247, 214)"
+		: "";
+}
+
+function getIconColor(panelType: PanelType) {
+	return panelType === PanelType.INFO
+		? "#1D7AFC"
+		: panelType === PanelType.ERROR
+		? "#E34935"
+		: panelType === PanelType.NOTE
+		? "#8270DB"
+		: panelType === PanelType.SUCCESS
+		? "#22A06B"
+		: panelType === PanelType.WARNING
+		? "#D97008"
+		: "";
+}
+
+export function PanelNodeView({
+	node,
+	updateAttributes,
+	deleteNode,
+}: NodeViewProps) {
+	return (
+		<NodeViewWrapper
+			as="div"
+			className="mw-panel"
+			data-panel-type={node.attrs.panelType}
+			style={{ backgroundColor: getColor(node.attrs.panelType) }}
+		>
+			<div
+				className="mw-panel--icon"
+				contentEditable={false}
+				style={{ color: getIconColor(node.attrs.panelType) }}
+			>
+				{getIcon(node.attrs.panelType)}
+			</div>
+			<NodeViewContent className="mw-panel--content" />
+		</NodeViewWrapper>
+	);
+}

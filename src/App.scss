@@ -932,6 +932,39 @@ figcaption p {
 	}
 }
 
+.mw-panel {
+	border-radius: 3px;
+	margin: 0.75rem 0px 0px;
+	padding: var(--ds-space-100, 8px);
+	min-width: 48px;
+	display: flex;
+	position: relative;
+	-webkit-box-align: baseline;
+	align-items: baseline;
+	word-break: break-word;
+
+	.mw-panel--icon {
+		flex-shrink: 0;
+		height: 24px;
+		width: 24px;
+		box-sizing: content-box;
+		padding-right: 8px;
+		text-align: center;
+		user-select: none;
+		margin-bottom: 0px !important;
+		> svg {
+			vertical-align: middle;
+			display: inline-flex;
+		}
+	}
+
+	.mw-panel--content {
+		margin: 1px 0px;
+		flex: 1 0 0px;
+		min-width: 0px;
+	}
+}
+
 // d-block button
 .ProseMirror .d-block-button {
 	padding: 2px;

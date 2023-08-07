@@ -40,6 +40,7 @@ import { TextColorSplitButton } from "./TextColorSplitButton";
 import { TableButton } from "./TableButton";
 import { CodeViewButton } from "./CodeViewButton";
 import { BackgroundColorSplitButton } from "./BackgroundColorSplitButton";
+import { PanelButton } from "./PanelButton";
 
 type MenuBarProps = {
 	editor: Editor;
@@ -88,6 +89,8 @@ export const MenuBar = ({
 						<BlockquoteButton editor={editor} />
 						{/* <HorizontalRuleButton editor={editor} /> */}
 					</MenuBlock>
+
+					<PanelButton editor={editor} />
 
 					<MenuBlock>{<FontSizeDropdownButton editor={editor} />}</MenuBlock>
 

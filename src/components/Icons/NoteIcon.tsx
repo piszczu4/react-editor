@@ -1,4 +1,8 @@
-export default (className: string) => {
+type Props = {
+	className?: string;
+};
+
+export default ({ className }: Props) => {
 	return (
 		<svg
 			className={className}
