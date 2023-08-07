@@ -117,13 +117,13 @@ const App = () => {
 			TableRow,
 			TableHeader,
 			// TrailingNode,
-			// new CodeView({
-			// 	codemirror,
-			// 	codemirrorOptions: {
-			// 		styleActiveLine: true,
-			// 		autoCloseTags: true,
-			// 	},
-			// }),
+			new CodeView({
+				codemirror,
+				codemirrorOptions: {
+					styleActiveLine: true,
+					autoCloseTags: true,
+				},
+			}),
 			Placeholder.configure({
 				includeChildren: true,
 				showOnlyCurrent: true,
@@ -156,74 +156,53 @@ const App = () => {
 	});
 
 	// Code View
-	const [isCodeViewMode, setIsCodeViewMode] = useState(false);
-	let contentRef = useRef<any>(null);
+	const [isCodeViewMode, setIsCodeViewMode] = useState<boolean>(false);
 	let cmTextAreaRef = useRef(null);
+	let [cmInstance, setCmInstance] = useState<any>(null);
 
-	// let state: any;
-	// if (editor) {
-	// 	const codeView = (editor as Editor).extensionManager.extensions.find(
-	// 		(e) => e.name === "code_view"
-	// 	);
+	useEffect(() => {
+		if (!editor) return;
+		let state = cmInstance;
+		if (isCodeViewMode && !cmInstance) {
+			const codeView = (editor as Editor).extensionManager.extensions.find(
+				(e) => e.name === "code_view"
+			);
+			if (codeView) {
+				const { codemirror, codemirrorOptions } = codeView.options;
+				if (codemirror) {
+					// merge options
+					const cmOptions = {
+						...codemirrorOptions,
+						readOnly: !(editor as Editor).isEditable,
+					};
 
-	// 	if (codeView && cmTextAreaRef.current) {
-	// 		const { codemirror, codemirrorOptions } = codeView.options;
-	// 		if (codemirror) {
-	// 			// merge options
-	// 			const cmOptions = {
-	// 				...codemirrorOptions,
-	// 				readOnly: !(editor as Editor).isEditable,
-	// 			};
-	// 			state = codemirror.fromTextArea(cmTextAreaRef.current, cmOptions);
-	// 		}
-	// 	}
-	// }
+					state = codemirror.fromTextArea(cmTextAreaRef.current, cmOptions);
+					setCmInstance(state);
+				}
+			}
+		}
 
-	// let [cmInstance, setCmInstance] = useState<any>(null);
-
-	// useEffect(() => {
-	// 	if (!editor) return;
-	// 	let state = cmInstance;
-	// 	if (isCodeViewMode && !cmInstance) {
-	// 		const codeView = (editor as Editor).extensionManager.extensions.find(
-	// 			(e) => e.name === "code_view"
-	// 		);
-	// 		if (codeView) {
-	// 			const { codemirror, codemirrorOptions } = codeView.options;
-	// 			if (codemirror) {
-	// 				// merge options
-	// 				const cmOptions = {
-	// 					...codemirrorOptions,
-	// 					readOnly: !(editor as Editor).isEditable,
-	// 				};
-
-	// 				state = codemirror.fromTextArea(cmTextAreaRef.current, cmOptions);
-	// 				setCmInstance(state);
-	// 			}
-	// 		}
-	// 	}
-
-	// 	if (isCodeViewMode) {
-	// 		state.setValue((editor as Editor).getHTML()); // init content
-	// 		// Format code
-	// 		state.execCommand("selectAll");
-	// 		const selectedRange = {
-	// 			from: state.getCursor(true),
-	// 			to: state.getCursor(false),
-	// 		};
-	// 		state.autoFormatRange(selectedRange.from, selectedRange.to);
-	// 		state.setCursor(0);
-	// 	} else {
-	// 		if (!state) return;
-	// 		const content = state.getValue();
-	// 		(editor as Editor).commands.setContent(content, true);
-	// 		// Destroy code mirror
-	// 		const element = state.doc.cm.getWrapperElement();
-	// 		element && element.remove && element.remove();
-	// 		setCmInstance(null);
-	// 		state = null;
-	// 	}
-	// }, [isCodeViewMode, cmInstance]);
+		if (isCodeViewMode) {
+			state.setValue((editor as Editor).getHTML()); // init content
+			// Format code
+			state.execCommand("selectAll");
+			const selectedRange = {
+				from: state.getCursor(true),
+				to: state.getCursor(false),
+			};
+			state.autoFormatRange(selectedRange.from, selectedRange.to);
+			state.setCursor(0);
+		} else {
+			if (!state) return;
+			const content = state.getValue();
+			(editor as Editor).commands.setContent(content, true);
+			// Destroy code mirror
+			const element = state.doc.cm.getWrapperElement();
+			element && element.remove && element.remove();
+			setCmInstance(null);
+			state = null;
+		}
+	}, [isCodeViewMode]);
 
 	const [isFullscreenMode, setIsFullscreenMode] = useState(false);
 
@@ -243,7 +222,6 @@ const App = () => {
 			/>
 
 			<div
-				ref={contentRef}
 				id="editor-content"
 				className={`s-prose ProseMirror ${!isCodeViewMode ? "" : "d-none"}`}
 			>
@@ -252,15 +230,24 @@ const App = () => {
 
 			{isCodeViewMode && (
 				<div
+					id="codemirror"
 					className={`mw-editor__codemirror ${isCodeViewMode ? "" : "d-none"}`}
 				>
 					<textarea ref={cmTextAreaRef}></textarea>
 				</div>
 			)}
 
-			{!isCodeViewMode && !isFullscreenMode && (
+			{/* {!isCodeViewMode && !isFullscreenMode && (
 				<Resizer targetId={"editor-content"} />
-			)}
+			)} */}
+
+			{
+				<div className={isFullscreenMode ? "d-none" : ""}>
+					<Resizer
+						targetId={isCodeViewMode ? "codemirror" : "editor-content"}
+					/>
+				</div>
+			}
 
 			{/* {editor ? (
 				<div id="editor-dialog" role="dialog">

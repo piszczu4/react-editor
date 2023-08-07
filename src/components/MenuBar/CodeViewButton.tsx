@@ -1,6 +1,7 @@
 import { MenuButton } from "./MenuButton";
 import { CodeViewIcon } from "..";
 import { TooltipContent } from "../TooltipContent";
+import { useState, useEffect } from "react";
 
 type Props = {
 	isCodeViewMode: boolean;
@@ -14,6 +15,7 @@ export const CodeViewButton = ({
 	return (
 		<MenuButton
 			icon={<CodeViewIcon />}
+			active={isCodeViewMode}
 			command={() => {
 				setIsCodeViewMode(!isCodeViewMode);
 				return true;

@@ -102,10 +102,10 @@ export const MenuBar = ({
 					</MenuBlock>
 
 					<MenuBlock>
-						{/* <CodeViewButton
+						<CodeViewButton
 							isCodeViewMode={isCodeViewMode}
 							setIsCodeViewMode={setIsCodeViewMode}
-						/> */}
+						/>
 						<TableButton editor={editor} />
 						<TextColorSplitButton editor={editor} />
 						<KeyboardButton editor={editor} />
