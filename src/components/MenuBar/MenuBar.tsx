@@ -41,6 +41,7 @@ import { TableButton } from "./TableButton";
 import { CodeViewButton } from "./CodeViewButton";
 import { BackgroundColorSplitButton } from "./BackgroundColorSplitButton";
 import { PanelButton } from "./PanelButton";
+import { MathPanelButton } from "./MathPanelButton";
 
 type MenuBarProps = {
 	editor: Editor;
@@ -91,6 +92,7 @@ export const MenuBar = ({
 					</MenuBlock>
 
 					<PanelButton editor={editor} />
+					<MathPanelButton editor={editor} />
 
 					<MenuBlock>{<FontSizeDropdownButton editor={editor} />}</MenuBlock>
 

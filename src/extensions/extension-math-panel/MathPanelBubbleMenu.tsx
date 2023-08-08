@@ -1,12 +1,11 @@
 import { BubbleMenu, Editor } from "@tiptap/react";
-import { PanelType } from "./panel";
-
+import { PanelType } from "./math-panel";
 type MediaBubbleMenuProps = { editor: Editor };
 
-export function PanelBubbleMenu({ editor }: MediaBubbleMenuProps) {
+export function MathPanelBubbleMenu({ editor }: MediaBubbleMenuProps) {
 	return (
 		<BubbleMenu
-			pluginKey={"panelBubbleMenu"}
+			pluginKey={"mathPanelBubbleMenu"}
 			editor={editor}
 			tippyOptions={{
 				duration: 200,
@@ -15,7 +14,7 @@ export function PanelBubbleMenu({ editor }: MediaBubbleMenuProps) {
 			}}
 			updateDelay={0}
 			shouldShow={(props) => {
-				return props.editor.isActive("panel");
+				return props.editor.isActive("mathPanel");
 			}}
 			className="mw-popover"
 		>
@@ -27,12 +26,12 @@ export function PanelBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() => {
-								editor.commands.updateAttributes("panel", {
-									panelType: PanelType.INFO,
+								editor.commands.updateAttributes("mathPanel", {
+									panelType: PanelType.DEFINITION,
 								});
 							}}
 						>
-							<span>Info</span>
+							<span>Definition</span>
 						</button>
 
 						<button
@@ -40,12 +39,12 @@ export function PanelBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() => {
-								editor.commands.updateAttributes("panel", {
-									panelType: PanelType.NOTE,
+								editor.commands.updateAttributes("mathPanel", {
+									panelType: PanelType.THEOREM,
 								});
 							}}
 						>
-							<span>Note</span>
+							<span>Theorem</span>
 						</button>
 
 						<button
@@ -53,12 +52,12 @@ export function PanelBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() => {
-								editor.commands.updateAttributes("panel", {
-									panelType: PanelType.SUCCESS,
+								editor.commands.updateAttributes("mathPanel", {
+									panelType: PanelType.EXAMPLE,
 								});
 							}}
 						>
-							<span>Success</span>
+							<span>Example</span>
 						</button>
 
 						<button
@@ -66,12 +65,12 @@ export function PanelBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() => {
-								editor.commands.updateAttributes("panel", {
-									panelType: PanelType.WARNING,
+								editor.commands.updateAttributes("mathPanel", {
+									panelType: PanelType.REMARK,
 								});
 							}}
 						>
-							<span>Warning</span>
+							<span>Remark</span>
 						</button>
 
 						<button
@@ -79,12 +78,12 @@ export function PanelBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() => {
-								editor.commands.updateAttributes("panel", {
-									panelType: PanelType.ERROR,
+								editor.commands.updateAttributes("mathPanel", {
+									panelType: PanelType.PROOF,
 								});
 							}}
 						>
-							<span>Error</span>
+							<span>PROOF</span>
 						</button>
 					</div>
 				</div>

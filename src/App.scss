@@ -965,6 +965,88 @@ figcaption p {
 	}
 }
 
+body {
+	--blue-theorem: #272687; // #1d7afc;
+	--light-blue-theorem: #e8e8f3; // rgb(233, 242, 255);
+	--green-example: #006000; // #22a06b;
+	--light-green-example: #e7eee6; // rgb(223, 252, 240);
+	--red: #e34935;
+	--light-red: rgb(255, 237, 235);
+	--purple: #8270db;
+	--light-purple: rgb(243, 240, 255);
+	--yellow-proof: #d97008;
+	--light-yellow-proof: rgba(217, 112, 8, 0.2);
+}
+
+.mw-math-panel {
+	border-radius: 10px;
+	box-shadow: 6px 6px 10px -7px rgba(66, 68, 90, 1);
+	overflow: hidden;
+	margin: 15px;
+	// max-width: 800px;
+
+	.mw-math-panel--name {
+		margin: 0px !important;
+		padding: 5px 8px;
+		display: block;
+		color: white;
+		font-weight: bold;
+		background-color: gold;
+	}
+
+	.mw-math-panel--body {
+		padding: 5px 8px;
+		display: block;
+		color: black;
+		background-color: lightgoldenrodyellow;
+	}
+
+	&[data-math-panel-type="definition"] {
+		.mw-math-panel--name {
+			background-color: var(--purple); // rgb(124, 71, 50);
+		}
+		.mw-math-panel--body {
+			background-color: var(--light-purple); // rgba(124, 71, 50, 0.2);
+		}
+	}
+
+	&[data-math-panel-type="theorem"] {
+		.mw-math-panel--name {
+			background-color: var(--blue-theorem); // #272687;
+		}
+		.mw-math-panel--body {
+			background-color: var(--light-blue-theorem); // #e8e8f3;
+		}
+	}
+
+	&[data-math-panel-type="example"] {
+		.mw-math-panel--name {
+			background-color: var(--green-example); // #006000;
+		}
+		.mw-math-panel--body {
+			background-color: var(--light-green-example); //#e7eee6;
+		}
+	}
+
+	&[data-math-panel-type="remark"] {
+		.mw-math-panel--name {
+			background-color: var(--red); // #bf0101;
+		}
+		.mw-math-panel--body {
+			background-color: var(--light-red); //#f8e7e6;
+		}
+	}
+
+	&[data-math-panel-type="proof"] {
+		.mw-math-panel--name {
+			background-color: var(--yellow-proof); // rgb(124, 71, 50);
+		}
+		.mw-math-panel--body {
+			background-color: var(--light-yellow-proof); // rgb(124, 71, 50);
+		}
+	}
+}
+
 // d-block button
 .ProseMirror .d-block-button {
 	padding: 2px;

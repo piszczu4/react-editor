@@ -79,6 +79,10 @@ import { PanelBubbleMenu } from "./extensions/extension-panel/PanelBubbleMenu";
 // import { setMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
 
 import "tippy.js/animations/shift-toward-subtle.css";
+import { MathPanel } from "./extensions/extension-math-panel/math-panel";
+import { MathPanelBody } from "./extensions/extension-math-panel/math-panel-body";
+import { MathPanelName } from "./extensions/extension-math-panel/math-panel-name";
+import { MathPanelBubbleMenu } from "./extensions/extension-math-panel/MathPanelBubbleMenu";
 
 const App = () => {
 	const editor = useEditor({
@@ -102,6 +106,9 @@ const App = () => {
 			FontFamily,
 			FontSize,
 			Link,
+			MathPanel,
+			MathPanelName,
+			MathPanelBody,
 			Mention.configure({ suggestion }),
 			OrderedList,
 			BulletList,
@@ -286,6 +293,7 @@ const App = () => {
 			{editor ? <MediaBubbleMenu editor={editor} /> : null}
 			{editor ? <TableBubbleMenu editor={editor} /> : null}
 			{editor ? <PanelBubbleMenu editor={editor} /> : null}
+			{editor ? <MathPanelBubbleMenu editor={editor} /> : null}
 		</div>
 	);
 };
