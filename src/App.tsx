@@ -83,6 +83,8 @@ import { MathPanel } from "./extensions/extension-math-panel/math-panel";
 import { MathPanelBody } from "./extensions/extension-math-panel/math-panel-body";
 import { MathPanelName } from "./extensions/extension-math-panel/math-panel-name";
 import { MathPanelBubbleMenu } from "./extensions/extension-math-panel/MathPanelBubbleMenu";
+import { MathInline } from "./extensions/extension-math/math-inline";
+import { MathDisplay } from "./extensions/extension-math/math-display";
 
 const App = () => {
 	const editor = useEditor({
@@ -133,6 +135,8 @@ const App = () => {
 			}),
 			TableCell,
 			TableRow,
+			MathInline,
+			MathDisplay,
 			TableHeader,
 			// TrailingNode,
 			new CodeView({
