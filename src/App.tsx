@@ -138,7 +138,7 @@ const App = () => {
 			MathInline,
 			MathDisplay,
 			TableHeader,
-			// TrailingNode,
+			TrailingNode,
 			new CodeView({
 				codemirror,
 				codemirrorOptions: {
