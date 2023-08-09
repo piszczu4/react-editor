@@ -1,5 +1,11 @@
 import "./App.scss";
 
+import "tippy.js/dist/tippy.css";
+// import "tippy.js/dist/svg-arrow.css";
+
+import "tippy.js/animations/scale-extreme.css";
+import "tippy.js/animations/shift-toward-subtle.css";
+
 import { MenuBar } from "./components/MenuBar";
 
 import { BulletList } from "./extensions/extension-bullet-list";
@@ -86,6 +92,9 @@ import { MathPanelBubbleMenu } from "./extensions/extension-math-panel/MathPanel
 import { MathInline } from "./extensions/extension-math/math-inline";
 import { MathDisplay } from "./extensions/extension-math/math-display";
 
+import Tippy from "@tippyjs/react";
+import InfoIcon from "./components/Icons/InfoIcon";
+
 const App = () => {
 	const editor = useEditor({
 		extensions: [
@@ -138,7 +147,7 @@ const App = () => {
 			MathInline,
 			MathDisplay,
 			TableHeader,
-			TrailingNode,
+			// TrailingNode,
 			new CodeView({
 				codemirror,
 				codemirrorOptions: {

@@ -1,5 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
-import { NodeViewWrapper, NodeViewProps, NodeViewContent } from "@tiptap/react";
+import {
+	NodeViewWrapper,
+	NodeViewProps,
+	NodeViewContent,
+	Editor,
+} from "@tiptap/react";
 import ErrorIcon from "../../components/Icons/ErrorIcon";
 import { PanelType } from "./panel";
 import InfoIcon from "../../components/Icons/InfoIcon";
@@ -7,6 +12,11 @@ import NoteIcon from "../../components/Icons/NoteIcon";
 import SuccessIcon from "../../components/Icons/SuccessIcon";
 import WarningIcon from "../../components/Icons/WarningIcon";
 import TipIcon from "../../components/Icons/TipIcon";
+import Tippy from "@tippyjs/react";
+import { PanelBubbleMenu } from "./PanelBubbleMenu";
+import { TrashIcon } from "../../components";
+
+import { BubbleMenu } from "@tiptap/react";
 
 function getIcon(panelType: PanelType) {
 	return panelType === PanelType.INFO ? (
@@ -52,15 +62,134 @@ function getIconColor(panelType: PanelType) {
 		: "";
 }
 
+function PanelBubbleMenuContent({ editor }: { editor: any }) {
+	return (
+		<span>
+			<div role="menu">
+				<div className="mw-panel-bubble-menu d-flex ai-center">
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => {
+							editor
+								.chain()
+								.focus()
+								.updateAttributes("panel", {
+									panelType: PanelType.INFO,
+								})
+								.run();
+						}}
+					>
+						<InfoIcon color={getIconColor(PanelType.INFO)} />
+					</button>
+
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => {
+							editor
+								.chain()
+								.focus()
+								.updateAttributes("panel", {
+									panelType: PanelType.NOTE,
+								})
+								.run();
+						}}
+					>
+						{" "}
+						<NoteIcon color={getIconColor(PanelType.NOTE)} />
+					</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => {
+							editor
+								.chain()
+								// .focus()
+								.updateAttributes("panel", {
+									panelType: PanelType.SUCCESS,
+								})
+								.run();
+						}}
+					>
+						<SuccessIcon color={getIconColor(PanelType.SUCCESS)} />
+					</button>
+
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => {
+							editor
+								.chain()
+								// .focus()
+								.updateAttributes("panel", {
+									panelType: PanelType.WARNING,
+								})
+								.run();
+						}}
+					>
+						<WarningIcon color={getIconColor(PanelType.WARNING)} />
+					</button>
+
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => {
+							editor
+								.chain()
+								// .focus()
+								.updateAttributes("panel", {
+									panelType: PanelType.ERROR,
+								})
+								.run();
+						}}
+					>
+						<ErrorIcon color={getIconColor(PanelType.ERROR)} />
+					</button>
+
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => {
+							editor.chain().deleteNode("panel").run();
+						}}
+					>
+						<TrashIcon />
+					</button>
+				</div>
+			</div>
+		</span>
+	);
+}
+
 export function PanelNodeView({
+	editor,
 	node,
 	updateAttributes,
 	deleteNode,
 }: NodeViewProps) {
 	return (
+		// <Tippy
+		// 	className="mw-popover panel-node-view"
+		// 	trigger="click"
+		// 	animation="shift-toward-subtle"
+		// 	hideOnClick={false}
+		// 	content={<PanelBubbleMenuContent editor={editor} />}
+		// 	interactive={true}
+		// 	placement={"bottom"}
+		// 	onClickOutside={(instance) => {
+		// 		instance.hide();
+		// 	}}
+		// >
 		<NodeViewWrapper
 			as="div"
-			className="mw-panel"
+			className="mw-panel panel-bubble-menu"
 			data-panel-type={node.attrs.panelType}
 			style={{ backgroundColor: getColor(node.attrs.panelType) }}
 		>
@@ -73,5 +202,6 @@ export function PanelNodeView({
 			</div>
 			<NodeViewContent className="mw-panel--content" />
 		</NodeViewWrapper>
+		// </Tippy>
 	);
 }

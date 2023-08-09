@@ -965,15 +965,22 @@ figcaption p {
 	}
 }
 
+.mw-separator {
+	background: rgba(9, 30, 66, 0.14);
+	width: 1px;
+	height: 20px;
+	margin: 0 4px;
+	// align-self: center;
+}
 body {
 	--blue-theorem: #272687; // #1d7afc;
 	--light-blue-theorem: #e8e8f3; // rgb(233, 242, 255);
 	--green-example: #006000; // #22a06b;
 	--light-green-example: #e7eee6; // rgb(223, 252, 240);
-	--red: #e34935;
-	--light-red: rgb(255, 237, 235);
-	--purple: #8270db;
-	--light-purple: rgb(243, 240, 255);
+	--red-remark: #e34935;
+	--light-red-remark: rgb(255, 237, 235);
+	--purple-definition: #8270db;
+	--light-purple-definition: rgb(243, 240, 255);
 	--yellow-proof: #d97008;
 	--light-yellow-proof: rgba(217, 112, 8, 0.2);
 }
@@ -1003,10 +1010,12 @@ body {
 
 	&[data-math-panel-type="definition"] {
 		.mw-math-panel--name {
-			background-color: var(--purple); // rgb(124, 71, 50);
+			background-color: var(--purple-definition); // rgb(124, 71, 50);
 		}
 		.mw-math-panel--body {
-			background-color: var(--light-purple); // rgba(124, 71, 50, 0.2);
+			background-color: var(
+				--light-purple-definition
+			); // rgba(124, 71, 50, 0.2);
 		}
 	}
 
@@ -1030,10 +1039,10 @@ body {
 
 	&[data-math-panel-type="remark"] {
 		.mw-math-panel--name {
-			background-color: var(--red); // #bf0101;
+			background-color: var(--red-remark); // #bf0101;
 		}
 		.mw-math-panel--body {
-			background-color: var(--light-red); //#f8e7e6;
+			background-color: var(--light-red-remark); //#f8e7e6;
 		}
 	}
 
@@ -1045,6 +1054,26 @@ body {
 			background-color: var(--light-yellow-proof); // rgb(124, 71, 50);
 		}
 	}
+}
+
+.mw-color--theorem {
+	background-color: var(--blue-theorem) !important;
+}
+
+.mw-color--definition {
+	background-color: var(--purple-definition) !important;
+}
+
+.mw-color--example {
+	background-color: var(--green-example) !important;
+}
+
+.mw-color--remark {
+	background-color: var(--red-remark) !important;
+}
+
+.mw-color--proof {
+	background-color: var(--yellow-proof) !important;
 }
 
 // d-block button
@@ -1178,6 +1207,32 @@ body {
 
 .tippy {
 	width: 100%;
+}
+
+// Math
+.math-node .math-src {
+	color: #9766f2 !important;
+}
+
+.math-src > :focus-visible {
+	outline: none !important;
+}
+
+math-display .math-render {
+	cursor: pointer !important;
+}
+
+math-display.ProseMirror-selectednode {
+	background-color: #23241f !important;
+	/* border-radius: 3px; */
+}
+
+.math-node.ProseMirror-selectednode {
+	box-shadow: none !important;
+}
+
+.math-render:hover {
+	outline: solid goldenrod 1px;
 }
 
 // body {
