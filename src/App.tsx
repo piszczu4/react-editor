@@ -44,6 +44,7 @@ import suggestion from "./extensions/extension-mention/suggestion";
 import Spoiler from "./extensions/extension-spoiler";
 
 import { Media, MediaBubbleMenu } from "./extensions/extension-media";
+import { ImageBubbleMenu } from "./components/BubbleMenus/ImageBubbleMenu";
 
 import { TableHeader } from "@tiptap/extension-table-header";
 import { TableRow } from "@tiptap/extension-table-row";
@@ -70,8 +71,6 @@ import "codemirror/mode/xml/xml.js"; // language
 
 // import "@stackoverflow/stacks/dist/js/stacks.min.js";
 
-import { LinkBubbleMenu } from "./components/LinkEditorModal";
-
 import { Resizer } from "./components/Resizer";
 import { initialContent } from "./initialContent";
 import { TrailingNode } from "./extensions/extension-trailing-node";
@@ -92,8 +91,14 @@ import { MathPanelBubbleMenu } from "./extensions/extension-math-panel/MathPanel
 import { MathInline } from "./extensions/extension-math/math-inline";
 import { MathDisplay } from "./extensions/extension-math/math-display";
 
+import { LinkBubbleMenu } from "./components/BubbleMenus/LinkBubbleMenu";
+
 import Tippy from "@tippyjs/react";
 import InfoIcon from "./components/Icons/InfoIcon";
+import { MathBubbleMenu } from "./components/BubbleMenus/MathBubbleMenu";
+import Image from "./extensions/extension-image";
+import Figure from "./extensions/extension-figure";
+import { FigureBubbleMenu } from "./components/BubbleMenus/FigureBubbleMenu";
 
 const App = () => {
 	const editor = useEditor({
@@ -137,8 +142,10 @@ const App = () => {
 			Details,
 			DetailsSummary,
 			DetailsContent,
-			Media,
+			// Media,
+			Figure,
 			Caption,
+			Image,
 			Table.configure({
 				resizable: true,
 			}),
@@ -163,6 +170,8 @@ const App = () => {
 					if (node.type.name === "detailsSummary") {
 						return "Summary";
 					}
+
+					if (node.type.name === "caption") return "";
 
 					return "Write something...";
 				},
@@ -251,14 +260,12 @@ const App = () => {
 				isFullscreenMode={isFullscreenMode}
 				setIsFullscreenMode={setIsFullscreenMode}
 			/>
-
 			<div
 				id="editor-content"
 				className={`s-prose ProseMirror ${!isCodeViewMode ? "" : "d-none"}`}
 			>
 				<EditorContent editor={editor} />
 			</div>
-
 			{isCodeViewMode && (
 				<div
 					id="codemirror"
@@ -267,12 +274,10 @@ const App = () => {
 					<textarea ref={cmTextAreaRef}></textarea>
 				</div>
 			)}
-
 			{/* {!isCodeViewMode && !isFullscreenMode && (
 				<div>Empty div...</div>
 				// <Resizer targetId={"editor-content"} />
 			)} */}
-
 			{
 				<div className={isFullscreenMode ? "d-none" : ""}>
 					<Resizer
@@ -280,7 +285,7 @@ const App = () => {
 					/>
 				</div>
 			}
-
+			<div id="modal-container" style={{ zIndex: 5000 }}></div>
 			{/* {editor ? (
 				<div id="editor-dialog" role="dialog">
 					<div
@@ -300,13 +305,14 @@ const App = () => {
 					</div>
 				</div>
 			) : null} */}
-
 			{editor ? <LinkBubbleMenu editor={editor} href="" /> : null}
 			{/* {editor ? <ImageBubbleMenu editor={editor} /> : null} */}
-			{editor ? <MediaBubbleMenu editor={editor} /> : null}
+			{/* {editor ? <MediaBubbleMenu editor={editor} /> : null} */}
+			{editor && <FigureBubbleMenu editor={editor} />}
 			{editor ? <TableBubbleMenu editor={editor} /> : null}
 			{editor ? <PanelBubbleMenu editor={editor} /> : null}
 			{editor ? <MathPanelBubbleMenu editor={editor} /> : null}
+			{editor && <MathBubbleMenu editor={editor} />}
 		</div>
 	);
 };

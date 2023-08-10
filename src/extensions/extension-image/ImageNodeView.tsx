@@ -5,20 +5,21 @@ import React, { useEffect, useRef, useState } from "react";
 // ! the function is getting old data even though new data is set by `useState` before the execution of function
 let lastClientX: number;
 
-export function MediaNodeView({ node, updateAttributes }: NodeViewProps) {
-	const [mediaType, setMediaType] = useState<"img" | "video">();
+const setLastClientX = (x: number) => {
+	lastClientX = x;
+};
 
-	useEffect(() => {
-		setMediaType(node.attrs["media-type"]);
-	}, [node.attrs]);
+interface WidthAndHeight {
+	width: number;
+	height: number;
+}
 
+export function ImageNodeView({ node, updateAttributes }: NodeViewProps) {
 	const [aspectRatio, setAspectRatio] = useState(0);
 
 	const [proseMirrorContainerWidth, setProseMirrorContainerWidth] = useState(0);
 
-	const resizableImgRef = useRef<HTMLImageElement | HTMLVideoElement | null>(
-		null
-	);
+	const resizableImgRef = useRef<HTMLImageElement | null>(null);
 
 	const mediaSetupOnLoad = () => {
 		// ! TODO: move this to extension storage
@@ -30,30 +31,13 @@ export function MediaNodeView({ node, updateAttributes }: NodeViewProps) {
 		// When the media has loaded
 		if (!resizableImgRef.current) return;
 
-		if (mediaType === "video") {
-			const video = resizableImgRef.current as HTMLVideoElement;
-
-			video.addEventListener("loadeddata", function () {
-				// Aspect Ratio from its original size
-				setAspectRatio(video.videoWidth / video.videoHeight);
-
-				// for the first time when video is added with custom width and height
-				// and we have to adjust the video height according to it's width
-				onHorizontalResize("left", 0);
-			});
-		} else {
-			resizableImgRef.current.onload = () => {
-				// Aspect Ratio from its original size
-				setAspectRatio(
-					(resizableImgRef.current as HTMLImageElement).naturalWidth /
-						(resizableImgRef.current as HTMLImageElement).naturalHeight
-				);
-			};
-		}
-	};
-
-	const setLastClientX = (x: number) => {
-		lastClientX = x;
+		resizableImgRef.current.onload = () => {
+			// Aspect Ratio from its original size
+			setAspectRatio(
+				(resizableImgRef.current as HTMLImageElement).naturalWidth /
+					(resizableImgRef.current as HTMLImageElement).naturalHeight
+			);
+		};
 	};
 
 	useEffect(() => {
@@ -62,11 +46,6 @@ export function MediaNodeView({ node, updateAttributes }: NodeViewProps) {
 
 	// const [isHorizontalResizeActive, setIsHorizontalResizeActive] =
 	// 	useState(false);
-
-	interface WidthAndHeight {
-		width: number;
-		height: number;
-	}
 
 	const limitWidthOrHeightToFiftyPixels = ({ width, height }: WidthAndHeight) =>
 		width < 100 || height < 100;
@@ -147,18 +126,6 @@ export function MediaNodeView({ node, updateAttributes }: NodeViewProps) {
 		});
 	};
 
-	const [isFloat, setIsFloat] = useState<boolean>();
-
-	useEffect(() => {
-		setIsFloat(node.attrs.dataFloat);
-	}, [node.attrs]);
-
-	const [isAlign, setIsAlign] = useState<boolean>();
-
-	useEffect(() => {
-		setIsAlign(node.attrs.dataAlign);
-	}, [node.attrs]);
-
 	let isWidthInPercentages =
 		typeof node.attrs.width === "string" && node.attrs.width.endsWith("%");
 
@@ -180,60 +147,28 @@ export function MediaNodeView({ node, updateAttributes }: NodeViewProps) {
 	return (
 		<NodeViewWrapper
 			as="div"
-			className={
-				"media-with-caption-node-view " +
-				(isFloat
-					? "f-" + node.attrs.dataFloat
-					: isAlign
-					? "justify-" + node.attrs.dataAlign
-					: "")
-			}
-			contentEditable={true}
-			style={{
-				width: isWidthInPercentages ? node.attrs.width : undefined,
-
-				marginRight:
-					(isWidthInPercentages && node.attrs.dataAlign === "left") ||
-					node.attrs.dataAlign === "center"
-						? "auto"
-						: undefined,
-				marginLeft:
-					(isWidthInPercentages && node.attrs.dataAlign === "right") ||
-					node.attrs.dataAlign === "center"
-						? "auto"
-						: undefined,
-			}}
+			className="image-node-view group"
+			contentEditable={false}
 		>
-			<figure contentEditable={false}>
-				<div className="media-container group" contentEditable={false}>
-					{mediaType === "img" && (
-						<img
-							src={node.attrs.src}
-							ref={resizableImgRef as any}
-							className="rounded-lg"
-							alt={node.attrs.src}
-							width={isWidthInPercentages ? "100%" : node.attrs.width}
-							height={!isWidthInPercentages ? node.attrs.height : null}
-							style={style}
-						/>
-					)}
+			<img
+				contentEditable={false}
+				src={node.attrs.src}
+				ref={resizableImgRef as any}
+				className="rounded-lg"
+				alt={node.attrs.src}
+				width={isWidthInPercentages ? "100%" : node.attrs.width}
+				height={!isWidthInPercentages ? node.attrs.height : null}
+				style={style}
+			/>
 
-					<div
-						contentEditable={false}
-						className="horizontal-resize-handle group-hover:bg-black group-hover:border-2 group-hover:border-white"
-						title="Resize"
-						onClick={({ clientX }) => setLastClientX(clientX)}
-						onMouseDown={startHorizontalResize}
-						onMouseUp={stopHorizontalResize}
-					/>
-				</div>
-
-				{node.attrs.caption && (
-					<figcaption>
-						<NodeViewContent></NodeViewContent>
-					</figcaption>
-				)}
-			</figure>
+			<div
+				contentEditable={false}
+				className="horizontal-resize-handle group-hover:bg-black group-hover:border-2 group-hover:border-white"
+				title="Resize"
+				onClick={({ clientX }) => setLastClientX(clientX)}
+				onMouseDown={startHorizontalResize}
+				onMouseUp={stopHorizontalResize}
+			/>
 		</NodeViewWrapper>
 	);
 }

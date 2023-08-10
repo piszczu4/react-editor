@@ -22,6 +22,7 @@ export { default as TrashIcon } from "./TrashIcon";
 export { default as UnderlineIcon } from "./UnderlineIcon";
 export { default as TableIcon } from "./TableIcon";
 export { default as SubscriptIcon } from "./SubscriptIcon";
+export { default as ImagesIcon } from "./ImagesIcon";
 
 export { default as CodeViewIcon } from "./BoldIcon";
 export { default as KeyboardIcon } from "./BoldIcon";

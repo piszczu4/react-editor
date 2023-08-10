@@ -1,17 +1,18 @@
 import { mergeAttributes, Node } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 
-import { MediaNodeView } from "./MediaNodeView";
+import { FigureNodeView } from "./FigureNodeView";
+import { ImageNodeView } from "../extension-image/ImageNodeView";
+import { findClosestNode } from "../../utils";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
-		media: {
+		figure: {
 			/**
 			 * Set media
 			 */
-			setMedia: (options: {
-				"media-type": "img" | "video";
-				src: string;
+			setFigure: (options: {
+				src?: string;
 				alt?: string;
 				title?: string;
 				width?: string;
@@ -24,20 +25,16 @@ declare module "@tiptap/core" {
 			 * Toggle caption
 			 */
 			toggleCaption: () => ReturnType;
-			/**
-			 * Rotate
-			 */
-			rotate: (deg: number, mode: "" | "-x" | "-y") => ReturnType;
 		};
 	}
 }
 
-export interface MediaOptions {
+export interface FigureOptions {
 	HTMLAttributes: Record<string, any>;
 }
 
-export const Media = Node.create<MediaOptions>({
-	name: "media",
+export const Figure = Node.create<FigureOptions>({
+	name: "figure",
 
 	addOptions() {
 		return {
@@ -53,7 +50,7 @@ export const Media = Node.create<MediaOptions>({
 
 	draggable: true,
 
-	content: "paragraph",
+	content: "image caption?",
 
 	selectable: true,
 
@@ -65,14 +62,6 @@ export const Media = Node.create<MediaOptions>({
 					src: attributes.src,
 				}),
 				parseHTML: (element: HTMLImageElement) => element.src,
-			},
-			"media-type": {
-				default: null,
-				renderHTML: (attributes) => ({
-					"data-media-type": attributes["media-type"],
-				}),
-				parseHTML: (element: HTMLElement) =>
-					element.getAttribute("data-media-type"),
 			},
 			alt: {
 				default: null,
@@ -98,27 +87,6 @@ export const Media = Node.create<MediaOptions>({
 				default: null, // 'left' | 'right'
 				parseHTML: (element: HTMLElement) => element.getAttribute("data-float"),
 			},
-			"data-rotate": {
-				default: null,
-				renderHTML: ({ "data-rotate": rotate }) => ({
-					"data-rotate": rotate,
-					style: rotate ? `transform: rotate(${rotate}deg)` : null,
-				}),
-				parseHTML: (element: HTMLElement) =>
-					element.getAttribute("data-rotate"),
-			},
-			"data-rotate-x": {
-				default: null,
-				renderHTML: ({ "data-rotate-x": rotateX }) => ({
-					"data-rotate-x": rotateX,
-					style: rotateX ? `transform: rotateX(${rotateX}deg)` : null,
-				}),
-				parseHTML: (element: HTMLElement) =>
-					element.getAttribute("data-rotate-x"),
-			},
-			"data-rotate-y": {
-				default: null,
-			},
 			caption: {
 				default: false,
 				parseHTML: (element: HTMLElement) =>
@@ -129,7 +97,7 @@ export const Media = Node.create<MediaOptions>({
 
 	addCommands() {
 		return {
-			setMedia:
+			setFigure:
 				(options) =>
 				({ chain }) => {
 					return chain()
@@ -137,11 +105,13 @@ export const Media = Node.create<MediaOptions>({
 							type: this.name,
 							attrs: options,
 							content: [
+								{ type: "image", attrs: options },
 								{
-									type: "paragraph",
+									type: "caption",
+									attrs: { caption: true },
 									content: [
 										{
-											type: "text",
+											type: "paragraph",
 											text: "Caption",
 										},
 									],
@@ -154,10 +124,29 @@ export const Media = Node.create<MediaOptions>({
 			toggleCaption:
 				() =>
 				({ editor }) => {
-					let { caption } = editor.getAttributes(this.name);
-					return editor.commands.updateAttributes("caption", {
-						caption: !caption,
-					});
+					let { caption } = editor.getAttributes("figure");
+					let imagePos = findClosestNode(editor, "image") as number;
+					if (caption)
+						return editor
+							.chain()
+							.focus()
+							.updateAttributes("figure", {
+								caption: !caption,
+							})
+							.setNodeSelection(imagePos)
+							.run();
+					else {
+						let captionPos = findClosestNode(editor, "caption") as number;
+
+						return editor
+							.chain()
+							.focus()
+							.updateAttributes("figure", {
+								caption: !caption,
+							})
+							.setTextSelection(captionPos + 1)
+							.run();
+					}
 
 					// let { caption } = editor.getAttributes("resizableMediaWithCaption");
 					// if (caption) {
@@ -187,17 +176,6 @@ export const Media = Node.create<MediaOptions>({
 					// 	return true;
 					// }
 				},
-
-			rotate:
-				(deg, mode) =>
-				({ commands, editor }) => {
-					let attr: string = `data-rotate${mode}`;
-					let currDeg = editor.getAttributes(this.name)[attr];
-					currDeg = currDeg ?? 0;
-					let attrs: Record<string, any> = {};
-					attrs[attr] = currDeg + deg;
-					return commands.updateAttributes(this.name, attrs);
-				},
 		};
 	},
 
@@ -218,6 +196,6 @@ export const Media = Node.create<MediaOptions>({
 	},
 
 	addNodeView() {
-		return ReactNodeViewRenderer(MediaNodeView);
+		return ReactNodeViewRenderer(FigureNodeView);
 	},
 });

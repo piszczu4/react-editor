@@ -42,6 +42,9 @@ import { CodeViewButton } from "./CodeViewButton";
 import { BackgroundColorSplitButton } from "./BackgroundColorSplitButton";
 import { PanelButton } from "./PanelButton";
 import { MathPanelButton } from "./MathPanelButton";
+import ReactModal from "react-modal";
+import { useState } from "react";
+import { ImageButton } from "./ImageButton";
 
 type MenuBarProps = {
 	editor: Editor;
@@ -61,6 +64,8 @@ export const MenuBar = ({
 	if (!editor) {
 		return null;
 	}
+
+	let [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<>
@@ -88,6 +93,7 @@ export const MenuBar = ({
 					</MenuBlock>
 					<MenuBlock>
 						<BlockquoteButton editor={editor} />
+						<ImageButton editor={editor} />
 						{/* <HorizontalRuleButton editor={editor} /> */}
 					</MenuBlock>
 
@@ -129,7 +135,41 @@ export const MenuBar = ({
 
 						<OrderedListSplitButton editor={editor} />
 						<BulletListSplitButton editor={editor} />
+
+						<button
+							onClick={() =>
+								editor.commands.setImage({
+									src: "https://i.ibb.co/F699RW5/leby.jpg",
+									width: "500px",
+								})
+							}
+						/>
+
+						<button
+							onClick={() =>
+								editor.commands.setFigure({
+									src: "https://i.ibb.co/F699RW5/leby.jpg",
+									width: "500px",
+								})
+							}
+						/>
 					</MenuBlock>
+
+					{/* <MyModal /> */}
+
+					{/* <div>
+						<button onClick={() => setIsOpen(!isOpen)}></button>
+						<ReactModal
+							isOpen={isOpen}
+							contentLabel="Minimal"
+							parentSelector={() =>
+								document.getElementById("modal-container") as HTMLElement
+							}
+						>
+							<button onClick={() => setIsOpen(false)}> siema</button>
+							<input type="file"></input>
+						</ReactModal>
+					</div> */}
 
 					{/* <MenuBlock children={[codeViewButton, test]} />
 					<span className="mw-menu-block__separator"></span>

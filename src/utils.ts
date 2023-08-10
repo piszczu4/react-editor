@@ -15,7 +15,6 @@ export function getShortcut(mapping: string) {
 	return getPlatformModKey() + mapping.slice(3);
 }
 
-
 export function findNodePos(editor: Editor, nodeType: string) {
 	let view = editor.view;
 	const { state } = view;
@@ -33,6 +32,33 @@ export function findNodePos(editor: Editor, nodeType: string) {
 			found = pos;
 		}
 	});
+	if (found > -1) {
+		return found;
+	}
+	return null;
+}
+
+export function findClosestNode(editor: any, nodeType: string) {
+	let view = editor.view;
+	const { state } = view;
+	const { selection } = state;
+
+	// support for CellSelections
+	const { ranges } = selection;
+	const from = Math.min(...ranges.map((range: any) => range.$from.pos));
+
+	let found = -1;
+
+	editor.view.state.doc.nodesBetween(
+		from,
+		editor.state.doc.content.size,
+		(node: any, pos: any) => {
+			if (found !== -1) return false;
+			if (node.type.name === nodeType) {
+				found = pos;
+			}
+		}
+	);
 	if (found > -1) {
 		return found;
 	}

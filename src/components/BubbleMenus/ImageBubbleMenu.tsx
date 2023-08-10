@@ -1,16 +1,18 @@
-import { BubbleMenu, Editor } from "@tiptap/react";
+import { Editor } from "@tiptap/react";
+import { BubbleMenu } from "@tiptap/react";
+type ImageBubbleMenuProps = { editor: Editor };
 
-type MediaBubbleMenuProps = { editor: Editor };
+export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
+	// const linkAttrs = getNodeAttributes(editor.state, "resizableMedia");
 
-export function MediaBubbleMenu({ editor }: MediaBubbleMenuProps) {
 	return (
 		<BubbleMenu
-			pluginKey={"mediaBubbleMenu"}
+			pluginKey={"imageBubbleMenu"}
 			editor={editor}
 			tippyOptions={{ maxWidth: "100%" }}
 			updateDelay={0}
 			shouldShow={(props) => {
-				return props.editor.isActive("image");
+				return true; // props.editor.isActive("media");
 			}}
 			className="mw-5 bs-ring bc-blue-300"
 		>
@@ -21,14 +23,11 @@ export function MediaBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							type="button"
 							className="flex--item s-btn mr4"
 							title=""
-							onClick={() => {
-								editor.commands.updateAttributes("media", {
-									width: "100%",
-								});
-								editor.commands.updateAttributes("media", {
+							onClick={() =>
+								editor.commands.updateAttributes("resizableMedia", {
 									width: "50%",
-								});
-							}}
+								})
+							}
 						>
 							<span>50%</span>
 						</button>
@@ -38,7 +37,7 @@ export function MediaBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() =>
-								editor.commands.updateAttributes("media", {
+								editor.commands.updateAttributes("resizableMedia", {
 									width: "75%",
 								})
 							}
@@ -51,7 +50,7 @@ export function MediaBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() =>
-								editor.commands.updateAttributes("media", {
+								editor.commands.updateAttributes("resizableMedia", {
 									width: "100%",
 								})
 							}
@@ -64,7 +63,7 @@ export function MediaBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() =>
-								editor.commands.updateAttributes("media", {
+								editor.commands.updateAttributes("resizableMedia", {
 									dataAlign: "left",
 									dataFloat: null,
 								})
@@ -78,7 +77,7 @@ export function MediaBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() =>
-								editor.commands.updateAttributes("media", {
+								editor.commands.updateAttributes("resizableMedia", {
 									dataAlign: "center",
 									dataFloat: null,
 								})
@@ -92,7 +91,7 @@ export function MediaBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() =>
-								editor.commands.updateAttributes("media", {
+								editor.commands.updateAttributes("resizableMedia", {
 									dataAlign: "right",
 									dataFloat: null,
 								})
@@ -106,7 +105,7 @@ export function MediaBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() =>
-								editor.commands.updateAttributes("media", {
+								editor.commands.updateAttributes("resizableMedia", {
 									dataAlign: null,
 									dataFloat: "left",
 								})
@@ -120,7 +119,7 @@ export function MediaBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							className="flex--item s-btn mr4"
 							title=""
 							onClick={() =>
-								editor.commands.updateAttributes("media", {
+								editor.commands.updateAttributes("resizableMedia", {
 									dataAlign: null,
 									dataFloat: "right",
 								})
@@ -133,62 +132,13 @@ export function MediaBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							type="button"
 							className="flex--item s-btn mr4"
 							title=""
-							onClick={() => editor.commands.toggleCaption()}
-						>
-							<span>Toggle Caption</span>
-						</button>
-
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => editor.commands.rotate(-90, "")}
-						>
-							<span>Rotate Left</span>
-						</button>
-
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => editor.commands.rotate(90, "")}
-						>
-							<span>Rotate Right</span>
-						</button>
-
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => editor.commands.rotate(180, "-x")}
-						>
-							<span>Rotate X </span>
-						</button>
-
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => editor.commands.rotate(180, "-y")}
-						>
-							<span>Rotate Y </span>
-						</button>
-
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
 							onClick={() =>
-								editor.commands.resetAttributes("media", [
-									"data-rotate",
-									"data-rotate-x",
-									"data-rotate-y",
-									"width",
-									"height",
-								])
+								editor.commands.updateAttributes("resizableMedia", {
+									caption: "Dupa",
+								})
 							}
 						>
-							<span>Reset </span>
+							<span>Toggle Caption</span>
 						</button>
 					</div>
 				</div>

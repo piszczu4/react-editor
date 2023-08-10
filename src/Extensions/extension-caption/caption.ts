@@ -22,11 +22,11 @@ export const Caption = Node.create<CaptionOptions>({
 		return {
 			caption: {
 				default: true,
-				// renderHTML: (attributes) => ({
-				// 	"data-caption": attributes["caption"],
-				// }),
-				// parseHTML: (element: HTMLElement) =>
-				// 	element.getAttribute("data-caption"),
+				renderHTML: (attributes) => ({
+					"data-caption": attributes["caption"],
+				}),
+				parseHTML: (element: HTMLElement) =>
+					element.getAttribute("data-caption"),
 			},
 		};
 	},
@@ -37,15 +37,13 @@ export const Caption = Node.create<CaptionOptions>({
 	parseHTML() {
 		return [
 			{
-				tag: "figcaption[data-caption]",
+				tag: "figcaption",
 			},
 		];
 	},
 
-	renderHTML(HTMLAttributes) {
+	renderHTML({ HTMLAttributes }) {
 		let attrs = mergeAttributes(this.options.HTMLAttributes, HTMLAttributes);
-		if (attrs.caption) {
-			return ["figcaption", attrs, 0];
-		} else return ["figcaption", attrs, 0]; //return ["figcaption"];
+		return ["figcaption", attrs, 0];
 	},
 });
