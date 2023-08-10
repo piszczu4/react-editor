@@ -99,6 +99,7 @@ import { MathBubbleMenu } from "./components/BubbleMenus/MathBubbleMenu";
 import Image from "./extensions/extension-image";
 import Figure from "./extensions/extension-figure";
 import { FigureBubbleMenu } from "./components/BubbleMenus/FigureBubbleMenu";
+import Iframe from "./extensions/extension-iframe";
 
 const App = () => {
 	const editor = useEditor({
@@ -128,6 +129,7 @@ const App = () => {
 			Mention.configure({ suggestion }),
 			OrderedList,
 			BulletList,
+			Iframe,
 			Indent,
 			Spoiler,
 			CodeIndent,

@@ -153,6 +153,17 @@ export const MenuBar = ({
 								})
 							}
 						/>
+
+						<button
+							onClick={() =>
+								editor.commands.setIframe({
+									src: "https://player.vimeo.com/video/852812634?h=bf341d034c",
+									width: "500",
+								})
+							}
+						>
+							Iframe
+						</button>
 					</MenuBlock>
 
 					{/* <MyModal /> */}
