@@ -54,7 +54,7 @@ import { Table } from "./extensions/extension-table";
 import { TableCell } from "./extensions/extension-table-cell";
 
 import { Document as Doc } from "./extensions/extension-document";
-import { TableBubbleMenu } from "./extensions/extension-table/TableBubbleMenu";
+import { CellBubbleMenu } from "./extensions/extension-table-cell/CellBubbleMenu";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -100,6 +100,8 @@ import Image from "./extensions/extension-image";
 import Figure from "./extensions/extension-figure";
 import { FigureBubbleMenu } from "./components/BubbleMenus/FigureBubbleMenu";
 import Iframe from "./extensions/extension-iframe";
+import { TableBubbleMenu } from "./components/BubbleMenus/TableBubbleMenu";
+import { VideoBubbleMenu } from "./components/BubbleMenus/VideoBubbleMenu";
 
 const App = () => {
 	const editor = useEditor({
@@ -311,10 +313,12 @@ const App = () => {
 			{/* {editor ? <ImageBubbleMenu editor={editor} /> : null} */}
 			{/* {editor ? <MediaBubbleMenu editor={editor} /> : null} */}
 			{editor && <FigureBubbleMenu editor={editor} />}
-			{editor ? <TableBubbleMenu editor={editor} /> : null}
+			{editor ? <CellBubbleMenu editor={editor} /> : null}
 			{editor ? <PanelBubbleMenu editor={editor} /> : null}
 			{editor ? <MathPanelBubbleMenu editor={editor} /> : null}
 			{editor && <MathBubbleMenu editor={editor} />}
+			{editor && <TableBubbleMenu editor={editor} />}
+			{editor && <VideoBubbleMenu editor={editor} />}
 		</div>
 	);
 };

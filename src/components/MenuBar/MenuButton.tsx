@@ -25,6 +25,7 @@ type Props = {
 		dropdownContent?: JSX.Element;
 		isOpen?: boolean;
 		setIsOpen?: (isOpen: boolean) => void;
+		dropdownIcon?: boolean;
 	};
 };
 
@@ -67,8 +68,7 @@ export const MenuButton = ({
 		</Tippy>
 	);
 
-	if (!dropdown?.isDropdownButton)
-		return <div className="tippy">{buttonWithTooltip}</div>;
+	if (!dropdown) return <div className="tippy">{buttonWithTooltip}</div>;
 
 	return (
 		<span className="tippy">

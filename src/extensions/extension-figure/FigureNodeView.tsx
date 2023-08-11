@@ -26,7 +26,7 @@ export function FigureNodeView({
 
 	return (
 		<NodeViewWrapper
-			as="div"
+			as="figure"
 			className={
 				"figure-node-view " +
 				(isFloat
@@ -37,6 +37,7 @@ export function FigureNodeView({
 			}
 			data-caption={node.attrs.caption}
 			style={{
+				overflowX: "auto",
 				width: isImageWidthInPx
 					? width
 					: isWidthInPercentages

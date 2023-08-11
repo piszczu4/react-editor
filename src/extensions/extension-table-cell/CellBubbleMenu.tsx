@@ -2,15 +2,15 @@ import { BubbleMenu, Editor } from "@tiptap/react";
 
 type TableBubbleMenuProps = { editor: Editor };
 
-export function TableBubbleMenu({ editor }: TableBubbleMenuProps) {
+export function CellBubbleMenu({ editor }: TableBubbleMenuProps) {
 	return (
 		<BubbleMenu
-			pluginKey={"tableBubbleMenu"}
+			pluginKey={"cellBubbleMenu"}
 			editor={editor}
 			tippyOptions={{ maxWidth: "100%" }}
 			updateDelay={0}
 			shouldShow={(props) => {
-				return props.editor.isActive("table");
+				return false; //props.editor.isActive("tableCell");
 			}}
 			className="mw-5 bs-ring bc-blue-300"
 		>

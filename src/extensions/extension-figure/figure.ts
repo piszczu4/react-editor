@@ -4,13 +4,11 @@ import { ReactNodeViewRenderer } from "@tiptap/react";
 import { FigureNodeView } from "./FigureNodeView";
 import { ImageNodeView } from "../extension-image/ImageNodeView";
 import { findClosestNode } from "../../utils";
+import { createTable } from "@tiptap/extension-table";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
 		figure: {
-			/**
-			 * Set media
-			 */
 			setFigure: (options: {
 				src?: string;
 				alt?: string;
@@ -21,9 +19,13 @@ declare module "@tiptap/core" {
 				dataFloat?: string;
 				caption?: boolean;
 			}) => ReturnType;
-			/**
-			 * Toggle caption
-			 */
+			setTable: () => ReturnType;
+			setVideo: (options: {
+				src: string;
+				width: string;
+				height: string;
+			}) => ReturnType;
+
 			toggleCaption: () => ReturnType;
 		};
 	}
@@ -50,7 +52,7 @@ export const Figure = Node.create<FigureOptions>({
 
 	draggable: true,
 
-	content: "image caption?",
+	content: "(image|table|iframe) caption?",
 
 	selectable: true,
 
@@ -121,6 +123,30 @@ export const Figure = Node.create<FigureOptions>({
 						.run();
 				},
 
+			setVideo:
+				(options) =>
+				({ chain }) => {
+					return chain()
+						.insertContent({
+							type: this.name,
+							attrs: options,
+							content: [{ type: "iframe", attrs: options }],
+						})
+						.run();
+				},
+			setTable:
+				() =>
+				({ editor, chain }) => {
+					let figure = editor.schema.nodes.figure;
+					let table = createTable(editor.schema, 3, 3, false);
+					let caption = editor.schema.nodes.caption.create();
+					let figureNode = figure.create({}, [table, caption]);
+
+					editor.view.dispatch(
+						editor.state.tr.replaceSelectionWith(figureNode).scrollIntoView()
+					);
+					return true;
+				},
 			toggleCaption:
 				() =>
 				({ editor }) => {

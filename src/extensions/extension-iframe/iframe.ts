@@ -1,5 +1,7 @@
 import { Node, mergeAttributes } from "@tiptap/core";
+import { ReactNodeViewRenderer } from "@tiptap/react";
 import { IframeHTMLAttributes } from "react";
+import { IframeNodeView } from "./IframeNodeView";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
@@ -10,14 +12,14 @@ declare module "@tiptap/core" {
 			setIframe: (options: {
 				src: string;
 				width?: string;
-				height?: number;
+				height?: string;
 			}) => ReturnType;
 		};
 	}
 }
 
 export const Iframe = Node.create({
-	name: "video",
+	name: "iframe",
 	group: "block",
 	selectable: true,
 	draggable: true,
@@ -33,11 +35,11 @@ export const Iframe = Node.create({
 				parseHTML: (element: HTMLIFrameElement) => element.src,
 			},
 			width: {
-				default: "640",
+				default: "100%",
 				parseHTML: (element: HTMLElement) => element.getAttribute("width"),
 			},
 			height: {
-				default: "auto",
+				default: "100%",
 				parseHTML: (element: HTMLElement) => element.getAttribute("height"),
 			},
 		};
@@ -52,7 +54,7 @@ export const Iframe = Node.create({
 	},
 
 	renderHTML({ HTMLAttributes }) {
-		return ["video", mergeAttributes(HTMLAttributes)];
+		return ["iframe", mergeAttributes(HTMLAttributes)];
 	},
 
 	addCommands() {
@@ -66,22 +68,24 @@ export const Iframe = Node.create({
 	},
 
 	addNodeView() {
-		return ({ editor, node }) => {
-			const div = document.createElement("div");
-			div.className =
-				"video-container" + (editor.isEditable ? " cursor-pointer" : "");
-			const iframe = document.createElement("iframe");
-			// if (editor.isEditable) {
-			// 	iframe.className = "pointer-events-none";
-			// }
-			iframe.width = node.attrs.width;
-			iframe.height = node.attrs.height;
-			iframe.allowFullscreen = true;
-			iframe.src = node.attrs.src;
-			div.append(iframe);
-			return {
-				dom: div,
-			};
-		};
+		return ReactNodeViewRenderer(IframeNodeView);
+
+		// return ({ editor, node }) => {
+		// 	const div = document.createElement("div");
+		// 	div.className =
+		// 		"video-container" + (editor.isEditable ? " cursor-pointer" : "");
+		// 	const iframe = document.createElement("iframe");
+		// 	// if (editor.isEditable) {
+		// 	// 	iframe.className = "pointer-events-none";
+		// 	// }
+		// 	iframe.width = node.attrs.width;
+		// 	iframe.height = node.attrs.height;
+		// 	iframe.allowFullscreen = true;
+		// 	iframe.src = node.attrs.src;
+		// 	div.append(iframe);
+		// 	return {
+		// 		dom: div,
+		// 	};
+		// };
 	},
 });

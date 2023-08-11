@@ -158,11 +158,28 @@ export const MenuBar = ({
 							onClick={() =>
 								editor.commands.setIframe({
 									src: "https://player.vimeo.com/video/852812634?h=bf341d034c",
-									width: "500",
+									width: "640",
+									height: "360",
 								})
 							}
 						>
 							Iframe
+						</button>
+
+						<button
+							onClick={() =>
+								editor.commands.setVideo({
+									src: "https://player.vimeo.com/video/852812634?h=bf341d034c",
+									width: "640",
+									height: "360",
+								})
+							}
+						>
+							video figure
+						</button>
+
+						<button onClick={() => editor.commands.setTable()}>
+							table figure
 						</button>
 					</MenuBlock>
 
