@@ -74,10 +74,6 @@ export const MenuBar = ({
 			<div id="editor-menu-bar--sticky-wrapper">
 				<div id="editor-menu-bar">
 					<MenuBlock>
-						<UndoButton editor={editor} />
-						<RedoButton editor={editor} />
-					</MenuBlock>
-					<MenuBlock>
 						<BoldButton editor={editor} />
 						<UnderlineButton editor={editor} />
 						<ItalicButton editor={editor} />
@@ -107,7 +103,6 @@ export const MenuBar = ({
 							isFullscreenMode={isFullscreenMode}
 							setIsFullscreenMode={setIsFullscreenMode}
 						/>
-						<HelpButton />
 					</MenuBlock>
 
 					<MenuBlock>

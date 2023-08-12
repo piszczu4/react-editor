@@ -1,7 +1,5 @@
 import "./App.scss";
-
-import "tippy.js/dist/tippy.css";
-// import "tippy.js/dist/svg-arrow.css";
+import "./styles/popover.scss";
 
 import "tippy.js/animations/scale-extreme.css";
 import "tippy.js/animations/shift-toward-subtle.css";
@@ -54,8 +52,7 @@ import { Table } from "./extensions/extension-table";
 import { TableCell } from "./extensions/extension-table-cell";
 
 import { Document as Doc } from "./extensions/extension-document";
-import { CellBubbleMenu } from "./extensions/extension-table-cell/CellBubbleMenu";
-
+import { TableCellBubbleMenu } from "./components/BubbleMenus/TableCellBubbleMenu";
 import { useEffect, useRef, useState } from "react";
 
 import { Editor } from "@tiptap/react";
@@ -79,15 +76,14 @@ import { Resizable, ResizableBox } from "react-resizable";
 
 import Highlight from "@tiptap/extension-highlight";
 import { Panel } from "./extensions/extension-panel/panel";
-import { PanelBubbleMenu } from "./extensions/extension-panel/PanelBubbleMenu";
-
+import { PanelBubbleMenu } from "./components/BubbleMenus/PanelBubbleMenu";
 // import { setMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
 
 import "tippy.js/animations/shift-toward-subtle.css";
 import { MathPanel } from "./extensions/extension-math-panel/math-panel";
 import { MathPanelBody } from "./extensions/extension-math-panel/math-panel-body";
 import { MathPanelName } from "./extensions/extension-math-panel/math-panel-name";
-import { MathPanelBubbleMenu } from "./extensions/extension-math-panel/MathPanelBubbleMenu";
+import { MathPanelBubbleMenu } from "./components/BubbleMenus/MathPanelBubbleMenu";
 import { MathInline } from "./extensions/extension-math/math-inline";
 import { MathDisplay } from "./extensions/extension-math/math-display";
 
@@ -102,6 +98,10 @@ import { FigureBubbleMenu } from "./components/BubbleMenus/FigureBubbleMenu";
 import Iframe from "./extensions/extension-iframe";
 import { TableBubbleMenu } from "./components/BubbleMenus/TableBubbleMenu";
 import { VideoBubbleMenu } from "./components/BubbleMenus/VideoBubbleMenu";
+import { HelpButton } from "./components/MenuBar/InfoButton";
+import { UndoButton } from "./components/MenuBar/UndoButton";
+import { RedoButton } from "./components/MenuBar/RedoButton";
+import { FlagIcon } from "./components";
 
 const App = () => {
 	const editor = useEditor({
@@ -283,6 +283,20 @@ const App = () => {
 				// <Resizer targetId={"editor-content"} />
 			)} */}
 			{
+				<div id="editor-footer">
+					<div className="editor-buttons">
+						{editor && <UndoButton editor={editor} />}
+						{editor && <RedoButton editor={editor} />}
+						<div className="mw-separator"></div>
+						<HelpButton />
+					</div>
+					<button className="issue-btn mw-btn">
+						<FlagIcon />
+					</button>
+				</div>
+			}
+
+			{
 				<div className={isFullscreenMode ? "d-none" : ""}>
 					<Resizer
 						targetId={isCodeViewMode ? "codemirror" : "editor-content"}
@@ -313,7 +327,7 @@ const App = () => {
 			{/* {editor ? <ImageBubbleMenu editor={editor} /> : null} */}
 			{/* {editor ? <MediaBubbleMenu editor={editor} /> : null} */}
 			{editor && <FigureBubbleMenu editor={editor} />}
-			{editor ? <CellBubbleMenu editor={editor} /> : null}
+			{editor ? <TableCellBubbleMenu editor={editor} /> : null}
 			{editor ? <PanelBubbleMenu editor={editor} /> : null}
 			{editor ? <MathPanelBubbleMenu editor={editor} /> : null}
 			{editor && <MathBubbleMenu editor={editor} />}

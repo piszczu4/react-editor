@@ -811,7 +811,7 @@ figcaption p {
 	flex-direction: column;
 	z-index: 10;
 	margin: 200px auto;
-	background-color: white;
+	background-color: var(--white);
 
 	#editor-menu-bar--sticky-wrapper {
 		position: sticky;
@@ -879,6 +879,25 @@ figcaption p {
 		padding-top: 6px;
 		width: 100%;
 		height: 600px;
+	}
+
+	#editor-footer {
+		display: flex;
+		padding: 2px;
+		border-top: 1px solid hsl(210, 8%, 85%);
+
+		.editor-buttons {
+			display: flex;
+		}
+
+		.issue-btn {
+			margin-left: auto;
+			// background-color: red;
+			height: fit-content;
+			path {
+				fill: red;
+			}
+		}
 	}
 }
 
@@ -1000,6 +1019,7 @@ figcaption p {
 }
 
 .mw-split-btn {
+	--theme-secondary-100: rgb(199, 224, 244);
 	display: flex;
 	border-radius: 6px;
 
@@ -1062,8 +1082,9 @@ figcaption p {
 	width: 1px;
 	height: 20px;
 	margin: 0 4px;
-	// align-self: center;
+	align-self: center;
 }
+
 body {
 	--blue-theorem: #272687; // #1d7afc;
 	--light-blue-theorem: #e8e8f3; // rgb(233, 242, 255);

@@ -1,22 +1,17 @@
-import React, { useRef, useState, useEffect } from "react";
 import {
-	NodeViewWrapper,
-	NodeViewProps,
 	NodeViewContent,
-	Editor,
+	NodeViewProps,
+	NodeViewWrapper
 } from "@tiptap/react";
+import { TrashIcon } from "../../components";
 import ErrorIcon from "../../components/Icons/ErrorIcon";
-import { PanelType } from "./panel";
 import InfoIcon from "../../components/Icons/InfoIcon";
 import NoteIcon from "../../components/Icons/NoteIcon";
 import SuccessIcon from "../../components/Icons/SuccessIcon";
-import WarningIcon from "../../components/Icons/WarningIcon";
 import TipIcon from "../../components/Icons/TipIcon";
-import Tippy from "@tippyjs/react";
-import { PanelBubbleMenu } from "./PanelBubbleMenu";
-import { TrashIcon } from "../../components";
+import WarningIcon from "../../components/Icons/WarningIcon";
+import { PanelType } from "./panel";
 
-import { BubbleMenu } from "@tiptap/react";
 
 function getIcon(panelType: PanelType) {
 	return panelType === PanelType.INFO ? (

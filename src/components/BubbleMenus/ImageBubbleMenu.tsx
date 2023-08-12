@@ -14,10 +14,10 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
 			shouldShow={(props) => {
 				return true; // props.editor.isActive("media");
 			}}
-			className="mw-5 bs-ring bc-blue-300"
+			className="mw-popover"
 		>
 			<span>
-				<div className="mw-popover" role="menu">
+				<div role="menu">
 					<div className="d-flex ai-center">
 						<button
 							type="button"

@@ -1,5 +1,5 @@
 import { BubbleMenu, Editor } from "@tiptap/react";
-import { PanelType } from "./math-panel";
+import { PanelType } from "../../extensions/extension-math-panel/math-panel";
 import { findNodePos } from "../../utils";
 
 type MathPanelBubbleMenuProps = { editor: Editor };

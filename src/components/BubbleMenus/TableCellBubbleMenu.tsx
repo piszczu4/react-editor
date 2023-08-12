@@ -2,7 +2,7 @@ import { BubbleMenu, Editor } from "@tiptap/react";
 
 type TableBubbleMenuProps = { editor: Editor };
 
-export function CellBubbleMenu({ editor }: TableBubbleMenuProps) {
+export function TableCellBubbleMenu({ editor }: TableBubbleMenuProps) {
 	return (
 		<BubbleMenu
 			pluginKey={"cellBubbleMenu"}

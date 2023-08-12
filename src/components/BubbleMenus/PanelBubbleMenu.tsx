@@ -1,6 +1,5 @@
 import { Editor } from "@tiptap/react";
-import { PanelType } from "./panel";
-
+import { PanelType } from "../../extensions/extension-panel/panel";
 import { BubbleMenu } from "@tiptap/react";
 
 import InfoIcon from "../../components/Icons/InfoIcon";

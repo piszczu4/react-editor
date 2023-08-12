@@ -25,192 +25,190 @@ export function FigureBubbleMenu({ editor }: MediaBubbleMenuProps) {
 			shouldShow={(props) => {
 				return props.editor.isActive("image");
 			}}
-			className="mw-5 bs-ring bc-blue-300"
+			className="mw-popover"
 		>
 			<span>
-				<div className="mw-popover" role="menu">
-					<div className="d-flex ai-center">
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => {
-								editor.commands.updateAttributes("figure", {
-									width: "50%",
-								});
-								editor.commands.updateAttributes("image", {
-									width: "100%",
-								});
-							}}
-						>
-							<span>50%</span>
-						</button>
+				<div className="d-flex ai-center">
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => {
+							editor.commands.updateAttributes("figure", {
+								width: "50%",
+							});
+							editor.commands.updateAttributes("image", {
+								width: "100%",
+							});
+						}}
+					>
+						<span>50%</span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => {
-								editor.commands.updateAttributes("figure", {
-									width: "75%",
-								});
-								editor.commands.updateAttributes("image", {
-									width: "100%",
-								});
-							}}
-						>
-							<span>75%</span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => {
+							editor.commands.updateAttributes("figure", {
+								width: "75%",
+							});
+							editor.commands.updateAttributes("image", {
+								width: "100%",
+							});
+						}}
+					>
+						<span>75%</span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => {
-								editor.commands.updateAttributes("figure", {
-									width: "100%",
-								});
-								editor.commands.updateAttributes("image", {
-									width: "100%",
-								});
-							}}
-						>
-							<span>100%</span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => {
+							editor.commands.updateAttributes("figure", {
+								width: "100%",
+							});
+							editor.commands.updateAttributes("image", {
+								width: "100%",
+							});
+						}}
+					>
+						<span>100%</span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() =>
-								editor.commands.updateAttributes("figure", {
-									dataAlign: "left",
-									dataFloat: null,
-								})
-							}
-						>
-							<span>Left</span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() =>
+							editor.commands.updateAttributes("figure", {
+								dataAlign: "left",
+								dataFloat: null,
+							})
+						}
+					>
+						<span>Left</span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() =>
-								editor.commands.updateAttributes("figure", {
-									dataAlign: "center",
-									dataFloat: null,
-								})
-							}
-						>
-							<span>Center</span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() =>
+							editor.commands.updateAttributes("figure", {
+								dataAlign: "center",
+								dataFloat: null,
+							})
+						}
+					>
+						<span>Center</span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() =>
-								editor.commands.updateAttributes("figure", {
-									dataAlign: "right",
-									dataFloat: null,
-								})
-							}
-						>
-							<span>Right</span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() =>
+							editor.commands.updateAttributes("figure", {
+								dataAlign: "right",
+								dataFloat: null,
+							})
+						}
+					>
+						<span>Right</span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() =>
-								editor.commands.updateAttributes("figure", {
-									dataAlign: null,
-									dataFloat: "left",
-								})
-							}
-						>
-							<span>Float Left</span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() =>
+							editor.commands.updateAttributes("figure", {
+								dataAlign: null,
+								dataFloat: "left",
+							})
+						}
+					>
+						<span>Float Left</span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() =>
-								editor.commands.updateAttributes("figure", {
-									dataAlign: null,
-									dataFloat: "right",
-								})
-							}
-						>
-							<span>Float Right</span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() =>
+							editor.commands.updateAttributes("figure", {
+								dataAlign: null,
+								dataFloat: "right",
+							})
+						}
+					>
+						<span>Float Right</span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => editor.commands.toggleCaption()}
-						>
-							<span>Toggle Caption</span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => editor.commands.toggleCaption()}
+					>
+						<span>Toggle Caption</span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => editor.commands.rotate(-90, "")}
-						>
-							<span>Rotate Left</span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => editor.commands.rotate(-90, "")}
+					>
+						<span>Rotate Left</span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => editor.commands.rotate(90, "")}
-						>
-							<span>Rotate Right</span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => editor.commands.rotate(90, "")}
+					>
+						<span>Rotate Right</span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => editor.commands.rotate(180, "-x")}
-						>
-							<span>Rotate X </span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => editor.commands.rotate(180, "-x")}
+					>
+						<span>Rotate X </span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => editor.commands.rotate(180, "-y")}
-						>
-							<span>Rotate Y </span>
-						</button>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => editor.commands.rotate(180, "-y")}
+					>
+						<span>Rotate Y </span>
+					</button>
 
-						<button
-							type="button"
-							className="flex--item s-btn mr4"
-							title=""
-							onClick={() => {
-								editor.commands.resetAttributes("figure", ["width", "height"]);
-								editor.commands.resetAttributes("image", [
-									"width",
-									"height",
-									"data-rotate",
-									"data-rotate-x",
-									"data-rotate-y",
-								]);
-							}}
-						>
-							<span>Reset </span>
-						</button>
-					</div>
+					<button
+						type="button"
+						className="flex--item s-btn mr4"
+						title=""
+						onClick={() => {
+							editor.commands.resetAttributes("figure", ["width", "height"]);
+							editor.commands.resetAttributes("image", [
+								"width",
+								"height",
+								"data-rotate",
+								"data-rotate-x",
+								"data-rotate-y",
+							]);
+						}}
+					>
+						<span>Reset </span>
+					</button>
 				</div>
 			</span>
 		</BubbleMenu>

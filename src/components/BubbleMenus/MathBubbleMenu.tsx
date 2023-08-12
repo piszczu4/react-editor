@@ -53,11 +53,11 @@ export function MathBubbleMenu({ editor }: MathBubbleMenuProps) {
 		}
 
 		let root = document.querySelector("[data-tippy-root]") as HTMLElement;
-		if (displayMode) {
-			if (root) root.style.width = "90%";
-		} else {
-			if (root) root.style.width = "unset";
-		}
+		// if (displayMode) {
+		// 	if (root) root.style.width = "90%";
+		// } else {
+		// 	if (root) root.style.width = "unset";
+		// }
 	});
 
 	// let [text, setText] = useState(node?.textContent ?? "\\frac{1}{2}");
