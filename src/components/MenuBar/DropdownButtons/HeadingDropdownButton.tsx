@@ -1,22 +1,22 @@
+import { Level } from "@tiptap/extension-heading";
 import { Editor } from "@tiptap/react";
-import { MenuButton } from "./MenuButton";
-import { FontFamilyIcon } from "..";
-import { TooltipContent } from "../TooltipContent";
 import { useState } from "react";
-import { MenuDropdown } from "../MenuDropdown";
 import {
-	ParagraphIcon,
 	Header1Icon,
 	Header2Icon,
 	Header3Icon,
 	Header4Icon,
 	Header5Icon,
 	Header6Icon,
-} from "..";
-import { Level } from "@tiptap/extension-heading";
+	ParagraphIcon,
+} from "../..";
+import { _t } from "../../../helpers/strings";
+import { MenuDropdown } from "../../MenuDropdown";
+import { TooltipContent } from "../../TooltipContent";
+import { MenuButton } from "../MenuButton";
 
 function getIcon(lev: number) {
-	return lev === 0 ? (
+	return lev === undefined ? (
 		<ParagraphIcon />
 	) : lev === 1 ? (
 		<Header1Icon />
@@ -32,6 +32,25 @@ function getIcon(lev: number) {
 		<Header6Icon />
 	);
 }
+
+function getText(lev: number) {
+	return lev === 0 ? (
+		<p>{_t("commands.heading.level0")}</p>
+	) : lev === 1 ? (
+		<h1>{_t("commands.heading.level1")}</h1>
+	) : lev === 2 ? (
+		<h2>{_t("commands.heading.level2")}</h2>
+	) : lev === 3 ? (
+		<h3>{_t("commands.heading.level3")}</h3>
+	) : lev === 4 ? (
+		<h4>{_t("commands.heading.level4")}</h4>
+	) : lev === 5 ? (
+		<h5>{_t("commands.heading.level5")}</h5>
+	) : (
+		<h6>{_t("commands.heading.level6")}</h6>
+	);
+}
+
 type Props = {
 	editor: Editor;
 };
@@ -41,36 +60,22 @@ export const HeadingDropdownButton = ({ editor }: Props) => {
 
 	let headingDropdownItems = [0, 1, 2, 3, 4, 5, 6].map((lev) => {
 		let key = lev === 0 ? "paragraph-btn" : `h${lev}-btn`;
-		let text =
-			lev === 0 ? (
-				<p>Paragraph</p>
-			) : lev === 1 ? (
-				<h1>Heading 1</h1>
-			) : lev === 2 ? (
-				<h2>Heading 2</h2>
-			) : lev === 3 ? (
-				<h3>Heading 3</h3>
-			) : lev === 4 ? (
-				<h4>Heading 4</h4>
-			) : lev === 5 ? (
-				<h5>Heading 5</h5>
-			) : (
-				<h6>Heading 6</h6>
-			);
+		let text = getText(lev);
 
 		return (
 			<MenuButton
 				key={key}
 				command={() => {
 					setIsOpen(false);
-					if (lev === 0) return editor.chain().focus().setParagraph().run();
-					else {
-						return editor
-							.chain()
-							.focus()
-							.toggleHeading({ level: lev as Level })
-							.run();
-					}
+
+					return editor
+						.chain()
+						.focus()
+						.command(({ commands }) => {
+							if (lev === 0) return commands.setParagraph();
+							else return commands.toggleHeading({ level: lev as Level });
+						})
+						.run();
 				}}
 				text={text}
 				active={
@@ -98,7 +103,12 @@ export const HeadingDropdownButton = ({ editor }: Props) => {
 			}}
 			disabled={!editor.can().chain().focus().setParagraph()}
 			tooltip={{
-				content: <TooltipContent title="Heading" shortcut="Mod-H" />,
+				content: (
+					<TooltipContent
+						title={_t("commands.heading.title")}
+						shortcut="Mod-Alt-[0-6]"
+					/>
+				),
 			}}
 			dropdown={{
 				isDropdownButton: true,

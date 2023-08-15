@@ -1,17 +1,18 @@
 import { Editor } from "@tiptap/react";
-import { MenuButton } from "./MenuButton";
+import { MenuButton } from "../MenuButton";
 import {
 	AlignCenterIcon,
 	AlignJustifyIcon,
 	AlignLeftIcon,
 	AlignRightIcon,
-} from "..";
-import { TooltipContent } from "../TooltipContent";
+} from "../..";
+import { TooltipContent } from "../../TooltipContent";
 import { useState } from "react";
-import IndentIcon from "../Icons/IndentIcon";
-import OutdentIcon from "../Icons/OutdentIcon";
-import { MenuDropdown } from "../MenuDropdown";
-import { DropdownSection } from "../DropdownSection";
+import IndentIcon from "../../Icons/IndentIcon";
+import OutdentIcon from "../../Icons/OutdentIcon";
+import { MenuDropdown } from "../../MenuDropdown";
+import { DropdownSection } from "../../DropdownSection";
+import { _t } from "../../../helpers/strings";
 
 type Props = {
 	editor: Editor;
@@ -29,6 +30,18 @@ function getIcon(align: string) {
 	);
 }
 
+function getText(align: string) {
+	return align === "left" ? (
+		<span>{_t("commands.text_align.left")}</span>
+	) : align === "center" ? (
+		<span>{_t("commands.text_align.center")}</span>
+	) : align === "right" ? (
+		<span>{_t("commands.text_align.right")}</span>
+	) : (
+		<span>{_t("commands.text_align.justify")}</span>
+	);
+}
+
 export const AlignDropdownButton = ({ editor }: Props) => {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -43,8 +56,9 @@ export const AlignDropdownButton = ({ editor }: Props) => {
 						return editor.chain().focus().setTextAlign(align).run();
 					}}
 					active={editor.isActive({ textAlign: align })}
+					disabled={!editor.can().setTextAlign(align)}
 					dropdown={{ isDropdownItem: true }}
-					text={<span>{align.charAt(0).toUpperCase() + align.slice(1)}</span>}
+					text={getText(align)}
 				/>
 			);
 		}
@@ -54,11 +68,12 @@ export const AlignDropdownButton = ({ editor }: Props) => {
 		<MenuButton
 			key="indent-btn"
 			icon={<IndentIcon />}
-			text={<span>Indent</span>}
+			text={<span>{_t("commands.indent")}</span>}
 			command={() => {
 				setIsOpen(false);
 				return editor.chain().focus().indent().run();
 			}}
+			disabled={!editor.can().indent()}
 		/>
 	);
 
@@ -66,11 +81,12 @@ export const AlignDropdownButton = ({ editor }: Props) => {
 		<MenuButton
 			key="outdent-btn"
 			icon={<OutdentIcon />}
-			text={<span>Outdent</span>}
+			text={<span>{_t("commands.outdent")}</span>}
 			command={() => {
 				setIsOpen(false);
 				return editor.chain().focus().outdent().run();
 			}}
+			disabled={!editor.can().outdent()}
 		/>
 	);
 
@@ -78,16 +94,28 @@ export const AlignDropdownButton = ({ editor }: Props) => {
 		<MenuDropdown
 			id="align-dropdown"
 			children={[
-				<DropdownSection key="align-section" label="Align" />,
+				<DropdownSection
+					key="align-section"
+					label={_t("labels.align_section")}
+				/>,
 				...alignDropdownItems,
-				<DropdownSection key="indent-section" label="Indent" />,
+				<DropdownSection
+					key="indent-section"
+					label={_t("labels.indent_section")}
+				/>,
 				indentDropdownItem,
 				outdentDropdownItem,
 			]}
 		/>
 	);
 
-	let align = editor.getAttributes("textAlign")["textAlign"];
+	let align = "left";
+	if (editor.isActive({ textAlign: "center" })) align = "center";
+	else if (editor.isActive({ textAlign: "right" })) align = "right";
+	else if (editor.isActive({ textAlign: "justify" })) align = "justify";
+
+	console.log(editor.can().indent());
+
 	return (
 		<MenuButton
 			icon={getIcon(align)}
@@ -95,10 +123,10 @@ export const AlignDropdownButton = ({ editor }: Props) => {
 				setIsOpen(!isOpen);
 				return true;
 			}}
-			disabled={!editor.can().chain().focus().toggleCode().run()}
-			active={editor.isActive("code")}
+			disabled={!editor.can().setTextAlign("center")}
+			active={false}
 			tooltip={{
-				content: <TooltipContent title="Text Align" />,
+				content: <TooltipContent title={_t("commands.text_align.title")} />,
 			}}
 			dropdown={{
 				isDropdownButton: true,

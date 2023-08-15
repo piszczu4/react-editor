@@ -76,3 +76,15 @@ $color: white;
 		}
 	}
 }
+
+.tippy {
+	width: 100% !important;
+
+	button {
+		width: 100%;
+	}
+}
+
+.mw-tippy-popover {
+	padding: 8px 0 !important;
+}

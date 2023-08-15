@@ -29,11 +29,11 @@ import { TitlecaseButton } from "./TitlecaseButton";
 import { FontFamilyDropdownButton } from "./FontFamilyDropdownButton";
 import { FullscreenButton } from "./FullscreenButton";
 import { Level } from "@tiptap/extension-heading";
-import { HeadingDropdownButton } from "./HeadingDropdownButton";
+import { HeadingDropdownButton } from "./DropdownButtons/HeadingDropdownButton";
 import { OrderedListSplitButton } from "./OrderedListSplitButton";
 import { BulletListSplitButton } from "./UnorderedListSplitButton";
 import { LinkButton } from "./LinkButton";
-import { AlignDropdownButton } from "./AlignDropdownButton";
+import { AlignDropdownButton } from "./DropdownButtons/AlignDropdownButton";
 
 import Tippy from "@tippyjs/react";
 import { TextColorSplitButton } from "./TextColorSplitButton";
@@ -87,6 +87,11 @@ export const MenuBar = ({
 						<BackgroundColorSplitButton editor={editor} />
 						<ClearFormattingButton editor={editor} />
 					</MenuBlock>
+
+					<MenuBlock>
+						<HeadingDropdownButton editor={editor} />
+						<AlignDropdownButton editor={editor} />
+					</MenuBlock>
 					<MenuBlock>
 						<CodeButton editor={editor} />
 						{/* dBlock! */}
@@ -117,7 +122,6 @@ export const MenuBar = ({
 
 					<MenuBlock>
 						<LinkButton editor={editor} />
-						<AlignDropdownButton editor={editor} />
 					</MenuBlock>
 
 					<MenuBlock>
@@ -132,7 +136,6 @@ export const MenuBar = ({
 						<UppercaseButton editor={editor} />
 						<TitlecaseButton editor={editor} />
 						<FontFamilyDropdownButton editor={editor} />
-						<HeadingDropdownButton editor={editor} />
 
 						<OrderedListSplitButton editor={editor} />
 						<BulletListSplitButton editor={editor} />

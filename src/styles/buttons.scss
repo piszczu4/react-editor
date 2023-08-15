@@ -36,6 +36,13 @@
 		background-color: var(--_bu-bg-active);
 	}
 
+	.mw-btn--icon {
+		svg {
+			max-height: 18px;
+			max-width: 18px;
+		}
+	}
+
 	.mw-btn--text {
 		padding: 0px 8px;
 	}

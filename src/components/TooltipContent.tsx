@@ -1,7 +1,7 @@
 import { getShortcut } from "../utils";
 
 type Props = {
-	title: string;
+	title?: string;
 	description?: string;
 	shortcut?: string;
 };

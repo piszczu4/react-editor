@@ -29,9 +29,14 @@ export const defaultStrings: Record<any, any> = {
 			font_family: "Font family",
 			font_size: "Font size",
 			heading: {
-				dropdown: shortcut("Heading"),
-				entry: ({ level }: { level: 1 | 2 | 3 | 4 | 5 | 6 }) =>
-					`Heading ${level}`,
+				title: "Heading",
+				level0: "Paragraph",
+				level1: "Heading 1",
+				level2: "Heading 2",
+				level3: "Heading 3",
+				level4: "Heading 4",
+				level5: "Heading 5",
+				level6: "Heading 6",
 			},
 			help: "Help",
 			horizontal_rule: "Horizontal rule",
@@ -41,6 +46,7 @@ export const defaultStrings: Record<any, any> = {
 				title: "Inline code",
 				description: "Single line code span for use within a block of text",
 			},
+			indent: "Indent",
 			italic: "Italic", // DONE
 			keyboard: "Keyboard", // DONE
 			link: shortcut("Link"),
@@ -49,6 +55,7 @@ export const defaultStrings: Record<any, any> = {
 			metaTagLink: shortcut("Meta tag"),
 			moreFormatting: "More formatting",
 			ordered_list: shortcut("Numbered list"),
+			outdent: "Outdent",
 			redo: "Redo", // DONE
 			spoiler: "Spoiler", // DONE
 			subscript: "Subscript", // DONE
@@ -67,6 +74,13 @@ export const defaultStrings: Record<any, any> = {
 				remove: "Remove row",
 			},
 			tagLink: shortcut("Tag"),
+			text_align: {
+				title: "Text Align",
+				left: "Left",
+				center: "Center",
+				right: "Right",
+				justify: "Justify",
+			},
 			task_list: "Task list",
 			text_color: "Text color",
 			underline: "Underline", // DONE
@@ -103,6 +117,10 @@ export const defaultStrings: Record<any, any> = {
 				"Please select an image (jpeg, png, gif) to upload",
 			uploaded_image_preview_alt: "uploaded image preview",
 		},
+		labels: {
+			align_section: "Align",
+			indent_section: "Indent",
+		},
 	},
 
 	pl: {
@@ -123,9 +141,14 @@ export const defaultStrings: Record<any, any> = {
 			font_family: "Czcionka",
 			font_size: "Rozmiar czcionki",
 			heading: {
-				dropdown: shortcut("Nagłówek"),
-				entry: ({ level }: { level: 1 | 2 | 3 | 4 | 5 | 6 }) =>
-					`Nagłówek ${level}`,
+				title: "Nagłówek",
+				level0: "Paragraf",
+				level1: "Nagłówek 1",
+				level2: "Nagłówek 2",
+				level3: "Nagłówek 3",
+				level4: "Nagłówek 4",
+				level5: "Nagłówek 5",
+				level6: "Nagłówek 6",
 			},
 			help: "Pomoc",
 			horizontal_rule: "Linia pozioma",
@@ -135,6 +158,7 @@ export const defaultStrings: Record<any, any> = {
 				title: "Kod jednoliniowy",
 				description: "Pojedyncza linia kodu do użycia w bloku tekstu",
 			},
+			indent: "Zwiększ wcięcie",
 			italic: "Kursywa", // DONE
 			keyboard: "Klawiatura", // DONE
 			link: shortcut("Link"),
@@ -143,6 +167,7 @@ export const defaultStrings: Record<any, any> = {
 			metaTagLink: shortcut("Meta tag"),
 			moreFormatting: "Więcej formatowania",
 			ordered_list: shortcut("Lista numerowana"),
+			outdent: "Zmniejsz wcięcie",
 			redo: "Powtórz", // DONE
 			spoiler: "Spojler", // DONE
 			subscript: "Indeks dolny", // DONE
@@ -161,6 +186,13 @@ export const defaultStrings: Record<any, any> = {
 				remove: "Usuń wiersz",
 			},
 			tagLink: shortcut("Tag"),
+			text_align: {
+				title: "Wyrównanie tekstu",
+				left: "Wyrównaj do lewej",
+				center: "Wyśrodkuj",
+				right: "Wyrównaj do prawej",
+				justify: "Wyjustuj",
+			},
 			task_list: "Lista zadań",
 			text_color: "Kolor czcionki",
 			underline: "Podkreślenie", // DONE
@@ -196,6 +228,10 @@ export const defaultStrings: Record<any, any> = {
 			upload_error_unsupported_format:
 				"Please select an image (jpeg, png, gif) to upload",
 			uploaded_image_preview_alt: "uploaded image preview",
+		},
+		labels: {
+			align_section: "Wyrównanie",
+			indent_section: "Wcięcie",
 		},
 	},
 };

@@ -47,7 +47,7 @@ export const MenuButton = ({
 			} ${active ? "is-active " : ""} ${disabled ? "is-disabled " : ""}`}
 			onClick={!disabled ? command : () => false}
 		>
-			{icon !== null && icon}
+			{icon !== null && <span className="mw-btn--icon">{icon}</span>}
 			{text && <div className="mw-btn--text">{text}</div>}
 			{dropdown?.isDropdownButton && (
 				<DropdownIcon className="mw-btn--dropdown-icon" />
@@ -55,24 +55,31 @@ export const MenuButton = ({
 		</button>
 	);
 
-	let buttonWithTooltip = (
-		<Tippy
-			animation={"scale-extreme"}
-			placement={tooltip?.placement ? (tooltip?.placement as Placement) : "top"}
-			className="mw-tooltip"
-			content={tooltip?.content}
-			disabled={!tooltip?.content}
-			interactive={true}
-		>
-			{button}
-		</Tippy>
+	let buttonWithTooltip = tooltip ? (
+		<div className="tippy">
+			<Tippy
+				animation={"scale-extreme"}
+				placement={
+					tooltip?.placement ? (tooltip?.placement as Placement) : "top"
+				}
+				className="mw-tooltip"
+				content={tooltip?.content}
+				disabled={!tooltip?.content}
+				interactive={true}
+			>
+				{button}
+			</Tippy>
+		</div>
+	) : (
+		button
 	);
 
-	if (!dropdown) return <div className="tippy">{buttonWithTooltip}</div>;
+	if (!dropdown?.isDropdownButton) return buttonWithTooltip;
 
 	return (
-		<span className="tippy">
+		<div className="tippy">
 			<Tippy
+				className="mw-tippy-popover"
 				content={dropdown.dropdownContent}
 				animation={false}
 				placement="bottom"
@@ -82,6 +89,6 @@ export const MenuButton = ({
 			>
 				{buttonWithTooltip}
 			</Tippy>
-		</span>
+		</div>
 	);
 };
