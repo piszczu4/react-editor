@@ -1,6 +1,6 @@
-let _language = "pl";
+let _language = "en";
 
-function setLanguage(language: string) {
+export function setLanguage(language: string) {
 	_language = language;
 }
 
@@ -13,14 +13,19 @@ function shortcut(text: string) {
 export const defaultStrings: Record<any, any> = {
 	en: {
 		commands: {
-			blockquote: shortcut("Blockquote"),
-			bold: shortcut("Bold"),
-			clear_formatting: "Clear formatting",
+			blockquote: "Blockquote", // DONE
+			bold: "Bold", // DONE
+			clear_formatting: {
+				title: "Clear formatting",
+				description:
+					"Allows you to remove all formatting in the selection, leaving only plain, unformatted text",
+			},
 			code_block: {
-				title: shortcut("Code block"),
+				// DONE
+				title: "Code block",
 				description: "Multiline block of code with syntax highlighting",
 			},
-			emphasis: shortcut("Italic"),
+			details: "Details",
 			font_family: "Font family",
 			font_size: "Font size",
 			heading: {
@@ -29,21 +34,25 @@ export const defaultStrings: Record<any, any> = {
 					`Heading ${level}`,
 			},
 			help: "Help",
-			horizontal_rule: shortcut("Horizontal rule"),
+			horizontal_rule: "Horizontal rule",
 			image: shortcut("Image"),
-			inline_code: {
-				title: shortcut("Inline code"),
+			code: {
+				// DONE
+				title: "Inline code",
 				description: "Single line code span for use within a block of text",
 			},
-			kbd: shortcut("Keyboard"),
+			italic: "Italic", // DONE
+			keyboard: "Keyboard", // DONE
 			link: shortcut("Link"),
+			math_display: "Math Display",
+			math_inline: "Math Inline",
 			metaTagLink: shortcut("Meta tag"),
 			moreFormatting: "More formatting",
 			ordered_list: shortcut("Numbered list"),
-			redo: shortcut("Redo"),
-			spoiler: shortcut("Spoiler"),
-			sub: "Subscript",
-			sup: "Superscript",
+			redo: "Redo", // DONE
+			spoiler: "Spoiler", // DONE
+			subscript: "Subscript", // DONE
+			superscript: "Superscript", // DONE
 			strikethrough: "Strikethrough",
 			table_edit: "Edit table",
 			table_insert: shortcut("Table"),
@@ -60,8 +69,8 @@ export const defaultStrings: Record<any, any> = {
 			tagLink: shortcut("Tag"),
 			task_list: "Task list",
 			text_color: "Text color",
-			underline: "Underline",
-			undo: shortcut("Undo"),
+			underline: "Underline", // DONE
+			undo: "Undo", // DONE
 			unordered_list: shortcut("Bulleted list"),
 		},
 		link_editor: {
@@ -98,14 +107,19 @@ export const defaultStrings: Record<any, any> = {
 
 	pl: {
 		commands: {
-			blockquote: shortcut("Cytat"),
-			bold: shortcut("Pogrubienie"),
-			clear_formatting: "Usuń formatowanie",
+			blockquote: "Cytat", // DONE
+			bold: "Pogrubienie", // DONE
+			clear_formatting: {
+				title: "Wyczyść całe formatowanie",
+				description:
+					"Umożliwia usunięcie całego formatowania w zaznaczeniu, co spowoduje pozostawienie tylko zwykłego, niesformatowanego tekstu",
+			},
 			code_block: {
-				title: shortcut("Blok kodu"),
+				// DONE
+				title: "Blok kodu",
 				description: "Wieloliniowy blok kodu z podświetleniem składni",
 			},
-			emphasis: shortcut("Kursywa"),
+			details: "Detale",
 			font_family: "Czcionka",
 			font_size: "Rozmiar czcionki",
 			heading: {
@@ -114,21 +128,25 @@ export const defaultStrings: Record<any, any> = {
 					`Nagłówek ${level}`,
 			},
 			help: "Pomoc",
-			horizontal_rule: shortcut("Linia pozioma"),
+			horizontal_rule: "Linia pozioma",
 			image: shortcut("Obraz"),
-			inline_code: {
-				title: shortcut("Kod jednoliniowy"),
+			code: {
+				// DONE
+				title: "Kod jednoliniowy",
 				description: "Pojedyncza linia kodu do użycia w bloku tekstu",
 			},
-			kbd: shortcut("Klawiatura"),
+			italic: "Kursywa", // DONE
+			keyboard: "Klawiatura", // DONE
 			link: shortcut("Link"),
+			math_display: "Math Display",
+			math_inline: "Math Inline",
 			metaTagLink: shortcut("Meta tag"),
 			moreFormatting: "Więcej formatowania",
 			ordered_list: shortcut("Lista numerowana"),
-			redo: shortcut("Powtórz"),
-			spoiler: shortcut("Spoiler"),
-			sub: "Indeks dolny",
-			sup: "Indeks górny",
+			redo: "Powtórz", // DONE
+			spoiler: "Spojler", // DONE
+			subscript: "Indeks dolny", // DONE
+			superscript: "Indeks górny", // DONE
 			strikethrough: "Przekreślenie",
 			table_edit: "Tabela",
 			table_insert: shortcut("Tabela"),
@@ -145,8 +163,8 @@ export const defaultStrings: Record<any, any> = {
 			tagLink: shortcut("Tag"),
 			task_list: "Lista zadań",
 			text_color: "Kolor czcionki",
-			underline: "Podkreślenie",
-			undo: shortcut("Cofnij"),
+			underline: "Podkreślenie", // DONE
+			undo: "Cofnij", // DONE
 			unordered_list: shortcut("Lista wypunktowana"),
 		},
 		link_editor: {

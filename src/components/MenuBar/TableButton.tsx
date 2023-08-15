@@ -106,7 +106,6 @@ type Props = {
 export const TableButton = ({ editor }: Props) => {
 	const [isOpen, setIsOpen] = useState(false);
 
-	console.log("Making popover");
 	let dropdownContent = (
 		<TablePopover isOpen={isOpen} setIsOpen={setIsOpen} editor={editor} />
 	);
@@ -128,7 +127,7 @@ export const TableButton = ({ editor }: Props) => {
 			}
 			active={editor.isActive("table")}
 			tooltip={{
-				content: <TooltipContent content="Table" />,
+				content: <TooltipContent title="Table" />,
 			}}
 			dropdown={{
 				isDropdownButton: false,

@@ -1,0 +1,49 @@
+$border-radius: 0.25rem;
+$padding: 0.2rem 0.12rem;
+
+.math-node {
+	.math-src {
+		background: #202020 !important;
+		color: #fff !important;
+		border-radius: $border-radius;
+		font-family: monospace;
+		padding: $padding;
+		margin: 0;
+	}
+}
+
+.math-render {
+	padding: $padding;
+	border-radius: $border-radius;
+	cursor: pointer;
+}
+
+.math-render:hover {
+	background-color: #eee;
+}
+
+math-display.ProseMirror-selectednode {
+	background: #202020 !important;
+	border-radius: $border-radius !important;
+	padding: 4px;
+}
+
+.math-src > :focus-visible {
+	outline: none !important;
+}
+
+.math-node.ProseMirror-selectednode {
+	box-shadow: none !important;
+}
+
+/* ================================ */
+
+#math-preview {
+	.label {
+		font-weight: 900;
+		font-size: 14px;
+	}
+	p {
+		margin-bottom: 0 !important;
+	}
+}

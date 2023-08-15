@@ -1,0 +1,77 @@
+.mw-btn {
+	--su-static1: 1px;
+	--su-static6: 6px;
+	--br-md: calc(var(--su-static6));
+
+	--_bu-p: 4px;
+	--_bu-br: var(--br-md);
+	--_bu-bc: transparent;
+	--_bu-baw: var(--su-static1);
+	--_bu-bg-hover: rgb(199, 224, 244);
+	--_bu-bg-active: rgb(166, 206, 237);
+
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	padding: var(--_bu-p);
+	border-radius: var(--_bu-br);
+	border: var(--_bu-baw) solid var(--_bu-bc);
+	background-color: inherit;
+	// width: 100%;
+	&.is-disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+
+		&:hover {
+			background: 0 0 !important ;
+		}
+	}
+
+	&:hover {
+		background-color: var(--_bu-bg-hover);
+	}
+
+	&:active,
+	&.is-active {
+		background-color: var(--_bu-bg-active);
+	}
+
+	.mw-btn--text {
+		padding: 0px 8px;
+	}
+
+	.mw-btn--dropdown-icon {
+		// margin-left: 8px;
+	}
+}
+
+.mw-btn-dropdown--item {
+	min-height: 30px;
+	// border-radius: 0px !important;
+}
+
+.mw-split-btn {
+	--theme-secondary-100: rgb(199, 224, 244);
+	display: flex;
+	border-radius: 6px;
+
+	> .tippy:nth-child(1) > button {
+		border-bottom-right-radius: 0px !important;
+		border-top-right-radius: 0px !important;
+		padding-left: 2px;
+		padding-right: 2px;
+	}
+
+	.tippy:nth-child(2) > button {
+		border-bottom-left-radius: 0px;
+		border-top-left-radius: 0px;
+		width: 15px;
+		padding-left: 2px;
+		padding-right: 2px;
+	}
+
+	&:hover {
+		border-radius: 6px;
+		box-shadow: 0 0 0 1px var(--theme-secondary-100) inset;
+	}
+}

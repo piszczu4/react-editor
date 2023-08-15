@@ -13,7 +13,7 @@ export const UppercaseButton = ({ editor }: Props) => {
 			icon={<UppercaseIcon />}
 			command={() => editor.chain().focus().capitalize("uppercase").run()}
 			tooltip={{
-				content: <TooltipContent content="Uppercase" />,
+				content: <TooltipContent title="Uppercase" />,
 			}}
 			text={<span>UPPERCASE</span>}
 		/>

@@ -113,53 +113,6 @@ ul[data-type="taskList"] {
 }
 
 .ProseMirror {
-	[data-type="details"] {
-		display: flex;
-		margin: 1rem 0;
-		border: 1.5px solid black;
-		background-color: rgba(170, 153, 57, 0.288);
-
-		border-radius: 3px;
-		padding: 0.5rem;
-		&.is-open {
-			outline: 0 0 3px var(--su-static4) lightgrey;
-			box-shadow: 0 0 3px var(--su-static4) lightgrey; //var(--_in-bs-focus);
-			// border-color: var(--_in-bc-focus);
-		}
-
-		summary {
-			list-style: none;
-		}
-
-		> button {
-			display: flex;
-			cursor: pointer;
-			background: transparent;
-			border: none;
-			padding: 0;
-
-			&::before {
-				content: "\25B6";
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				width: 1.5em;
-				height: 1.5em;
-			}
-		}
-
-		&.is-open > button::before {
-			content: "\25BC";
-		}
-
-		> div {
-			flex: 1 1 auto;
-		}
-
-		:last-child {
-			margin-bottom: 0;
-		}
-	}
 }
 
 .s-prose spoiler {
@@ -901,6 +854,25 @@ figcaption p {
 	}
 }
 
+.mw-tooltip-content {
+	.title {
+		margin-bottom: 0px;
+	}
+
+	.shortcut {
+		background-color: rgba(9, 30, 66, 0.06);
+		color: rgb(68, 84, 111);
+		font-size: 0.8rem;
+		padding: 4px;
+		border-radius: 3px;
+		margin-left: 4px;
+	}
+
+	.description {
+		margin-top: 4px;
+	}
+}
+
 // Input/Textarea
 .mw-input,
 .mw-textarea {
@@ -966,83 +938,6 @@ figcaption p {
 }
 
 // Buttons
-.mw-btn {
-	--su-static1: 1px;
-	--su-static6: 6px;
-	--br-md: calc(var(--su-static6));
-
-	--_bu-p: 4px;
-	--_bu-br: var(--br-md);
-	--_bu-bc: transparent;
-	--_bu-baw: var(--su-static1);
-	--_bu-bg-hover: rgb(199, 224, 244);
-	--_bu-bg-active: rgb(166, 206, 237);
-
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	padding: var(--_bu-p);
-	border-radius: var(--_bu-br);
-	border: var(--_bu-baw) solid var(--_bu-bc);
-	background-color: inherit;
-	// width: 100%;
-	&.is-disabled {
-		cursor: not-allowed;
-		opacity: 0.5;
-
-		&:hover {
-			background: 0 0 !important ;
-		}
-	}
-
-	&:hover {
-		background-color: var(--_bu-bg-hover);
-	}
-
-	&:active,
-	&.is-active {
-		background-color: var(--_bu-bg-active);
-	}
-
-	.mw-btn--text {
-		padding: 0px 8px;
-	}
-
-	.mw-btn--dropdown-icon {
-		// margin-left: 8px;
-	}
-}
-
-.mw-btn-dropdown--item {
-	min-height: 30px;
-	// border-radius: 0px !important;
-}
-
-.mw-split-btn {
-	--theme-secondary-100: rgb(199, 224, 244);
-	display: flex;
-	border-radius: 6px;
-
-	> .tippy:nth-child(1) > button {
-		border-bottom-right-radius: 0px !important;
-		border-top-right-radius: 0px !important;
-		padding-left: 2px;
-		padding-right: 2px;
-	}
-
-	.tippy:nth-child(2) > button {
-		border-bottom-left-radius: 0px;
-		border-top-left-radius: 0px;
-		width: 15px;
-		padding-left: 2px;
-		padding-right: 2px;
-	}
-
-	&:hover {
-		border-radius: 6px;
-		box-shadow: 0 0 0 1px var(--theme-secondary-100) inset;
-	}
-}
 
 .mw-panel {
 	border-radius: 3px;
@@ -1074,6 +969,11 @@ figcaption p {
 		margin: 1px 0px;
 		flex: 1 0 0px;
 		min-width: 0px;
+	}
+}
+
+.mw-panel--delete-btn {
+	.delete {
 	}
 }
 
@@ -1235,16 +1135,6 @@ body {
 	}
 }
 
-// Shortcut
-.mw-shortcut {
-	background-color: rgba(9, 30, 66, 0.06);
-	color: rgb(68, 84, 111);
-	font-size: 0.8rem;
-	padding: 4px;
-	border-radius: 3px;
-	margin-left: 8px;
-}
-
 // Scrollbar
 
 *::-webkit-scrollbar {
@@ -1323,30 +1213,6 @@ body {
 }
 
 // Math
-.math-node .math-src {
-	color: #9766f2 !important;
-}
-
-.math-src > :focus-visible {
-	outline: none !important;
-}
-
-math-display .math-render {
-	cursor: pointer !important;
-}
-
-math-display.ProseMirror-selectednode {
-	background-color: #23241f !important;
-	/* border-radius: 3px; */
-}
-
-.math-node.ProseMirror-selectednode {
-	box-shadow: none !important;
-}
-
-.math-render:hover {
-	outline: solid goldenrod 1px;
-}
 
 .pointer-events-none {
 	pointer-events: none;

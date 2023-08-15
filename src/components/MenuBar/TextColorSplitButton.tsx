@@ -34,7 +34,7 @@ export const TextColorDropdownButton = ({ editor }: Props) => {
 			}}
 			disabled={!editor.can().chain().focus().toggleBulletList()}
 			tooltip={{
-				content: <TooltipContent content="Text color" />,
+				content: <TooltipContent title="Text color" />,
 			}}
 			active={isOpen}
 			dropdown={{
@@ -66,7 +66,7 @@ export const TextColorButton = ({ editor }: Props) => {
 			command={() => editor.chain().focus().setColor(lastColor).run()}
 			disabled={!editor.can().chain().focus().setColor(lastColor)}
 			tooltip={{
-				content: <TooltipContent content="Text color" />,
+				content: <TooltipContent title="Text color" />,
 			}}
 		/>
 	);

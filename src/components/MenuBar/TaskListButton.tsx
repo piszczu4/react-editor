@@ -15,7 +15,7 @@ export const TaskListButton = ({ editor }: Props) => {
 			disabled={!editor.can().chain().focus().toggleTaskList().run()}
 			active={editor.isActive("taskList")}
 			tooltip={{
-				content: <TooltipContent content="Task List" />,
+				content: <TooltipContent title="Task List" />,
 			}}
 		/>
 	);

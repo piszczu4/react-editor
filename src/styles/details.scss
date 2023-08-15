@@ -1,0 +1,98 @@
+.mw-editor-details {
+	display: flex;
+	border-width: 1px;
+	border-style: solid;
+	border-color: transparent;
+	border-radius: 4px;
+	background: transparent;
+	padding: 8px;
+	overflow: hidden;
+
+	&:hover,
+	&.is-open {
+		border-color: rgba(9, 30, 66, 0.25);
+		background: rgba(255, 255, 255, 0.6);
+	}
+
+	summary {
+		list-style: none;
+	}
+	// margin: 1rem 0;
+	// border: 1.5px solid black;
+	// background-color: rgba(170, 153, 57, 0.288);
+
+	// &.is-open {
+	// 	outline: 0 0 3px var(--su-static4) lightgrey;
+	// 	box-shadow: 0 0 3px var(--su-static4) lightgrey; //var(--_in-bs-focus);
+	// 	// border-color: var(--_in-bc-focus);
+	// }
+	align-items: center; /* Vertical center alignment */
+
+	> button {
+		display: flex;
+		cursor: pointer;
+		background: transparent;
+		border: none;
+		padding: 0;
+
+		position: relative; /* Add relative positioning */
+		width: 13px; /* Set width of button */
+		height: 14px; /* Set height of button */
+		transition: transform 0.3s ease; /* Adding a transition for smooth animation */
+
+		// justify-content: center;
+		// align-items: center;
+
+		&::before {
+			background-image: url('data:image/svg+xml; utf8, <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.38128 4.61866L5.61872 3.38123L9.23743 6.99994L5.61872 10.6187L4.38128 9.38123L6.76256 6.99994L4.38128 4.61866Z" fill="black"/></svg>');
+			background-repeat: no-repeat; /* Prevent image from repeating */
+			content: ""; /* Clear default content */
+			position: absolute; /* Position the pseudo-element */
+			top: 50%; /* Position it vertically */
+			left: 50%; /* Position it horizontally */
+			transform: translate(-50%, -50%); /* Adjust positioning */
+			width: 13px; /* Set width of image */
+			height: 14px; /* Set height of image */
+			transition: transform 0.3s ease; /* Adding a transition for smooth animation */
+
+			// // content: "\25B6";
+			// content: url('data:image/svg+xml; utf8, <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.38128 4.61866L5.61872 3.38123L9.23743 6.99994L5.61872 10.6187L4.38128 9.38123L6.76256 6.99994L4.38128 4.61866Z" fill="black"/></svg>');
+			// justify-content: center;
+			// align-items: center;
+			// display: flex; /* Treat as a block-level element */
+			// vertical-align: middle; /* Vertical center alignment */
+			// height: inherit;
+			// justify-content: center;
+			// align-items: center;
+			// // padding-top: 12px;
+
+			&.is-open {
+				transform: rotate(90deg);
+				transition: transform 0.2s cubic-bezier(0.15, 1, 0.3, 1) 0s;
+				transform: translate(-50%, -50%) rotate(90deg); /* Rotate the arrow icon when the button has is-open class */
+			}
+		}
+	}
+
+	// &.is-open > button::before {
+	// 	content: "\25B6";
+	// 	transform: rotate(90deg);
+	// 	transition: transform 0.2s cubic-bezier(0.15, 1, 0.3, 1) 0s;
+	// }
+
+	// > div {
+	// 	flex: 1 1 auto;
+	// }
+
+	// :last-child {
+	// 	margin-bottom: 0;
+	// }
+
+	// /* New styles */
+
+	// transition-duration: 0.3s, 0.3s;
+	// transition-timing-function: cubic-bezier(0.15, 1, 0.3, 1),
+	// 	cubic-bezier(0.15, 1, 0.3, 1);
+	// transition-delay: 0s, 0s;
+	// transition-property: border-color;
+}

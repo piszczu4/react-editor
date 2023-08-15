@@ -33,7 +33,7 @@ export const BackgroundColorDropdownButton = ({ editor }: Props) => {
 				return true;
 			}}
 			tooltip={{
-				content: <TooltipContent content="Text color" />,
+				content: <TooltipContent title="Text color" />,
 			}}
 			active={isOpen}
 			dropdown={{
@@ -69,7 +69,7 @@ export const BackgroundColorButton = ({ editor }: Props) => {
 				!editor.can().chain().focus().setHighlight({ color: lastColor })
 			}
 			tooltip={{
-				content: <TooltipContent content="Background color" />,
+				content: <TooltipContent title="Background color" />,
 			}}
 		/>
 	);

@@ -1,18 +1,40 @@
 import "./App.scss";
-import "./styles/popover.scss";
+import "./styles/buttons.scss";
+import "./styles/tippy.scss";
+import "./styles/details.scss";
+import "./styles/math.scss";
 
 import "tippy.js/animations/scale-extreme.css";
 import "tippy.js/animations/shift-toward-subtle.css";
 
 import { MenuBar } from "./components/MenuBar";
 
+// Extensions
+import { Blockquote } from "./extensions/extension-blockquote";
+import { ClearFormatting } from "./extensions/extension-clear-formatting/clear-formatting";
+import { Code } from "./extensions/extension-code/code";
+import { CodeBlock } from "./extensions/extension-code-block";
+import { HelpButton } from "./components/MenuBar/Buttons/InfoButton";
+import { HorizontalRule } from "./extensions/extension-horizontal-rule";
+import { Keyboard } from "./extensions/extension-keyboard";
+import { RedoButton } from "./components/MenuBar/Buttons/RedoButton";
+import { Spoiler } from "./extensions/extension-spoiler";
+import Underline from "@tiptap/extension-underline";
+import { UndoButton } from "./components/MenuBar/Buttons/UndoButton";
+
+// import {
+// 	Details,
+// 	DetailsSummary,
+// 	DetailsContent,
+// } from "./extensions/extension-details";
+
+import Details from "@tiptap-pro/extension-details";
+import DetailsSummary from "@tiptap-pro/extension-details-summary";
+import DetailsContent from "@tiptap-pro/extension-details-content";
+
 import { BulletList } from "./extensions/extension-bullet-list";
 import { Heading } from "./extensions/extension-heading";
 import { OrderedList } from "./extensions/extension-ordered-list";
-
-import Details from "@tiptap-pro/extension-details";
-import DetailsContent from "@tiptap-pro/extension-details-content";
-import DetailsSummary from "@tiptap-pro/extension-details-summary";
 import { Color } from "@tiptap/extension-color";
 import FontFamily from "@tiptap/extension-font-family";
 import ListItem from "@tiptap/extension-list-item";
@@ -24,7 +46,6 @@ import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import TextAlign from "@tiptap/extension-text-align";
 import TextStyle from "@tiptap/extension-text-style";
-import Underline from "@tiptap/extension-underline";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Capitalize from "./extensions/extension-capitalize";
@@ -33,27 +54,19 @@ import CodeIndent from "./extensions/extension-code-indent";
 import CodeView from "./extensions/extension-code-view";
 import { CustomCommands } from "./extensions/extension-custom-commands/custom-commands";
 import Indent from "./extensions/extension-indent";
-import Keyboard from "./extensions/extension-keyboard";
 import suggestion from "./extensions/extension-mention/suggestion";
 // import { ResizableMedia } from "./extensions/extension-resizable-media";
 // import { ResizableMediaWithCaptionBubbleMenu } from "./extensions/extension-resizable-media-with-caption/ResizableMediaWithCaptionBubbleMenu";
 // import { ResizableMediaWithCaption } from "./extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
 // import { ImageButton } from "./extensions/extension-resizable-media/ImageUpload";
-import Spoiler from "./extensions/extension-spoiler";
-
-import { Media, MediaBubbleMenu } from "./extensions/extension-media";
-import { ImageBubbleMenu } from "./components/BubbleMenus/ImageBubbleMenu";
-
 import { TableHeader } from "@tiptap/extension-table-header";
 import { TableRow } from "@tiptap/extension-table-row";
-import { DBlock } from "./extensions/extension-dBlock";
 // import { Panel, PanelType } from "./extensions/extension-panel/panel";
 import { Table } from "./extensions/extension-table";
 import { TableCell } from "./extensions/extension-table-cell";
 
-import { Document as Doc } from "./extensions/extension-document";
-import { TableCellBubbleMenu } from "./components/BubbleMenus/TableCellBubbleMenu";
 import { useEffect, useRef, useState } from "react";
+import { TableCellBubbleMenu } from "./components/BubbleMenus/TableCellBubbleMenu";
 
 import { Editor } from "@tiptap/react";
 
@@ -69,39 +82,32 @@ import "codemirror/mode/xml/xml.js"; // language
 // import "@stackoverflow/stacks/dist/js/stacks.min.js";
 
 import { Resizer } from "./components/Resizer";
-import { initialContent } from "./initialContent";
 import { TrailingNode } from "./extensions/extension-trailing-node";
-
-import { Resizable, ResizableBox } from "react-resizable";
+import { initialContent } from "./initialContent";
 
 import Highlight from "@tiptap/extension-highlight";
-import { Panel } from "./extensions/extension-panel/panel";
 import { PanelBubbleMenu } from "./components/BubbleMenus/PanelBubbleMenu";
+import { Panel } from "./extensions/extension-panel/panel";
 // import { setMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
 
 import "tippy.js/animations/shift-toward-subtle.css";
+import { MathPanelBubbleMenu } from "./components/BubbleMenus/MathPanelBubbleMenu";
 import { MathPanel } from "./extensions/extension-math-panel/math-panel";
 import { MathPanelBody } from "./extensions/extension-math-panel/math-panel-body";
 import { MathPanelName } from "./extensions/extension-math-panel/math-panel-name";
-import { MathPanelBubbleMenu } from "./components/BubbleMenus/MathPanelBubbleMenu";
-import { MathInline } from "./extensions/extension-math/math-inline";
 import { MathDisplay } from "./extensions/extension-math/math-display";
+import { MathInline } from "./extensions/extension-math/math-inline";
 
 import { LinkBubbleMenu } from "./components/BubbleMenus/LinkBubbleMenu";
-
-import Tippy from "@tippyjs/react";
-import InfoIcon from "./components/Icons/InfoIcon";
-import { MathBubbleMenu } from "./components/BubbleMenus/MathBubbleMenu";
-import Image from "./extensions/extension-image";
-import Figure from "./extensions/extension-figure";
+import { FlagIcon } from "./components";
 import { FigureBubbleMenu } from "./components/BubbleMenus/FigureBubbleMenu";
-import Iframe from "./extensions/extension-iframe";
+import { MathBubbleMenu } from "./components/BubbleMenus/MathBubbleMenu";
 import { TableBubbleMenu } from "./components/BubbleMenus/TableBubbleMenu";
 import { VideoBubbleMenu } from "./components/BubbleMenus/VideoBubbleMenu";
-import { HelpButton } from "./components/MenuBar/InfoButton";
-import { UndoButton } from "./components/MenuBar/UndoButton";
-import { RedoButton } from "./components/MenuBar/RedoButton";
-import { FlagIcon } from "./components";
+import Figure from "./extensions/extension-figure";
+import Iframe from "./extensions/extension-iframe";
+import Image from "./extensions/extension-image";
+import { Commands } from "./extensions/extension-commands";
 
 const App = () => {
 	const editor = useEditor({
@@ -110,6 +116,10 @@ const App = () => {
 				bulletList: false,
 				orderedList: false,
 				heading: false,
+				code: false,
+				codeBlock: false,
+				blockquote: false,
+				horizontalRule: false,
 				// document: false,
 			}),
 			// Doc,
@@ -118,14 +128,20 @@ const App = () => {
 			Highlight.configure({ multicolor: true }),
 			TextStyle,
 			Underline,
+			Blockquote,
+			Code,
+			CodeBlock,
+			Commands,
 			Subscript,
 			Superscript,
 			Capitalize,
 			Heading,
+			HorizontalRule,
 			FontFamily,
 			FontSize,
 			Link,
 			MathPanel,
+			ClearFormatting,
 			MathPanelName,
 			MathPanelBody,
 			Mention.configure({ suggestion }),
@@ -143,8 +159,16 @@ const App = () => {
 			}),
 			TextAlign.configure({ types: ["paragraph", "heading"] }),
 			CustomCommands,
-			Details,
-			DetailsSummary,
+			Details.configure({
+				HTMLAttributes: {
+					class: "mw-editor-details",
+				},
+			}),
+			DetailsSummary.configure({
+				HTMLAttributes: {
+					class: "mw-editor-details__summary",
+				},
+			}),
 			DetailsContent,
 			// Media,
 			Figure,
@@ -166,20 +190,18 @@ const App = () => {
 					autoCloseTags: true,
 				},
 			}),
-			Placeholder.configure({
-				includeChildren: true,
-				showOnlyCurrent: true,
+			// Placeholder.configure({
+			// 	includeChildren: true,
+			// 	showOnlyCurrent: true,
 
-				placeholder: ({ node }) => {
-					if (node.type.name === "detailsSummary") {
-						return "Summary";
-					}
+			// 	placeholder: ({ node }) => {
+			// 		if (node.type.name === "detailsSummary") {
+			// 			return "Summary";
+			// 		}
 
-					if (node.type.name === "caption") return "";
-
-					return "Write something...";
-				},
-			}),
+			// 		return "";
+			// 	},
+			// }),
 		],
 		onFocus: () => {
 			let container = document.getElementById(

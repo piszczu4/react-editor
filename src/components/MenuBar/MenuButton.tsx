@@ -73,7 +73,6 @@ export const MenuButton = ({
 	return (
 		<span className="tippy">
 			<Tippy
-				className="mw-popover"
 				content={dropdown.dropdownContent}
 				animation={false}
 				placement="bottom"

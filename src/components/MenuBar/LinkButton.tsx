@@ -27,7 +27,7 @@ export const LinkButton = ({ editor }: Props) => {
 				command={handleClick}
 				active={editor.isActive("link")}
 				tooltip={{
-					content: <TooltipContent content="Link" shortcut="Mod-L" />,
+					content: <TooltipContent title="Link" shortcut="Mod-L" />,
 				}}
 			/>
 			{exists && (

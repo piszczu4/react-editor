@@ -13,7 +13,7 @@ import { BubbleMenu, Editor } from "@tiptap/react";
 import "tippy.js/dist/svg-arrow.css";
 
 import { getMarkAttributes, getMarkRange } from "@tiptap/react";
-import { stackOverflowValidateLink } from "../Extensions/extension-link/utils";
+import { stackOverflowValidateLink } from "../extensions/extension-link/utils";
 
 type LinkButtonProps = {
 	view: EditorView;

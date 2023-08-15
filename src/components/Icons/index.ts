@@ -59,3 +59,5 @@ export { default as AlignRightIcon } from "./BoldIcon";
 export { default as AlignJustifyIcon } from "./BoldIcon";
 export { default as TextColorIcon } from "./TextColorIcon";
 export { default as BackgroundColorIcon } from "./BackgroundColorIcon";
+export { default as MathDisplayIcon } from "./BoldIcon";
+export { default as MathInlineIcon } from "./BoldIcon";

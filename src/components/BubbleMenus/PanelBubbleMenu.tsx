@@ -29,7 +29,6 @@ type PanelBubbleMenuProps = { editor: any };
 export function PanelBubbleMenu({ editor }: PanelBubbleMenuProps) {
 	return (
 		<BubbleMenu
-			className="mw-popover"
 			pluginKey={"panelBubbleMenu"}
 			editor={editor}
 			tippyOptions={{
@@ -148,7 +147,7 @@ export function PanelBubbleMenu({ editor }: PanelBubbleMenuProps) {
 						editor.chain().deleteNode("panel").run();
 					}}
 				>
-					<TrashIcon />
+					<TrashIcon className="mw-panel--delete" />
 				</button>
 			</div>
 		</BubbleMenu>

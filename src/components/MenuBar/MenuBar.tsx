@@ -4,24 +4,24 @@ import { MenuButton } from "../MenuButton";
 import { MenuDropdownButton } from "../MenuDropdownButton";
 import { MenuBlock } from "./MenuBlock";
 
-import { BlockquoteButton } from "./BlockquoteButton";
-import { BoldButton } from "./BoldButton";
-import { CodeBlockButton } from "./CodeBlockButton";
-import { CodeButton } from "./CodeButton";
-import { DetailsButton } from "./DetailsButton";
+import { BlockquoteButton } from "./Buttons/BlockquoteButton";
+import { BoldButton } from "./Buttons/BoldButton";
+import { CodeBlockButton } from "./Buttons/CodeBlockButton";
+import { CodeButton } from "./Buttons/CodeButton";
+import { DetailsButton } from "./Buttons/DetailsButton";
 import { FontSizeDropdownButton } from "./FontSizeDropdownButton";
-import { HorizontalRuleButton } from "./HorizontalRuleButton";
-import { HelpButton } from "./InfoButton";
-import { ItalicButton } from "./ItalicButton";
-import { KeyboardButton } from "./KeyboardButton";
-import { RedoButton } from "./RedoButton";
-import { SpoilerButton } from "./SpoilerButton";
-import { StrikethroughButton } from "./StrikethroughButton";
-import { UnderlineButton } from "./UnderlineButton";
-import { UndoButton } from "./UndoButton";
-import { SubscriptButton } from "./SubscriptButton";
-import { SuperscriptButton } from "./SuperscriptButton";
-import { ClearFormattingButton } from "./ClearFormattingButton";
+import { HorizontalRuleButton } from "./Buttons/HorizontalRuleButton";
+import { HelpButton } from "./Buttons/InfoButton";
+import { ItalicButton } from "./Buttons/ItalicButton";
+import { KeyboardButton } from "./Buttons/KeyboardButton";
+import { RedoButton } from "./Buttons/RedoButton";
+import { SpoilerButton } from "./Buttons/SpoilerButton";
+import { StrikethroughButton } from "./Buttons/StrikethroughButton";
+import { UnderlineButton } from "./Buttons/UnderlineButton";
+import { UndoButton } from "./Buttons/UndoButton";
+import { SubscriptButton } from "./Buttons/SubscriptButton";
+import { SuperscriptButton } from "./Buttons/SuperscriptButton";
+import { ClearFormattingButton } from "./Buttons/ClearFormattingButton";
 import { TaskListButton } from "./TaskListButton";
 import { LowercaseButton } from "./LowercaseButton";
 import { UppercaseButton } from "./UppercaseButton";
@@ -45,6 +45,8 @@ import { MathPanelButton } from "./MathPanelButton";
 import ReactModal from "react-modal";
 import { useState } from "react";
 import { ImageButton } from "./ImageButton";
+import { MathInlineButton } from "./Buttons/MathInlineButton";
+import { MathDisplayButton } from "./Buttons/MathDisplayButton";
 
 type MenuBarProps = {
 	editor: Editor;
@@ -79,18 +81,26 @@ export const MenuBar = ({
 						<ItalicButton editor={editor} />
 						<StrikethroughButton editor={editor} />
 						<SubscriptButton editor={editor} />
+						<SuperscriptButton editor={editor} />
+						<KeyboardButton editor={editor} />
 						<TextColorSplitButton editor={editor} />
 						<BackgroundColorSplitButton editor={editor} />
+						<ClearFormattingButton editor={editor} />
 					</MenuBlock>
 					<MenuBlock>
 						<CodeButton editor={editor} />
 						{/* dBlock! */}
-						{/* <CodeBlockButton editor={editor} /> */}
+						<CodeBlockButton editor={editor} />
 					</MenuBlock>
 					<MenuBlock>
 						<BlockquoteButton editor={editor} />
+						<SpoilerButton editor={editor} />
+						<HorizontalRuleButton editor={editor} />
+						<DetailsButton editor={editor} />
+						<MathInlineButton editor={editor} />
+						<MathDisplayButton editor={editor} />
+
 						<ImageButton editor={editor} />
-						{/* <HorizontalRuleButton editor={editor} /> */}
 					</MenuBlock>
 
 					<PanelButton editor={editor} />
@@ -116,11 +126,7 @@ export const MenuBar = ({
 							setIsCodeViewMode={setIsCodeViewMode}
 						/>
 						<TableButton editor={editor} />
-						<KeyboardButton editor={editor} />
-						<SpoilerButton editor={editor} />
-						{/* <DetailsButton editor={editor} /> */}
 						<SuperscriptButton editor={editor} />
-						<ClearFormattingButton editor={editor} />
 						<TaskListButton editor={editor} />
 						<LowercaseButton editor={editor} />
 						<UppercaseButton editor={editor} />

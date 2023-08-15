@@ -120,7 +120,7 @@ export const OrderedListDropdownButton = ({ editor }: Props) => {
 			}}
 			disabled={!editor.can().chain().focus().toggleOrderedList()}
 			tooltip={{
-				content: <TooltipContent content="Ordered List" shortcut="Mod-O" />,
+				content: <TooltipContent title="Ordered List" shortcut="Mod-O" />,
 			}}
 			dropdown={{
 				isDropdownButton: true,
@@ -140,7 +140,7 @@ export const OrderedListButton = ({ editor }: Props) => {
 			disabled={!editor.can().chain().focus().toggleOrderedList()}
 			active={editor.isActive("orderedList")}
 			tooltip={{
-				content: <TooltipContent content="Ordered List" shortcut="Mod-O" />,
+				content: <TooltipContent title="Ordered List" shortcut="Mod-O" />,
 			}}
 		/>
 	);

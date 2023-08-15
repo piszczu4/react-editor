@@ -1,15 +1,29 @@
 import { getShortcut } from "../utils";
 
 type Props = {
-	content: string;
+	title: string;
+	description?: string;
 	shortcut?: string;
 };
 
-export const TooltipContent = ({ content, shortcut }: Props): JSX.Element => {
+export const TooltipContent = ({
+	title,
+	description,
+	shortcut,
+}: Props): JSX.Element => {
 	return (
-		<span>
-			{content}
-			{shortcut && <span className="mw-shortcut">{getShortcut(shortcut)}</span>}
+		<span className="mw-tooltip-content">
+			{
+				<p className="title">
+					{title}{" "}
+					{shortcut && (
+						<span className="shortcut">{getShortcut(shortcut)}</span>
+					)}
+				</p>
+			}
+			{description && (
+				<p className="description fs-caption fc-light mb0">{description}</p>
+			)}
 		</span>
 	);
 };

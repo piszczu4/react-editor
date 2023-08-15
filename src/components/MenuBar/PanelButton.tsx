@@ -26,7 +26,7 @@ export const PanelButton = ({ editor }: Props) => {
 			}
 			active={editor.isActive("panel")}
 			tooltip={{
-				content: <TooltipContent content="Panel" />,
+				content: <TooltipContent title="Panel" />,
 			}}
 		/>
 	);

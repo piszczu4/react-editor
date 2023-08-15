@@ -104,7 +104,7 @@ export const BulletListDropdownButton = ({ editor }: Props) => {
 			}}
 			disabled={!editor.can().chain().focus().toggleBulletList()}
 			tooltip={{
-				content: <TooltipContent content="Bullet List" />,
+				content: <TooltipContent title="Bullet List" />,
 			}}
 			dropdown={{
 				isDropdownButton: true,
@@ -124,7 +124,7 @@ export const BulletListButton = ({ editor }: Props) => {
 			disabled={!editor.can().chain().focus().toggleBulletList()}
 			active={editor.isActive("bulletList")}
 			tooltip={{
-				content: <TooltipContent content="Bullet List" shortcut="Mod-U" />,
+				content: <TooltipContent title="Bullet List" shortcut="Mod-U" />,
 			}}
 		/>
 	);

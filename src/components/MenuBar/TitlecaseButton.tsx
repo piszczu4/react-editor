@@ -13,7 +13,7 @@ export const TitlecaseButton = ({ editor }: Props) => {
 			icon={<TitlecaseIcon />}
 			command={() => editor.chain().focus().capitalize("titlecase").run()}
 			tooltip={{
-				content: <TooltipContent content="Titlecase" />,
+				content: <TooltipContent title="Titlecase" />,
 			}}
 			text={<span>Title Case</span>}
 		/>

@@ -98,7 +98,7 @@ export const HeadingDropdownButton = ({ editor }: Props) => {
 			}}
 			disabled={!editor.can().chain().focus().setParagraph()}
 			tooltip={{
-				content: <TooltipContent content="Heading" shortcut="Mod-H" />,
+				content: <TooltipContent title="Heading" shortcut="Mod-H" />,
 			}}
 			dropdown={{
 				isDropdownButton: true,

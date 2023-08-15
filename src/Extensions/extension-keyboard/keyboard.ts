@@ -54,7 +54,7 @@ export const Keyboard = Mark.create<KeyboardExtensionOptions>({
 
 	addKeyboardShortcuts() {
 		return {
-			"Mod-,": () => this.editor.commands.toggleKeyboard(),
+			"Mod-'": () => this.editor.commands.toggleKeyboard(),
 		};
 	},
 });

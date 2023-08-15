@@ -1,4 +1,17 @@
 .ProseMirror {
+	p {
+		margin-bottom: 0.8em !important;
+	}
+	/* Underline fix (extension-underline) */
+	text-underline-position: under;
+
+	/* Horizontal rule */
+	hr:hover {
+		cursor: pointer;
+	}
+
+	// Other
+
 	/* allow the editable area to fill the parent */
 	min-height: inherit;
 	/* required for proper rendering */

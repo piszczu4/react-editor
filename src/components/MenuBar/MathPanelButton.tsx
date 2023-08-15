@@ -20,7 +20,7 @@ export const MathPanelButton = ({ editor }: Props) => {
 			}
 			active={editor.isActive("mathPanel")}
 			tooltip={{
-				content: <TooltipContent content="Math Panel" />,
+				content: <TooltipContent title="Math Panel" />,
 			}}
 		/>
 	);

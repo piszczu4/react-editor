@@ -98,7 +98,7 @@ export const AlignDropdownButton = ({ editor }: Props) => {
 			disabled={!editor.can().chain().focus().toggleCode().run()}
 			active={editor.isActive("code")}
 			tooltip={{
-				content: <TooltipContent content="Text Align" />,
+				content: <TooltipContent title="Text Align" />,
 			}}
 			dropdown={{
 				isDropdownButton: true,

@@ -13,7 +13,7 @@ export const LowercaseButton = ({ editor }: Props) => {
 			icon={<LowercaseIcon />}
 			command={() => editor.chain().focus().capitalize("lowercase").run()}
 			tooltip={{
-				content: <TooltipContent content="Lowercase" />,
+				content: <TooltipContent title="Lowercase" />,
 			}}
 			text={<span>lowercase</span>}
 		/>

@@ -22,7 +22,7 @@ export const FullscreenButton = ({
 			}}
 			active={isFullscreenMode}
 			tooltip={{
-				content: <TooltipContent content="Fullscreen" />,
+				content: <TooltipContent title="Fullscreen" />,
 			}}
 		/>
 	);

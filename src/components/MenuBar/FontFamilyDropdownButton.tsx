@@ -65,7 +65,7 @@ export const FontFamilyDropdownButton = ({ editor }: Props) => {
 			}}
 			disabled={!editor.can().chain().focus().setFontFamily("Arial").run()}
 			tooltip={{
-				content: <TooltipContent content="Font family" />,
+				content: <TooltipContent title="Font family" />,
 			}}
 			dropdown={{
 				isDropdownButton: true,

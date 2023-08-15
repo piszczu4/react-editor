@@ -51,7 +51,7 @@ export const FontSizeDropdownButton = ({ editor }: Props) => {
 			}}
 			disabled={!editor.can().chain().focus().toggleFontSize(16).run()}
 			tooltip={{
-				content: <TooltipContent content="Font size" />,
+				content: <TooltipContent title="Font size" />,
 			}}
 			dropdown={{
 				isDropdownButton: true,

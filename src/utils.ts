@@ -1,4 +1,5 @@
-import { Editor } from "@tiptap/react";
+import { Editor } from "@tiptap/core";
+import { EditorState } from "@tiptap/pm/state";
 
 /** Gets the modifier key for the current platform; i.e. "Command" on macOS and "Control" elsewhere */
 export function getPlatformModKey() {
@@ -63,4 +64,45 @@ export function findClosestNode(editor: any, nodeType: string) {
 		return found;
 	}
 	return null;
+}
+
+/**
+ * Compares two states and returns true if the doc has changed between them.
+ * The doc is considered changed if:
+ *      * the document node changed (@see docNodeChanged)
+ *      * the selection has changed
+ * @param prevState The "old" / previous editor state
+ * @param newState The "new" / current editor state
+ */
+export function docChanged(
+	prevState: EditorState,
+	newState: EditorState
+): boolean {
+	return (
+		docNodeChanged(prevState, newState) ||
+		!prevState.selection.eq(newState.selection)
+	);
+}
+
+/**
+ * Compares two states and returns true if the doc has changed between them.
+ * The doc is considered changed if:
+ *      * its content changed
+ *      * the stored marks have changed
+ * @param prevState The "old" / previous editor state
+ * @param newState The "new" / current editor state
+ */
+export function docNodeChanged(
+	prevState: EditorState,
+	newState: EditorState
+): boolean {
+	// if either are null, just return "changed"
+	if (!prevState || !newState) {
+		return true;
+	}
+
+	return (
+		!prevState.doc.eq(newState.doc) ||
+		prevState.storedMarks !== newState.storedMarks
+	);
 }

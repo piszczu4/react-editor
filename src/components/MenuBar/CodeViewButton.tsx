@@ -21,7 +21,7 @@ export const CodeViewButton = ({
 				return true;
 			}}
 			tooltip={{
-				content: <TooltipContent content="Code View" />,
+				content: <TooltipContent title="Code View" />,
 			}}
 		/>
 	);
