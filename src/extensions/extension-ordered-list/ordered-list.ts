@@ -18,4 +18,10 @@ export const OrderedList = TiptapOrderedList.extend({
 			},
 		};
 	},
+
+	addKeyboardShortcuts() {
+		return {
+			"Alt-o": () => this.editor.commands.toggleOrderedList(),
+		};
+	},
 });

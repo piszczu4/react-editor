@@ -1,5 +1,4 @@
-import { MenuButton } from "./MenuButton";
-import { Editor, isActive } from "@tiptap/react";
+import { Editor } from "@tiptap/react";
 import { useState } from "react";
 import {
 	DecimalOrderedListIcon,
@@ -9,12 +8,13 @@ import {
 	OrderedListIcon,
 	UpperAlphaOrderedListIcon,
 	UpperRomanOrderedListIcon,
-} from "..";
+} from "../..";
+import { MenuButton } from "../MenuButton";
 
-import { MenuDropdown } from "../MenuDropdown";
-import { TooltipContent } from "../TooltipContent";
-import { MenuSplitButton } from "./MenuSplitButton";
-import { Placement } from "tippy.js";
+import { _t } from "../../../helpers/strings";
+import { MenuDropdown } from "../../MenuDropdown";
+import { TooltipContent } from "../../TooltipContent";
+import { MenuSplitButton } from "../MenuSplitButton";
 
 function getIcon(type: string) {
 	return type === "decimal" ? (
@@ -42,6 +42,14 @@ export const OrderedListSplitButton = ({ editor }: Props) => {
 			id="ordered-list-split-button"
 			button={<OrderedListButton editor={editor} />}
 			dropdownButton={<OrderedListDropdownButton editor={editor} />}
+			tooltip={{
+				content: (
+					<TooltipContent
+						title={_t("commands.ordered_list.title")}
+						shortcut="Alt-O"
+					/>
+				),
+			}}
 		/>
 	);
 };
@@ -60,6 +68,9 @@ export const OrderedListDropdownButton = ({ editor }: Props) => {
 		let command = () => {
 			setIsOpen(false);
 			if (editor.isActive("orderedList")) {
+				if (editor.getAttributes("orderedList")["type"] === type) {
+					return editor.chain().focus().toggleOrderedList().run();
+				}
 				return editor
 					.chain()
 					.focus()
@@ -80,24 +91,9 @@ export const OrderedListDropdownButton = ({ editor }: Props) => {
 				key={index}
 				icon={getIcon(type)}
 				command={command}
-				disabled={
-					!editor
-						.can()
-						.chain()
-						.focus()
-						.updateAttributes("orderedList", { type: type })
-						.run()
-				}
+				disabled={!editor.can().toggleOrderedList()}
 				active={editor.isActive("orderedList", { type: type })}
-				tooltip={{
-					content: type
-						.split("-")
-						.map((atom) => {
-							return atom.charAt(0).toUpperCase() + atom.slice(1);
-						})
-						.join(" "),
-					placement: "left",
-				}}
+				tooltip={_t(`commands.ordered_list.${type}`)}
 				dropdown={{ isDropdownItem: true }}
 			/>
 		);
@@ -113,21 +109,18 @@ export const OrderedListDropdownButton = ({ editor }: Props) => {
 
 	return (
 		<MenuButton
-			// icon={<OrderedListIcon />}
 			command={() => {
 				setIsOpen(!isOpen);
 				return true;
 			}}
-			disabled={!editor.can().chain().focus().toggleOrderedList()}
-			tooltip={{
-				content: <TooltipContent title="Ordered List" shortcut="Mod-O" />,
-			}}
+			disabled={!editor.can().toggleOrderedList()}
 			dropdown={{
 				isDropdownButton: true,
 				dropdownContent: dropdownContent,
 				isOpen: isOpen,
 				setIsOpen: setIsOpen,
 			}}
+			active={isOpen}
 		/>
 	);
 };
@@ -137,45 +130,8 @@ export const OrderedListButton = ({ editor }: Props) => {
 		<MenuButton
 			icon={<OrderedListIcon />}
 			command={() => editor.chain().focus().toggleOrderedList().run()}
-			disabled={!editor.can().chain().focus().toggleOrderedList()}
+			disabled={!editor.can().toggleOrderedList()}
 			active={editor.isActive("orderedList")}
-			tooltip={{
-				content: <TooltipContent title="Ordered List" shortcut="Mod-O" />,
-			}}
 		/>
 	);
 };
-
-// // Ordered List
-// let orderedListButton = (
-// 	<MenuButton
-// 		key="ordered-list"
-// 		id="ordered-list"
-// 		iconName="OrderedList"
-// 		command={() => editor.chain().focus().toggleOrderedList().run()}
-// 		active={editor.isActive("orderedList")}
-// 		tooltipData={{
-// 			title: _t("commands.ordered_list", {
-// 				shortcut: getShortcut("Mod-O"),
-// 			}),
-// 		}}
-// 	/>
-// );
-
-// let orderedListDropdownButton = (
-// 	<MenuDropdownButton
-// 		key="ordered-list-dropdown"
-// 		id="ordered-list-dropdown"
-// 		children={orderedListDropdownItems}
-// 		nCols={3}
-// 	/>
-// );
-
-// let orderedListSplitButton = (
-// 	<MenuSplitButton
-// 		key="ordered-list-split-button"
-// 		id="ordered-list-split-button"
-// 		button={orderedListButton}
-// 		dropdownButton={orderedListDropdownButton}
-// 	/>
-// );

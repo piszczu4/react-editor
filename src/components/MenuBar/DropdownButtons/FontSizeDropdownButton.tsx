@@ -111,6 +111,7 @@ export const FontSizeDropdownButton = ({ editor }: Props) => {
 								shortcut="Mod-Shift--"
 							/>
 						),
+						placement: "left",
 					}}
 				/>
 			</div>
@@ -170,6 +171,7 @@ export const FontSizeDropdownButton = ({ editor }: Props) => {
 								shortcut="Mod-Shift-+"
 							/>
 						),
+						placement: "right",
 					}}
 				/>
 			</div>

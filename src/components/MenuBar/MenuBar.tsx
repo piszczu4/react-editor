@@ -27,8 +27,8 @@ import { FontFamilyDropdownButton } from "./DropdownButtons/FontFamilyDropdownBu
 import { FullscreenButton } from "./FullscreenButton";
 import { Level } from "@tiptap/extension-heading";
 import { HeadingDropdownButton } from "./DropdownButtons/HeadingDropdownButton";
-import { OrderedListSplitButton } from "./OrderedListSplitButton";
-import { BulletListSplitButton } from "./UnorderedListSplitButton";
+import { OrderedListSplitButton } from "./SplitButtons/OrderedListSplitButton";
+import { BulletListSplitButton } from "./SplitButtons/UnorderedListSplitButton";
 import { LinkButton } from "./LinkButton";
 import { AlignDropdownButton } from "./DropdownButtons/AlignDropdownButton";
 
@@ -91,6 +91,12 @@ export const MenuBar = ({
 						<FontSizeDropdownButton editor={editor} />
 						<FontFamilyDropdownButton editor={editor} />
 					</MenuBlock>
+
+					<MenuBlock>
+						<BulletListSplitButton editor={editor} />
+						<OrderedListSplitButton editor={editor} />
+					</MenuBlock>
+
 					<MenuBlock>
 						<CodeButton editor={editor} />
 						{/* dBlock! */}
@@ -129,9 +135,6 @@ export const MenuBar = ({
 						<TableButton editor={editor} />
 						<SuperscriptButton editor={editor} />
 						<TaskListButton editor={editor} />
-
-						<OrderedListSplitButton editor={editor} />
-						<BulletListSplitButton editor={editor} />
 
 						<button
 							onClick={() =>

@@ -13,6 +13,7 @@
 	cursor: pointer;
 	display: flex;
 	align-items: center;
+	// justify-content: center;
 	padding: var(--_bu-p);
 	border-radius: var(--_bu-br);
 	border: var(--_bu-baw) solid var(--_bu-bc);
@@ -48,6 +49,7 @@
 	}
 
 	.mw-btn--dropdown-icon {
+		margin-bottom: 2px;
 		// margin-left: 8px;
 	}
 }
@@ -62,22 +64,30 @@
 	display: flex;
 	border-radius: 6px;
 
-	> .tippy:nth-child(1) > button {
-		border-bottom-right-radius: 0px !important;
-		border-top-right-radius: 0px !important;
-		padding-left: 2px;
-		padding-right: 2px;
+	.mw-split-btn--button {
+		button {
+			border-bottom-right-radius: 0px !important;
+			border-top-right-radius: 0px !important;
+			padding-left: 4px;
+			padding-right: 4px;
+		}
 	}
 
-	.tippy:nth-child(2) > button {
-		border-bottom-left-radius: 0px;
-		border-top-left-radius: 0px;
-		width: 15px;
-		padding-left: 2px;
-		padding-right: 2px;
+	.mw-split-btn--dropdown {
+		display: flex;
+		.mw-btn-dropdown {
+			border-bottom-left-radius: 0px;
+			border-top-left-radius: 0px;
+			width: 18px;
+			padding-left: 2px;
+			padding-right: 2px;
+		}
 	}
 
-	&:hover {
+	&:hover,
+	&:focus-visible,
+	&:active,
+	&:target {
 		border-radius: 6px;
 		box-shadow: 0 0 0 1px var(--theme-secondary-100) inset;
 	}

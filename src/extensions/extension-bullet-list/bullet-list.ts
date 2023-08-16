@@ -18,4 +18,10 @@ export const BulletList = TiptapBulletList.extend({
 			},
 		};
 	},
+
+	addKeyboardShortcuts() {
+		return {
+			"Alt-u": () => this.editor.commands.toggleBulletList(),
+		};
+	},
 });

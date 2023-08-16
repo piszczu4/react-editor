@@ -5,12 +5,13 @@ import {
 	DiscBulletListIcon,
 	BulletListIcon,
 	SquareBulletListIcon,
-} from "..";
-import { MenuButton } from "./MenuButton";
+} from "../..";
+import { MenuButton } from "../MenuButton";
 
-import { MenuDropdown } from "../MenuDropdown";
-import { TooltipContent } from "../TooltipContent";
-import { MenuSplitButton } from "./MenuSplitButton";
+import { MenuDropdown } from "../../MenuDropdown";
+import { TooltipContent } from "../../TooltipContent";
+import { MenuSplitButton } from "../MenuSplitButton";
+import { _t } from "../../../helpers/strings";
 
 function getIcon(type: string) {
 	return type === "disc" ? (
@@ -32,6 +33,14 @@ export const BulletListSplitButton = ({ editor }: Props) => {
 			id="unordered-list-split-button"
 			button={<BulletListButton editor={editor} />}
 			dropdownButton={<BulletListDropdownButton editor={editor} />}
+			tooltip={{
+				content: (
+					<TooltipContent
+						title={_t("commands.unordered_list.title")}
+						shortcut="Alt-U"
+					/>
+				),
+			}}
 		/>
 	);
 };
@@ -44,6 +53,9 @@ export const BulletListDropdownButton = ({ editor }: Props) => {
 			let command = () => {
 				setIsOpen(false);
 				if (editor.isActive("bulletList")) {
+					if (editor.getAttributes("bulletList")["type"] === type) {
+						return editor.chain().focus().toggleBulletList().run();
+					}
 					return editor
 						.chain()
 						.focus()
@@ -64,24 +76,9 @@ export const BulletListDropdownButton = ({ editor }: Props) => {
 					key={index}
 					icon={getIcon(type)}
 					command={command}
-					disabled={
-						!editor
-							.can()
-							.chain()
-							.focus()
-							.updateAttributes("bulletList", { type: type })
-							.run()
-					}
+					disabled={!editor.can().toggleBulletList()}
 					active={editor.isActive("bulletList", { type: type })}
-					tooltip={{
-						content: type
-							.split("-")
-							.map((atom) => {
-								return atom.charAt(0).toUpperCase() + atom.slice(1);
-							})
-							.join(" "),
-						placement: "left",
-					}}
+					tooltip={_t(`commands.unordered_list.${type}`)}
 					dropdown={{ isDropdownItem: true }}
 				/>
 			);
@@ -102,10 +99,8 @@ export const BulletListDropdownButton = ({ editor }: Props) => {
 				setIsOpen(!isOpen);
 				return true;
 			}}
-			disabled={!editor.can().chain().focus().toggleBulletList()}
-			tooltip={{
-				content: <TooltipContent title="Bullet List" />,
-			}}
+			disabled={!editor.can().toggleBulletList()}
+			active={isOpen}
 			dropdown={{
 				isDropdownButton: true,
 				dropdownContent: dropdownContent,
@@ -121,11 +116,8 @@ export const BulletListButton = ({ editor }: Props) => {
 		<MenuButton
 			icon={<BulletListIcon />}
 			command={() => editor.chain().focus().toggleBulletList().run()}
-			disabled={!editor.can().chain().focus().toggleBulletList()}
+			disabled={!editor.can().toggleBulletList()}
 			active={editor.isActive("bulletList")}
-			tooltip={{
-				content: <TooltipContent title="Bullet List" shortcut="Mod-U" />,
-			}}
 		/>
 	);
 };

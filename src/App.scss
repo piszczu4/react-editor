@@ -854,6 +854,15 @@ figcaption p {
 	}
 }
 
+#ordered-list-dropdown {
+	svg {
+		height: 40px;
+		width: 40px;
+		max-width: 40px;
+		max-height: 40px;
+	}
+}
+
 .mw-tooltip-content {
 	display: block;
 	.title {

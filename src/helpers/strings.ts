@@ -58,7 +58,15 @@ export const defaultStrings: Record<any, any> = {
 			math_inline: "Math Inline",
 			metaTagLink: shortcut("Meta tag"),
 			moreFormatting: "More formatting",
-			ordered_list: shortcut("Numbered list"),
+			ordered_list: {
+				title: "Numbered list",
+				decimal: "Decimal",
+				"lower-alpha": "Lower Alpha",
+				"lower-greek": "Lower Greek",
+				"lower-roman": "Lower Roman",
+				"upper-alpha": "Upper Alpha",
+				"upper-roman": "Upper Roman",
+			},
 			outdent: "Outdent",
 			redo: "Redo", // DONE
 			spoiler: "Spoiler", // DONE
@@ -89,7 +97,12 @@ export const defaultStrings: Record<any, any> = {
 			text_color: "Text color",
 			underline: "Underline", // DONE
 			undo: "Undo", // DONE
-			unordered_list: shortcut("Bulleted list"),
+			unordered_list: {
+				title: "Bullet list",
+				disc: "Disc",
+				circle: "Circle",
+				square: "Square",
+			},
 		},
 		link_editor: {
 			cancel_button: "Cancel",
@@ -180,7 +193,15 @@ export const defaultStrings: Record<any, any> = {
 			math_inline: "Jednoliniowe wyrażenie matematyczne",
 			metaTagLink: shortcut("Meta tag"),
 			moreFormatting: "Więcej formatowania",
-			ordered_list: shortcut("Lista numerowana"),
+			ordered_list: {
+				title: "Lista numerowana",
+				decimal: "Liczbowe",
+				"lower-alpha": "Małe łacińskie",
+				"lower-greek": "Małe greckie",
+				"lower-roman": "Małe rzymskie",
+				"upper-alpha": "Duże łacińskie",
+				"upper-roman": "Duże rzymskie",
+			},
 			outdent: "Zmniejsz wcięcie",
 			redo: "Powtórz", // DONE
 			spoiler: "Spojler", // DONE
@@ -211,7 +232,12 @@ export const defaultStrings: Record<any, any> = {
 			text_color: "Kolor czcionki",
 			underline: "Podkreślenie", // DONE
 			undo: "Cofnij", // DONE
-			unordered_list: shortcut("Lista wypunktowana"),
+			unordered_list: {
+				title: "Lista wypunktowana",
+				disc: "Koło",
+				circle: "Okrąg",
+				square: "Kwadrat",
+			},
 		},
 		link_editor: {
 			cancel_button: "Anuluj",

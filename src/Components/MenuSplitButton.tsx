@@ -29,8 +29,8 @@ export const MenuSplitButton = ({
 			className={`mw-split-button ${cssClasses.join(" ")}`}
 			style={{ display: "flex" }}
 		>
-			{button}
-			{dropdownButton}
+			<div className="mw-split-btn--button">{button}</div>
+			<div className="mw-split-btb--dropdown">{dropdownButton}</div>
 		</div>
 	);
 };

@@ -17,7 +17,10 @@ type Props = {
 	command?: () => boolean;
 	disabled?: boolean;
 	active?: boolean;
-	tooltip?: { content: JSX.Element | string; placement?: string } | null;
+	tooltip?:
+		| { content: JSX.Element | string; placement?: string }
+		| null
+		| string;
 	text?: JSX.Element;
 	dropdown?: {
 		isDropdownButton?: boolean;
@@ -43,9 +46,13 @@ export const MenuButton = ({
 		<button
 			id={id}
 			className={`mw-btn ${
-				dropdown?.isDropdownItem ? "mw-btn-dropdown--item" : ""
+				dropdown?.isDropdownItem ? "mw-btn-dropdown--item " : ""
+			}
+				${dropdown?.isDropdownButton ? "mw-btn-dropdown " : ""}
+
 			} ${active ? "is-active " : ""} ${disabled ? "is-disabled " : ""}`}
 			onClick={!disabled ? command : () => false}
+			title={typeof tooltip === "string" ? tooltip : undefined}
 		>
 			{icon !== null && <span className="mw-btn--icon">{icon}</span>}
 			{text && <div className="mw-btn--text">{text}</div>}
@@ -55,24 +62,26 @@ export const MenuButton = ({
 		</button>
 	);
 
-	let buttonWithTooltip = tooltip ? (
-		<div className="tippy">
-			<Tippy
-				animation={"scale-extreme"}
-				placement={
-					tooltip?.placement ? (tooltip?.placement as Placement) : "top"
-				}
-				className="mw-tooltip"
-				content={tooltip?.content}
-				disabled={!tooltip?.content}
-				interactive={true}
-			>
-				{button}
-			</Tippy>
-		</div>
-	) : (
-		button
-	);
+	let buttonWithTooltip =
+		tooltip && typeof tooltip !== "string" ? (
+			<div className="tippy">
+				<Tippy
+					animation={"scale-extreme"}
+					placement={
+						tooltip?.placement ? (tooltip?.placement as Placement) : "top"
+					}
+					className="mw-tooltip"
+					content={tooltip?.content}
+					disabled={!tooltip?.content}
+					interactive={true}
+					appendTo={() => document.body}
+				>
+					{button}
+				</Tippy>
+			</div>
+		) : (
+			button
+		);
 
 	if (!dropdown?.isDropdownButton) return buttonWithTooltip;
 
@@ -86,6 +95,7 @@ export const MenuButton = ({
 				interactive={true}
 				visible={dropdown.isOpen}
 				onClickOutside={() => dropdown.setIsOpen && dropdown.setIsOpen(false)}
+				appendTo={() => document.body}
 			>
 				{buttonWithTooltip}
 			</Tippy>

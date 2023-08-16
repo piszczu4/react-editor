@@ -79,9 +79,10 @@ $color: white;
 
 .tippy {
 	width: 100% !important;
+	display: flex;
 
 	button {
-		width: 100%;
+		// width: 100%;
 	}
 }
 
