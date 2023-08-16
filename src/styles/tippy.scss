@@ -86,5 +86,16 @@ $color: white;
 }
 
 .mw-tippy-popover {
-	padding: 8px 0 !important;
+	padding: 0 !important;
+	.mw-dropdown-content {
+		overflow-x: hidden !important;
+		max-height: 350px !important;
+		padding: 8px 0px;
+	}
+}
+
+#font-size-dropdown {
+	.mw-dropdown-section {
+		margin-left: 12px !important;
+	}
 }

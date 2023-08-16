@@ -9,7 +9,7 @@ import { BoldButton } from "./Buttons/BoldButton";
 import { CodeBlockButton } from "./Buttons/CodeBlockButton";
 import { CodeButton } from "./Buttons/CodeButton";
 import { DetailsButton } from "./Buttons/DetailsButton";
-import { FontSizeDropdownButton } from "./FontSizeDropdownButton";
+import { FontSizeDropdownButton } from "./DropdownButtons/FontSizeDropdownButton";
 import { HorizontalRuleButton } from "./Buttons/HorizontalRuleButton";
 import { HelpButton } from "./Buttons/InfoButton";
 import { ItalicButton } from "./Buttons/ItalicButton";
@@ -23,10 +23,7 @@ import { SubscriptButton } from "./Buttons/SubscriptButton";
 import { SuperscriptButton } from "./Buttons/SuperscriptButton";
 import { ClearFormattingButton } from "./Buttons/ClearFormattingButton";
 import { TaskListButton } from "./TaskListButton";
-import { LowercaseButton } from "./LowercaseButton";
-import { UppercaseButton } from "./UppercaseButton";
-import { TitlecaseButton } from "./TitlecaseButton";
-import { FontFamilyDropdownButton } from "./FontFamilyDropdownButton";
+import { FontFamilyDropdownButton } from "./DropdownButtons/FontFamilyDropdownButton";
 import { FullscreenButton } from "./FullscreenButton";
 import { Level } from "@tiptap/extension-heading";
 import { HeadingDropdownButton } from "./DropdownButtons/HeadingDropdownButton";
@@ -91,6 +88,8 @@ export const MenuBar = ({
 					<MenuBlock>
 						<HeadingDropdownButton editor={editor} />
 						<AlignDropdownButton editor={editor} />
+						<FontSizeDropdownButton editor={editor} />
+						<FontFamilyDropdownButton editor={editor} />
 					</MenuBlock>
 					<MenuBlock>
 						<CodeButton editor={editor} />
@@ -111,8 +110,6 @@ export const MenuBar = ({
 					<PanelButton editor={editor} />
 					<MathPanelButton editor={editor} />
 
-					<MenuBlock>{<FontSizeDropdownButton editor={editor} />}</MenuBlock>
-
 					<MenuBlock>
 						<FullscreenButton
 							isFullscreenMode={isFullscreenMode}
@@ -132,10 +129,6 @@ export const MenuBar = ({
 						<TableButton editor={editor} />
 						<SuperscriptButton editor={editor} />
 						<TaskListButton editor={editor} />
-						<LowercaseButton editor={editor} />
-						<UppercaseButton editor={editor} />
-						<TitlecaseButton editor={editor} />
-						<FontFamilyDropdownButton editor={editor} />
 
 						<OrderedListSplitButton editor={editor} />
 						<BulletListSplitButton editor={editor} />

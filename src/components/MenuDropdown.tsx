@@ -1,5 +1,5 @@
 type MenuDropdownProps = {
-	children: JSX.Element[];
+	children: JSX.Element[] | JSX.Element;
 	id?: string;
 	nCols?: number;
 };

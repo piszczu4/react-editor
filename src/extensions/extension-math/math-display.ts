@@ -86,10 +86,10 @@ export const MathDisplay = Node.create({
 				({ chain, state, tr }) => {
 					let { $from } = tr.selection;
 
-					let content = state.doc.cut(
+					let content = state.doc.textBetween(
 						state.selection.from,
 						state.selection.to
-					).textContent;
+					);
 
 					if (this.editor.isActive(this.name)) {
 						return chain()

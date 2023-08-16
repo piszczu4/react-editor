@@ -1,4 +1,8 @@
-export default (className: string) => {
+type Props = {
+	className?: string;
+};
+
+export default ({ className }: Props) => {
 	return (
 		<svg
 			className={className}
@@ -9,8 +13,8 @@ export default (className: string) => {
 			xmlns="http://www.w3.org/2000/svg"
 		>
 			<path
-				fill-rule="evenodd"
-				clip-rule="evenodd"
+				fillRule="evenodd"
+				clipRule="evenodd"
 				d="M4 8V10H14V8H4Z"
 				fill="black"
 			/>

@@ -83,10 +83,10 @@ export const MathInline = Node.create({
 						return false;
 					}
 
-					let content = state.doc.cut(
+					let content = state.doc.textBetween(
 						state.selection.from,
 						state.selection.to
-					).textContent;
+					);
 
 					if (this.editor.isActive(this.name)) {
 						return chain()
@@ -115,7 +115,8 @@ export const MathInline = Node.create({
 							);
 
 							tr.setSelection(NodeSelection.create(tr.doc, $from.pos));
-
+							// TODO
+							// https://discuss.prosemirror.net/t/how-to-wrap-a-text-selection-inside-inline-node-a-move-cursor-to-the-end/5774
 							return true;
 						})
 						.run();

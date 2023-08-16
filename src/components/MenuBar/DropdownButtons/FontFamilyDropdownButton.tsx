@@ -1,9 +1,10 @@
 import { Editor } from "@tiptap/react";
-import { MenuButton } from "./MenuButton";
-import { FontFamilyIcon } from "..";
-import { TooltipContent } from "../TooltipContent";
+import { MenuButton } from "../MenuButton";
+import { FontFamilyIcon } from "../..";
+import { TooltipContent } from "../../TooltipContent";
 import { useState } from "react";
-import { MenuDropdown } from "../MenuDropdown";
+import { MenuDropdown } from "../../MenuDropdown";
+import { _t } from "../../../helpers/strings";
 
 const DEFAULT_FONT_TYPE_NAMES = [
 	"Arial",
@@ -54,7 +55,7 @@ export const FontFamilyDropdownButton = ({ editor }: Props) => {
 		<MenuDropdown id="font-family-dropdown" children={fontSizeDropdownItems} />
 	);
 
-	let { fontFamily } = editor.getAttributes("textStyle");
+	// let { fontFamily } = editor.getAttributes("textStyle");
 
 	return (
 		<MenuButton
@@ -63,9 +64,9 @@ export const FontFamilyDropdownButton = ({ editor }: Props) => {
 				setIsOpen(!isOpen);
 				return true;
 			}}
-			disabled={!editor.can().chain().focus().setFontFamily("Arial").run()}
+			disabled={!editor.can().setFontFamily("Arial")}
 			tooltip={{
-				content: <TooltipContent title="Font family" />,
+				content: <TooltipContent title={_t("commands.font_family")} />,
 			}}
 			dropdown={{
 				isDropdownButton: true,
@@ -73,7 +74,7 @@ export const FontFamilyDropdownButton = ({ editor }: Props) => {
 				isOpen: isOpen,
 				setIsOpen: setIsOpen,
 			}}
-			text={<span>{fontFamily ? fontFamily : "sans-serif"}</span>}
+			// text={<span>{fontFamily ? fontFamily : "sans-serif"}</span>}
 		/>
 	);
 };

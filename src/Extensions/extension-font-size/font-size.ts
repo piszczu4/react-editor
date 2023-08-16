@@ -1,6 +1,8 @@
 import "@tiptap/extension-text-style";
 
 import { Extension } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
+import { getFontSize } from ".";
 
 export type FontSizeOptions = {
 	types: string[];
@@ -18,6 +20,7 @@ declare module "@tiptap/core" {
 			 */
 			unsetFontSize: () => ReturnType;
 			toggleFontSize: (fontSize: number) => ReturnType;
+			getFontSize: () => ReturnType;
 		};
 	}
 }
@@ -77,6 +80,19 @@ export const FontSize = Extension.create<FontSizeOptions>({
 						return commands.setFontSize(fontSize);
 					}
 				},
+		};
+	},
+
+	addKeyboardShortcuts() {
+		return {
+			"Mod-Shift-+": () => {
+				let fontSize = getFontSize(this.editor);
+				return this.editor.commands.setFontSize(fontSize + 1);
+			},
+			"Mod-Shift--": () => {
+				let fontSize = getFontSize(this.editor);
+				return this.editor.commands.setFontSize(fontSize - 1);
+			},
 		};
 	},
 });

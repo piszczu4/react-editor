@@ -12,7 +12,7 @@ export const TooltipContent = ({
 	shortcut,
 }: Props): JSX.Element => {
 	return (
-		<span className="mw-tooltip-content">
+		<div className="mw-tooltip-content">
 			{
 				<p className="title">
 					{title}{" "}
@@ -24,6 +24,6 @@ export const TooltipContent = ({
 			{description && (
 				<p className="description fs-caption fc-light mb0">{description}</p>
 			)}
-		</span>
+		</div>
 	);
 };

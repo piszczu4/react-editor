@@ -114,8 +114,6 @@ export const AlignDropdownButton = ({ editor }: Props) => {
 	else if (editor.isActive({ textAlign: "right" })) align = "right";
 	else if (editor.isActive({ textAlign: "justify" })) align = "justify";
 
-	console.log(editor.can().indent());
-
 	return (
 		<MenuButton
 			icon={getIcon(align)}

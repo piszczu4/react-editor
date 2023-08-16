@@ -27,7 +27,11 @@ export const defaultStrings: Record<any, any> = {
 			},
 			details: "Details",
 			font_family: "Font family",
-			font_size: "Font size",
+			font_size: {
+				title: "Font size",
+				increase: "Increase by 1px",
+				decrease: "Decrease by 1px",
+			},
 			heading: {
 				title: "Heading",
 				level0: "Paragraph",
@@ -119,6 +123,12 @@ export const defaultStrings: Record<any, any> = {
 		},
 		labels: {
 			align_section: "Align",
+			capitalization_section: "Capitalization",
+			font_size_section: "Font size",
+			font_size: {
+				custom: "Custom",
+				presets: "Presets",
+			},
 			indent_section: "Indent",
 		},
 	},
@@ -139,7 +149,11 @@ export const defaultStrings: Record<any, any> = {
 			},
 			details: "Detale",
 			font_family: "Czcionka",
-			font_size: "Rozmiar czcionki",
+			font_size: {
+				title: "Rozmiar czcionki",
+				increase: "Zwiększ o 1px",
+				decrease: "Zmniejsz o 1px",
+			},
 			heading: {
 				title: "Nagłówek",
 				level0: "Paragraf",
@@ -162,8 +176,8 @@ export const defaultStrings: Record<any, any> = {
 			italic: "Kursywa", // DONE
 			keyboard: "Klawiatura", // DONE
 			link: shortcut("Link"),
-			math_display: "Math Display",
-			math_inline: "Math Inline",
+			math_display: "Wieloliniowe wyrażenie matematyczne",
+			math_inline: "Jednoliniowe wyrażenie matematyczne",
 			metaTagLink: shortcut("Meta tag"),
 			moreFormatting: "Więcej formatowania",
 			ordered_list: shortcut("Lista numerowana"),
@@ -231,6 +245,11 @@ export const defaultStrings: Record<any, any> = {
 		},
 		labels: {
 			align_section: "Wyrównanie",
+			font_size: {
+				custom: "Dowolny",
+				presets: "Siatka",
+			},
+			capitalization_section: "Format",
 			indent_section: "Wcięcie",
 		},
 	},
