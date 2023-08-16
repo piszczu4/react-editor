@@ -13,6 +13,7 @@ function shortcut(text: string) {
 export const defaultStrings: Record<any, any> = {
 	en: {
 		commands: {
+			background_color: "Background color",
 			blockquote: "Blockquote", // DONE
 			bold: "Bold", // DONE
 			clear_formatting: {
@@ -85,6 +86,7 @@ export const defaultStrings: Record<any, any> = {
 				insert_before: "Insert row before",
 				remove: "Remove row",
 			},
+			task_list: "Task list",
 			tagLink: shortcut("Tag"),
 			text_align: {
 				title: "Text Align",
@@ -93,7 +95,6 @@ export const defaultStrings: Record<any, any> = {
 				right: "Right",
 				justify: "Justify",
 			},
-			task_list: "Task list",
 			text_color: "Text color",
 			underline: "Underline", // DONE
 			undo: "Undo", // DONE
@@ -148,6 +149,7 @@ export const defaultStrings: Record<any, any> = {
 
 	pl: {
 		commands: {
+			background_color: "Kolor tła",
 			blockquote: "Cytat", // DONE
 			bold: "Pogrubienie", // DONE
 			clear_formatting: {
@@ -221,6 +223,7 @@ export const defaultStrings: Record<any, any> = {
 				remove: "Usuń wiersz",
 			},
 			tagLink: shortcut("Tag"),
+			task_list: "Lista zadań",
 			text_align: {
 				title: "Wyrównanie tekstu",
 				left: "Wyrównaj do lewej",
@@ -228,7 +231,6 @@ export const defaultStrings: Record<any, any> = {
 				right: "Wyrównaj do prawej",
 				justify: "Wyjustuj",
 			},
-			task_list: "Lista zadań",
 			text_color: "Kolor czcionki",
 			underline: "Podkreślenie", // DONE
 			undo: "Cofnij", // DONE

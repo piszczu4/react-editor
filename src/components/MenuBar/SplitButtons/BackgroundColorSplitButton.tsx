@@ -1,11 +1,12 @@
 import { Editor } from "@tiptap/react";
 import { useState } from "react";
-import { TextColorIcon } from "..";
-import { MenuButton } from "./MenuButton";
+import { TextColorIcon } from "../..";
+import { MenuButton } from "../MenuButton";
 
-import { ColorPalette } from "../ColorPalette";
-import { TooltipContent } from "../TooltipContent";
-import { MenuSplitButton } from "./MenuSplitButton";
+import { ColorPalette } from "../../ColorPalette";
+import { TooltipContent } from "../../TooltipContent";
+import { MenuSplitButton } from "../MenuSplitButton";
+import { _t } from "../../../helpers/strings";
 
 type Props = {
 	editor: Editor;
@@ -21,8 +22,6 @@ export const BackgroundColorSplitButton = ({ editor }: Props) => {
 	);
 };
 
-let lastColor = "";
-
 export const BackgroundColorDropdownButton = ({ editor }: Props) => {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -32,9 +31,6 @@ export const BackgroundColorDropdownButton = ({ editor }: Props) => {
 				setIsOpen(!isOpen);
 				return true;
 			}}
-			tooltip={{
-				content: <TooltipContent title="Text color" />,
-			}}
 			active={isOpen}
 			dropdown={{
 				isDropdownButton: true,
@@ -43,7 +39,7 @@ export const BackgroundColorDropdownButton = ({ editor }: Props) => {
 						colorCommand={(color: string) => () => {
 							editor.chain().focus().toggleHighlight({ color: color }).run();
 							setIsOpen(false);
-							lastColor = color;
+							editor.storage.highlight.lastColor = color;
 						}}
 						deleteCommand={() => {
 							editor.chain().focus().unsetHighlight().run();
@@ -59,17 +55,21 @@ export const BackgroundColorDropdownButton = ({ editor }: Props) => {
 };
 
 export const BackgroundColorButton = ({ editor }: Props) => {
+	let lastColor = editor.storage.highlight.lastColor;
 	return (
 		<MenuButton
 			icon={<TextColorIcon color={lastColor} />}
 			command={() =>
 				editor.chain().focus().setHighlight({ color: lastColor }).run()
 			}
-			disabled={
-				!editor.can().chain().focus().setHighlight({ color: lastColor })
-			}
+			disabled={!editor.can().setHighlight({ color: "white" })}
 			tooltip={{
-				content: <TooltipContent title="Background color" />,
+				content: (
+					<TooltipContent
+						title={_t("commands.background_color")}
+						shortcut="Alt-H"
+					/>
+				),
 			}}
 		/>
 	);

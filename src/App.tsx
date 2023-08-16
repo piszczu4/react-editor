@@ -11,16 +11,40 @@ import { MenuBar } from "./components/MenuBar";
 
 // Extensions
 import { Blockquote } from "./extensions/extension-blockquote";
+import { BulletList } from "./extensions/extension-bullet-list";
 import { ClearFormatting } from "./extensions/extension-clear-formatting/clear-formatting";
 import { Code } from "./extensions/extension-code/code";
 import { CodeBlock } from "./extensions/extension-code-block";
+import { Color } from "./extensions/extension-color";
+import FontFamily from "@tiptap/extension-font-family";
+
+import { FontSize } from "./extensions/extension-font-size";
+
 import Heading from "@tiptap/extension-heading";
 import { HelpButton } from "./components/MenuBar/Buttons/InfoButton";
+import { Highlight } from "./extensions/extension-highlight";
 import { HorizontalRule } from "./extensions/extension-horizontal-rule";
 import { Indent } from "./extensions/extension-indent";
 import { Keyboard } from "./extensions/extension-keyboard";
+import ListItem from "@tiptap/extension-list-item";
+import { MathDisplay } from "./extensions/extension-math/math-display";
+import { MathInline } from "./extensions/extension-math/math-inline";
+
+import { OrderedList } from "./extensions/extension-ordered-list";
+
 import { RedoButton } from "./components/MenuBar/Buttons/RedoButton";
 import { Spoiler } from "./extensions/extension-spoiler";
+import StarterKit from "@tiptap/starter-kit";
+
+import Subscript from "@tiptap/extension-subscript";
+import Superscript from "@tiptap/extension-superscript";
+
+import TaskItem from "@tiptap/extension-task-item";
+
+import { TaskList } from "./extensions/extension-task-list";
+import TextAlign from "@tiptap/extension-text-align";
+import TextStyle from "@tiptap/extension-text-style";
+
 import Underline from "@tiptap/extension-underline";
 import { UndoButton } from "./components/MenuBar/Buttons/UndoButton";
 
@@ -34,23 +58,9 @@ import Details from "@tiptap-pro/extension-details";
 import DetailsSummary from "@tiptap-pro/extension-details-summary";
 import DetailsContent from "@tiptap-pro/extension-details-content";
 
-import { BulletList } from "./extensions/extension-bullet-list";
-// import { Heading } from "./extensions/extension-heading";
-import { OrderedList } from "./extensions/extension-ordered-list";
-import { Color } from "@tiptap/extension-color";
-import FontFamily from "@tiptap/extension-font-family";
-import ListItem from "@tiptap/extension-list-item";
 import Mention from "@tiptap/extension-mention";
 import Placeholder from "@tiptap/extension-placeholder";
-import Subscript from "@tiptap/extension-subscript";
-import Superscript from "@tiptap/extension-superscript";
-import TaskItem from "@tiptap/extension-task-item";
-import TaskList from "@tiptap/extension-task-list";
-import TextAlign from "@tiptap/extension-text-align";
-import TextStyle from "@tiptap/extension-text-style";
 import { EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Capitalize from "./extensions/extension-capitalize";
 import { Caption } from "./extensions/extension-caption";
 import CodeIndent from "./extensions/extension-code-indent";
 import CodeView from "./extensions/extension-code-view";
@@ -71,7 +81,6 @@ import { TableCellBubbleMenu } from "./components/BubbleMenus/TableCellBubbleMen
 
 import { Editor } from "@tiptap/react";
 
-import { FontSize } from "./extensions/extension-font-size";
 import { Link } from "./extensions/extension-link/link";
 
 import codemirror from "codemirror";
@@ -86,7 +95,6 @@ import { Resizer } from "./components/Resizer";
 import { TrailingNode } from "./extensions/extension-trailing-node";
 import { initialContent } from "./initialContent";
 
-import Highlight from "@tiptap/extension-highlight";
 import { PanelBubbleMenu } from "./components/BubbleMenus/PanelBubbleMenu";
 import { Panel } from "./extensions/extension-panel/panel";
 // import { setMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
@@ -96,8 +104,6 @@ import { MathPanelBubbleMenu } from "./components/BubbleMenus/MathPanelBubbleMen
 import { MathPanel } from "./extensions/extension-math-panel/math-panel";
 import { MathPanelBody } from "./extensions/extension-math-panel/math-panel-body";
 import { MathPanelName } from "./extensions/extension-math-panel/math-panel-name";
-import { MathDisplay } from "./extensions/extension-math/math-display";
-import { MathInline } from "./extensions/extension-math/math-inline";
 
 import { LinkBubbleMenu } from "./components/BubbleMenus/LinkBubbleMenu";
 import { FlagIcon } from "./components";
@@ -135,7 +141,6 @@ const App = () => {
 			Commands,
 			Subscript,
 			Superscript,
-			Capitalize,
 			Heading,
 			HorizontalRule,
 			FontFamily,

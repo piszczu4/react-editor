@@ -1,11 +1,12 @@
 import { Editor } from "@tiptap/react";
 import { useState } from "react";
-import { TextColorIcon } from "..";
-import { MenuButton } from "./MenuButton";
+import { TextColorIcon } from "../..";
+import { MenuButton } from "../MenuButton";
 
-import { ColorPalette } from "../ColorPalette";
-import { TooltipContent } from "../TooltipContent";
-import { MenuSplitButton } from "./MenuSplitButton";
+import { ColorPalette } from "../../ColorPalette";
+import { TooltipContent } from "../../TooltipContent";
+import { MenuSplitButton } from "../MenuSplitButton";
+import { _t } from "../../../helpers/strings";
 
 type Props = {
 	editor: Editor;
@@ -21,8 +22,6 @@ export const TextColorSplitButton = ({ editor }: Props) => {
 	);
 };
 
-let lastColor = "";
-
 export const TextColorDropdownButton = ({ editor }: Props) => {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -32,10 +31,7 @@ export const TextColorDropdownButton = ({ editor }: Props) => {
 				setIsOpen(!isOpen);
 				return true;
 			}}
-			disabled={!editor.can().chain().focus().toggleBulletList()}
-			tooltip={{
-				content: <TooltipContent title="Text color" />,
-			}}
+			disabled={!editor.can().setColor("black")}
 			active={isOpen}
 			dropdown={{
 				isDropdownButton: true,
@@ -44,7 +40,7 @@ export const TextColorDropdownButton = ({ editor }: Props) => {
 						colorCommand={(color: string) => () => {
 							editor.chain().focus().setColor(color).run();
 							setIsOpen(false);
-							lastColor = color;
+							editor.storage.color.lastColor = color;
 						}}
 						deleteCommand={() => {
 							editor.chain().focus().unsetColor().run();
@@ -60,13 +56,16 @@ export const TextColorDropdownButton = ({ editor }: Props) => {
 };
 
 export const TextColorButton = ({ editor }: Props) => {
+	let lastColor = editor.storage.color.lastColor;
 	return (
 		<MenuButton
 			icon={<TextColorIcon color={lastColor} />}
 			command={() => editor.chain().focus().setColor(lastColor).run()}
-			disabled={!editor.can().chain().focus().setColor(lastColor)}
+			disabled={!editor.can().setColor("black")}
 			tooltip={{
-				content: <TooltipContent title="Text color" />,
+				content: (
+					<TooltipContent title={_t("commands.text_color")} shortcut="Alt-T" />
+				),
 			}}
 		/>
 	);
