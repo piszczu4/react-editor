@@ -54,7 +54,9 @@ export const defaultStrings: Record<any, any> = {
 			indent: "Indent",
 			italic: "Italic", // DONE
 			keyboard: "Keyboard", // DONE
-			link: shortcut("Link"),
+			link: {
+				title: "Link",
+			},
 			math_display: "Math Display",
 			math_inline: "Math Inline",
 			math_panel: {
@@ -131,7 +133,8 @@ export const defaultStrings: Record<any, any> = {
 			href_label: "Link URL",
 			save_button: "Save",
 			text_label: "Link text",
-			validation_error: "The entered URL is invalid.",
+			validation_error: "The entered URL is invalid!",
+			validation_success: "The entered URL is correct!",
 		},
 		link_tooltip: {
 			edit_button_title: "Edit link",
@@ -218,7 +221,9 @@ export const defaultStrings: Record<any, any> = {
 			indent: "Zwiększ wcięcie",
 			italic: "Kursywa", // DONE
 			keyboard: "Klawiatura", // DONE
-			link: shortcut("Link"),
+			link: {
+				title: "Link",
+			},
 			math_display: "Wieloliniowe wyrażenie matematyczne",
 			math_inline: "Jednoliniowe wyrażenie matematyczne",
 			math_panel: {
@@ -295,7 +300,8 @@ export const defaultStrings: Record<any, any> = {
 			href_label: "Link URL",
 			save_button: "Zapisz",
 			text_label: "tekst linku",
-			validation_error: "Wpisany link URL jest nieprawidłowy",
+			validation_error: "Wpisany adres URL jest nieprawidłowy!",
+			validation_success: "Wpisany adres URL jest prawidłowy!",
 		},
 		link_tooltip: {
 			edit_button_title: "Edytuj link",

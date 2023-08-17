@@ -26,7 +26,7 @@ import { OrderedListSplitButton } from "./SplitButtons/OrderedListSplitButton";
 
 import { AlignDropdownButton } from "./DropdownButtons/AlignDropdownButton";
 import { FullscreenButton } from "./FullscreenButton";
-import { LinkButton } from "./LinkButton";
+import { LinkButton } from "./ModalButtons/LinkButton";
 import { BulletListSplitButton } from "./SplitButtons/UnorderedListSplitButton";
 
 import { useState } from "react";

@@ -7,8 +7,7 @@ import "./styles/editor.scss";
 import "@benrbray/prosemirror-math/style/math.css";
 import "katex/dist/katex.min.css";
 
-import "@stackoverflow/stacks/dist/css/stacks.css";
-
+import "./styles/stacks.scss";
 // import "uno.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

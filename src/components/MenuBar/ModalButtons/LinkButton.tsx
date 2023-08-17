@@ -1,10 +1,10 @@
 import { Editor } from "@tiptap/react";
-import { MenuButton } from "./MenuButton";
-import { LinkIcon } from "../Icons";
-import { TooltipContent } from "../TooltipContent";
-import { showLinkEditor } from "../../extensions/extension-link/commands/showLinkEditor";
 import { useState } from "react";
-import { LinkModal } from "../Modals/LinkModal";
+import { _t } from "../../../helpers/strings";
+import { LinkIcon } from "../../Icons";
+import { LinkModal } from "../../Modals/LinkModal";
+import { TooltipContent } from "../../TooltipContent";
+import { MenuButton } from "../MenuButton";
 
 type Props = {
 	editor: Editor;
@@ -26,8 +26,14 @@ export const LinkButton = ({ editor }: Props) => {
 				icon={<LinkIcon />}
 				command={handleClick}
 				active={editor.isActive("link")}
+				disabled={!editor.can().setLink({ href: "https://www.google.pl/" })}
 				tooltip={{
-					content: <TooltipContent title="Link" shortcut="Mod-L" />,
+					content: (
+						<TooltipContent
+							title={_t("commands.link.title")}
+							shortcut="Mod-L"
+						/>
+					),
 				}}
 			/>
 			{exists && (
