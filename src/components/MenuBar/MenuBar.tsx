@@ -1,40 +1,38 @@
 import { Editor } from "@tiptap/react";
 import { MenuBlock } from "./MenuBlock";
 
+import { AlignDropdownButton } from "./DropdownButtons/AlignDropdownButton";
 import { BackgroundColorSplitButton } from "./SplitButtons/BackgroundColorSplitButton";
 import { BlockquoteButton } from "./Buttons/BlockquoteButton";
 import { BoldButton } from "./Buttons/BoldButton";
+import { BulletListSplitButton } from "./SplitButtons/UnorderedListSplitButton";
 import { ClearFormattingButton } from "./Buttons/ClearFormattingButton";
 import { CodeBlockButton } from "./Buttons/CodeBlockButton";
 import { CodeButton } from "./Buttons/CodeButton";
 import { DetailsButton } from "./Buttons/DetailsButton";
+import { FontFamilyDropdownButton } from "./DropdownButtons/FontFamilyDropdownButton";
+import { FontSizeDropdownButton } from "./DropdownButtons/FontSizeDropdownButton";
+import { FullscreenButton } from "./Buttons/FullscreenButton";
+import { HeadingDropdownButton } from "./DropdownButtons/HeadingDropdownButton";
 import { HorizontalRuleButton } from "./Buttons/HorizontalRuleButton";
+import { ImageButton } from "./ImageButton";
 import { ItalicButton } from "./Buttons/ItalicButton";
 import { KeyboardButton } from "./Buttons/KeyboardButton";
+import { LinkButton } from "./ModalButtons/LinkButton";
 import { MathDisplayButton } from "./Buttons/MathDisplayButton";
 import { MathInlineButton } from "./Buttons/MathInlineButton";
+import { MathPanelButton } from "./Buttons/MathPanelButton";
+import { OrderedListSplitButton } from "./SplitButtons/OrderedListSplitButton";
+import { PanelButton } from "./Buttons/PanelButton";
 import { SpoilerButton } from "./Buttons/SpoilerButton";
 import { StrikethroughButton } from "./Buttons/StrikethroughButton";
 import { SubscriptButton } from "./Buttons/SubscriptButton";
 import { SuperscriptButton } from "./Buttons/SuperscriptButton";
 import { TaskListButton } from "./Buttons/TaskListButton";
-import { UnderlineButton } from "./Buttons/UnderlineButton";
-import { FontFamilyDropdownButton } from "./DropdownButtons/FontFamilyDropdownButton";
-import { FontSizeDropdownButton } from "./DropdownButtons/FontSizeDropdownButton";
-import { HeadingDropdownButton } from "./DropdownButtons/HeadingDropdownButton";
-import { OrderedListSplitButton } from "./SplitButtons/OrderedListSplitButton";
-
-import { AlignDropdownButton } from "./DropdownButtons/AlignDropdownButton";
-import { FullscreenButton } from "./Buttons/FullscreenButton";
-import { LinkButton } from "./ModalButtons/LinkButton";
-import { BulletListSplitButton } from "./SplitButtons/UnorderedListSplitButton";
-
-import { useState } from "react";
-import { CodeViewButton } from "./CodeViewButton";
-import { ImageButton } from "./ImageButton";
-import { MathPanelButton } from "./Buttons/MathPanelButton";
-import { PanelButton } from "./Buttons/PanelButton";
 import { TextColorSplitButton } from "./SplitButtons/TextColorSplitButton";
+import { UnderlineButton } from "./Buttons/UnderlineButton";
+
+import { CodeViewButton } from "./Buttons/CodeViewButton";
 import { TableButton } from "./TableButton";
 
 type MenuBarProps = {
@@ -58,8 +56,6 @@ export const MenuBar = ({
 
 	return (
 		<>
-			{/* <DialogModalTester editor={editor} /> */}
-
 			<div id="editor-menu-bar--sticky-wrapper">
 				<div id="editor-menu-bar">
 					<MenuBlock>
@@ -106,6 +102,7 @@ export const MenuBar = ({
 					<MenuBlock>
 						<PanelButton editor={editor} />
 						<MathPanelButton editor={editor} />
+						<LinkButton editor={editor} />
 					</MenuBlock>
 
 					<MenuBlock>
@@ -113,17 +110,14 @@ export const MenuBar = ({
 							isFullscreenMode={isFullscreenMode}
 							setIsFullscreenMode={setIsFullscreenMode}
 						/>
-					</MenuBlock>
-
-					<MenuBlock>
-						<LinkButton editor={editor} />
-					</MenuBlock>
-
-					<MenuBlock>
 						<CodeViewButton
+							editor={editor}
 							isCodeViewMode={isCodeViewMode}
 							setIsCodeViewMode={setIsCodeViewMode}
 						/>
+					</MenuBlock>
+
+					<MenuBlock>
 						<TableButton editor={editor} />
 
 						<button
@@ -172,77 +166,6 @@ export const MenuBar = ({
 							table figure
 						</button>
 					</MenuBlock>
-
-					{/* <MyModal /> */}
-
-					{/* <div>
-						<button onClick={() => setIsOpen(!isOpen)}></button>
-						<ReactModal
-							isOpen={isOpen}
-							contentLabel="Minimal"
-							parentSelector={() =>
-								document.getElementById("modal-container") as HTMLElement
-							}
-						>
-							<button onClick={() => setIsOpen(false)}> siema</button>
-							<input type="file"></input>
-						</ReactModal>
-					</div> */}
-
-					{/* <MenuBlock children={[codeViewButton, test]} />
-					<span className="mw-menu-block__separator"></span>
-					<MenuBlock
-						children={[
-                            keyboardButton,
-							spoilerButton,
-							detailsButton,
-							alignDropdownButton,
-							capitalizeButton,
-						]}
-                        />
-                        <span className="mw-menu-block__separator"></span>
-                        <MenuBlock children={[fullscreenButton]} />
-					<span className="mw-menu-block__separator"></span>
-					<MenuBlock
-						children={[
-							orderedListSplitButton,
-							bulletListSplitButton,
-							taskListButton,
-						]}
-                        />
-                        <span className="mw-menu-block__separator"></span>
-                        <MenuBlock children={[clearFormattingButton]} />
-                        <span className="mw-menu-block__separator"></span>
-                        <MenuBlock children={[textColorSplitButton]} />
-					<span className="mw-menu-block__separator"></span>
-					<MenuBlock
-						children={[
-                            italicButton,
-							underlineButton,
-							strikeButton,
-							subscriptButton,
-							superscriptButton,
-						]}
-					/>
-					<MenuBlock
-                    children={[
-                        codeButton,
-                        codeBlockButton,
-							blockQuoteButton,
-							horizontalRuleButton,
-						]}
-                        />
-                        <span className="mw-menu-block__separator"></span>
-                        <MenuBlock
-						children={[
-							fontFamilyDropdownButton,
-							fontSizeDropdownButton,
-							headingDropdownButton,
-						]}
-                        />
-                        <span className="mw-menu-block__separator"></span>
-					<MenuBlock children={[linkButton]} /> */}
-					{/* <MenuBlock children={[undoButton, redoButton]} /> */}
 				</div>
 			</div>
 		</>

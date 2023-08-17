@@ -26,6 +26,7 @@ export const defaultStrings: Record<any, any> = {
 				title: "Code block",
 				description: "Multiline block of code with syntax highlighting",
 			},
+			code_view: "Code view",
 			details: "Details",
 			font_family: "Font family",
 			font_size: {
@@ -198,6 +199,7 @@ export const defaultStrings: Record<any, any> = {
 				title: "Blok kodu",
 				description: "Wieloliniowy blok kodu z podświetleniem składni",
 			},
+			code_view: "Widok kodu",
 			details: "Detale",
 			font_family: "Czcionka",
 			font_size: {
