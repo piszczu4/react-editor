@@ -1,5 +1,7 @@
-import { TrashIcon } from ".";
+import { TrashIcon } from "./Icons";
 import { useState } from "react";
+import CloseIcon from "./Icons/CloseIcon";
+import { _t } from "../helpers/strings";
 
 const COLORS = [
 	{ color: "rgb(191, 237, 210)", label: "Light Green" },
@@ -54,7 +56,9 @@ const ColorItem = ({
 				backgroundColor: color,
 			}}
 			disabled={disabled}
-		></button>
+		>
+			{disabled && <CloseIcon className="mw-icon--close" />}
+		</button>
 	);
 };
 
@@ -78,24 +82,24 @@ const ColorInput = ({ colorCommand }: { colorCommand: any }) => {
 				color === "" ? "" : disabled ? "has-error" : "has-success"
 			}`}
 		>
-			<label className="s-label mb4">Color</label>
+			<label className="s-label mb4">{_t("palette.color")}</label>
 			<div className="color-input">
 				<input
 					onInput={(e) => handleInput((e.target as HTMLInputElement).value)}
 					className="s-input"
 				></input>
 				<ColorItem
-					color={disabled ? "darkgrey" : color}
+					color={disabled ? "black" : color}
 					disabled={disabled}
 					colorCommand={colorCommand}
 				/>
 			</div>
 			<p className="s-input-message mt4">
 				{color === ""
-					? "Enter valid CSS color"
+					? _t("palette.info")
 					: disabled
-					? "Color is invalid!"
-					: "Color is correct!"}
+					? _t("palette.invalid")
+					: _t("palette.correct")}
 			</p>
 		</div>
 	);
@@ -130,7 +134,7 @@ export const ColorPalette = ({ colorCommand, deleteCommand }: Props) => {
 
 	let palette = (
 		<div id="color-palette-popover">
-			<label className="s-label mb4">Presets</label>
+			<label className="s-label mb4">{_t("palette.presets")}</label>
 			<div id="mw-color-palette">{...colorItems} {deleteButton}</div>
 			{<ColorInput colorCommand={colorCommand} />}
 		</div>

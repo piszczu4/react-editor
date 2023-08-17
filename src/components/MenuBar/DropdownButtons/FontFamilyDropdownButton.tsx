@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react";
 import { MenuButton } from "../MenuButton";
-import { FontFamilyIcon } from "../..";
+import { FontFamilyIcon } from "../../Icons";
 import { TooltipContent } from "../../TooltipContent";
 import { useState } from "react";
 import { MenuDropdown } from "../../MenuDropdown";

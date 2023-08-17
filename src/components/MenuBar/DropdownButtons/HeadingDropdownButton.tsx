@@ -9,7 +9,7 @@ import {
 	Header5Icon,
 	Header6Icon,
 	ParagraphIcon,
-} from "../..";
+} from "../../Icons";
 import { _t } from "../../../helpers/strings";
 import { MenuDropdown } from "../../MenuDropdown";
 import { TooltipContent } from "../../TooltipContent";

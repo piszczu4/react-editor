@@ -1,9 +1,5 @@
-import {
-	NodeViewContent,
-	NodeViewProps,
-	NodeViewWrapper
-} from "@tiptap/react";
-import { TrashIcon } from "../../components";
+import { NodeViewContent, NodeViewProps, NodeViewWrapper } from "@tiptap/react";
+import { TrashIcon } from "../../components/Icons";
 import ErrorIcon from "../../components/Icons/ErrorIcon";
 import InfoIcon from "../../components/Icons/InfoIcon";
 import NoteIcon from "../../components/Icons/NoteIcon";
@@ -11,7 +7,6 @@ import SuccessIcon from "../../components/Icons/SuccessIcon";
 import TipIcon from "../../components/Icons/TipIcon";
 import WarningIcon from "../../components/Icons/WarningIcon";
 import { PanelType } from "./panel";
-
 
 function getIcon(panelType: PanelType) {
 	return panelType === PanelType.INFO ? (

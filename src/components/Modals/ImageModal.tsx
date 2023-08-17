@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useRef } from "react";
-import { ImagesIcon } from "..";
+import { ImagesIcon } from "../Icons";
 import { _t } from "../../helpers/strings";
 import { Modal } from "../Modal";
 import CloseIcon from "../Icons/CloseIcon";

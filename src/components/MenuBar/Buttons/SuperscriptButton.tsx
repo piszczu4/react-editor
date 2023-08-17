@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react";
 import { MenuButton } from "../MenuButton";
-import { SuperscriptIcon } from "../..";
+import { SuperscriptIcon } from "../../Icons";
 import { TooltipContent } from "../../TooltipContent";
 import { _t } from "../../../helpers/strings";
 

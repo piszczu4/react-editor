@@ -1,12 +1,12 @@
 import { Editor } from "@tiptap/react";
 import { MenuButton } from "../MenuButton";
-import { FontSizeIcon, PlusIcon } from "../..";
+import { FontSizeIcon, PlusIcon } from "../../Icons";
 import { TooltipContent } from "../../TooltipContent";
 import { useEffect, useRef, useState } from "react";
 import { MenuDropdown } from "../../MenuDropdown";
 import { _t } from "../../../helpers/strings";
 import { DropdownSection } from "../../DropdownSection";
-import { LowercaseIcon } from "../..";
+import { LowercaseIcon } from "../../Icons";
 import MinusIcon from "../../Icons/MinusIcon";
 import { getNodeAtPosition } from "../../../commands";
 

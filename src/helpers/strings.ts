@@ -125,6 +125,13 @@ export const defaultStrings: Record<any, any> = {
 			codeblock_lang_auto: ({ lang }: { lang: string }) => `${lang} (auto)`,
 			spoiler_reveal_text: "Reveal spoiler",
 		},
+		palette: {
+			color: "Color",
+			correct: "Color is correct!",
+			info: "Enter valid CSS color",
+			invalid: "Color is invalid!",
+			presets: "Presets",
+		},
 		image_upload: {
 			default_image_alt_text: "enter image description here",
 			external_url_validation_error: "The entered URL is invalid.",
@@ -260,6 +267,13 @@ export const defaultStrings: Record<any, any> = {
 		nodes: {
 			codeblock_lang_auto: ({ lang }: { lang: string }) => `${lang} (auto)`,
 			spoiler_reveal_text: "Odkryj spoiler",
+		},
+		palette: {
+			color: "Kolor",
+			correct: "Kolor jest prawidłowy!",
+			info: "Wpisz poprawny kolor CSS",
+			invalid: "Kolor jest nieprawidłowy!",
+			presets: "Presety",
 		},
 		image_upload: {
 			default_image_alt_text: "enter image description here",

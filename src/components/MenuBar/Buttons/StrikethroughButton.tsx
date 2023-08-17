@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react";
 import { MenuButton } from "../MenuButton";
-import { StrikethroughIcon } from "../..";
+import { StrikethroughIcon } from "../../Icons";
 import { TooltipContent } from "../../TooltipContent";
 import { _t } from "../../../helpers/strings";
 

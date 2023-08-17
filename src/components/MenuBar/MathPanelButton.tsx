@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react";
 import { MenuButton } from "./MenuButton";
-import { PanelIcon } from "..";
+import { PanelIcon } from "../Icons";
 import { TooltipContent } from "../TooltipContent";
 
 import { PanelType } from "../../extensions/extension-math-panel/math-panel";

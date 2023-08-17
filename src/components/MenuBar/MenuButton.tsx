@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import Tippy from "@tippyjs/react";
 
 import { Placement } from "tippy.js";
-import { DropdownIcon } from "..";
+import { DropdownIcon } from "../Icons";
 
 // import { escapeHTML } from "@stackoverflow/stacks-editor/dist/shared/utils";
 // import { renderToString } from "react-dom/server";

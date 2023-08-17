@@ -7,7 +7,7 @@ import ErrorIcon from "../../components/Icons/ErrorIcon";
 import NoteIcon from "../../components/Icons/NoteIcon";
 import SuccessIcon from "../../components/Icons/SuccessIcon";
 import WarningIcon from "../../components/Icons/WarningIcon";
-import { TrashIcon } from "../../components";
+import { TrashIcon } from "../../components/Icons";
 import { findNodePos } from "../../utils";
 
 function getIconColor(panelType: PanelType) {

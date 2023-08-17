@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react";
 import { MenuButton } from "../MenuButton";
-import { RedoIcon } from "../..";
+import { RedoIcon } from "../../Icons";
 import { TooltipContent } from "../../TooltipContent";
 import { _t } from "../../../helpers/strings";
 

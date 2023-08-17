@@ -106,7 +106,7 @@ import { MathPanelBody } from "./extensions/extension-math-panel/math-panel-body
 import { MathPanelName } from "./extensions/extension-math-panel/math-panel-name";
 
 import { LinkBubbleMenu } from "./components/BubbleMenus/LinkBubbleMenu";
-import { FlagIcon } from "./components";
+import { FlagIcon } from "./components/Icons";
 import { FigureBubbleMenu } from "./components/BubbleMenus/FigureBubbleMenu";
 import { MathBubbleMenu } from "./components/BubbleMenus/MathBubbleMenu";
 import { TableBubbleMenu } from "./components/BubbleMenus/TableBubbleMenu";

@@ -5,7 +5,7 @@ import {
 	DiscBulletListIcon,
 	BulletListIcon,
 	SquareBulletListIcon,
-} from "../..";
+} from "../../Icons";
 import { MenuButton } from "../MenuButton";
 
 import { MenuDropdown } from "../../MenuDropdown";

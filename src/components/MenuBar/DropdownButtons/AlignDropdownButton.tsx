@@ -5,7 +5,7 @@ import {
 	AlignJustifyIcon,
 	AlignLeftIcon,
 	AlignRightIcon,
-} from "../..";
+} from "../../Icons";
 import { TooltipContent } from "../../TooltipContent";
 import { useState } from "react";
 import IndentIcon from "../../Icons/IndentIcon";

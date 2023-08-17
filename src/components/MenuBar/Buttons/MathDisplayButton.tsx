@@ -1,5 +1,5 @@
 import { Editor } from "@tiptap/react";
-import { MathDisplayIcon } from "../..";
+import { MathDisplayIcon } from "../../Icons";
 import { _t } from "../../../helpers/strings";
 import { TooltipContent } from "../../TooltipContent";
 import { MenuButton } from "../MenuButton";

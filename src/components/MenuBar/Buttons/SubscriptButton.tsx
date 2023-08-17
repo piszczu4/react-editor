@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react";
 import { MenuButton } from "../MenuButton";
-import { SubscriptIcon } from "../..";
+import { SubscriptIcon } from "../../Icons";
 import { TooltipContent } from "../../TooltipContent";
 import { _t } from "../../../helpers/strings";
 
@@ -16,7 +16,9 @@ export const SubscriptButton = ({ editor }: Props) => {
 			disabled={!editor.can().toggleSubscript()}
 			active={editor.isActive("subscript")}
 			tooltip={{
-				content: <TooltipContent title={_t("commands.subscript")} shortcut="Mod-," />,
+				content: (
+					<TooltipContent title={_t("commands.subscript")} shortcut="Mod-," />
+				),
 			}}
 		/>
 	);

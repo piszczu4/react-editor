@@ -1,50 +1,41 @@
 import { Editor } from "@tiptap/react";
-import { _t } from "../../helpers/strings";
-import { MenuButton } from "../MenuButton";
-import { MenuDropdownButton } from "../MenuDropdownButton";
 import { MenuBlock } from "./MenuBlock";
 
+import { BackgroundColorSplitButton } from "./SplitButtons/BackgroundColorSplitButton";
 import { BlockquoteButton } from "./Buttons/BlockquoteButton";
 import { BoldButton } from "./Buttons/BoldButton";
 import { ClearFormattingButton } from "./Buttons/ClearFormattingButton";
 import { CodeBlockButton } from "./Buttons/CodeBlockButton";
 import { CodeButton } from "./Buttons/CodeButton";
 import { DetailsButton } from "./Buttons/DetailsButton";
-import { FontFamilyDropdownButton } from "./DropdownButtons/FontFamilyDropdownButton";
-import { FontSizeDropdownButton } from "./DropdownButtons/FontSizeDropdownButton";
-import { HeadingDropdownButton } from "./DropdownButtons/HeadingDropdownButton";
-import { HelpButton } from "./Buttons/InfoButton";
 import { HorizontalRuleButton } from "./Buttons/HorizontalRuleButton";
 import { ItalicButton } from "./Buttons/ItalicButton";
 import { KeyboardButton } from "./Buttons/KeyboardButton";
 import { MathDisplayButton } from "./Buttons/MathDisplayButton";
 import { MathInlineButton } from "./Buttons/MathInlineButton";
-import { OrderedListSplitButton } from "./SplitButtons/OrderedListSplitButton";
-import { RedoButton } from "./Buttons/RedoButton";
 import { SpoilerButton } from "./Buttons/SpoilerButton";
 import { StrikethroughButton } from "./Buttons/StrikethroughButton";
-import { TaskListButton } from "./Buttons/TaskListButton";
-import { UnderlineButton } from "./Buttons/UnderlineButton";
-import { UndoButton } from "./Buttons/UndoButton";
 import { SubscriptButton } from "./Buttons/SubscriptButton";
 import { SuperscriptButton } from "./Buttons/SuperscriptButton";
+import { TaskListButton } from "./Buttons/TaskListButton";
+import { UnderlineButton } from "./Buttons/UnderlineButton";
+import { FontFamilyDropdownButton } from "./DropdownButtons/FontFamilyDropdownButton";
+import { FontSizeDropdownButton } from "./DropdownButtons/FontSizeDropdownButton";
+import { HeadingDropdownButton } from "./DropdownButtons/HeadingDropdownButton";
+import { OrderedListSplitButton } from "./SplitButtons/OrderedListSplitButton";
 
-import { FullscreenButton } from "./FullscreenButton";
-import { Level } from "@tiptap/extension-heading";
-import { BulletListSplitButton } from "./SplitButtons/UnorderedListSplitButton";
-import { LinkButton } from "./LinkButton";
 import { AlignDropdownButton } from "./DropdownButtons/AlignDropdownButton";
+import { FullscreenButton } from "./FullscreenButton";
+import { LinkButton } from "./LinkButton";
+import { BulletListSplitButton } from "./SplitButtons/UnorderedListSplitButton";
 
-import Tippy from "@tippyjs/react";
+import { useState } from "react";
+import { CodeViewButton } from "./CodeViewButton";
+import { ImageButton } from "./ImageButton";
+import { MathPanelButton } from "./MathPanelButton";
+import { PanelButton } from "./PanelButton";
 import { TextColorSplitButton } from "./SplitButtons/TextColorSplitButton";
 import { TableButton } from "./TableButton";
-import { CodeViewButton } from "./CodeViewButton";
-import { BackgroundColorSplitButton } from "./SplitButtons/BackgroundColorSplitButton";
-import { PanelButton } from "./PanelButton";
-import { MathPanelButton } from "./MathPanelButton";
-import ReactModal from "react-modal";
-import { useState } from "react";
-import { ImageButton } from "./ImageButton";
 
 type MenuBarProps = {
 	editor: Editor;

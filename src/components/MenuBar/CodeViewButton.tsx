@@ -1,5 +1,5 @@
 import { MenuButton } from "./MenuButton";
-import { CodeViewIcon } from "..";
+import { CodeViewIcon } from "../Icons";
 import { TooltipContent } from "../TooltipContent";
 import { useState, useEffect } from "react";
 

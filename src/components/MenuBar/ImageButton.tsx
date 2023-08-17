@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react";
 import { MenuButton } from "./MenuButton";
-import { ImageIcon } from "..";
+import { ImageIcon } from "../Icons";
 import { TooltipContent } from "../TooltipContent";
 
 import { useState, useRef } from "react";

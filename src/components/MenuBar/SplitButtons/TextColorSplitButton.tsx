@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react";
 import { useState } from "react";
-import { TextColorIcon } from "../..";
+import { TextColorIcon } from "../../Icons";
 import { MenuButton } from "../MenuButton";
 
 import { ColorPalette } from "../../ColorPalette";

@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react";
 import { MenuButton } from "./MenuButton";
-import { LinkIcon } from "..";
+import { LinkIcon } from "../Icons";
 import { TooltipContent } from "../TooltipContent";
 import { showLinkEditor } from "../../extensions/extension-link/commands/showLinkEditor";
 import { useState } from "react";

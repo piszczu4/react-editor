@@ -8,7 +8,7 @@ import {
 	OrderedListIcon,
 	UpperAlphaOrderedListIcon,
 	UpperRomanOrderedListIcon,
-} from "../..";
+} from "../../Icons";
 import { MenuButton } from "../MenuButton";
 
 import { _t } from "../../../helpers/strings";
