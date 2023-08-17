@@ -134,6 +134,7 @@ export const defaultStrings: Record<any, any> = {
 			save_button: "Save",
 			text_label: "Link text",
 			validation_error: "The entered URL is invalid!",
+			validation_info: "Enter valid URL",
 			validation_success: "The entered URL is correct!",
 		},
 		link_tooltip: {
@@ -301,6 +302,7 @@ export const defaultStrings: Record<any, any> = {
 			save_button: "Zapisz",
 			text_label: "tekst linku",
 			validation_error: "Wpisany adres URL jest nieprawidłowy!",
+			validation_info: "Wpisz poprawny adres URL",
 			validation_success: "Wpisany adres URL jest prawidłowy!",
 		},
 		link_tooltip: {

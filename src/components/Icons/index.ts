@@ -25,6 +25,7 @@ export { default as SubscriptIcon } from "./SubscriptIcon";
 export { default as ImagesIcon } from "./ImagesIcon";
 export { default as FlagIcon } from "./FlagIcon";
 export { default as MinusIcon } from "./MinusIcon";
+export { default as EditIcon } from "./EditIcon";
 
 export { default as CodeViewIcon } from "./BoldIcon";
 export { default as KeyboardIcon } from "./BoldIcon";

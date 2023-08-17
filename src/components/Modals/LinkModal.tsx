@@ -1,7 +1,7 @@
 import { EditorView } from "@tiptap/pm/view";
 import { Editor } from "@tiptap/react";
 import { TextSelection } from "prosemirror-state";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { _t } from "../../helpers/strings";
 import { Modal } from "../Modal";
 
@@ -27,28 +27,19 @@ export function LinkModal({
 	href = "",
 	text = "",
 }: Props) {
-	let ref = useRef<HTMLFormElement>(null);
-	let saveBtnRef = useRef<HTMLButtonElement>(null);
-	let hrefInputRef = useRef<HTMLInputElement>(null);
-	let textInputRef = useRef<HTMLInputElement>(null);
-	let hrefMessageRef = useRef<HTMLParagraphElement>(null);
-
+	let [_href, setHref] = useState(href);
 	let [isValid, setIsValid] = useState(false);
+
+	let textInputRef = useRef<HTMLInputElement>(null);
 
 	let validate = (href: string) => {
 		setIsValid(stackOverflowValidateLink(href));
 	};
 
-	let resetEditor = () => {
-		hrefInputRef.current!.value = "";
-		textInputRef.current!.value = "";
-	};
-
 	let handleSave = (view: EditorView) => {
-		const text = textInputRef.current!.value || href;
+		const text = textInputRef.current!.value || _href;
 		const node = view.state.schema.text(text!, []);
-		resetEditor();
-		hide();
+		destroy();
 		let tr = view.state.tr;
 		// set the text first, inheriting all marks
 		tr = tr.replaceSelectionWith(node, true);
@@ -70,7 +61,7 @@ export function LinkModal({
 		tr = tr.addMark(
 			tr.selection.from,
 			tr.selection.to,
-			view.state.schema.marks.link.create({ href: href, text: text })
+			view.state.schema.marks.link.create({ href: _href, text: text })
 		);
 		view.dispatch(tr);
 	};
@@ -82,15 +73,18 @@ export function LinkModal({
 	};
 
 	const handleReset = (e: any) => {
-		e.preventDefault();
-		e.stopPropagation();
-		resetEditor();
-		hide();
+		destroy();
 	};
 
 	const handleHrefInput = (e: any) => {
-		validate((e.target as HTMLInputElement).value);
+		let value = (e.target as HTMLInputElement).value;
+		setHref(value);
+		validate(value);
 	};
+
+	useEffect(() => {
+		validate(href);
+	}, [href]);
 
 	return (
 		<Modal isOpen={isOpen} onOutsideClick={() => hide()}>
@@ -102,11 +96,7 @@ export function LinkModal({
 				<div id="mw-modal--body">
 					<div
 						className={`flex--item ${
-							hrefInputRef.current?.value === ""
-								? ""
-								: isValid
-								? "has-success"
-								: "has-error"
+							_href === "" ? "" : isValid ? "has-success" : "has-error"
 						}`}
 					>
 						<label htmlFor="link-editor-href-input" className="s-label mb4">
@@ -119,15 +109,12 @@ export function LinkModal({
 							name="href"
 							defaultValue={href}
 							aria-describedby="link-editor-href-error"
-							ref={hrefInputRef}
 							onInput={handleHrefInput}
 						/>
-						<p
-							id="link-editor-href-message"
-							className="s-input-message mt4"
-							ref={hrefMessageRef}
-						>
-							{isValid
+						<p id="link-editor-href-message" className="s-input-message mt4">
+							{_href === ""
+								? _t("link_editor.validation_info")
+								: isValid
 								? _t("link_editor.validation_success")
 								: _t("link_editor.validation_error")}
 						</p>
@@ -138,12 +125,12 @@ export function LinkModal({
 							{_t("link_editor.text_label")}
 						</label>
 						<input
+							ref={textInputRef}
 							id="link-text-href-input"
 							className="s-input"
 							type="text"
 							defaultValue={text}
 							name="text"
-							ref={textInputRef}
 						/>
 					</div>
 				</div>
@@ -153,12 +140,11 @@ export function LinkModal({
 						<button
 							className="s-btn s-btn__primary js-link-editor-save-btn"
 							type="submit"
-							disabled
-							ref={saveBtnRef}
+							disabled={!isValid}
 						>
 							{_t("link_editor.save_button")}
 						</button>
-						<button className="s-btn" type="reset">
+						<button className="s-btn" type="reset" onClick={() => destroy()}>
 							{_t("link_editor.cancel_button")}
 						</button>
 					</div>

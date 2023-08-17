@@ -6,12 +6,13 @@ import { showModal } from "@stackoverflow/stacks";
 import { useRef } from "react";
 
 import { BubbleMenu, Editor } from "@tiptap/react";
-import { findNodePos } from "../../utils";
+import { findNode, findNodePos } from "../../utils";
 
 import "tippy.js/dist/svg-arrow.css";
 
 import { getMarkAttributes, getMarkRange } from "@tiptap/react";
 import { LinkModal } from "../Modals/LinkModal";
+import { EditIcon, TrashIcon } from "../Icons";
 
 type LinkBubbleMenuProps = {
 	editor: Editor;
@@ -20,10 +21,6 @@ type LinkBubbleMenuProps = {
 
 export function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
 	let ref = useRef<any>(null);
-	// let editButtonRef = useRef<any>(null);
-	// let removeButtonRef = useRef<any>(null);
-	// let linkRef = useRef<any>(null);
-
 	const popoverId = "link-tooltip-popover";
 
 	const linkAttrs = getMarkAttributes(editor.state, "link");
@@ -62,15 +59,16 @@ export function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
 			editor={editor}
 			tippyOptions={{
 				duration: 200,
+				maxWidth: "100%",
 				animation: "shift-toward-subtle",
 				moveTransition: "transform 0.2s ease-in-out",
 				arrow: true,
 				placement: "bottom",
 				getReferenceClientRect: () => {
-					let pos = findNodePos(editor, "text");
-					let closestNode = editor.view.nodeDOM(pos!) as HTMLElement;
+					let nodeWithPos = findNode(editor, "text");
+					let node = editor.view.nodeDOM(nodeWithPos?.pos!) as HTMLElement;
 					let range = document.createRange();
-					range.selectNode(closestNode);
+					range.selectNode(node);
 					return range.getBoundingClientRect();
 				},
 			}}
@@ -80,7 +78,7 @@ export function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
 			className="mw-5"
 		>
 			<span ref={ref}>
-				<div id={popoverId} className="mw-popover" role="menu">
+				<div id={popoverId} role="menu">
 					<div className="d-flex ai-center">
 						<a
 							href={linkAttrs.href}
@@ -98,7 +96,7 @@ export function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
 							title={_t("link_tooltip.edit_button_title")}
 							onClick={handleEdit}
 						>
-							<span className="svg-icon-bg iconPencilSm"></span>
+							<EditIcon />
 						</button>
 
 						<button
@@ -107,7 +105,7 @@ export function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
 							title={_t("link_tooltip.remove_button_title")}
 							onClick={() => unlink()}
 						>
-							<span className="svg-icon-bg iconTrashSm"></span>
+							<TrashIcon />
 						</button>
 
 						{exists && (

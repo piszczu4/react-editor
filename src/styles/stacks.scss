@@ -16,7 +16,7 @@ html {
 	/* 2 */
 }
 /* Sections
-     ========================================================================== */
+	 ========================================================================== */
 /**
    * Remove the margin in all browsers (opinionated).
    */
@@ -43,7 +43,7 @@ h1 {
 	font-size: 2em;
 }
 /* Grouping content
-     ========================================================================== */
+	 ========================================================================== */
 /**
    * Add the correct display in IE 9-.
    * 1. Add the correct display in IE.
@@ -83,7 +83,7 @@ pre {
 	/* 2 */
 }
 /* Text-level semantics
-     ========================================================================== */
+	 ========================================================================== */
 /**
    * 1. Remove the gray background on active links in IE 10.
    * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
@@ -170,7 +170,7 @@ sup {
 	top: -0.5em;
 }
 /* Embedded content
-     ========================================================================== */
+	 ========================================================================== */
 /**
    * Add the correct display in IE 9-.
    */
@@ -198,7 +198,7 @@ svg:not(:root) {
 	overflow: hidden;
 }
 /* Forms
-     ========================================================================== */
+	 ========================================================================== */
 /**
    * 1. Change the font styles in all browsers (opinionated).
    * 2. Remove the margin in Firefox and Safari.
@@ -353,7 +353,7 @@ textarea {
 	/* 2 */
 }
 /* Interactive
-     ========================================================================== */
+	 ========================================================================== */
 /*
    * Add the correct display in IE 9-.
    * 1. Add the correct display in Edge, IE, and Firefox.
@@ -369,7 +369,7 @@ summary {
 	display: list-item;
 }
 /* Scripting
-     ========================================================================== */
+	 ========================================================================== */
 /**
    * Add the correct display in IE 9-.
    */
@@ -383,7 +383,7 @@ template {
 	display: none;
 }
 /* Hidden
-     ========================================================================== */
+	 ========================================================================== */
 /**
    * Add the correct display in IE 10-.
    */
@@ -2478,7 +2478,13 @@ body.theme-highcontrast .has-warning .s-textarea {
 	border-color: var(--blue-300);
 	transition: background-color 0s 50000s;
 }
-
+.s-input:-webkit-autofill:focus,
+.s-textarea:-webkit-autofill:focus {
+	border-color: var(--blue-300);
+	-webkit-box-shadow:
+		0 0 0 1000px var(--blue-050) inset,
+		0 0 0 var(--su-static4) var(--focus-ring);
+}
 .s-input::-webkit-contacts-auto-fill-button,
 .s-textarea::-webkit-contacts-auto-fill-button {
 	background-color: var(--black);
@@ -2531,13 +2537,13 @@ body.theme-highcontrast .has-warning .s-textarea {
 	background-color: transparent;
 	border-color: transparent;
 }
-.is-disabled .s-input,
-.is-readonly .s-input,
-.has-success .s-input,
-.has-error .s-input,
-.has-warning .s-input {
-	padding-right: var(--su32);
-}
+// .is-disabled .s-input,
+// .is-readonly .s-input,
+// .has-success .s-input,
+// .has-error .s-input,
+// .has-warning .s-input {
+// 	padding-right: var(--su32);
+// }
 .s-input:focus-within {
 	border-color: var(--_in-bc-focus);
 	box-shadow: var(--_in-bs-focus);
