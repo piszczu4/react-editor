@@ -15,32 +15,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 		<div>
 			<App />
 		</div>
-
-		{/* <input defaultValue={"empty..."} />
-
-		<Tippy
-			className="mw-popover"
-			trigger="click"
-			animation="shift-toward-subtle"
-			hideOnClick={false}
-			content={
-				<span>
-					<button>
-						<InfoIcon />
-					</button>
-				</span>
-			}
-			interactive={true}
-			placement={"bottom"}
-			onClickOutside={(instance) => {
-				instance.hide();
-			}}
-		>
-			<div
-				className="mw-panel--icon"
-				contentEditable={false}
-				style={{ width: "200px", height: "200px", backgroundColor: "red" }}
-			></div>
-		</Tippy> */}
 	</React.StrictMode>
 );

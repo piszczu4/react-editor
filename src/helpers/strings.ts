@@ -33,6 +33,7 @@ export const defaultStrings: Record<any, any> = {
 				increase: "Increase by 1px",
 				decrease: "Decrease by 1px",
 			},
+			fullscreen: "Fullscreen",
 			heading: {
 				title: "Heading",
 				level0: "Paragraph",
@@ -157,6 +158,9 @@ export const defaultStrings: Record<any, any> = {
 			invalid: "Color is invalid!",
 			presets: "Presets",
 		},
+		placeholders: {
+			empty_editor: "Ask your question...",
+		},
 		image_upload: {
 			default_image_alt_text: "enter image description here",
 			external_url_validation_error: "The entered URL is invalid.",
@@ -201,6 +205,7 @@ export const defaultStrings: Record<any, any> = {
 				increase: "Zwiększ o 1px",
 				decrease: "Zmniejsz o 1px",
 			},
+			fullscreen: "Tryb pełnoekranowy",
 			heading: {
 				title: "Nagłówek",
 				level0: "Paragraf",
@@ -324,6 +329,9 @@ export const defaultStrings: Record<any, any> = {
 			info: "Wpisz poprawny kolor CSS",
 			invalid: "Kolor jest nieprawidłowy!",
 			presets: "Presety",
+		},
+		placeholders: {
+			empty_editor: "Zadaj swoje pytanie...",
 		},
 		image_upload: {
 			default_image_alt_text: "enter image description here",

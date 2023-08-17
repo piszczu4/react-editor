@@ -25,7 +25,7 @@ import { HeadingDropdownButton } from "./DropdownButtons/HeadingDropdownButton";
 import { OrderedListSplitButton } from "./SplitButtons/OrderedListSplitButton";
 
 import { AlignDropdownButton } from "./DropdownButtons/AlignDropdownButton";
-import { FullscreenButton } from "./FullscreenButton";
+import { FullscreenButton } from "./Buttons/FullscreenButton";
 import { LinkButton } from "./ModalButtons/LinkButton";
 import { BulletListSplitButton } from "./SplitButtons/UnorderedListSplitButton";
 
@@ -55,8 +55,6 @@ export const MenuBar = ({
 	if (!editor) {
 		return null;
 	}
-
-	let [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<>
@@ -102,7 +100,6 @@ export const MenuBar = ({
 						<DetailsButton editor={editor} />
 						<MathInlineButton editor={editor} />
 						<MathDisplayButton editor={editor} />
-
 						<ImageButton editor={editor} />
 					</MenuBlock>
 

@@ -115,6 +115,7 @@ import Figure from "./extensions/extension-figure";
 import Iframe from "./extensions/extension-iframe";
 import Image from "./extensions/extension-image";
 import { Commands } from "./extensions/extension-commands";
+import { _t } from "./helpers/strings";
 
 const App = () => {
 	const editor = useEditor({
@@ -197,18 +198,22 @@ const App = () => {
 					autoCloseTags: true,
 				},
 			}),
-			// Placeholder.configure({
-			// 	includeChildren: true,
-			// 	showOnlyCurrent: true,
+			Placeholder.configure({
+				includeChildren: true,
+				showOnlyCurrent: true,
 
-			// 	placeholder: ({ node }) => {
-			// 		if (node.type.name === "detailsSummary") {
-			// 			return "Summary";
-			// 		}
+				placeholder: ({ node }) => {
+					if (node.type.name === "detailsSummary") {
+						return "Summary";
+					}
 
-			// 		return "";
-			// 	},
-			// }),
+					if (
+						node.type.name === "paragraph" &&
+						editor?.state.doc.textContent.length === 0
+					)
+						return _t("placeholders.empty_editor");
+				},
+			}),
 		],
 		onFocus: () => {
 			let container = document.getElementById(
@@ -280,66 +285,77 @@ const App = () => {
 	const [isFullscreenMode, setIsFullscreenMode] = useState(false);
 
 	return (
-		<div
-			id="editor-container"
-			className={`mw-textarea ${
-				isFullscreenMode ? "mw-editor--fullscreen" : ""
-			}`}
-		>
-			<MenuBar
-				editor={editor as Editor}
-				isCodeViewMode={isCodeViewMode}
-				setIsCodeViewMode={setIsCodeViewMode}
-				isFullscreenMode={isFullscreenMode}
-				setIsFullscreenMode={setIsFullscreenMode}
-			/>
-			<div
-				id="editor-content"
-				className={`s-prose ProseMirror ${!isCodeViewMode ? "" : "d-none"}`}
-			>
-				<EditorContent editor={editor} />
-			</div>
-			{isCodeViewMode && (
+		<>
+			{
 				<div
-					id="codemirror"
-					className={`mw-editor__codemirror ${isCodeViewMode ? "" : "d-none"}`}
+					className={`mw-editor--fullscreen-background ${
+						!isFullscreenMode ? "d-none" : ""
+					}`}
+				/>
+			}
+			<div
+				id="editor-container"
+				className={`mw-textarea ${
+					isFullscreenMode ? "mw-editor--fullscreen" : ""
+				}`}
+			>
+				<MenuBar
+					editor={editor as Editor}
+					isCodeViewMode={isCodeViewMode}
+					setIsCodeViewMode={setIsCodeViewMode}
+					isFullscreenMode={isFullscreenMode}
+					setIsFullscreenMode={setIsFullscreenMode}
+				/>
+				<div
+					id="editor-content"
+					className={`s-prose ProseMirror ${!isCodeViewMode ? "" : "d-none"}`}
 				>
-					<textarea ref={cmTextAreaRef}></textarea>
+					<EditorContent editor={editor} />
 				</div>
-			)}
-			{/* {!isCodeViewMode && !isFullscreenMode && (
+				{isCodeViewMode && (
+					<div
+						id="codemirror"
+						className={`mw-editor__codemirror ${
+							isCodeViewMode ? "" : "d-none"
+						}`}
+					>
+						<textarea ref={cmTextAreaRef}></textarea>
+					</div>
+				)}
+				{/* {!isCodeViewMode && !isFullscreenMode && (
 				<div>Empty div...</div>
 				// <Resizer targetId={"editor-content"} />
 			)} */}
-			{
-				<div id="editor-footer">
-					<div className="editor-buttons">
-						{editor && <UndoButton editor={editor} />}
-						{editor && <RedoButton editor={editor} />}
-						<div className="mw-separator"></div>
-						<HelpButton />
+				{
+					<div id="editor-footer">
+						<div className="editor-buttons">
+							{editor && <UndoButton editor={editor} />}
+							{editor && <RedoButton editor={editor} />}
+							<div className="mw-separator"></div>
+							<HelpButton />
+						</div>
+						<button className="issue-btn mw-btn">
+							<FlagIcon />
+						</button>
 					</div>
-					<button className="issue-btn mw-btn">
-						<FlagIcon />
-					</button>
-				</div>
-			}
+				}
 
-			{
-				<div className={isFullscreenMode ? "d-none" : ""}>
-					<Resizer
-						targetId={isCodeViewMode ? "codemirror" : "editor-content"}
-					/>
-				</div>
-			}
-			<div id="modal-container" style={{ zIndex: 5000 }}></div>
-			{/* {editor ? (
+				{
+					<div className={isFullscreenMode ? "d-none" : ""}>
+						<Resizer
+							targetId={isCodeViewMode ? "codemirror" : "editor-content"}
+						/>
+					</div>
+				}
+
+				<div id="modal-container" style={{ zIndex: 5000 }}></div>
+				{/* {editor ? (
 				<div id="editor-dialog" role="dialog">
 					<div
 						data-controller="s-modal"
 						id="modal-base"
 						// data-s-modal-return-element="#mw-content"
-					>
+						>
 						<aside
 							id="link-editor"
 							className="s-modal"
@@ -352,17 +368,18 @@ const App = () => {
 					</div>
 				</div>
 			) : null} */}
-			{editor ? <LinkBubbleMenu editor={editor} href="" /> : null}
-			{/* {editor ? <ImageBubbleMenu editor={editor} /> : null} */}
-			{/* {editor ? <MediaBubbleMenu editor={editor} /> : null} */}
-			{editor && <FigureBubbleMenu editor={editor} />}
-			{editor ? <TableCellBubbleMenu editor={editor} /> : null}
-			{editor ? <PanelBubbleMenu editor={editor} /> : null}
-			{editor ? <MathPanelBubbleMenu editor={editor} /> : null}
-			{editor && <MathBubbleMenu editor={editor} />}
-			{editor && <TableBubbleMenu editor={editor} />}
-			{editor && <VideoBubbleMenu editor={editor} />}
-		</div>
+				{editor ? <LinkBubbleMenu editor={editor} href="" /> : null}
+				{/* {editor ? <ImageBubbleMenu editor={editor} /> : null} */}
+				{/* {editor ? <MediaBubbleMenu editor={editor} /> : null} */}
+				{editor && <FigureBubbleMenu editor={editor} />}
+				{editor ? <TableCellBubbleMenu editor={editor} /> : null}
+				{editor ? <PanelBubbleMenu editor={editor} /> : null}
+				{editor ? <MathPanelBubbleMenu editor={editor} /> : null}
+				{editor && <MathBubbleMenu editor={editor} />}
+				{editor && <TableBubbleMenu editor={editor} />}
+				{editor && <VideoBubbleMenu editor={editor} />}
+			</div>
+		</>
 	);
 };
 
