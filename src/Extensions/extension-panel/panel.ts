@@ -119,12 +119,6 @@ export const Panel = Node.create<PanelOptions, never>({
 							content: [
 								{
 									type: "paragraph",
-									content: [
-										{
-											type: "text",
-											text: "Panel",
-										},
-									],
 								},
 							],
 						})

@@ -32,8 +32,8 @@ import { BulletListSplitButton } from "./SplitButtons/UnorderedListSplitButton";
 import { useState } from "react";
 import { CodeViewButton } from "./CodeViewButton";
 import { ImageButton } from "./ImageButton";
-import { MathPanelButton } from "./MathPanelButton";
-import { PanelButton } from "./PanelButton";
+import { MathPanelButton } from "./Buttons/MathPanelButton";
+import { PanelButton } from "./Buttons/PanelButton";
 import { TextColorSplitButton } from "./SplitButtons/TextColorSplitButton";
 import { TableButton } from "./TableButton";
 
@@ -106,8 +106,10 @@ export const MenuBar = ({
 						<ImageButton editor={editor} />
 					</MenuBlock>
 
-					<PanelButton editor={editor} />
-					<MathPanelButton editor={editor} />
+					<MenuBlock>
+						<PanelButton editor={editor} />
+						<MathPanelButton editor={editor} />
+					</MenuBlock>
 
 					<MenuBlock>
 						<FullscreenButton
@@ -126,7 +128,6 @@ export const MenuBar = ({
 							setIsCodeViewMode={setIsCodeViewMode}
 						/>
 						<TableButton editor={editor} />
-						<SuperscriptButton editor={editor} />
 
 						<button
 							onClick={() =>

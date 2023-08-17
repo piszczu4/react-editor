@@ -30,6 +30,7 @@ type Props = {
 		setIsOpen?: (isOpen: boolean) => void;
 		dropdownIcon?: boolean;
 	};
+	className?: string;
 };
 
 export const MenuButton = ({
@@ -41,6 +42,7 @@ export const MenuButton = ({
 	tooltip,
 	text,
 	dropdown,
+	className,
 }: Props) => {
 	let button = (
 		<button
@@ -48,8 +50,9 @@ export const MenuButton = ({
 			className={`mw-btn ${
 				dropdown?.isDropdownItem ? "mw-btn-dropdown--item " : ""
 			}
-				${dropdown?.isDropdownButton ? "mw-btn-dropdown " : ""}
-
+				${dropdown?.isDropdownButton ? "mw-btn-dropdown " : ""} ${
+					className ? className : ""
+				}
 			} ${active ? "is-active " : ""} ${disabled ? "is-disabled " : ""}`}
 			onClick={!disabled ? command : () => false}
 			title={typeof tooltip === "string" ? tooltip : undefined}

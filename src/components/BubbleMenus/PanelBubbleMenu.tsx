@@ -8,7 +8,10 @@ import NoteIcon from "../../components/Icons/NoteIcon";
 import SuccessIcon from "../../components/Icons/SuccessIcon";
 import WarningIcon from "../../components/Icons/WarningIcon";
 import { TrashIcon } from "../../components/Icons";
-import { findNodePos } from "../../utils";
+import { findNode, findNodePos } from "../../utils";
+import { _t } from "../../helpers/strings";
+import { MenuButton } from "../MenuBar/MenuButton";
+import { getNodeAtPosition } from "../../commands";
 
 function getIconColor(panelType: PanelType) {
 	return panelType === PanelType.INFO
@@ -32,6 +35,7 @@ export function PanelBubbleMenu({ editor }: PanelBubbleMenuProps) {
 			pluginKey={"panelBubbleMenu"}
 			editor={editor}
 			tippyOptions={{
+				maxWidth: "100%",
 				duration: 200,
 				animation: "shift-toward-subtle",
 				moveTransition: "transform 0.2s ease-in-out",
@@ -42,113 +46,104 @@ export function PanelBubbleMenu({ editor }: PanelBubbleMenuProps) {
 					instance.hide();
 				},
 				getReferenceClientRect: () => {
-					let pos = findNodePos(editor, "panel");
-					let closestNode = editor.view.nodeDOM(pos) as HTMLElement;
-					return closestNode.getBoundingClientRect();
+					let nodeWithPos = findNode(editor, "panel")!;
+					let node = editor.view.nodeDOM(nodeWithPos.pos) as HTMLElement;
+					return node.getBoundingClientRect();
 				},
 			}}
 			shouldShow={(props) => {
 				return props.editor.isActive("panel");
 			}}
 		>
-			<div className="d-flex ai-center">
-				<button
-					type="button"
-					className="flex--item mw-btn mr4"
-					title=""
-					onClick={() => {
+			<div className="mw-bbm--panel d-flex ai-center">
+				<MenuButton
+					icon={
+						<InfoIcon
+							className="mw-panel--info"
+							color={getIconColor(PanelType.INFO)}
+						/>
+					}
+					tooltip={_t("commands.panel.info")}
+					command={() =>
 						editor
 							.chain()
 							.focus()
 							.updateAttributes("panel", {
 								panelType: PanelType.INFO,
 							})
-							.run();
-					}}
-				>
-					<InfoIcon color={getIconColor(PanelType.INFO)} />
-				</button>
-
-				<button
-					type="button"
+							.run()
+					}
 					className="flex--item mw-btn mr4"
-					title=""
-					onClick={() => {
+				/>
+
+				<MenuButton
+					icon={<NoteIcon color={getIconColor(PanelType.NOTE)} />}
+					tooltip={_t("commands.panel.note")}
+					command={() =>
 						editor
 							.chain()
 							.focus()
 							.updateAttributes("panel", {
 								panelType: PanelType.NOTE,
 							})
-							.run();
-					}}
-				>
-					{" "}
-					<NoteIcon color={getIconColor(PanelType.NOTE)} />
-				</button>
-				<button
-					type="button"
+							.run()
+					}
 					className="flex--item mw-btn mr4"
-					title=""
-					onClick={() => {
+				/>
+
+				<MenuButton
+					icon={<SuccessIcon color={getIconColor(PanelType.SUCCESS)} />}
+					tooltip={_t("commands.panel.success")}
+					command={() =>
 						editor
 							.chain()
-							// .focus()
+							.focus()
 							.updateAttributes("panel", {
 								panelType: PanelType.SUCCESS,
 							})
-							.run();
-					}}
-				>
-					<SuccessIcon color={getIconColor(PanelType.SUCCESS)} />
-				</button>
-
-				<button
-					type="button"
+							.run()
+					}
 					className="flex--item mw-btn mr4"
-					title=""
-					onClick={() => {
+				/>
+
+				<MenuButton
+					icon={<WarningIcon color={getIconColor(PanelType.WARNING)} />}
+					tooltip={_t("commands.panel.warning")}
+					command={() =>
 						editor
 							.chain()
-							// .focus()
+							.focus()
 							.updateAttributes("panel", {
 								panelType: PanelType.WARNING,
 							})
-							.run();
-					}}
-				>
-					<WarningIcon color={getIconColor(PanelType.WARNING)} />
-				</button>
-
-				<button
-					type="button"
+							.run()
+					}
 					className="flex--item mw-btn mr4"
-					title=""
-					onClick={() => {
+				/>
+
+				<MenuButton
+					icon={<ErrorIcon color={getIconColor(PanelType.ERROR)} />}
+					tooltip={_t("commands.panel.error")}
+					command={() =>
 						editor
 							.chain()
-							// .focus()
+							.focus()
 							.updateAttributes("panel", {
 								panelType: PanelType.ERROR,
 							})
-							.run();
-					}}
-				>
-					<ErrorIcon color={getIconColor(PanelType.ERROR)} />
-				</button>
+							.run()
+					}
+					className="flex--item mw-btn mr4"
+				/>
 
 				<span className="mw-separator"></span>
 
-				<button
-					type="button"
+				<MenuButton
+					icon={<TrashIcon className="mw-panel--delete" />}
+					tooltip={_t("commands.panel.delete")}
+					command={() => editor.chain().focus().deleteNode("panel").run()}
 					className="flex--item mw-btn mr4"
-					title=""
-					onClick={() => {
-						editor.chain().deleteNode("panel").run();
-					}}
-				>
-					<TrashIcon className="mw-panel--delete" />
-				</button>
+				/>
 			</div>
 		</BubbleMenu>
 	);

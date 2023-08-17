@@ -62,3 +62,4 @@ export { default as TextColorIcon } from "./TextColorIcon";
 export { default as BackgroundColorIcon } from "./BackgroundColorIcon";
 export { default as MathDisplayIcon } from "./BoldIcon";
 export { default as MathInlineIcon } from "./BoldIcon";
+export { default as MathPanelIcon } from "./MathPanelIcon";

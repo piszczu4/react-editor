@@ -1,6 +1,7 @@
 import { BubbleMenu, Editor } from "@tiptap/react";
 import { PanelType } from "../../extensions/extension-math-panel/math-panel";
-import { findNodePos } from "../../utils";
+import { findNode, findNodePos } from "../../utils";
+import { MenuButton } from "../MenuBar/MenuButton";
 
 type MathPanelBubbleMenuProps = { editor: Editor };
 
@@ -15,16 +16,15 @@ export function MathPanelBubbleMenu({ editor }: MathPanelBubbleMenuProps) {
 				animation: "shift-toward-subtle",
 				moveTransition: "transform 0.2s ease-in-out",
 				getReferenceClientRect: () => {
-					let pos = findNodePos(editor, "mathPanel");
-					let closestNode = editor.view.nodeDOM(pos!) as HTMLElement;
-					return closestNode.getBoundingClientRect();
+					let nodeWithPos = findNode(editor, "mathPanel");
+					let node = editor.view.nodeDOM(nodeWithPos?.pos!) as HTMLElement;
+					return node.getBoundingClientRect();
 				},
 			}}
 			updateDelay={0}
 			shouldShow={(props) => {
 				return props.editor.isActive("mathPanel");
 			}}
-			className="mw-popover"
 		>
 			<div className="d-flex ai-center">
 				<button

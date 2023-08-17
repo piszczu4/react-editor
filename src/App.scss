@@ -758,6 +758,7 @@ figcaption p {
 
 #editor-container {
 	width: 50%;
+	max-width: 800px;
 	position: relative;
 	padding: 0px;
 	display: flex;
@@ -780,6 +781,7 @@ figcaption p {
 			padding-bottom: 0px;
 			overflow-x: auto;
 			display: flex;
+			flex-wrap: wrap;
 			gap: 16px;
 			flex-grow: 1;
 			align-items: center;
@@ -854,6 +856,29 @@ figcaption p {
 	}
 }
 
+.mw-bbm--panel {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.mw-btn {
+		svg {
+			height: 30px;
+			width: 30px;
+			max-width: 30px !important;
+			max-height: 30px !important;
+		}
+
+		.mw-panel--info {
+			min-width: 25px !important;
+			min-height: 25px !important;
+		}
+
+		.mw-panel--delete {
+			height: 20px;
+			width: 20px;
+		}
+	}
+}
 #ordered-list-dropdown {
 	svg {
 		height: 40px;
@@ -994,11 +1019,6 @@ input[type="number"] {
 	}
 }
 
-.mw-panel--delete-btn {
-	.delete {
-	}
-}
-
 .mw-separator {
 	background: rgba(9, 30, 66, 0.14);
 	width: 1px;
@@ -1028,8 +1048,11 @@ body {
 	// max-width: 800px;
 
 	.mw-math-panel--name {
+		p {
+			margin-bottom: 0px !important;
+		}
 		margin: 0px !important;
-		padding: 5px 8px;
+		padding: 8px 8px;
 		display: block;
 		color: white;
 		font-weight: bold;

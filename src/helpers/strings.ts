@@ -57,6 +57,17 @@ export const defaultStrings: Record<any, any> = {
 			link: shortcut("Link"),
 			math_display: "Math Display",
 			math_inline: "Math Inline",
+			math_panel: {
+				title: "Math block",
+				description:
+					"Insert theorem, definition, lemma, example or remark block",
+				definition: "Definition",
+				theorem: "Theorem",
+				lemma: "Lemma",
+				example: "Example",
+				remark: "Remark",
+				proof: "Proof",
+			},
 			metaTagLink: shortcut("Meta tag"),
 			moreFormatting: "More formatting",
 			ordered_list: {
@@ -69,6 +80,16 @@ export const defaultStrings: Record<any, any> = {
 				"upper-roman": "Upper Roman",
 			},
 			outdent: "Outdent",
+			panel: {
+				title: "Panel",
+				description: "Insert Info, Note, Success, Warning or Error panel ",
+				info: "Info",
+				note: "Note",
+				success: "Success",
+				warning: "Warning",
+				error: "Error",
+				delete: "Delete",
+			},
 			redo: "Redo", // DONE
 			spoiler: "Spoiler", // DONE
 			subscript: "Subscript", // DONE
@@ -200,6 +221,17 @@ export const defaultStrings: Record<any, any> = {
 			link: shortcut("Link"),
 			math_display: "Wieloliniowe wyrażenie matematyczne",
 			math_inline: "Jednoliniowe wyrażenie matematyczne",
+			math_panel: {
+				title: "Blok matematyczny",
+				description:
+					"Wstaw blok dla twierdzenia, definicjii, przykładu bądź uwagi.",
+				definition: "Definicja",
+				theorem: "Twierdzenie",
+				lemma: "Lemat",
+				example: "Przykład",
+				remark: "Uwaga",
+				proof: "Dowód",
+			},
 			metaTagLink: shortcut("Meta tag"),
 			moreFormatting: "Więcej formatowania",
 			ordered_list: {
@@ -212,6 +244,16 @@ export const defaultStrings: Record<any, any> = {
 				"upper-roman": "Duże rzymskie",
 			},
 			outdent: "Zmniejsz wcięcie",
+			panel: {
+				title: "Panel",
+				description: "Wstaw informację, notkę, sukces, ostrzeżenie lub błąd",
+				info: "Informacja",
+				note: "Notka",
+				success: "Sukces",
+				warning: "Ostrzeżenie",
+				error: "Błąd",
+				delete: "Usuń",
+			},
 			redo: "Powtórz", // DONE
 			spoiler: "Spojler", // DONE
 			subscript: "Indeks dolny", // DONE

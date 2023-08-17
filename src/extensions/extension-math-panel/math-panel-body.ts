@@ -1,5 +1,4 @@
 import { mergeAttributes, Node } from "@tiptap/core";
-import { ReactNodeViewRenderer } from "@tiptap/react";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
@@ -7,11 +6,11 @@ declare module "@tiptap/core" {
 	}
 }
 
-export interface MediaOptions {
+export interface MathPanelBodyOptions {
 	HTMLAttributes: Record<string, any>;
 }
 
-export const MathPanelBody = Node.create<MediaOptions>({
+export const MathPanelBody = Node.create<MathPanelBodyOptions>({
 	name: "mathPanelBody",
 
 	inline: false,

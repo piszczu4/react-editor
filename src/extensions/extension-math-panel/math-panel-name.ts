@@ -1,17 +1,15 @@
 import { mergeAttributes, Node } from "@tiptap/core";
-import { ReactNodeViewRenderer } from "@tiptap/react";
 
-import { MediaNodeView } from "./MediaNodeView";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {}
 }
 
-export interface MediaOptions {
+export interface MathPanelNameOptions {
 	HTMLAttributes: Record<string, any>;
 }
 
-export const MathPanelName = Node.create<MediaOptions>({
+export const MathPanelName = Node.create<MathPanelNameOptions>({
 	name: "mathPanelName",
 
 	inline: false,
