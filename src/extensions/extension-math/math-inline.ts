@@ -23,7 +23,7 @@ import { mathBackspace } from "./commands";
 import { joinBackward } from "../../commands/joinBackward";
 
 import { isAtEndOfNode } from "../../commands/isAtEndOfNode";
-import { findNodePos } from "../../utils";
+import { findNode, findNodePos } from "../../utils";
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
 		math_inline: {
@@ -64,6 +64,32 @@ export const MathInline = Node.create({
 
 		return [mathPlugin, inputRulePlugin];
 	},
+
+	addStorage() {
+		return {
+			lastPos: 0,
+		};
+	},
+
+	// onSelectionUpdate() {
+	// 	if (this.editor.isActive("math_inline")) {
+	// 		let parent = findNode(this.editor, "math_inline");
+	// 		console.log(parent);
+	// 		let pos = parent?.pos! + parent?.node.content.size! + 1;
+	// 		console.log(pos);
+
+	// 		return this.editor
+	// 			.chain()
+	// 			.focus()
+	// 			.command(({ tr }) => {
+	// 				tr.setSelection(Selection.near(this.editor.state.doc.resolve(pos)));
+	// 				return true;
+	// 			})
+	// 			.run();
+	// 	}
+	// 	this.storage.lastPos = this.editor.state.selection.from;
+	// 	console.log(this.storage.lastPos);
+	// },
 
 	addKeyboardShortcuts() {
 		return {

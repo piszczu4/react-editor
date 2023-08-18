@@ -3,16 +3,12 @@ import { Node, mergeAttributes } from "@tiptap/core";
 
 import { inputRules } from "prosemirror-inputrules";
 
-import { insertMathCmd } from "@benrbray/prosemirror-math";
 import { TextSelection } from "@tiptap/pm/state";
 
 import {
-	makeBlockMathInputRule,
 	REGEX_BLOCK_MATH_DOLLARS,
+	makeBlockMathInputRule,
 } from "@benrbray/prosemirror-math";
-import { EditorState, Transaction } from "@tiptap/pm/state";
-
-import { NodeSelection } from "@tiptap/pm/state";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
@@ -77,6 +73,12 @@ export const MathDisplay = Node.create({
 		});
 
 		return [inputRulePlugin];
+	},
+
+	addStorage() {
+		return {
+			lastCursor: 0
+		}
 	},
 
 	addCommands() {
