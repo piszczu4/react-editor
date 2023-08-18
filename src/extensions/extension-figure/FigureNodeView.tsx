@@ -25,7 +25,6 @@ export function FigureNodeView({ node, editor }: NodeViewProps) {
 	if (type === "image" || type === "video") {
 		mediaWidth = editor.getAttributes("image")["width"];
 		isMediaWidthInPx = mediaWidth && typeof mediaWidth !== "string";
-		console.log(isMediaWidthInPx, mediaWidth);
 	}
 
 	return (

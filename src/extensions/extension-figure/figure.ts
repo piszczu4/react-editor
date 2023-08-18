@@ -2,8 +2,12 @@ import { mergeAttributes, Node } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 
 import { createTable } from "@tiptap/extension-table";
-import { findClosestNode } from "../../utils";
+import { findClosestNode, findNode } from "../../utils";
+import { createNodeFromContent, JSONContent } from "@tiptap/react";
 import { FigureNodeView } from "./FigureNodeView";
+import { Node as PMNode } from "@tiptap/pm/model";
+import { _t } from "../../helpers/strings";
+import { NodeSelection, TextSelection } from "@tiptap/pm/state";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
@@ -142,58 +146,54 @@ export const Figure = Node.create<FigureOptions>({
 
 			toggleCaption:
 				() =>
-				({ editor }) => {
+				({ editor, tr }) => {
 					let { caption } = editor.getAttributes("figure");
-					let imagePos = findClosestNode(editor, "image") as number;
-					if (caption)
+					let nodeWithPos = findNode(editor, "image");
+
+					let pos = nodeWithPos?.pos! + nodeWithPos?.node.nodeSize!;
+
+					if (caption) {
+						nodeWithPos;
 						return editor
 							.chain()
 							.focus()
-							.updateAttributes("figure", {
-								caption: !caption,
-							})
-							.setNodeSelection(imagePos)
+							.updateAttributes("figure", { caption: false })
+							.setNodeSelection(pos + 1)
+							.deleteNode("caption")
 							.run();
-					else {
-						let captionPos = findClosestNode(editor, "caption") as number;
+					} else {
+						let caption = {
+							type: "caption",
+							content: [
+								{
+									type: "paragraph",
+									content: [
+										{
+											type: "text",
+											text: "Caption",
+										},
+									],
+								},
+							],
+						};
 
 						return editor
 							.chain()
 							.focus()
-							.updateAttributes("figure", {
-								caption: !caption,
+							.updateAttributes("figure", { caption: true })
+							.insertContentAt(pos, caption)
+							.command(({ tr }) => {
+								tr.setSelection(
+									TextSelection.create(
+										tr.doc,
+										tr.selection.to - tr.selection.$to.parent.content.size,
+										tr.selection.to
+									)
+								);
+								return true;
 							})
-							.setTextSelection(captionPos + 1)
 							.run();
 					}
-
-					// let { caption } = editor.getAttributes("resizableMediaWithCaption");
-					// if (caption) {
-					// 	editor
-					// 		.chain()
-					// 		.focus()
-					// 		.deleteNode("caption")
-					// 		.updateAttributes("resizableMediaWithCaption", {
-					// 			caption: !caption,
-					// 		})
-					// 		.run();
-					// } else {
-					// 	// editor.commands.insertContent({
-					// 	// 	type: "caption",
-					// 	// 	content: [
-					// 	// 		{
-					// 	// 			type: "paragraph",
-					// 	// 			content: [
-					// 	// 				{
-					// 	// 					type: "text",
-					// 	// 					text: "Caption",
-					// 	// 				},
-					// 	// 			],
-					// 	// 		},
-					// 	// 	],
-					// 	// });
-					// 	return true;
-					// }
 				},
 		};
 	},

@@ -459,11 +459,11 @@ body.modal-open {
 	position: relative;
 	z-index: 20;
 
-	&[data-caption="false"] {
-		figcaption {
-			display: none;
-		}
-	}
+	// &[data-caption="false"] {
+	// 	figcaption {
+	// 		display: none;
+	// 	}
+	// }
 
 	&.f-left {
 		float: left;

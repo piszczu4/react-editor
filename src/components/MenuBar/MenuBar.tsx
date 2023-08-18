@@ -122,36 +122,6 @@ export const MenuBar = ({
 
 						<button
 							onClick={() =>
-								editor.commands.setImage({
-									src: "https://i.ibb.co/F699RW5/leby.jpg",
-									width: "500px",
-								})
-							}
-						/>
-
-						{/* <button
-							onClick={() =>
-								editor.commands.setFigure({
-									src: "https://i.ibb.co/F699RW5/leby.jpg",
-									width: "500px",
-								})
-							}
-						/> */}
-
-						<button
-							onClick={() =>
-								editor.commands.setIframe({
-									src: "https://player.vimeo.com/video/852812634?h=bf341d034c",
-									width: "640",
-									height: "360",
-								})
-							}
-						>
-							Iframe
-						</button>
-
-						<button
-							onClick={() =>
 								editor.commands.setVideoFigure({
 									src: "https://player.vimeo.com/video/852812634?h=bf341d034c",
 									width: "640",

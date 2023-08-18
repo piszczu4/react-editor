@@ -1,5 +1,5 @@
 import { BubbleMenu, Editor } from "@tiptap/react";
-import { findNodePos } from "../../utils";
+import { findNode, findNodePos } from "../../utils";
 import { MenuButton } from "../MenuBar/MenuButton";
 import {
 	AlignCenterIcon,
@@ -28,9 +28,9 @@ export function FigureBubbleMenu({ editor }: MediaBubbleMenuProps) {
 				animation: "shift-toward-subtle",
 				moveTransition: "transform 0.2s ease-in-out",
 				getReferenceClientRect: () => {
-					let pos = findNodePos(editor, "image");
-					let closestNode = editor.view.nodeDOM(pos!) as HTMLElement;
-					let img = closestNode.getElementsByTagName("img")[0] as HTMLElement;
+					let nodeWithPos = findNode(editor, "image");
+					let dom = editor.view.nodeDOM(nodeWithPos?.pos!) as HTMLElement;
+					let img = dom.getElementsByTagName("img")[0] as HTMLElement;
 					return img.getBoundingClientRect();
 				},
 			}}
@@ -140,7 +140,7 @@ export function FigureBubbleMenu({ editor }: MediaBubbleMenuProps) {
 					<MenuButton
 						icon={<CaptionIcon />}
 						command={() => {
-							editor.commands.toggleCaption();
+							editor.chain().toggleCaption();
 							return true;
 						}}
 					/>
