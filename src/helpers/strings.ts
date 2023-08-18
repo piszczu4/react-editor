@@ -47,12 +47,12 @@ export const defaultStrings: Record<any, any> = {
 			},
 			help: "Help",
 			horizontal_rule: "Horizontal rule",
-			image: shortcut("Image"),
 			code: {
 				// DONE
 				title: "Inline code",
 				description: "Single line code span for use within a block of text",
 			},
+			image: { title: "Image" },
 			indent: "Indent",
 			italic: "Italic", // DONE
 			keyboard: "Keyboard", // DONE
@@ -128,6 +128,27 @@ export const defaultStrings: Record<any, any> = {
 				disc: "Disc",
 				circle: "Circle",
 				square: "Square",
+			},
+		},
+		image_modal: {
+			header: "Image",
+			release: "Release to Upload,",
+			drag: "Drag & Drop,",
+			paste_image: "paste an image, ",
+			paste_link: "paste link,",
+			or: "or ",
+			browse: "browse",
+			supported_files: "Supports: JPEG, JPG, PNG",
+			alt: "Image not found",
+			add: "Add image",
+			cancel: "Cancel",
+			placeholder: "Paste image URL here",
+			status: {
+				uploading: "Uploading...",
+				success: "Image was successfully uploaded!",
+				error: "Failed to upload an image. Try again.",
+				badLink: "Image URL seems to be invalid!",
+				unsupported: "Unsupported file type!",
 			},
 		},
 		link_editor: {
@@ -220,12 +241,12 @@ export const defaultStrings: Record<any, any> = {
 			},
 			help: "Pomoc",
 			horizontal_rule: "Linia pozioma",
-			image: shortcut("Obraz"),
 			code: {
 				// DONE
 				title: "Kod jednoliniowy",
 				description: "Pojedyncza linia kodu do użycia w bloku tekstu",
 			},
+			image: { title: "Image" },
 			indent: "Zwiększ wcięcie",
 			italic: "Kursywa", // DONE
 			keyboard: "Klawiatura", // DONE

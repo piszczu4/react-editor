@@ -9,6 +9,7 @@ import { BulletListSplitButton } from "./SplitButtons/UnorderedListSplitButton";
 import { ClearFormattingButton } from "./Buttons/ClearFormattingButton";
 import { CodeBlockButton } from "./Buttons/CodeBlockButton";
 import { CodeButton } from "./Buttons/CodeButton";
+import { CodeViewButton } from "./Buttons/CodeViewButton";
 import { DetailsButton } from "./Buttons/DetailsButton";
 import { FontFamilyDropdownButton } from "./DropdownButtons/FontFamilyDropdownButton";
 import { FontSizeDropdownButton } from "./DropdownButtons/FontSizeDropdownButton";
@@ -32,7 +33,6 @@ import { TaskListButton } from "./Buttons/TaskListButton";
 import { TextColorSplitButton } from "./SplitButtons/TextColorSplitButton";
 import { UnderlineButton } from "./Buttons/UnderlineButton";
 
-import { CodeViewButton } from "./Buttons/CodeViewButton";
 import { TableButton } from "./TableButton";
 
 type MenuBarProps = {
@@ -96,13 +96,13 @@ export const MenuBar = ({
 						<DetailsButton editor={editor} />
 						<MathInlineButton editor={editor} />
 						<MathDisplayButton editor={editor} />
-						<ImageButton editor={editor} />
 					</MenuBlock>
 
 					<MenuBlock>
 						<PanelButton editor={editor} />
 						<MathPanelButton editor={editor} />
 						<LinkButton editor={editor} />
+						<ImageButton editor={editor} />
 					</MenuBlock>
 
 					<MenuBlock>

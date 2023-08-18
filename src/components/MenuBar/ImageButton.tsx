@@ -1,19 +1,19 @@
 import { Editor } from "@tiptap/react";
-import { MenuButton } from "./MenuButton";
 import { ImageIcon } from "../Icons";
 import { TooltipContent } from "../TooltipContent";
+import { MenuButton } from "./MenuButton";
 
-import { useState, useRef } from "react";
-import { Modal } from "../Modal";
+import { useState } from "react";
+import { _t } from "../../helpers/strings";
+import { ImageModal } from "../Modals/ImageModal";
+
 type Props = {
 	editor: Editor;
 };
 
-import { ImageModal } from "../Modals/ImageModal";
-
 export const ImageButton = ({ editor }: Props) => {
-	const [exists, setExists] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
+	const [exists, setExists] = useState(false);
 
 	let handleClick = () => {
 		setExists(true);
@@ -23,7 +23,15 @@ export const ImageButton = ({ editor }: Props) => {
 
 	return (
 		<div>
-			<MenuButton icon={<ImageIcon />} command={handleClick} />
+			<MenuButton
+				icon={<ImageIcon />}
+				command={handleClick}
+				tooltip={{
+					content: <TooltipContent title={_t("commands.image.title")} />,
+				}}
+				active={editor.isActive("image")}
+				disabled={false}
+			/>
 			{exists && (
 				<ImageModal
 					isOpen={isOpen}
@@ -35,12 +43,3 @@ export const ImageButton = ({ editor }: Props) => {
 		</div>
 	);
 };
-
-// <ImageModal
-// 	editor={editor}
-// 	isShow={isShow}
-// 	setIsShow={setIsShow}
-// 	exists={exists}
-// 	setExists={setExists}
-// 	// uploadOptions={{ handler: defaultImageUploadHandler }}
-// />

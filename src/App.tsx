@@ -1,12 +1,19 @@
+import { Editor } from "@tiptap/react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { initialContent } from "./initialContent";
+import { useEffect, useRef, useState } from "react";
 
 // Components
 import { MenuBar } from "./components/MenuBar";
 import { FlagIcon } from "./components/Icons";
 
-// Functions
+// Functions/Other
 import { _t } from "./helpers/strings";
+import codemirror from "codemirror";
+import "codemirror/addon/edit/closetag.js"; // autoCloseTags
+import "codemirror/addon/selection/active-line.js"; // require active-line.js
+import "codemirror/lib/codemirror.css"; // import base style
+import "codemirror/mode/xml/xml.js"; // language
 
 // Extensions
 import FontFamily from "@tiptap/extension-font-family";
@@ -15,6 +22,7 @@ import { BulletList } from "./extensions/extension-bullet-list";
 import { ClearFormatting } from "./extensions/extension-clear-formatting/clear-formatting";
 import { CodeBlock } from "./extensions/extension-code-block";
 import { Code } from "./extensions/extension-code/code";
+import CodeView from "./extensions/extension-code-view";
 import { Color } from "./extensions/extension-color";
 import { Commands } from "./extensions/extension-commands";
 import { FontSize } from "./extensions/extension-font-size";
@@ -66,7 +74,6 @@ import Mention from "@tiptap/extension-mention";
 import Placeholder from "@tiptap/extension-placeholder";
 import { Caption } from "./extensions/extension-caption";
 import CodeIndent from "./extensions/extension-code-indent";
-import CodeView from "./extensions/extension-code-view";
 import suggestion from "./extensions/extension-mention/suggestion";
 // import { ResizableMedia } from "./extensions/extension-resizable-media";
 // import { ResizableMediaWithCaptionBubbleMenu } from "./extensions/extension-resizable-media-with-caption/ResizableMediaWithCaptionBubbleMenu";
@@ -78,18 +85,7 @@ import { TableRow } from "@tiptap/extension-table-row";
 import { Table } from "./extensions/extension-table";
 import { TableCell } from "./extensions/extension-table-cell";
 
-import { useEffect, useRef, useState } from "react";
 import { TableCellBubbleMenu } from "./components/BubbleMenus/TableCellBubbleMenu";
-
-import { Editor } from "@tiptap/react";
-
-import codemirror from "codemirror";
-import "codemirror/addon/edit/closetag.js"; // autoCloseTags
-import "codemirror/addon/selection/active-line.js"; // require active-line.js
-import "codemirror/lib/codemirror.css"; // import base style
-import "codemirror/mode/xml/xml.js"; // language
-
-// import "@stackoverflow/stacks/dist/js/stacks.min.js";
 
 import { Resizer } from "./components/Resizer";
 

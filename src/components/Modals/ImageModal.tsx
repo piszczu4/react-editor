@@ -92,7 +92,6 @@ export async function defaultImageUploadHandler(file: File): Promise<string> {
 }
 
 type ImageModalProps = {
-	uploadOptions?: ImageUploadOptions;
 	isOpen: boolean;
 	hide: () => void;
 	destroy: () => void;
@@ -127,18 +126,9 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 		setUploadStatus("unsupportedFile");
 		return false;
 	}
+
 	function startImageUpload(file: File): Promise<string | void> | undefined {
 		if (!validateFile(file)) return;
-
-		// if (!uploadOptions?.handler) {
-		// 	// purposefully log an error to the dev console
-		// 	// don't use our internal `log` implementation, it only logs on dev builds
-		// 	// eslint-disable-next-line no-console
-		// 	console.error(
-		// 		"No upload handler registered. Ensure you set a proper handler on the editor's options.imageUploadHandler"
-		// 	);
-		// 	return;
-		// }
 
 		setUploadStatus("uploading");
 
@@ -201,18 +191,18 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 		let text;
 		let level;
 		if (uploadStatus === "uploadSuccess") {
-			text = "Image was successfully uploaded!";
+			text = _t("image_modal.status.success");
 			level = "success";
 		} else if (uploadStatus === "uploadError") {
-			text = "Failed to upload an image. Try again.";
+			text = _t("image_modal.status.error");
 			level = "danger";
 		} else if (uploadStatus === "badLink") {
-			text = "Image URL seems to be invalid!";
+			text = _t("image_modal.status.badLink");
 			level = "danger";
 		} else if (uploadStatus === "goodLink") {
 			return;
 		} else if (uploadStatus === "unsupportedFile") {
-			text = "Unsupported file type!";
+			text = _t("image_modal.status.unsupported");
 			level = "danger";
 		}
 
@@ -227,7 +217,7 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 		<Modal isOpen={isOpen} onOutsideClick={() => hide()}>
 			<div id="mw-image-modal">
 				<div className="mw-modal--header">
-					<h1>Image</h1>
+					<h1>{_t("image_modal.header")}</h1>
 				</div>
 
 				<div id="mw-modal--body">
@@ -235,7 +225,7 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 						{uploadStatus === "uploading" ? (
 							<div className="drag-area">
 								<InfinitySpin width="200" color="#1683ff" />
-								<h3>Uploading...</h3>
+								<h3>{_t("image_modal.status.uploading")}</h3>
 							</div>
 						) : uploadStatus !== "uploadSuccess" &&
 						  uploadStatus !== "goodLink" ? (
@@ -252,19 +242,23 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 								</div>
 
 								<span className="drag-and-drop">
-									{isDragActive ? "Release to Upload," : "Drag & Drop,"}
+									{isDragActive
+										? _t("image_modal.release")
+										: _t("image_modal.drag")}
 								</span>
-								<span className="paste-image">paste an image, </span>
+								<span className="paste-image">
+									{_t("image_modal.paste_image")}
+								</span>
 								<button onClick={onClickPasteUrl} className="paste-url">
-									paste link,{" "}
+									{_t("image_modal.paste_link")}
 								</button>
 								<span className="browse">
-									or{" "}
+									{_t("image_modal.or")}
 									<span
 										onClick={() => browseInputRef.current.click()}
 										className="browse-btn"
 									>
-										browse
+										{_t("image_modal.browse")}
 									</span>
 								</span>
 								<input
@@ -273,25 +267,27 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 									onChange={onFileSelection}
 									hidden
 								></input>
-								<span className="support">Supports: JPEG, JPG, PNG</span>
+								<span className="support">
+									{_t("image_modal.supported_files")}
+								</span>
 							</div>
 						) : (
 							<div className="image-preview">
-								<img src={imageUrl} alt="Image not found"></img>
+								<img src={imageUrl} alt={_t("image_modal.alt")}></img>
 							</div>
 						)}
 					</div>
 
 					{uploadStatus && <UploadNotice />}
 
-					<div>
+					<div className={`${uploadStatus === ""}`}>
 						<label htmlFor="link-editor-href-input" className="s-label mb4">
 							{_t("link_editor.href_label")}
 						</label>
 						<input
 							ref={linkInputRef}
 							value={imageUrl}
-							placeholder="Paste image URL here"
+							placeholder={_t("image_modal.placeholder")}
 							onInput={(e) =>
 								setAndValidateUrl((e.target as HTMLInputElement).value)
 							}
@@ -316,14 +312,14 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 							onClick={onSubmit}
 							disabled={isDisabled}
 						>
-							Add image
+							{_t("image_modal.add")}
 						</button>
 						<button
 							className="s-btn ws-nowrap js-cancel-button"
 							type="button"
 							onClick={() => destroy()}
 						>
-							Cancel
+							{_t("image_modal.cancel")}
 						</button>
 					</div>
 				</div>

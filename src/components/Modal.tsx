@@ -1,5 +1,5 @@
-import { useRef, useEffect } from "react";
-import CloseIcon from "./Icons/CloseIcon";
+import { useEffect, useRef } from "react";
+
 type Props = {
 	isOpen: boolean;
 	onOutsideClick?: () => void;
@@ -49,21 +49,3 @@ export const Modal = ({ isOpen, children, onOutsideClick }: Props) => {
 		</div>
 	);
 };
-{
-	/* <div className="mw-modal--header">
-<h1>Image</h1>
-</div>
-
-<div className="mw-modal--body">{children}</div>
-<div className="mw-modal--footer">
-<button className="s-btn s-btn__primary" type="button">
-	Save changes
-</button>
-<button className="s-btn s-btn__muted" type="button">
-	Cancel
-</button>
-</div>
-<button className="mw-btn mw-modal--close" onClick={() => true}>
-<CloseIcon />
-</button> */
-}
