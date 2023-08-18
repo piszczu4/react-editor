@@ -94,7 +94,7 @@ import { Resizer } from "./components/Resizer";
 import { FigureBubbleMenu } from "./components/BubbleMenus/FigureBubbleMenu";
 import { TableBubbleMenu } from "./components/BubbleMenus/TableBubbleMenu";
 import { VideoBubbleMenu } from "./components/BubbleMenus/VideoBubbleMenu";
-import Figure from "./extensions/extension-figure";
+import { Figure } from "./extensions/extension-figure";
 import Iframe from "./extensions/extension-iframe";
 import Image from "./extensions/extension-image";
 

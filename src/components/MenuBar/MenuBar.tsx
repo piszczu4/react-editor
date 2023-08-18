@@ -129,14 +129,14 @@ export const MenuBar = ({
 							}
 						/>
 
-						<button
+						{/* <button
 							onClick={() =>
 								editor.commands.setFigure({
 									src: "https://i.ibb.co/F699RW5/leby.jpg",
 									width: "500px",
 								})
 							}
-						/>
+						/> */}
 
 						<button
 							onClick={() =>
@@ -152,7 +152,7 @@ export const MenuBar = ({
 
 						<button
 							onClick={() =>
-								editor.commands.setVideo({
+								editor.commands.setVideoFigure({
 									src: "https://player.vimeo.com/video/852812634?h=bf341d034c",
 									width: "640",
 									height: "360",
@@ -162,7 +162,7 @@ export const MenuBar = ({
 							video figure
 						</button>
 
-						<button onClick={() => editor.commands.setTable()}>
+						<button onClick={() => editor.commands.setTableFigure()}>
 							table figure
 						</button>
 					</MenuBlock>

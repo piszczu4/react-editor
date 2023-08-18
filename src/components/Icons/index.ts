@@ -27,6 +27,13 @@ export { default as FlagIcon } from "./FlagIcon";
 export { default as MinusIcon } from "./MinusIcon";
 export { default as EditIcon } from "./EditIcon";
 
+export { default as ResetIcon } from "./ResetIcon";
+export { default as RotateLeftIcon } from "./RotateLeftIcon";
+export { default as RotateRightIcon } from "./RotateRightIcon";
+export { default as MirrorVerticalIcon } from "./MirrorVerticalIcon";
+export { default as MirrorHorizontalIcon } from "./MirrorHorizontalIcon";
+export { default as CpationIcon } from "./CaptionIcon";
+
 export { default as CodeViewIcon } from "./BoldIcon";
 export { default as KeyboardIcon } from "./BoldIcon";
 export { default as PanelIcon } from "./BoldIcon";

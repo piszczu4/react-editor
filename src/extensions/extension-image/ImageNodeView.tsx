@@ -149,6 +149,10 @@ export function ImageNodeView({ node, updateAttributes }: NodeViewProps) {
 			as="div"
 			className="image-node-view group"
 			contentEditable={false}
+			style={{
+				height: node.attrs["data-rotate"] ? node.attrs.width : undefined,
+				// width: node.attrs["data-rotate"] ? node.attrs.height : undefined,
+			}}
 		>
 			<img
 				contentEditable={false}
@@ -157,7 +161,7 @@ export function ImageNodeView({ node, updateAttributes }: NodeViewProps) {
 				className="rounded-lg"
 				alt={node.attrs.src}
 				width={isWidthInPercentages ? "100%" : node.attrs.width}
-				height={!isWidthInPercentages ? node.attrs.height : null}
+				height={"auto"} //!isWidthInPercentages ? node.attrs.height : null}
 				style={style}
 			/>
 

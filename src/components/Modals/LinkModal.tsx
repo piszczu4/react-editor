@@ -7,7 +7,7 @@ import { Modal } from "../Modal";
 
 import "tippy.js/dist/svg-arrow.css";
 
-import { stackOverflowValidateLink } from "../../extensions/extension-link/link-editor";
+import { validateLink } from "../../utils";
 import CloseIcon from "../Icons/CloseIcon";
 
 type Props = {
@@ -33,7 +33,7 @@ export function LinkModal({
 	let textInputRef = useRef<HTMLInputElement>(null);
 
 	let validate = (href: string) => {
-		setIsValid(stackOverflowValidateLink(href));
+		setIsValid(validateLink(href));
 	};
 
 	let handleSave = (view: EditorView) => {

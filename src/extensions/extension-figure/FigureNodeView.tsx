@@ -1,11 +1,7 @@
 import { NodeViewContent, NodeViewProps, NodeViewWrapper } from "@tiptap/react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-export function FigureNodeView({
-	node,
-	updateAttributes,
-	editor,
-}: NodeViewProps) {
+export function FigureNodeView({ node, editor }: NodeViewProps) {
 	const [isFloat, setIsFloat] = useState<boolean>();
 
 	useEffect(() => {
@@ -18,11 +14,19 @@ export function FigureNodeView({
 		setIsAlign(node.attrs.dataAlign);
 	}, [node.attrs]);
 
+	let type = node.attrs.type;
+
+	let mediaWidth;
+	let isMediaWidthInPx;
+
 	let isWidthInPercentages =
 		typeof node.attrs.width === "string" && node.attrs.width.endsWith("%");
 
-	let { width } = editor.getAttributes("image");
-	let isImageWidthInPx = width && typeof width !== "string";
+	if (type === "image" || type === "video") {
+		mediaWidth = editor.getAttributes("image")["width"];
+		isMediaWidthInPx = mediaWidth && typeof mediaWidth !== "string";
+		console.log(isMediaWidthInPx, mediaWidth);
+	}
 
 	return (
 		<NodeViewWrapper
@@ -35,14 +39,16 @@ export function FigureNodeView({
 					? "justify-" + node.attrs.dataAlign
 					: "")
 			}
+			data-type={type}
 			data-caption={node.attrs.caption}
 			style={{
-				overflowX: "auto",
-				width: isImageWidthInPx
-					? width
+				overflowX: type === "table" ? "auto" : undefined,
+				width: isMediaWidthInPx
+					? mediaWidth
 					: isWidthInPercentages
 					? node.attrs.width
 					: undefined,
+				height: "auto",
 
 				marginRight:
 					(isWidthInPercentages && node.attrs.dataAlign === "left") ||

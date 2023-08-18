@@ -7,7 +7,7 @@ import { Modal } from "../Modal";
 import CloseIcon from "../Icons/CloseIcon";
 
 import { Editor } from "@tiptap/react";
-import { stackOverflowValidateLink as validateLink } from "../../extensions/extension-link/link-editor";
+import { validateImageLink } from "../../utils";
 
 import { InfinitySpin } from "react-loader-spinner";
 
@@ -104,11 +104,15 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 	let [isDisabled, setIsDisabled] = useState(true);
 	let [isDragActive, setIsDragActive] = useState(false);
 
+	let browseInputRef = useRef<any>(null);
+	let linkInputRef = useRef<any>(null);
+	let addButtonRef = useRef<HTMLButtonElement>(null);
+
 	// Validation
 	function setAndValidateUrl(url: string): void {
 		setImageUrl(url);
 
-		if (!validateLink(url)) {
+		if (!validateImageLink(url)) {
 			setUploadStatus("badLink");
 			setIsDisabled(true);
 		} else {
@@ -124,6 +128,7 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 			return true;
 		}
 		setUploadStatus("unsupportedFile");
+
 		return false;
 	}
 
@@ -136,6 +141,7 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 			(url) => {
 				setAndValidateUrl(url);
 				setUploadStatus("uploadSuccess");
+				console.log(addButtonRef.current);
 			},
 			() => {
 				// ON ERROR
@@ -170,47 +176,35 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 
 	let onSubmit = () => {
 		let image = {
-			"media-type": "img" as "img",
 			src: imageUrl,
-			alt: "",
-			title: "",
-			caption: true,
 		};
 		destroy();
-		editor?.chain().setMedia(image).run();
+		editor?.chain().setImageFigure(image).run();
 	};
-
-	let browseInputRef = useRef<any>(null);
-	let linkInputRef = useRef<any>(null);
 
 	function onClickPasteUrl() {
 		linkInputRef.current.focus();
 	}
 
-	let UploadNotice = () => {
+	let getMessage = () => {
 		let text;
-		let level;
 		if (uploadStatus === "uploadSuccess") {
 			text = _t("image_modal.status.success");
-			level = "success";
 		} else if (uploadStatus === "uploadError") {
 			text = _t("image_modal.status.error");
-			level = "danger";
 		} else if (uploadStatus === "badLink") {
 			text = _t("image_modal.status.badLink");
-			level = "danger";
 		} else if (uploadStatus === "goodLink") {
-			return;
+			text = _t("image_modal.status.goodLink");
 		} else if (uploadStatus === "unsupportedFile") {
 			text = _t("image_modal.status.unsupported");
-			level = "danger";
 		}
 
-		return (
-			<div className={`d-flex s-notice s-notice__${level} m8`} role="status">
-				<div className="flex--item lh-lg">{text}</div>
-			</div>
-		);
+		if (imageUrl === "") {
+			text = _t("image_modal.status.empty");
+		}
+
+		return text;
 	};
 
 	return (
@@ -278,16 +272,17 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 						)}
 					</div>
 
-					{uploadStatus && <UploadNotice />}
-
-					<div className={`${uploadStatus === ""}`}>
+					<div
+						className={`${
+							imageUrl === "" ? "" : isDisabled ? "has-error" : "has-success"
+						}`}
+					>
 						<label htmlFor="link-editor-href-input" className="s-label mb4">
-							{_t("link_editor.href_label")}
+							{_t("image_modal.href_label")}
 						</label>
 						<input
 							ref={linkInputRef}
 							value={imageUrl}
-							placeholder={_t("image_modal.placeholder")}
 							onInput={(e) =>
 								setAndValidateUrl((e.target as HTMLInputElement).value)
 							}
@@ -297,10 +292,9 @@ export function ImageModal({ isOpen, hide, destroy, editor }: ImageModalProps) {
 							name="href"
 							aria-describedby="link-editor-href-error"
 						/>
-						<p
-							id="link-editor-href-error"
-							className="s-input-message mt4 d-none js-link-editor-href-error"
-						></p>
+						<p id="image-href-error" className="s-input-message mt4">
+							{getMessage()}
+						</p>
 					</div>
 				</div>
 

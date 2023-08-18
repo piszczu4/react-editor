@@ -328,9 +328,18 @@ body.modal-open {
 	overflow: hidden; /* see "modal-open" in Modal.tsx */
 }
 
+#image-figure-bbm {
+	display: flex;
+	flex-direction: column;
+	svg {
+		width: 18px;
+		height: 18px;
+	}
+}
+
 #mw-image-modal {
 	border-radius: 10px;
-	padding: 20px;
+	padding: 10px;
 
 	.upload-container {
 		width: 500px;
@@ -445,6 +454,8 @@ body.modal-open {
 	max-width: 100%;
 	margin-bottom: 0.5rem;
 	margin-top: 0.5rem;
+	margin-left: 0px;
+	margin-right: 0px;
 	position: relative;
 	z-index: 20;
 
@@ -476,17 +487,20 @@ body.modal-open {
 		justify-content: flex-end;
 	}
 
-	.group:hover .group-hover\:bg-black {
+	.group:hover .group-hover\:bg-black,
+	.horizontal-resize-handle:active {
 		--tw-bg-opacity: 1;
 		background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 	}
 
-	.group:hover .group-hover\:border-white {
+	.group:hover .group-hover\:border-white,
+	.horizontal-resize-handle:active {
 		--tw-border-opacity: 1;
 		border-color: rgb(255 255 255 / var(--tw-border-opacity));
 	}
 
-	.group:hover .group-hover\:border-2 {
+	.group:hover .group-hover\:border-2,
+	.horizontal-resize-handle:active {
 		border-width: 2px;
 	}
 

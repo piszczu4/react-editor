@@ -168,3 +168,23 @@ export function findNodePos(editor: Editor, nodeType: string) {
 	}
 	return null;
 }
+
+const validLinkRegex =
+	/^((https?|ftp):\/\/|\/)[-a-z0-9+&@#/%?=~_|!:,.;()*[\]$]+$/;
+const validMailtoRegex = /^mailto:[#-.\w]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+$/;
+const validImageLinkRegex =
+	/^((https?|ftp):\/\/|\/)[-a-z0-9+&@#/%?=~_|!:,.;()*[\]$]+(jpe?g|png)$/;
+
+export function validateLink(url: string) {
+	const normalizedUrl =
+		url === null || url === void 0 ? void 0 : url.trim().toLowerCase();
+	return (
+		validLinkRegex.test(normalizedUrl!) || validMailtoRegex.test(normalizedUrl!)
+	);
+}
+
+export function validateImageLink(url: string) {
+	const normalizedUrl =
+		url === null || url === void 0 ? void 0 : url.trim().toLowerCase();
+	return validImageLinkRegex.test(normalizedUrl!);
+}

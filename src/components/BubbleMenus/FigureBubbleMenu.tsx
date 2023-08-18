@@ -1,5 +1,18 @@
 import { BubbleMenu, Editor } from "@tiptap/react";
 import { findNodePos } from "../../utils";
+import { MenuButton } from "../MenuBar/MenuButton";
+import {
+	AlignCenterIcon,
+	AlignLeftIcon,
+	AlignRightIcon,
+	MirrorHorizontalIcon,
+	MirrorVerticalIcon,
+	ResetIcon,
+	RotateLeftIcon,
+	RotateRightIcon,
+	TrashIcon,
+} from "../Icons";
+import CaptionIcon from "../Icons/CaptionIcon";
 
 type MediaBubbleMenuProps = { editor: Editor };
 
@@ -25,179 +38,154 @@ export function FigureBubbleMenu({ editor }: MediaBubbleMenuProps) {
 			shouldShow={(props) => {
 				return props.editor.isActive("image");
 			}}
-			className="mw-popover"
 		>
-			<span>
-				<div className="d-flex ai-center">
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() => {
+			<div id="image-figure-bbm">
+				<div className="d-flex">
+					<MenuButton
+						text={<span>50%</span>}
+						command={() => {
 							editor.commands.updateAttributes("figure", {
 								width: "50%",
 							});
 							editor.commands.updateAttributes("image", {
 								width: "100%",
 							});
+							return true;
 						}}
-					>
-						<span>50%</span>
-					</button>
+					/>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() => {
+					<MenuButton
+						text={<span>75%</span>}
+						command={() => {
 							editor.commands.updateAttributes("figure", {
 								width: "75%",
 							});
 							editor.commands.updateAttributes("image", {
 								width: "100%",
 							});
+							return true;
 						}}
-					>
-						<span>75%</span>
-					</button>
+					/>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() => {
+					<MenuButton
+						text={<span>100%</span>}
+						command={() => {
 							editor.commands.updateAttributes("figure", {
 								width: "100%",
 							});
 							editor.commands.updateAttributes("image", {
 								width: "100%",
 							});
+							return true;
 						}}
-					>
-						<span>100%</span>
-					</button>
+					/>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() =>
+					<MenuButton
+						icon={<AlignLeftIcon />}
+						command={() => {
 							editor.commands.updateAttributes("figure", {
 								dataAlign: "left",
 								dataFloat: null,
-							})
-						}
-					>
-						<span>Left</span>
-					</button>
+							});
+							return true;
+						}}
+					/>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() =>
+					<MenuButton
+						icon={<AlignCenterIcon />}
+						command={() => {
 							editor.commands.updateAttributes("figure", {
 								dataAlign: "center",
 								dataFloat: null,
-							})
-						}
-					>
-						<span>Center</span>
-					</button>
+							});
+							return true;
+						}}
+					/>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() =>
+					<MenuButton
+						icon={<AlignRightIcon />}
+						command={() => {
 							editor.commands.updateAttributes("figure", {
 								dataAlign: "right",
 								dataFloat: null,
-							})
-						}
-					>
-						<span>Right</span>
-					</button>
+							});
+							return true;
+						}}
+					/>
+				</div>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() =>
+				<div className="d-flex">
+					<MenuButton
+						icon={<AlignLeftIcon />}
+						command={() => {
 							editor.commands.updateAttributes("figure", {
 								dataAlign: null,
 								dataFloat: "left",
-							})
-						}
-					>
-						<span>Float Left</span>
-					</button>
+							});
+							return true;
+						}}
+					/>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() =>
+					<MenuButton
+						icon={<AlignRightIcon />}
+						command={() => {
 							editor.commands.updateAttributes("figure", {
 								dataAlign: null,
 								dataFloat: "right",
-							})
-						}
-					>
-						<span>Float Right</span>
-					</button>
+							});
+							return true;
+						}}
+					/>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() => editor.commands.toggleCaption()}
-					>
-						<span>Toggle Caption</span>
-					</button>
+					<MenuButton
+						icon={<CaptionIcon />}
+						command={() => {
+							editor.commands.toggleCaption();
+							return true;
+						}}
+					/>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() => editor.commands.rotate(-90, "")}
-					>
-						<span>Rotate Left</span>
-					</button>
+					{/* <MenuButton
+						icon={<RotateLeftIcon />}
+						command={() => {
+							editor.commands.rotate(-90, "");
+							return true;
+						}}
+					/>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() => editor.commands.rotate(90, "")}
-					>
-						<span>Rotate Right</span>
-					</button>
+					<MenuButton
+						icon={<RotateRightIcon />}
+						command={() => {
+							editor.commands.rotate(90, "");
+							return true;
+						}}
+					/>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() => editor.commands.rotate(180, "-x")}
-					>
-						<span>Rotate X </span>
-					</button>
+					<MenuButton
+						icon={<MirrorVerticalIcon />}
+						command={() => {
+							editor.commands.rotate(180, "-x");
+							return true;
+						}}
+					/>
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() => editor.commands.rotate(180, "-y")}
-					>
-						<span>Rotate Y </span>
-					</button>
+					<MenuButton
+						icon={<MirrorHorizontalIcon />}
+						command={() => {
+							editor.commands.rotate(180, "-y");
+							return true;
+						}}
+					/> */}
 
-					<button
-						type="button"
-						className="flex--item s-btn mr4"
-						title=""
-						onClick={() => {
-							editor.commands.resetAttributes("figure", ["width", "height"]);
+					<MenuButton
+						icon={<ResetIcon />}
+						command={() => {
+							editor.commands.resetAttributes("figure", [
+								"width",
+								"height",
+								"dataAlign",
+								"dataFloat",
+							]);
 							editor.commands.resetAttributes("image", [
 								"width",
 								"height",
@@ -205,12 +193,19 @@ export function FigureBubbleMenu({ editor }: MediaBubbleMenuProps) {
 								"data-rotate-x",
 								"data-rotate-y",
 							]);
+							return true;
 						}}
-					>
-						<span>Reset </span>
-					</button>
+					/>
+
+					<MenuButton
+						icon={<TrashIcon />}
+						command={() => {
+							editor.chain().focus().deleteNode("figure").run();
+							return true;
+						}}
+					/>
 				</div>
-			</span>
+			</div>
 		</BubbleMenu>
 	);
 }

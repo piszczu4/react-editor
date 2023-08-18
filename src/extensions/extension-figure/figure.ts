@@ -1,26 +1,24 @@
 import { mergeAttributes, Node } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 
-import { FigureNodeView } from "./FigureNodeView";
-import { ImageNodeView } from "../extension-image/ImageNodeView";
-import { findClosestNode } from "../../utils";
 import { createTable } from "@tiptap/extension-table";
+import { findClosestNode } from "../../utils";
+import { FigureNodeView } from "./FigureNodeView";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
 		figure: {
-			setFigure: (options: {
+			setImageFigure: (options: {
 				src?: string;
 				alt?: string;
-				title?: string;
 				width?: string;
 				height?: string;
 				dataAlign?: string;
 				dataFloat?: string;
 				caption?: boolean;
 			}) => ReturnType;
-			setTable: () => ReturnType;
-			setVideo: (options: {
+			setTableFigure: () => ReturnType;
+			setVideoFigure: (options: {
 				src: string;
 				width: string;
 				height: string;
@@ -58,6 +56,10 @@ export const Figure = Node.create<FigureOptions>({
 
 	addAttributes() {
 		return {
+			type: {
+				default: null,
+				parseHTML: (element) => element.getAttribute("data-type"),
+			},
 			src: {
 				default: null,
 				renderHTML: (attributes) => ({
@@ -99,31 +101,20 @@ export const Figure = Node.create<FigureOptions>({
 
 	addCommands() {
 		return {
-			setFigure:
+			setImageFigure:
 				(options) =>
 				({ chain }) => {
+					let attrs = Object.assign({}, options, { type: "image" });
 					return chain()
 						.insertContent({
 							type: this.name,
-							attrs: options,
-							content: [
-								{ type: "image", attrs: options },
-								{
-									type: "caption",
-									attrs: { caption: true },
-									content: [
-										{
-											type: "paragraph",
-											text: "Caption",
-										},
-									],
-								},
-							],
+							attrs: attrs,
+							content: [{ type: "image", attrs: options }],
 						})
 						.run();
 				},
 
-			setVideo:
+			setVideoFigure:
 				(options) =>
 				({ chain }) => {
 					return chain()
@@ -134,7 +125,8 @@ export const Figure = Node.create<FigureOptions>({
 						})
 						.run();
 				},
-			setTable:
+
+			setTableFigure:
 				() =>
 				({ editor, chain }) => {
 					let figure = editor.schema.nodes.figure;
@@ -147,6 +139,7 @@ export const Figure = Node.create<FigureOptions>({
 					);
 					return true;
 				},
+
 			toggleCaption:
 				() =>
 				({ editor }) => {
