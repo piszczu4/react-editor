@@ -29,6 +29,7 @@ type Props = {
 		isOpen?: boolean;
 		setIsOpen?: (isOpen: boolean) => void;
 		dropdownIcon?: boolean;
+		nested?: boolean;
 	};
 	className?: string;
 };
@@ -59,7 +60,7 @@ export const MenuButton = ({
 		>
 			{icon !== null && <span className="mw-btn--icon">{icon}</span>}
 			{text && <div className="mw-btn--text">{text}</div>}
-			{dropdown?.isDropdownButton && (
+			{dropdown?.isDropdownButton && dropdown.dropdownIcon !== false && (
 				<DropdownIcon className="mw-btn--dropdown-icon" />
 			)}
 		</button>
@@ -97,7 +98,10 @@ export const MenuButton = ({
 				placement="bottom"
 				interactive={true}
 				visible={dropdown.isOpen}
-				onClickOutside={() => dropdown.setIsOpen && dropdown.setIsOpen(false)}
+				onClickOutside={() => {
+					if (dropdown.nested)
+						return dropdown.setIsOpen && dropdown.setIsOpen(false);
+				}}
 				appendTo={() => document.body}
 			>
 				{buttonWithTooltip}

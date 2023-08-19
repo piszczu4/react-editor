@@ -5,21 +5,17 @@ import {
 	AlignCenterIcon,
 	AlignLeftIcon,
 	AlignRightIcon,
-	MirrorHorizontalIcon,
-	MirrorVerticalIcon,
 	ResetIcon,
-	RotateLeftIcon,
-	RotateRightIcon,
 	TrashIcon,
 } from "../Icons";
 import CaptionIcon from "../Icons/CaptionIcon";
 
-type MediaBubbleMenuProps = { editor: Editor };
+type VideoBubbleMenuProps = { editor: Editor };
 
-export function FigureBubbleMenu({ editor }: MediaBubbleMenuProps) {
+export function VideoBubbleMenu({ editor }: VideoBubbleMenuProps) {
 	return (
 		<BubbleMenu
-			pluginKey={"figureBubbleMenu"}
+			pluginKey={"videoFigureBubbleMenu"}
 			editor={editor}
 			tippyOptions={{
 				maxWidth: "100%",
@@ -28,27 +24,31 @@ export function FigureBubbleMenu({ editor }: MediaBubbleMenuProps) {
 				animation: "shift-toward-subtle",
 				moveTransition: "transform 0.2s ease-in-out",
 				getReferenceClientRect: () => {
-					let nodeWithPos = findNode(editor, "image");
+					let nodeWithPos = findNode(editor, "iframe");
 					let dom = editor.view.nodeDOM(nodeWithPos?.pos!) as HTMLElement;
-					let img = dom.getElementsByTagName("img")[0] as HTMLElement;
-					return img.getBoundingClientRect();
+					// let iframe = closestNode.getElementsByTagName(
+					// 	"iframe"
+					// )[0] as HTMLElement;
+					return dom.getBoundingClientRect();
 				},
 			}}
 			updateDelay={0}
 			shouldShow={(props) => {
-				return props.editor.isActive("image");
+				return props.editor.isActive("iframe");
 			}}
 		>
-			<div id="image-figure-bbm">
+			<div id="video-figure-bbm">
 				<div className="d-flex">
 					<MenuButton
 						text={<span>50%</span>}
 						command={() => {
 							editor.commands.updateAttributes("figure", {
 								width: "50%",
+								height: "100%",
 							});
-							editor.commands.updateAttributes("image", {
+							editor.commands.updateAttributes("iframe", {
 								width: "100%",
+								height: "100%",
 							});
 							return true;
 						}}
@@ -60,9 +60,11 @@ export function FigureBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							editor.commands.updateAttributes("figure", {
 								width: "75%",
 							});
-							editor.commands.updateAttributes("image", {
+							editor.commands.updateAttributes("iframe", {
 								width: "100%",
+								height: "100%",
 							});
+
 							return true;
 						}}
 					/>
@@ -73,8 +75,9 @@ export function FigureBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							editor.commands.updateAttributes("figure", {
 								width: "100%",
 							});
-							editor.commands.updateAttributes("image", {
+							editor.commands.updateAttributes("iframe", {
 								width: "100%",
+								height: "100%",
 							});
 							return true;
 						}}
@@ -145,38 +148,6 @@ export function FigureBubbleMenu({ editor }: MediaBubbleMenuProps) {
 						}}
 					/>
 
-					{/* <MenuButton
-						icon={<RotateLeftIcon />}
-						command={() => {
-							editor.commands.rotate(-90, "");
-							return true;
-						}}
-					/>
-
-					<MenuButton
-						icon={<RotateRightIcon />}
-						command={() => {
-							editor.commands.rotate(90, "");
-							return true;
-						}}
-					/>
-
-					<MenuButton
-						icon={<MirrorVerticalIcon />}
-						command={() => {
-							editor.commands.rotate(180, "-x");
-							return true;
-						}}
-					/>
-
-					<MenuButton
-						icon={<MirrorHorizontalIcon />}
-						command={() => {
-							editor.commands.rotate(180, "-y");
-							return true;
-						}}
-					/> */}
-
 					<MenuButton
 						icon={<ResetIcon />}
 						command={() => {
@@ -186,13 +157,7 @@ export function FigureBubbleMenu({ editor }: MediaBubbleMenuProps) {
 								"dataAlign",
 								"dataFloat",
 							]);
-							editor.commands.resetAttributes("image", [
-								"width",
-								"height",
-								"data-rotate",
-								"data-rotate-x",
-								"data-rotate-y",
-							]);
+							editor.commands.resetAttributes("iframe", ["width", "height"]);
 							return true;
 						}}
 					/>

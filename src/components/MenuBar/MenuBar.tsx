@@ -16,7 +16,7 @@ import { FontSizeDropdownButton } from "./DropdownButtons/FontSizeDropdownButton
 import { FullscreenButton } from "./Buttons/FullscreenButton";
 import { HeadingDropdownButton } from "./DropdownButtons/HeadingDropdownButton";
 import { HorizontalRuleButton } from "./Buttons/HorizontalRuleButton";
-import { ImageButton } from "./ImageButton";
+import { ImageButton } from "./ModalButtons/ImageButton";
 import { ItalicButton } from "./Buttons/ItalicButton";
 import { KeyboardButton } from "./Buttons/KeyboardButton";
 import { LinkButton } from "./ModalButtons/LinkButton";
@@ -29,11 +29,11 @@ import { SpoilerButton } from "./Buttons/SpoilerButton";
 import { StrikethroughButton } from "./Buttons/StrikethroughButton";
 import { SubscriptButton } from "./Buttons/SubscriptButton";
 import { SuperscriptButton } from "./Buttons/SuperscriptButton";
+import { TableButton } from "./DropdownButtons/TableButton";
 import { TaskListButton } from "./Buttons/TaskListButton";
 import { TextColorSplitButton } from "./SplitButtons/TextColorSplitButton";
 import { UnderlineButton } from "./Buttons/UnderlineButton";
-
-import { TableButton } from "./TableButton";
+import { VideoButton } from "./ModalButtons/VideoButton";
 
 type MenuBarProps = {
 	editor: Editor;
@@ -103,6 +103,8 @@ export const MenuBar = ({
 						<MathPanelButton editor={editor} />
 						<LinkButton editor={editor} />
 						<ImageButton editor={editor} />
+						<VideoButton editor={editor} />
+						<TableButton editor={editor} />
 					</MenuBlock>
 
 					<MenuBlock>
@@ -115,26 +117,6 @@ export const MenuBar = ({
 							isCodeViewMode={isCodeViewMode}
 							setIsCodeViewMode={setIsCodeViewMode}
 						/>
-					</MenuBlock>
-
-					<MenuBlock>
-						<TableButton editor={editor} />
-
-						<button
-							onClick={() =>
-								editor.commands.setVideoFigure({
-									src: "https://player.vimeo.com/video/852812634?h=bf341d034c",
-									width: "640",
-									height: "360",
-								})
-							}
-						>
-							video figure
-						</button>
-
-						<button onClick={() => editor.commands.setTableFigure()}>
-							table figure
-						</button>
 					</MenuBlock>
 				</div>
 			</div>

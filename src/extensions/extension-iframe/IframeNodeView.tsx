@@ -1,5 +1,5 @@
-import { NodeViewContent, NodeViewProps, NodeViewWrapper } from "@tiptap/react";
-import React, { useEffect, useRef, useState } from "react";
+import { NodeViewProps, NodeViewWrapper } from "@tiptap/react";
+import { useEffect, useRef, useState } from "react";
 
 // ! had to manage this state outside of the component because `useState` isn't fast enough and creates problem cause
 // ! the function is getting old data even though new data is set by `useState` before the execution of function
@@ -14,7 +14,11 @@ interface WidthAndHeight {
 	height: number;
 }
 
-export function IframeNodeView({ node, updateAttributes }: NodeViewProps) {
+export function IframeNodeView({
+	node,
+	updateAttributes,
+	editor,
+}: NodeViewProps) {
 	const [aspectRatio, setAspectRatio] = useState(0);
 
 	const [proseMirrorContainerWidth, setProseMirrorContainerWidth] = useState(0);
@@ -87,9 +91,15 @@ export function IframeNodeView({ node, updateAttributes }: NodeViewProps) {
 		}
 
 		const currentMediaDimensions = {
-			width: resizableImgRef.current?.width,
-			height: resizableImgRef.current?.height,
+			width: window
+				.getComputedStyle(resizableImgRef.current)
+				.width.replace("px", ""), //,resizableImgRef.current?.width,
+			height: window
+				.getComputedStyle(resizableImgRef.current)
+				.height.replace("px", ""),
 		};
+
+		console.log(currentMediaDimensions);
 
 		const newMediaDimensions = {
 			width: -1,
@@ -139,18 +149,23 @@ export function IframeNodeView({ node, updateAttributes }: NodeViewProps) {
 			as="div"
 			className="iframe-node-view group"
 			contentEditable={false}
+			style={{
+				width: isWidthInPercentages ? node.attrs.width : undefined,
+				paddingBottom: isWidthInPercentages ? "56.25%" : undefined,
+			}}
 		>
 			<iframe
 				// contentEditable={false}
 				src={node.attrs.src}
 				ref={resizableImgRef as any}
-				className="pointer-events-none"
+				className={`${editor.isEditable && "pointer-events-none"}`}
 				width={isWidthInPercentages ? "100%" : node.attrs.width}
-				height={node.attrs.height}
+				height={isWidthInPercentages ? "100%" : node.attrs.height}
 				allowFullScreen={true}
 				frameBorder={0}
 				marginWidth={0}
 				marginHeight={0}
+				style={{ position: isWidthInPercentages ? "absolute" : undefined }}
 			/>
 
 			<div

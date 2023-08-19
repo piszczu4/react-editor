@@ -188,3 +188,24 @@ export function validateImageLink(url: string) {
 		url === null || url === void 0 ? void 0 : url.trim().toLowerCase();
 	return validImageLinkRegex.test(normalizedUrl!);
 }
+
+export function validateVideoLink(url: string) {
+	var vimeoPattern = /(?:http?s?:\/\/)?(?:www\.)?(?:vimeo\.com)\/?(.+)/;
+	var youTubePattern =
+		/(?:http?s?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
+
+	let src;
+
+	let match = url.match(youTubePattern);
+	if (match) {
+		src = `http://www.youtube.com/embed/${match[1]}`;
+	} else {
+		match = url.match(vimeoPattern);
+		if (match) src = `//player.vimeo.com/video/${match[1]}`;
+	}
+
+	return {
+		ok: src !== undefined,
+		src: src,
+	};
+}

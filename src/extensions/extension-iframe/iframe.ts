@@ -69,23 +69,5 @@ export const Iframe = Node.create({
 
 	addNodeView() {
 		return ReactNodeViewRenderer(IframeNodeView);
-
-		// return ({ editor, node }) => {
-		// 	const div = document.createElement("div");
-		// 	div.className =
-		// 		"video-container" + (editor.isEditable ? " cursor-pointer" : "");
-		// 	const iframe = document.createElement("iframe");
-		// 	// if (editor.isEditable) {
-		// 	// 	iframe.className = "pointer-events-none";
-		// 	// }
-		// 	iframe.width = node.attrs.width;
-		// 	iframe.height = node.attrs.height;
-		// 	iframe.allowFullscreen = true;
-		// 	iframe.src = node.attrs.src;
-		// 	div.append(iframe);
-		// 	return {
-		// 		dom: div,
-		// 	};
-		// };
 	},
 });

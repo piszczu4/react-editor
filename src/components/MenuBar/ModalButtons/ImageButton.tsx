@@ -1,11 +1,11 @@
 import { Editor } from "@tiptap/react";
-import { ImageIcon } from "../Icons";
-import { TooltipContent } from "../TooltipContent";
-import { MenuButton } from "./MenuButton";
+import { ImageIcon } from "../../Icons";
+import { TooltipContent } from "../../TooltipContent";
+import { MenuButton } from "../MenuButton";
 
 import { useState } from "react";
-import { _t } from "../../helpers/strings";
-import { ImageModal } from "../Modals/ImageModal";
+import { _t } from "../../../helpers/strings";
+import { ImageModal } from "../../Modals/ImageModal";
 
 type Props = {
 	editor: Editor;

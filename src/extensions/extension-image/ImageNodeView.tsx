@@ -149,10 +149,12 @@ export function ImageNodeView({ node, updateAttributes }: NodeViewProps) {
 			as="div"
 			className="image-node-view group"
 			contentEditable={false}
-			style={{
-				height: node.attrs["data-rotate"] ? node.attrs.width : undefined,
-				// width: node.attrs["data-rotate"] ? node.attrs.height : undefined,
-			}}
+			style={
+				{
+					// height: node.attrs["data-rotate"] ? node.attrs.width : undefined,
+					// width: node.attrs["data-rotate"] ? node.attrs.height : undefined,
+				}
+			}
 		>
 			<img
 				contentEditable={false}

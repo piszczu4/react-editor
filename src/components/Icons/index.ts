@@ -33,7 +33,9 @@ export { default as RotateRightIcon } from "./RotateRightIcon";
 export { default as MirrorVerticalIcon } from "./MirrorVerticalIcon";
 export { default as MirrorHorizontalIcon } from "./MirrorHorizontalIcon";
 export { default as CpationIcon } from "./CaptionIcon";
+export { default as VideoIcon } from "./VideoIcon";
 
+export { default as BorderIcon } from "./BoldIcon";
 export { default as CodeViewIcon } from "./BoldIcon";
 export { default as KeyboardIcon } from "./BoldIcon";
 export { default as PanelIcon } from "./BoldIcon";
@@ -71,3 +73,12 @@ export { default as BackgroundColorIcon } from "./BackgroundColorIcon";
 export { default as MathDisplayIcon } from "./BoldIcon";
 export { default as MathInlineIcon } from "./BoldIcon";
 export { default as MathPanelIcon } from "./MathPanelIcon";
+
+export { default as AddRowBeforeIcon } from "./AddRowBeforeIcon";
+export { default as AddRowAfterIcon } from "./AddRowAfterIcon";
+export { default as RemoveRowIcon } from "./RemoveRowIcon";
+export { default as AddColumnBeforeIcon } from "./AddColumnBeforeIcon";
+export { default as AddColumnAfterIcon } from "./AddColumnAfterIcon";
+export { default as RemoveColumnIcon } from "./RemoveColumnIcon";
+export { default as MergeCellsIcon } from "./MergeCellsIcon";
+export { default as SplitCellsIcon } from "./SplitCellsIcon";

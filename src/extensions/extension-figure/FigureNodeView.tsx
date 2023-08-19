@@ -61,7 +61,9 @@ export function FigureNodeView({ node, editor }: NodeViewProps) {
 						: undefined,
 			}}
 		>
-			<NodeViewContent />
+			<NodeViewContent
+				style={{ width: isWidthInPercentages ? "100%" : undefined }}
+			/>
 		</NodeViewWrapper>
 	);
 }

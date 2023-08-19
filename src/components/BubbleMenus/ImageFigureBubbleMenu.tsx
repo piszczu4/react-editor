@@ -5,19 +5,21 @@ import {
 	AlignCenterIcon,
 	AlignLeftIcon,
 	AlignRightIcon,
-	BackgroundColorIcon,
-	BoldIcon,
+	MirrorHorizontalIcon,
+	MirrorVerticalIcon,
 	ResetIcon,
+	RotateLeftIcon,
+	RotateRightIcon,
 	TrashIcon,
 } from "../Icons";
 import CaptionIcon from "../Icons/CaptionIcon";
 
-type MediaBubbleMenuProps = { editor: Editor };
+type ImageFigureBubbleMenuProps = { editor: Editor };
 
-export function TableBubbleMenu({ editor }: MediaBubbleMenuProps) {
+export function ImageFigureBubbleMenu({ editor }: ImageFigureBubbleMenuProps) {
 	return (
 		<BubbleMenu
-			pluginKey={"tableBubbleMenu"}
+			pluginKey={"imageFigureBubbleMenu"}
 			editor={editor}
 			tippyOptions={{
 				maxWidth: "100%",
@@ -26,23 +28,27 @@ export function TableBubbleMenu({ editor }: MediaBubbleMenuProps) {
 				animation: "shift-toward-subtle",
 				moveTransition: "transform 0.2s ease-in-out",
 				getReferenceClientRect: () => {
-					let nodeWithPos = findNode(editor, "table");
+					let nodeWithPos = findNode(editor, "image");
 					let dom = editor.view.nodeDOM(nodeWithPos?.pos!) as HTMLElement;
-					return dom.getBoundingClientRect();
+					let img = dom.getElementsByTagName("img")[0] as HTMLElement;
+					return img.getBoundingClientRect();
 				},
 			}}
 			updateDelay={0}
 			shouldShow={(props) => {
-				return props.editor.isActive("table");
+				return props.editor.isActive("image");
 			}}
 		>
-			<div id="table-bbm">
+			<div id="image-figure-bbm">
 				<div className="d-flex">
 					<MenuButton
 						text={<span>50%</span>}
 						command={() => {
 							editor.commands.updateAttributes("figure", {
 								width: "50%",
+							});
+							editor.commands.updateAttributes("image", {
+								width: "100%",
 							});
 							return true;
 						}}
@@ -54,6 +60,9 @@ export function TableBubbleMenu({ editor }: MediaBubbleMenuProps) {
 							editor.commands.updateAttributes("figure", {
 								width: "75%",
 							});
+							editor.commands.updateAttributes("image", {
+								width: "100%",
+							});
 							return true;
 						}}
 					/>
@@ -62,6 +71,9 @@ export function TableBubbleMenu({ editor }: MediaBubbleMenuProps) {
 						text={<span>100%</span>}
 						command={() => {
 							editor.commands.updateAttributes("figure", {
+								width: "100%",
+							});
+							editor.commands.updateAttributes("image", {
 								width: "100%",
 							});
 							return true;
@@ -133,19 +145,37 @@ export function TableBubbleMenu({ editor }: MediaBubbleMenuProps) {
 						}}
 					/>
 
-					<MenuButton
-						text={<span>ResetWidth</span>}
+					{/* <MenuButton
+						icon={<RotateLeftIcon />}
 						command={() => {
-							let node = findNode(editor, "table");
-							editor
-								.chain()
-								.focus()
-								.setNodeSelection(node?.pos!)
-								.updateAttributes("tableCell", { colwidth: null })
-								.run();
+							editor.commands.rotate(-90, "");
 							return true;
 						}}
 					/>
+
+					<MenuButton
+						icon={<RotateRightIcon />}
+						command={() => {
+							editor.commands.rotate(90, "");
+							return true;
+						}}
+					/>
+
+					<MenuButton
+						icon={<MirrorVerticalIcon />}
+						command={() => {
+							editor.commands.rotate(180, "-x");
+							return true;
+						}}
+					/>
+
+					<MenuButton
+						icon={<MirrorHorizontalIcon />}
+						command={() => {
+							editor.commands.rotate(180, "-y");
+							return true;
+						}}
+					/> */}
 
 					<MenuButton
 						icon={<ResetIcon />}
@@ -155,6 +185,13 @@ export function TableBubbleMenu({ editor }: MediaBubbleMenuProps) {
 								"height",
 								"dataAlign",
 								"dataFloat",
+							]);
+							editor.commands.resetAttributes("image", [
+								"width",
+								"height",
+								"data-rotate",
+								"data-rotate-x",
+								"data-rotate-y",
 							]);
 							return true;
 						}}

@@ -21,11 +21,11 @@ declare module "@tiptap/core" {
 				dataFloat?: string;
 				caption?: boolean;
 			}) => ReturnType;
-			setTableFigure: () => ReturnType;
+			setTableFigure: (options: { rows: number; cols: number }) => ReturnType;
 			setVideoFigure: (options: {
 				src: string;
 				width: string;
-				height: string;
+				height?: string;
 			}) => ReturnType;
 
 			toggleCaption: () => ReturnType;
@@ -80,7 +80,7 @@ export const Figure = Node.create<FigureOptions>({
 				parseHTML: (element: HTMLElement) => element.getAttribute("title"),
 			},
 			width: {
-				default: "75%",
+				default: null,
 				parseHTML: (element: HTMLElement) => element.getAttribute("width"),
 			},
 			height: {
@@ -109,6 +109,7 @@ export const Figure = Node.create<FigureOptions>({
 				(options) =>
 				({ chain }) => {
 					let attrs = Object.assign({}, options, { type: "image" });
+					attrs["width"] = "75%";
 					return chain()
 						.insertContent({
 							type: this.name,
@@ -121,27 +122,37 @@ export const Figure = Node.create<FigureOptions>({
 			setVideoFigure:
 				(options) =>
 				({ chain }) => {
+					let attrs = Object.assign({}, options, { type: "video" });
 					return chain()
 						.insertContent({
 							type: this.name,
 							attrs: options,
-							content: [{ type: "iframe", attrs: options }],
+							content: [{ type: "iframe", attrs: attrs }],
 						})
 						.run();
 				},
 
 			setTableFigure:
-				() =>
+				(options) =>
 				({ editor, chain }) => {
+					let attrs = Object.assign({}, options, { type: "table" });
 					let figure = editor.schema.nodes.figure;
-					let table = createTable(editor.schema, 3, 3, false);
-					let caption = editor.schema.nodes.caption.create();
-					let figureNode = figure.create({}, [table, caption]);
-
-					editor.view.dispatch(
-						editor.state.tr.replaceSelectionWith(figureNode).scrollIntoView()
+					let table = createTable(
+						editor.schema,
+						options.rows,
+						options.cols,
+						false
 					);
-					return true;
+
+					let node = figure.create(attrs, [table]);
+					return editor.commands.insertContent(node.toJSON());
+
+					// let caption = editor.schema.nodes.caption.create();
+					// let figureNode = figure.create({}, [table, caption]);
+
+					// editor.view.dispatch(
+					// 	editor.state.tr.replaceSelectionWith(figureNode).scrollIntoView()
+					// );
 				},
 
 			toggleCaption:
@@ -149,6 +160,12 @@ export const Figure = Node.create<FigureOptions>({
 				({ editor, tr }) => {
 					let { caption } = editor.getAttributes("figure");
 					let nodeWithPos = findNode(editor, "image");
+					if (!nodeWithPos) {
+						nodeWithPos = findNode(editor, "iframe");
+					}
+					if (!nodeWithPos) {
+						nodeWithPos = findNode(editor, "table");
+					}
 
 					let pos = nodeWithPos?.pos! + nodeWithPos?.node.nodeSize!;
 
@@ -170,7 +187,7 @@ export const Figure = Node.create<FigureOptions>({
 									content: [
 										{
 											type: "text",
-											text: "Caption",
+											text: _t("placeholders.caption"),
 										},
 									],
 								},

@@ -1,8 +1,9 @@
 import { Editor } from "@tiptap/react";
-import { MenuButton } from "./MenuButton";
-import { TableIcon } from "../Icons";
-import { TooltipContent } from "../TooltipContent";
+import { MenuButton } from "../MenuButton";
+import { TableIcon } from "../../Icons";
+import { TooltipContent } from "../../TooltipContent";
 import { useEffect, useState } from "react";
+import { _t } from "../../../helpers/strings";
 
 const INIT_GRID_SIZE = 5;
 const MAX_GRID_SIZE = 10;
@@ -12,6 +13,42 @@ interface GridSize {
 	row: number;
 	col: number;
 }
+
+type Props = {
+	editor: Editor;
+};
+
+export const TableButton = ({ editor }: Props) => {
+	const [isOpen, setIsOpen] = useState(false);
+
+	let dropdownContent = (
+		<TablePopover isOpen={isOpen} setIsOpen={setIsOpen} editor={editor} />
+	);
+
+	return (
+		<MenuButton
+			icon={<TableIcon />}
+			command={() => {
+				setIsOpen(!isOpen);
+				return true;
+			}}
+			disabled={
+				!editor.can().insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+			}
+			active={editor.isActive("table")}
+			tooltip={{
+				content: <TooltipContent title={_t("commands.table.title")} />,
+			}}
+			dropdown={{
+				isDropdownButton: true,
+				dropdownContent: dropdownContent,
+				isOpen: isOpen,
+				setIsOpen: setIsOpen,
+				dropdownIcon: false,
+			}}
+		/>
+	);
+};
 
 export const TablePopover = ({
 	isOpen,
@@ -50,8 +87,11 @@ export const TablePopover = ({
 	}
 
 	function onMouseDown(row: number, col: number): void {
-		editor.commands.insertTable({ rows: row, cols: col, withHeaderRow: true });
 		setIsOpen(false);
+		editor.chain().focus().setTableFigure({
+			rows: row,
+			cols: col,
+		});
 	}
 
 	function resetTableGridSize(): void {
@@ -96,45 +136,5 @@ export const TablePopover = ({
 				{selectedTableGridSize.row} X {selectedTableGridSize.col}
 			</div>
 		</div>
-	);
-};
-
-type Props = {
-	editor: Editor;
-};
-
-export const TableButton = ({ editor }: Props) => {
-	const [isOpen, setIsOpen] = useState(false);
-
-	let dropdownContent = (
-		<TablePopover isOpen={isOpen} setIsOpen={setIsOpen} editor={editor} />
-	);
-
-	return (
-		<MenuButton
-			icon={<TableIcon />}
-			command={() => {
-				setIsOpen(true);
-				return true;
-			}}
-			disabled={
-				!editor
-					.can()
-					.chain()
-					.focus()
-					.insertTable({ rows: 3, cols: 3, withHeaderRow: true })
-					.run()
-			}
-			active={editor.isActive("table")}
-			tooltip={{
-				content: <TooltipContent title="Table" />,
-			}}
-			dropdown={{
-				isDropdownButton: false,
-				dropdownContent: dropdownContent,
-				isOpen: isOpen,
-				setIsOpen: setIsOpen,
-			}}
-		/>
 	);
 };

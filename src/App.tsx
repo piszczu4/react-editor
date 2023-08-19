@@ -19,19 +19,23 @@ import "codemirror/mode/xml/xml.js"; // language
 import FontFamily from "@tiptap/extension-font-family";
 import { Blockquote } from "./extensions/extension-blockquote";
 import { BulletList } from "./extensions/extension-bullet-list";
+import { Caption } from "./extensions/extension-caption";
 import { ClearFormatting } from "./extensions/extension-clear-formatting/clear-formatting";
 import { CodeBlock } from "./extensions/extension-code-block";
 import { Code } from "./extensions/extension-code/code";
-import CodeView from "./extensions/extension-code-view";
+import { CodeView } from "./extensions/extension-code-view";
 import { Color } from "./extensions/extension-color";
 import { Commands } from "./extensions/extension-commands";
+import { Figure } from "./extensions/extension-figure";
 import { FontSize } from "./extensions/extension-font-size";
 import Heading from "@tiptap/extension-heading";
+import { Iframe } from "./extensions/extension-iframe";
 import { Link } from "./extensions/extension-link/link";
 import ListItem from "@tiptap/extension-list-item";
 import { HelpButton } from "./components/MenuBar/Buttons/InfoButton";
 import { Highlight } from "./extensions/extension-highlight";
 import { HorizontalRule } from "./extensions/extension-horizontal-rule";
+import { Image } from "./extensions/extension-image";
 import { Indent } from "./extensions/extension-indent";
 import { Keyboard } from "./extensions/extension-keyboard";
 import { MathDisplay } from "./extensions/extension-math/math-display";
@@ -55,6 +59,7 @@ import Underline from "@tiptap/extension-underline";
 import { UndoButton } from "./components/MenuBar/Buttons/UndoButton";
 
 // Bubble menus
+import { ImageFigureBubbleMenu } from "./components/BubbleMenus/ImageFigureBubbleMenu";
 import { LinkBubbleMenu } from "./components/BubbleMenus/LinkBubbleMenu";
 import { MathBubbleMenu } from "./components/BubbleMenus/MathBubbleMenu";
 import { MathPanelBubbleMenu } from "./components/BubbleMenus/MathPanelBubbleMenu";
@@ -72,7 +77,6 @@ import DetailsSummary from "@tiptap-pro/extension-details-summary";
 
 import Mention from "@tiptap/extension-mention";
 import Placeholder from "@tiptap/extension-placeholder";
-import { Caption } from "./extensions/extension-caption";
 import CodeIndent from "./extensions/extension-code-indent";
 import suggestion from "./extensions/extension-mention/suggestion";
 // import { ResizableMedia } from "./extensions/extension-resizable-media";
@@ -91,12 +95,8 @@ import { Resizer } from "./components/Resizer";
 
 // import { setMediaWithCaption } from "./Extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
 
-import { FigureBubbleMenu } from "./components/BubbleMenus/FigureBubbleMenu";
 import { TableBubbleMenu } from "./components/BubbleMenus/TableBubbleMenu";
-import { VideoBubbleMenu } from "./components/BubbleMenus/VideoBubbleMenu";
-import { Figure } from "./extensions/extension-figure";
-import Iframe from "./extensions/extension-iframe";
-import Image from "./extensions/extension-image";
+import { VideoBubbleMenu } from "./components/BubbleMenus/VideoFigureBubbleMenu";
 
 const App = () => {
 	const editor = useEditor({
@@ -329,32 +329,12 @@ const App = () => {
 				}
 
 				<div id="modal-container" style={{ zIndex: 5000 }}></div>
-				{/* {editor ? (
-				<div id="editor-dialog" role="dialog">
-					<div
-						data-controller="s-modal"
-						id="modal-base"
-						// data-s-modal-return-element="#mw-content"
-						>
-						<aside
-							id="link-editor"
-							className="s-modal"
-							data-s-modal-target="modal"
-							role="dialog"
-							aria-labelledby="modal-title"
-							aria-describedby="modal-description"
-							aria-hidden="true"
-						></aside>
-					</div>
-				</div>
-			) : null} */}
-				{editor ? <LinkBubbleMenu editor={editor} href="" /> : null}
-				{/* {editor ? <ImageBubbleMenu editor={editor} /> : null} */}
-				{/* {editor ? <MediaBubbleMenu editor={editor} /> : null} */}
-				{editor && <FigureBubbleMenu editor={editor} />}
-				{editor ? <TableCellBubbleMenu editor={editor} /> : null}
-				{editor ? <PanelBubbleMenu editor={editor} /> : null}
-				{editor ? <MathPanelBubbleMenu editor={editor} /> : null}
+
+				{editor && <LinkBubbleMenu editor={editor} href="" />}
+				{editor && <ImageFigureBubbleMenu editor={editor} />}
+				{editor && <TableCellBubbleMenu editor={editor} />}
+				{editor && <PanelBubbleMenu editor={editor} />}
+				{editor && <MathPanelBubbleMenu editor={editor} />}
 				{editor && <MathBubbleMenu editor={editor} />}
 				{editor && <TableBubbleMenu editor={editor} />}
 				{editor && <VideoBubbleMenu editor={editor} />}

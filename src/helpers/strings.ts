@@ -99,6 +99,9 @@ export const defaultStrings: Record<any, any> = {
 			subscript: "Subscript", // DONE
 			superscript: "Superscript", // DONE
 			strikethrough: "Strikethrough",
+			table: {
+				title: "Table",
+			},
 			table_edit: "Edit table",
 			table_insert: shortcut("Table"),
 			table_column: {
@@ -128,6 +131,9 @@ export const defaultStrings: Record<any, any> = {
 				disc: "Disc",
 				circle: "Circle",
 				square: "Square",
+			},
+			video: {
+				title: "Video",
 			},
 		},
 		image_modal: {
@@ -184,6 +190,7 @@ export const defaultStrings: Record<any, any> = {
 		},
 		placeholders: {
 			empty_editor: "Ask your question...",
+			caption: "Caption",
 		},
 		image_upload: {
 			default_image_alt_text: "enter image description here",
@@ -204,6 +211,18 @@ export const defaultStrings: Record<any, any> = {
 				presets: "Presets",
 			},
 			indent_section: "Indent",
+		},
+		video_modal: {
+			add: "Add video",
+			cancel: "Cancel",
+			header: "Video",
+			url_label: "Video URL",
+			status: {
+				empty: "Enter valid video URL",
+				bad_link:
+					"Invalid video URL! Currently only YouTube and Vimeo videos are supported.",
+				good_link: "Video URL is correct!",
+			},
 		},
 	},
 
@@ -295,6 +314,9 @@ export const defaultStrings: Record<any, any> = {
 			subscript: "Indeks dolny", // DONE
 			superscript: "Indeks górny", // DONE
 			strikethrough: "Przekreślenie",
+			table: {
+				title: "Tabela",
+			},
 			table_edit: "Tabela",
 			table_insert: shortcut("Tabela"),
 			table_column: {
@@ -324,6 +346,32 @@ export const defaultStrings: Record<any, any> = {
 				disc: "Koło",
 				circle: "Okrąg",
 				square: "Kwadrat",
+			},
+			video: {
+				title: "Wideo",
+			},
+		},
+		image_modal: {
+			header: "Obraz",
+			release: "Upuść aby dodać,",
+			drag: "Przeciągnij i upuść,",
+			paste_image: "wklej obraz, ",
+			paste_link: "wklej adres URL obrazu,",
+			or: "albo ",
+			browse: "wybierz z dysku",
+			supported_files: "Dozwolone formaty: JPEG, JPG, PNG",
+			alt: "Nie znaleziono obrazu",
+			add: "Dodaj obraz",
+			cancel: "Anuluj",
+			href_label: "Adres URL obrazu",
+			status: {
+				empty: "Wpisz poprawny adres URL obrazu",
+				uploading: "Dodawanie...",
+				success: "Obraz został poprawnie dodany!",
+				error: "Nie udało się dodać obrazu. Spróbuj ponownie.",
+				badLink: "Adres URL obrazu jest nieprawidłowy!",
+				goodLink: "Adres URL obrazu jest poprawny!",
+				unsupported: "Niedozwolony format pliku!",
 			},
 		},
 		link_editor: {
@@ -357,6 +405,7 @@ export const defaultStrings: Record<any, any> = {
 		},
 		placeholders: {
 			empty_editor: "Zadaj swoje pytanie...",
+			caption: "Podpis",
 		},
 		image_upload: {
 			default_image_alt_text: "enter image description here",
