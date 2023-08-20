@@ -34,6 +34,7 @@ export { default as MirrorVerticalIcon } from "./MirrorVerticalIcon";
 export { default as MirrorHorizontalIcon } from "./MirrorHorizontalIcon";
 export { default as CpationIcon } from "./CaptionIcon";
 export { default as VideoIcon } from "./VideoIcon";
+export { default as PreviewIcon } from "./PreviewIcon";
 
 export { default as BorderIcon } from "./BoldIcon";
 export { default as CodeViewIcon } from "./BoldIcon";

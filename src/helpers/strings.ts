@@ -94,6 +94,7 @@ export const defaultStrings: Record<any, any> = {
 				error: "Error",
 				delete: "Delete",
 			},
+			preview: "Preview",
 			redo: "Redo", // DONE
 			spoiler: "Spoiler", // DONE
 			subscript: "Subscript", // DONE
@@ -309,6 +310,7 @@ export const defaultStrings: Record<any, any> = {
 				error: "Błąd",
 				delete: "Usuń",
 			},
+			preview: "Podgląd",
 			redo: "Powtórz", // DONE
 			spoiler: "Spojler", // DONE
 			subscript: "Indeks dolny", // DONE

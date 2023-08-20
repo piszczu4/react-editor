@@ -48,7 +48,7 @@ export const Iframe = Node.create({
 	parseHTML() {
 		return [
 			{
-				tag: "video",
+				tag: "iframe",
 			},
 		];
 	},

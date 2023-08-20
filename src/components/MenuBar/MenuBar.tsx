@@ -34,6 +34,7 @@ import { TaskListButton } from "./Buttons/TaskListButton";
 import { TextColorSplitButton } from "./SplitButtons/TextColorSplitButton";
 import { UnderlineButton } from "./Buttons/UnderlineButton";
 import { VideoButton } from "./ModalButtons/VideoButton";
+import { PreviewButton } from "./Buttons/PreviewButton";
 
 type MenuBarProps = {
 	editor: Editor;
@@ -117,6 +118,7 @@ export const MenuBar = ({
 							isCodeViewMode={isCodeViewMode}
 							setIsCodeViewMode={setIsCodeViewMode}
 						/>
+						<PreviewButton editor={editor} />
 					</MenuBlock>
 				</div>
 			</div>
