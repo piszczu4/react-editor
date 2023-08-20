@@ -1,0 +1,102 @@
+$arrow-size: 16px;
+$namespace-prefix: "tippy";
+$color: white;
+
+.#{$namespace-prefix}-box {
+	--_po-bc: hsl(210, 8%, 85%);
+	--_br-md: 6px;
+	--_fc-dark: hsl(210, 8%, 5%);
+	max-width: 100%;
+	// overflow-x: auto;
+
+	filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.35));
+	background-color: white !important;
+	border: 1px solid var(--_po-bc) !important;
+	border-radius: var(--br-md) !important;
+	padding: 8px !important;
+
+	&[data-placement^="top"] > .#{$namespace-prefix}-arrow {
+		bottom: 0;
+
+		&::before {
+			bottom: -7px;
+			left: 0;
+			border-width: 8px 8px 0;
+			border-top-color: initial;
+			transform-origin: center top;
+		}
+	}
+
+	&[data-placement^="bottom"] > .#{$namespace-prefix}-arrow {
+		top: 0;
+
+		&::before {
+			top: -7px;
+			left: 0;
+			border-width: 0 8px 8px;
+			border-bottom-color: initial;
+			transform-origin: center bottom;
+		}
+	}
+
+	&[data-placement^="left"] > .#{$namespace-prefix}-arrow {
+		right: 0;
+
+		&::before {
+			border-width: 8px 0 8px 8px;
+			border-left-color: initial;
+			right: -7px;
+			transform-origin: center left;
+		}
+	}
+
+	&[data-placement^="right"] > .#{$namespace-prefix}-arrow {
+		left: 0;
+
+		&::before {
+			left: -7px;
+			border-width: 8px 8px 8px 0;
+			border-right-color: initial;
+			transform-origin: center right;
+		}
+	}
+
+	.#{$namespace-prefix}-arrow {
+		& {
+			width: $arrow-size;
+			height: $arrow-size;
+			color: $color;
+		}
+
+		&::before {
+			content: "";
+			position: absolute;
+			border-color: transparent;
+			border-style: solid;
+		}
+	}
+}
+
+.tippy {
+	width: 100% !important;
+	display: flex;
+
+	button {
+		// width: 100%;
+	}
+}
+
+.mw-tippy-popover {
+	padding: 0 !important;
+	.mw-dropdown-content {
+		overflow-x: hidden !important;
+		max-height: 350px !important;
+		padding: 8px 0px;
+	}
+}
+
+#font-size-dropdown {
+	.mw-dropdown-section {
+		margin-left: 12px !important;
+	}
+}

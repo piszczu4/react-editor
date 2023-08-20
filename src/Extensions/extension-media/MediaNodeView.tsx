@@ -188,6 +188,7 @@ export function MediaNodeView({ node, updateAttributes }: NodeViewProps) {
 					? "justify-" + node.attrs.dataAlign
 					: "")
 			}
+			contentEditable={true}
 			style={{
 				width: isWidthInPercentages ? node.attrs.width : undefined,
 
@@ -203,45 +204,22 @@ export function MediaNodeView({ node, updateAttributes }: NodeViewProps) {
 						: undefined,
 			}}
 		>
-			<figure
-			// style={{
-			// 	margin:
-			// 		node.attrs.dataFloat === "center"
-			// 			? "auto"
-			// 			: node.attrs.dataFloat === "left"
-			// 			? "0 auto"
-			// 			: node.attrs.dataFloat === "right"
-			// 			? "auto 0"
-			// 			: undefined,
-			// }}
-			>
-				<div className="media-container group">
+			<figure contentEditable={false}>
+				<div className="media-container group" contentEditable={false}>
 					{mediaType === "img" && (
 						<img
 							src={node.attrs.src}
 							ref={resizableImgRef as any}
 							className="rounded-lg"
 							alt={node.attrs.src}
-							// width={!isWidthInPercentages ? node.attrs.width : null}
 							width={isWidthInPercentages ? "100%" : node.attrs.width}
 							height={!isWidthInPercentages ? node.attrs.height : null}
 							style={style}
 						/>
 					)}
 
-					{mediaType === "video" && (
-						<video
-							ref={resizableImgRef as any}
-							className="rounded-lg"
-							controls
-							width={node.attrs.width}
-							height={node.attrs.height}
-						>
-							<source src={node.attrs.src} />
-						</video>
-					)}
-
 					<div
+						contentEditable={false}
 						className="horizontal-resize-handle group-hover:bg-black group-hover:border-2 group-hover:border-white"
 						title="Resize"
 						onClick={({ clientX }) => setLastClientX(clientX)}

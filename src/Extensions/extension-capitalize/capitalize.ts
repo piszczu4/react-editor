@@ -31,8 +31,10 @@ export const Capitalize = Extension.create({
 						selection.from,
 						selection.to,
 						(node, position) => {
+							console.log(node.marks);
+
 							// we only processing text, must be a selection
-							if (!node.isTextblock || selection.from === selection.to) return;
+							if (!node.isText || selection.from === selection.to) return;
 
 							// calculate the section to replace
 							const startPosition = Math.max(position + 1, selection.from);

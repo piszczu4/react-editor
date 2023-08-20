@@ -1,6 +1,11 @@
-export function CloseIcon() {
+type Props = {
+	className?: string;
+};
+
+export default ({ className }: Props) => {
 	return (
 		<svg
+			className={className}
 			width="18"
 			height="18"
 			viewBox="0 0 18 18"
@@ -13,4 +18,4 @@ export function CloseIcon() {
 			/>
 		</svg>
 	);
-}
+};

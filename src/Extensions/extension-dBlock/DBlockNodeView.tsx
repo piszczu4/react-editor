@@ -2,6 +2,7 @@
 
 import React, { useMemo } from "react";
 import { NodeViewWrapper, NodeViewProps, NodeViewContent } from "@tiptap/react";
+import { PlusIcon, GrabberVerticalIcon } from "../../components/Icons";
 
 export const DBlockNodeView: React.FC<NodeViewProps> = ({
 	node,
@@ -28,28 +29,26 @@ export const DBlockNodeView: React.FC<NodeViewProps> = ({
 	};
 
 	return (
-		<NodeViewWrapper as="div" className="flex gap-2 group w-full relative">
-			<section
-				className="flex mt-2 pt-[2px] gap-1"
-				aria-label="left-menu"
-				contentEditable="false"
-			>
+		<NodeViewWrapper
+			as="div"
+			data-block
+			className="flex gap-2 group w-full relative"
+		>
+			<section className="flex gap-1" aria-label="left-menu">
 				<button
 					type="button"
-					className="d-block-button group-hover:opacity-100"
+					className="d-block-button plus-btn group-hover:opacity-100"
 					onClick={createNodeAfter}
 				>
-					<i className="i-mdi-plus" />
-					plus
+					<PlusIcon />
 				</button>
 				<div
-					className="d-block-button group-hover:opacity-100"
+					className="d-block-button drag-btn group-hover:opacity-100"
 					contentEditable={false}
 					draggable
 					data-drag-handle
 				>
-					<i className="i-ic-baseline-drag-indicator" />
-					drag
+					<GrabberVerticalIcon />
 				</div>
 			</section>
 

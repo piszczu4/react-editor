@@ -6,9 +6,9 @@ import { find, registerCustomProtocol, reset } from "linkifyjs";
 // import { clickHandler } from "./helpers/clickHandler";
 // import { pasteHandler } from "./helpers/pasteHandler";
 
-// import { TextSelection } from "@tiptap/pm/state";
-// import { EditorView } from "@tiptap/pm/view";
-// import { getMarkRange } from "@tiptap/react";
+import { TextSelection } from "@tiptap/pm/state";
+import { EditorView } from "@tiptap/pm/view";
+import { getMarkRange } from "@tiptap/react";
 
 export interface LinkProtocolOptions {
 	scheme: string;
@@ -235,26 +235,26 @@ export const Link = Mark.create<LinkOptions>({
 		// 	);
 		// }
 
-		// let selectLinkPlugin = new Plugin({
-		// 	props: {
-		// 		handleClick(view: EditorView, pos: number) {
-		// 			const { schema, doc, tr } = view.state;
+		let selectLinkPlugin = new Plugin({
+			props: {
+				handleClick(view: EditorView, pos: number) {
+					const { schema, doc, tr } = view.state;
 
-		// 			const range = getMarkRange(doc.resolve(pos), schema.marks.link);
+					const range = getMarkRange(doc.resolve(pos), schema.marks.link);
 
-		// 			if (!range) return false;
+					if (!range) return false;
 
-		// 			const $start = doc.resolve(range.from);
-		// 			const $end = doc.resolve(range.to);
+					const $start = doc.resolve(range.from);
+					const $end = doc.resolve(range.to);
 
-		// 			const transaction = tr.setSelection(new TextSelection($start, $end));
+					const transaction = tr.setSelection(new TextSelection($start, $end));
 
-		// 			view.dispatch(transaction);
-		// 			return true;
-		// 		},
-		// 	},
-		// });
-		// // plugins.push(selectLinkPlugin);
+					view.dispatch(transaction);
+					return true;
+				},
+			},
+		});
+		plugins.push(selectLinkPlugin);
 
 		return plugins;
 	},

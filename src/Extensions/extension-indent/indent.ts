@@ -66,7 +66,7 @@ export const Indent = Extension.create<IndentOptions, never>({
 		return {
 			indent:
 				() =>
-				({ tr, state, dispatch, editor }: CommandProps) => {
+				({ tr, state, editor }: CommandProps) => {
 					const { selection } = state;
 					tr = tr.setSelection(selection);
 					tr = updateIndentLevel(
@@ -75,15 +75,14 @@ export const Indent = Extension.create<IndentOptions, never>({
 						editor.extensionManager.extensions,
 						"indent"
 					);
-					if (tr.docChanged && dispatch) {
-						dispatch(tr);
+					if (tr.docChanged) {
 						return true;
 					}
 					return false;
 				},
 			outdent:
 				() =>
-				({ tr, state, dispatch, editor }: CommandProps) => {
+				({ tr, state, editor }: CommandProps) => {
 					const { selection } = state;
 					tr = tr.setSelection(selection);
 					tr = updateIndentLevel(
@@ -92,8 +91,7 @@ export const Indent = Extension.create<IndentOptions, never>({
 						editor.extensionManager.extensions,
 						"outdent"
 					);
-					if (tr.docChanged && dispatch) {
-						dispatch(tr);
+					if (tr.docChanged) {
 						return true;
 					}
 					return false;

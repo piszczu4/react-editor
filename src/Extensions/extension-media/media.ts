@@ -9,7 +9,7 @@ declare module "@tiptap/core" {
 			/**
 			 * Set media
 			 */
-			SetMedia: (options: {
+			setMedia: (options: {
 				"media-type": "img" | "video";
 				src: string;
 				alt?: string;
@@ -129,24 +129,26 @@ export const Media = Node.create<MediaOptions>({
 
 	addCommands() {
 		return {
-			SetMedia:
+			setMedia:
 				(options) =>
-				({ editor }) => {
-					return editor.commands.insertContent({
-						type: this.name,
-						attrs: options,
-						content: [
-							{
-								type: "paragraph",
-								content: [
-									{
-										type: "text",
-										text: "Caption",
-									},
-								],
-							},
-						],
-					});
+				({ chain }) => {
+					return chain()
+						.insertContent({
+							type: this.name,
+							attrs: options,
+							content: [
+								{
+									type: "paragraph",
+									content: [
+										{
+											type: "text",
+											text: "Caption",
+										},
+									],
+								},
+							],
+						})
+						.run();
 				},
 
 			toggleCaption:

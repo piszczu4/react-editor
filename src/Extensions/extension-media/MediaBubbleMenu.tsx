@@ -10,7 +10,7 @@ export function MediaBubbleMenu({ editor }: MediaBubbleMenuProps) {
 			tippyOptions={{ maxWidth: "100%" }}
 			updateDelay={0}
 			shouldShow={(props) => {
-				return props.editor.isActive("media");
+				return props.editor.isActive("image");
 			}}
 			className="mw-5 bs-ring bc-blue-300"
 		>
