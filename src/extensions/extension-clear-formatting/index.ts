@@ -1,1 +1,1 @@
-import * from "./clear-formatting"
+export * from "./clear-formatting";

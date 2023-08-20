@@ -2,7 +2,7 @@
 
 import React, { useMemo } from "react";
 import { NodeViewWrapper, NodeViewProps, NodeViewContent } from "@tiptap/react";
-import { GrabberVerticalIcon, PlusIcon } from "../../components";
+import { PlusIcon, GrabberVerticalIcon } from "../../components/Icons";
 
 export const DBlockNodeView: React.FC<NodeViewProps> = ({
 	node,

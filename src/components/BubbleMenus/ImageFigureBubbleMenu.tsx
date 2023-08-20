@@ -1,18 +1,14 @@
 import { BubbleMenu, Editor } from "@tiptap/react";
-import { findNode, findNodePos } from "../../utils";
-import { MenuButton } from "../MenuBar/MenuButton";
+import { findNode } from "../../utils";
 import {
 	AlignCenterIcon,
 	AlignLeftIcon,
 	AlignRightIcon,
-	MirrorHorizontalIcon,
-	MirrorVerticalIcon,
 	ResetIcon,
-	RotateLeftIcon,
-	RotateRightIcon,
-	TrashIcon,
+	TrashIcon
 } from "../Icons";
 import CaptionIcon from "../Icons/CaptionIcon";
+import { MenuButton } from "../MenuBar/MenuButton";
 
 type ImageFigureBubbleMenuProps = { editor: Editor };
 

@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-
+import { TagSelector } from "./TagSelector/TagSelector.tsx";
+import "./TagSelector/styles.scss";
 import "./App.scss";
 import "./styles/buttons.scss";
 import "./styles/details.scss";

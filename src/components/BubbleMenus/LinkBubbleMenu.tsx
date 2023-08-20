@@ -1,18 +1,17 @@
 import { useState } from "react";
 
 import { TextSelection } from "prosemirror-state";
-import { _t } from "../../helpers/strings";
-import { showModal } from "@stackoverflow/stacks";
 import { useRef } from "react";
+import { _t } from "../../helpers/strings";
 
 import { BubbleMenu, Editor } from "@tiptap/react";
-import { findNode, findNodePos } from "../../utils";
+import { findNode } from "../../utils";
 
 import "tippy.js/dist/svg-arrow.css";
 
 import { getMarkAttributes, getMarkRange } from "@tiptap/react";
-import { LinkModal } from "../Modals/LinkModal";
 import { EditIcon, TrashIcon } from "../Icons";
+import { LinkModal } from "../Modals/LinkModal";
 
 type LinkBubbleMenuProps = {
 	editor: Editor;

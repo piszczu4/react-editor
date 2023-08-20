@@ -1,8 +1,6 @@
-import { setBlockType } from "@tiptap/pm/commands";
 import { NodeType } from "@tiptap/pm/model";
 
-import { getNodeType } from "@tiptap/react";
-import { RawCommands } from "@tiptap/react";
+import { RawCommands, getNodeType } from "@tiptap/react";
 
 import { NodeSelection } from "@tiptap/pm/state";
 
@@ -21,11 +19,11 @@ declare module "@tiptap/core" {
 }
 
 export const setNode_: RawCommands["setNode_"] =
-	(typeOrName, attributes = {}) =>
-	({ state, dispatch, chain }) => {
+	(typeOrName) =>
+	({ state }) => {
 		const type = getNodeType(typeOrName, state.schema);
 
-		let { $from, $to } = state.selection,
+		let { $from } = state.selection,
 			index = $from.index();
 		if (!$from.parent.canReplaceWith(index, index, type)) {
 			return false;

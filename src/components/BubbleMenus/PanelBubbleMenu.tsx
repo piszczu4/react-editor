@@ -1,17 +1,15 @@
-import { Editor } from "@tiptap/react";
-import { PanelType } from "../../extensions/extension-panel/panel";
 import { BubbleMenu } from "@tiptap/react";
+import { PanelType } from "../../extensions/extension-panel/panel";
 
-import InfoIcon from "../../components/Icons/InfoIcon";
+import { TrashIcon } from "../../components/Icons";
 import ErrorIcon from "../../components/Icons/ErrorIcon";
+import InfoIcon from "../../components/Icons/InfoIcon";
 import NoteIcon from "../../components/Icons/NoteIcon";
 import SuccessIcon from "../../components/Icons/SuccessIcon";
 import WarningIcon from "../../components/Icons/WarningIcon";
-import { TrashIcon } from "../../components/Icons";
-import { findNode, findNodePos } from "../../utils";
 import { _t } from "../../helpers/strings";
+import { findNode } from "../../utils";
 import { MenuButton } from "../MenuBar/MenuButton";
-import { getNodeAtPosition } from "../../commands";
 
 function getIconColor(panelType: PanelType) {
 	return panelType === PanelType.INFO

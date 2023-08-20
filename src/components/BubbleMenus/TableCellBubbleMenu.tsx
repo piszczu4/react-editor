@@ -1,23 +1,20 @@
 import { BubbleMenu, Editor } from "@tiptap/react";
+import { useEffect, useState } from "react";
+import { ColorPalette } from "../ColorPalette";
 import {
 	AddColumnAfterIcon,
 	AddColumnBeforeIcon,
 	AddRowAfterIcon,
 	AddRowBeforeIcon,
-	BackgroundColorIcon,
 	BorderIcon,
 	MergeCellsIcon,
 	RemoveColumnIcon,
 	RemoveRowIcon,
 	SplitCellsIcon,
-	TextColorIcon,
+	TextColorIcon
 } from "../Icons";
 import { MenuButton } from "../MenuBar/MenuButton";
-import { ColorPalette } from "../ColorPalette";
-import { useEffect, useState } from "react";
-import { TooltipContent } from "../TooltipContent";
 import { MenuSplitButton } from "../MenuBar/MenuSplitButton";
-import { BoldButton } from "../MenuBar/Buttons/BoldButton";
 import { MenuDropdown } from "../MenuDropdown";
 
 type TableBubbleMenuProps = { editor: Editor };

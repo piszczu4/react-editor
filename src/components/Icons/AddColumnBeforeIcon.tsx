@@ -2,7 +2,7 @@ type Props = {
 	className?: string;
 };
 
-export default ({ className }: Props) => {
+export default ({}: Props) => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.8 15.8">
 			<g>

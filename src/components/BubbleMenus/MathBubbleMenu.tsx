@@ -7,7 +7,6 @@ import { BubbleMenu, Editor } from "@tiptap/react";
 import "tippy.js/dist/svg-arrow.css";
 
 import katex from "katex";
-import { findNodePos } from "../../utils";
 
 type MathBubbleMenuProps = {
 	editor: Editor;

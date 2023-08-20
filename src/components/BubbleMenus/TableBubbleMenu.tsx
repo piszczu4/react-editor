@@ -1,16 +1,14 @@
 import { BubbleMenu, Editor } from "@tiptap/react";
-import { findNode, findNodePos } from "../../utils";
-import { MenuButton } from "../MenuBar/MenuButton";
+import { findNode } from "../../utils";
 import {
 	AlignCenterIcon,
 	AlignLeftIcon,
 	AlignRightIcon,
-	BackgroundColorIcon,
-	BoldIcon,
 	ResetIcon,
-	TrashIcon,
+	TrashIcon
 } from "../Icons";
 import CaptionIcon from "../Icons/CaptionIcon";
+import { MenuButton } from "../MenuBar/MenuButton";
 
 type MediaBubbleMenuProps = { editor: Editor };
 
