@@ -37,9 +37,18 @@ export function IframeNodeView({
 
 		resizableImgRef.current.onload = () => {
 			// Aspect Ratio from its original size
+
+			const currentMediaDimensions = {
+				width: window
+					.getComputedStyle(resizableImgRef.current!)
+					.width.replace("px", ""), //,resizableImgRef.current?.width,
+				height: window
+					.getComputedStyle(resizableImgRef.current!)
+					.height.replace("px", ""),
+			};
 			setAspectRatio(
-				Number((resizableImgRef.current! as HTMLIFrameElement)?.width) /
-					Number((resizableImgRef.current as HTMLIFrameElement).height)
+				Number(currentMediaDimensions.width) /
+					Number(currentMediaDimensions.height)
 			);
 		};
 	};
@@ -124,6 +133,10 @@ export function IframeNodeView({
 
 		if (limitWidthOrHeightToFiftyPixels(newMediaDimensions)) return;
 
+		editor.commands.updateAttributes("figure", {
+			width: newMediaDimensions.width,
+			height: "auto",
+		});
 		updateAttributes(newMediaDimensions);
 	};
 

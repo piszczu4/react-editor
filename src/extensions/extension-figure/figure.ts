@@ -63,22 +63,25 @@ export const Figure = Node.create<FigureOptions>({
 			type: {
 				default: null,
 				parseHTML: (element) => element.getAttribute("data-type"),
+				renderHTML: (attributes) => {
+					return { "data-type": attributes.type };
+				},
 			},
-			src: {
-				default: null,
-				renderHTML: (attributes) => ({
-					src: attributes.src,
-				}),
-				parseHTML: (element: HTMLImageElement) => element.src,
-			},
+			// src: {
+			// 	default: null,
+			// 	renderHTML: (attributes) => ({
+			// 		src: attributes.src,
+			// 	}),
+			// 	parseHTML: (element: HTMLImageElement) => element.src,
+			// },
 			alt: {
 				default: null,
 				parseHTML: (element: HTMLElement) => element.getAttribute("alt"),
 			},
-			title: {
-				default: null,
-				parseHTML: (element: HTMLElement) => element.getAttribute("title"),
-			},
+			// title: {
+			// 	default: null,
+			// 	parseHTML: (element: HTMLElement) => element.getAttribute("title"),
+			// },
 			width: {
 				default: null,
 				parseHTML: (element: HTMLElement) => element.getAttribute("width"),
@@ -90,15 +93,24 @@ export const Figure = Node.create<FigureOptions>({
 			dataAlign: {
 				default: "center", // 'left' | 'center' | 'right'
 				parseHTML: (element: HTMLElement) => element.getAttribute("data-align"),
+				renderHTML: (attributes) => {
+					return { "data-align": attributes.dataAlign };
+				},
 			},
 			dataFloat: {
 				default: null, // 'left' | 'right'
 				parseHTML: (element: HTMLElement) => element.getAttribute("data-float"),
+				renderHTML: (attributes) => {
+					return { "data-float": attributes.dataFloat };
+				},
 			},
 			caption: {
 				default: false,
 				parseHTML: (element: HTMLElement) =>
 					element.getAttribute("data-caption"),
+				renderHTML: (attributes) => {
+					return { "data-caption": attributes.caption };
+				},
 			},
 		};
 	},

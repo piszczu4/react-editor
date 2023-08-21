@@ -36,10 +36,16 @@ export const Iframe = Node.create({
 			},
 			width: {
 				default: "100%",
+				renderHTML: (attributes) => ({
+					width: attributes.width,
+				}),
 				parseHTML: (element: HTMLElement) => element.getAttribute("width"),
 			},
 			height: {
 				default: "100%",
+				renderHTML: (attributes) => ({
+					height: attributes.height,
+				}),
 				parseHTML: (element: HTMLElement) => element.getAttribute("height"),
 			},
 		};

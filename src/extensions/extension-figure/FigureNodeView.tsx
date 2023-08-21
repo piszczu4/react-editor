@@ -27,6 +27,8 @@ export function FigureNodeView({ node, editor }: NodeViewProps) {
 		isMediaWidthInPx = mediaWidth && typeof mediaWidth !== "string";
 	}
 
+	if (type === "iframe") console.log(node);
+
 	return (
 		<NodeViewWrapper
 			as="figure"

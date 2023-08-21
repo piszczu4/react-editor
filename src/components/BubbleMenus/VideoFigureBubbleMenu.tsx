@@ -59,6 +59,7 @@ export function VideoBubbleMenu({ editor }: VideoBubbleMenuProps) {
 						command={() => {
 							editor.commands.updateAttributes("figure", {
 								width: "75%",
+								height: "100%",
 							});
 							editor.commands.updateAttributes("iframe", {
 								width: "100%",
@@ -74,6 +75,7 @@ export function VideoBubbleMenu({ editor }: VideoBubbleMenuProps) {
 						command={() => {
 							editor.commands.updateAttributes("figure", {
 								width: "100%",
+								height: "100%",
 							});
 							editor.commands.updateAttributes("iframe", {
 								width: "100%",
