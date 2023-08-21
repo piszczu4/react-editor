@@ -34,7 +34,7 @@ export const PreviewButton = ({ editor }: Props) => {
 				<Modal isOpen={isOpen} onOutsideClick={() => setIsOpen(false)}>
 					<div
 						style={{ width: "800px" }}
-						className="s-prose ProseMirror"
+						className="s-prose ProseMirror preview"
 						dangerouslySetInnerHTML={{ __html: editor.getHTML() }}
 					></div>
 				</Modal>

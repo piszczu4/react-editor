@@ -122,11 +122,11 @@ export const Figure = Node.create<FigureOptions>({
 			setVideoFigure:
 				(options) =>
 				({ chain }) => {
-					let attrs = Object.assign({}, options, { type: "video" });
+					let attrs = Object.assign({}, options, { type: "iframe" });
 					return chain()
 						.insertContent({
 							type: this.name,
-							attrs: options,
+							attrs: attrs,
 							content: [{ type: "iframe", attrs: attrs }],
 						})
 						.run();

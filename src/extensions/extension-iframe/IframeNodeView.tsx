@@ -27,7 +27,7 @@ export function IframeNodeView({
 
 	const mediaSetupOnLoad = () => {
 		// ! TODO: move this to extension storage
-		const proseMirrorContainerDiv = document.querySelector(".ProseMirror");
+		const proseMirrorContainerDiv = document.getElementById("editor-content");
 
 		if (proseMirrorContainerDiv)
 			setProseMirrorContainerWidth(proseMirrorContainerDiv?.clientWidth);
@@ -100,6 +100,7 @@ export function IframeNodeView({
 		};
 
 		console.log(currentMediaDimensions);
+		console.log(diff);
 
 		const newMediaDimensions = {
 			width: -1,
@@ -113,6 +114,8 @@ export function IframeNodeView({
 			newMediaDimensions.width =
 				Number(currentMediaDimensions.width) + Math.abs(diff);
 		}
+		console.log("new");
+		console.log(currentMediaDimensions);
 
 		if (newMediaDimensions.width > proseMirrorContainerWidth)
 			newMediaDimensions.width = proseMirrorContainerWidth;

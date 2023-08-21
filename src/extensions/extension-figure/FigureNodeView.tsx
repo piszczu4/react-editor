@@ -22,8 +22,8 @@ export function FigureNodeView({ node, editor }: NodeViewProps) {
 	let isWidthInPercentages =
 		typeof node.attrs.width === "string" && node.attrs.width.endsWith("%");
 
-	if (type === "image" || type === "video") {
-		mediaWidth = editor.getAttributes("image")["width"];
+	if (type === "image" || type === "iframe") {
+		mediaWidth = editor.getAttributes(type)["width"];
 		isMediaWidthInPx = mediaWidth && typeof mediaWidth !== "string";
 	}
 
@@ -62,7 +62,12 @@ export function FigureNodeView({ node, editor }: NodeViewProps) {
 			}}
 		>
 			<NodeViewContent
-				style={{ width: isWidthInPercentages ? "100%" : undefined }}
+				style={{
+					width:
+						isWidthInPercentages && !isMediaWidthInPx && type !== "image"
+							? "100%"
+							: undefined,
+				}}
 			/>
 		</NodeViewWrapper>
 	);
