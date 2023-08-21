@@ -17,7 +17,6 @@ declare module "@tiptap/core" {
 			setImage: (options: {
 				src: string;
 				alt?: string;
-				title?: string;
 				width?: string;
 				height?: number;
 				"data-rotate"?: number;
@@ -64,17 +63,19 @@ export const Image = Node.create<ImageOptions>({
 				default: null,
 				parseHTML: (element: HTMLElement) => element.getAttribute("alt"),
 			},
-			title: {
-				default: null,
-				parseHTML: (element: HTMLElement) => element.getAttribute("title"),
-			},
 			width: {
 				default: null,
 				parseHTML: (element: HTMLElement) => element.getAttribute("width"),
+				renderHTML: ({ width }) => ({
+					width: width,
+				}),
 			},
 			height: {
 				default: "auto",
 				parseHTML: (element: HTMLElement) => element.getAttribute("height"),
+				renderHTML: ({ height }) => ({
+					height: height,
+				}),
 			},
 			"data-rotate": {
 				default: null,

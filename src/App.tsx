@@ -247,7 +247,9 @@ const App = () => {
 		}
 
 		if (isCodeViewMode) {
-			state.setValue((editor as Editor).getHTML()); // init content
+			state.setValue(editor.getHTML()); // init content
+			// state.setValue(editor.view.dom.innerHTML); // init content
+
 			// Format code
 			state.execCommand("selectAll");
 			const selectedRange = {

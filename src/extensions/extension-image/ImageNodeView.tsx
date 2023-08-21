@@ -14,7 +14,11 @@ interface WidthAndHeight {
 	height: number;
 }
 
-export function ImageNodeView({ node, updateAttributes }: NodeViewProps) {
+export function ImageNodeView({
+	node,
+	updateAttributes,
+	editor,
+}: NodeViewProps) {
 	const [aspectRatio, setAspectRatio] = useState(0);
 
 	const [proseMirrorContainerWidth, setProseMirrorContainerWidth] = useState(0);
@@ -106,6 +110,9 @@ export function ImageNodeView({ node, updateAttributes }: NodeViewProps) {
 
 		if (limitWidthOrHeightToFiftyPixels(newMediaDimensions)) return;
 
+		editor.commands.updateAttributes("figure", {
+			width: newMediaDimensions.width,
+		});
 		updateAttributes(newMediaDimensions);
 	};
 
