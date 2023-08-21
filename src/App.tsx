@@ -16,7 +16,7 @@ import "codemirror/lib/codemirror.css"; // import base style
 import "codemirror/mode/xml/xml.js"; // language
 
 // Extensions
-import FontFamily from "@tiptap/extension-font-family";
+
 import { Blockquote } from "./extensions/extension-blockquote";
 import { BulletList } from "./extensions/extension-bullet-list";
 import { Caption } from "./extensions/extension-caption";
@@ -26,7 +26,9 @@ import { Code } from "./extensions/extension-code/code";
 import { CodeView } from "./extensions/extension-code-view";
 import { Color } from "./extensions/extension-color";
 import { Commands } from "./extensions/extension-commands";
+import Emoji, { gitHubEmojis } from "@tiptap-pro/extension-emoji";
 import { Figure } from "./extensions/extension-figure";
+import FontFamily from "@tiptap/extension-font-family";
 import { FontSize } from "./extensions/extension-font-size";
 import Heading from "@tiptap/extension-heading";
 import { Iframe } from "./extensions/extension-iframe";
@@ -79,6 +81,7 @@ import Mention from "@tiptap/extension-mention";
 import Placeholder from "@tiptap/extension-placeholder";
 import CodeIndent from "./extensions/extension-code-indent";
 import suggestion from "./extensions/extension-mention/suggestion";
+import emojiSuggestion from "./extensions/extension-emoji/suggestion";
 // import { ResizableMedia } from "./extensions/extension-resizable-media";
 // import { ResizableMediaWithCaptionBubbleMenu } from "./extensions/extension-resizable-media-with-caption/ResizableMediaWithCaptionBubbleMenu";
 // import { ResizableMediaWithCaption } from "./extensions/extension-resizable-media-with-caption/resizable-media-with-caption";
@@ -142,6 +145,10 @@ const App = () => {
 			CodeIndent,
 			Panel,
 			Keyboard,
+			Emoji.configure({
+				emojis: gitHubEmojis,
+				suggestion: emojiSuggestion,
+			}),
 			TaskList,
 			TaskItem.configure({
 				nested: true,
@@ -158,7 +165,6 @@ const App = () => {
 				},
 			}),
 			DetailsContent,
-			// Media,
 			Figure,
 			Caption,
 			Image,
@@ -241,14 +247,16 @@ const App = () => {
 		}
 
 		if (isCodeViewMode) {
-			state.setValue((editor as Editor).getHTML()); // init content
+			state.setValue(editor.getHTML()); // init content
+			// state.setValue(editor.view.dom.innerHTML); // init content
+
 			// Format code
 			state.execCommand("selectAll");
 			const selectedRange = {
 				from: state.getCursor(true),
 				to: state.getCursor(false),
 			};
-			state.autoFormatRange(selectedRange.from, selectedRange.to);
+			// state.autoFormatRange(selectedRange.from, selectedRange.to);
 			state.setCursor(0);
 		} else {
 			if (!state) return;

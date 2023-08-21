@@ -15,6 +15,11 @@ $color: white;
 	border-radius: var(--br-md) !important;
 	padding: 8px !important;
 
+	/* Trick for Emojis */
+	&:has(.items) {
+		padding: 0px !important;
+	}
+
 	&[data-placement^="top"] > .#{$namespace-prefix}-arrow {
 		bottom: 0;
 

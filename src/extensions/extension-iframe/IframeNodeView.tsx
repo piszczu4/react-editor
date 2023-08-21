@@ -27,7 +27,7 @@ export function IframeNodeView({
 
 	const mediaSetupOnLoad = () => {
 		// ! TODO: move this to extension storage
-		const proseMirrorContainerDiv = document.querySelector(".ProseMirror");
+		const proseMirrorContainerDiv = document.getElementById("editor-content");
 
 		if (proseMirrorContainerDiv)
 			setProseMirrorContainerWidth(proseMirrorContainerDiv?.clientWidth);
@@ -37,9 +37,18 @@ export function IframeNodeView({
 
 		resizableImgRef.current.onload = () => {
 			// Aspect Ratio from its original size
+
+			const currentMediaDimensions = {
+				width: window
+					.getComputedStyle(resizableImgRef.current!)
+					.width.replace("px", ""), //,resizableImgRef.current?.width,
+				height: window
+					.getComputedStyle(resizableImgRef.current!)
+					.height.replace("px", ""),
+			};
 			setAspectRatio(
-				Number((resizableImgRef.current! as HTMLIFrameElement)?.width) /
-					Number((resizableImgRef.current as HTMLIFrameElement).height)
+				Number(currentMediaDimensions.width) /
+					Number(currentMediaDimensions.height)
 			);
 		};
 	};
@@ -100,6 +109,7 @@ export function IframeNodeView({
 		};
 
 		console.log(currentMediaDimensions);
+		console.log(diff);
 
 		const newMediaDimensions = {
 			width: -1,
@@ -113,6 +123,8 @@ export function IframeNodeView({
 			newMediaDimensions.width =
 				Number(currentMediaDimensions.width) + Math.abs(diff);
 		}
+		console.log("new");
+		console.log(currentMediaDimensions);
 
 		if (newMediaDimensions.width > proseMirrorContainerWidth)
 			newMediaDimensions.width = proseMirrorContainerWidth;
@@ -121,6 +133,10 @@ export function IframeNodeView({
 
 		if (limitWidthOrHeightToFiftyPixels(newMediaDimensions)) return;
 
+		editor.commands.updateAttributes("figure", {
+			width: newMediaDimensions.width,
+			height: "auto",
+		});
 		updateAttributes(newMediaDimensions);
 	};
 

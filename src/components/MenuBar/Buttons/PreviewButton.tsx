@@ -21,6 +21,8 @@ export const PreviewButton = ({ editor }: Props) => {
 		return true;
 	};
 
+	// editor.setEditable(false);
+
 	return (
 		<div>
 			<MenuButton
@@ -34,8 +36,8 @@ export const PreviewButton = ({ editor }: Props) => {
 				<Modal isOpen={isOpen} onOutsideClick={() => setIsOpen(false)}>
 					<div
 						style={{ width: "800px" }}
-						className="s-prose ProseMirror"
-						dangerouslySetInnerHTML={{ __html: editor.getHTML() }}
+						className="s-prose ProseMirror preview"
+						dangerouslySetInnerHTML={{ __html: editor.view.dom.innerHTML }}
 					></div>
 				</Modal>
 			)}
