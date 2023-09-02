@@ -50,6 +50,7 @@ import { Panel } from "./extensions/extension-panel/panel";
 import { RedoButton } from "./components/MenuBar/Buttons/RedoButton";
 import { Spoiler } from "./extensions/extension-spoiler";
 import StarterKit from "@tiptap/starter-kit";
+import { Strike } from "./extensions/extension-strike";
 import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
 import TaskItem from "@tiptap/extension-task-item";
@@ -113,6 +114,7 @@ const App = () => {
 				blockquote: false,
 				horizontalRule: false,
 				listItem: false,
+				strike: false,
 				// document: false,
 			}),
 			// Doc,
@@ -167,6 +169,7 @@ const App = () => {
 			}),
 			DetailsContent,
 			Figure,
+			Strike,
 			Caption,
 			Image,
 			Table.configure({

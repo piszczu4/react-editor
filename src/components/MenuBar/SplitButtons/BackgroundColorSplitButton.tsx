@@ -37,7 +37,7 @@ export const BackgroundColorDropdownButton = ({ editor }: Props) => {
 				dropdownContent: (
 					<ColorPalette
 						colorCommand={(color: string) => () => {
-							editor.chain().focus().toggleHighlight({ color: color }).run();
+							editor.chain().focus().setHighlight(color).run();
 							setIsOpen(false);
 							editor.storage.highlight.lastColor = color;
 						}}
@@ -59,14 +59,13 @@ export const BackgroundColorButton = ({ editor }: Props) => {
 	return (
 		<MenuButton
 			icon={<BackgroundColorIcon color={lastColor} />}
-			command={() =>
-				editor.chain().focus().setHighlight({ color: lastColor }).run()
-			}
-			disabled={!editor.can().setHighlight({ color: "white" })}
+			command={() => editor.chain().focus().setHighlight(lastColor).run()}
+			disabled={!editor.can().setHighlight("white")}
 			tooltip={{
 				content: (
 					<TooltipContent
-						title={_t("commands.background_color")}
+						title={_t("commands.background_color.title")}
+						description={_t("commands.background_color.description")}
 						shortcut="Alt-H"
 					/>
 				),

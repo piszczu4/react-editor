@@ -1,0 +1,10 @@
+// Highlight
+mark {
+	display: inline-block;
+	border-radius: 0.25em;
+	padding: 0;
+}
+
+span[style*="background-color"] {
+	border-radius: 0.25em;
+}

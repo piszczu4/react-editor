@@ -1,7 +1,6 @@
 import "@tiptap/extension-text-style";
 
 import { Extension } from "@tiptap/core";
-import { Editor } from "@tiptap/core";
 import { getFontSize } from ".";
 
 export type FontSizeOptions = {
@@ -20,7 +19,6 @@ declare module "@tiptap/core" {
 			 */
 			unsetFontSize: () => ReturnType;
 			toggleFontSize: (fontSize: number) => ReturnType;
-			getFontSize: () => ReturnType;
 		};
 	}
 }
@@ -67,9 +65,11 @@ export const FontSize = Extension.create<FontSizeOptions>({
 				},
 			unsetFontSize:
 				() =>
-				({ commands }) => {
-					return commands.setMark("textStyle", { fontSize: null });
-					// .removeEmptyTextStyle();
+				({ chain }) => {
+					return chain()
+						.setMark("textStyle", { fontSize: null })
+						.removeEmptyTextStyle()
+						.run();
 				},
 			toggleFontSize:
 				(fontSize) =>

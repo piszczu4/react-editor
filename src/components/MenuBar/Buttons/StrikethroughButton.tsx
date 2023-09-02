@@ -14,7 +14,7 @@ export const StrikethroughButton = ({ editor }: Props) => {
 			icon={<StrikethroughIcon />}
 			command={() => editor.chain().focus().toggleStrike().run()}
 			disabled={!editor.can().toggleStrike()}
-			active={editor.isActive("strike")}
+			active={editor.isActive("textStyle", { strike: true })}
 			tooltip={{
 				content: (
 					<TooltipContent

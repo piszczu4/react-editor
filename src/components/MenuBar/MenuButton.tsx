@@ -99,7 +99,7 @@ export const MenuButton = ({
 				interactive={true}
 				visible={dropdown.isOpen}
 				onClickOutside={() => {
-					if (dropdown.nested)
+					if (!dropdown.nested)
 						return dropdown.setIsOpen && dropdown.setIsOpen(false);
 				}}
 				appendTo={() => document.body}

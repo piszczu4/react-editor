@@ -55,8 +55,6 @@ export const FontFamilyDropdownButton = ({ editor }: Props) => {
 		<MenuDropdown id="font-family-dropdown" children={fontSizeDropdownItems} />
 	);
 
-	// let { fontFamily } = editor.getAttributes("textStyle");
-
 	return (
 		<MenuButton
 			icon={<FontFamilyIcon />}
@@ -65,6 +63,7 @@ export const FontFamilyDropdownButton = ({ editor }: Props) => {
 				return true;
 			}}
 			disabled={!editor.can().setFontFamily("Arial")}
+			active={isOpen}
 			tooltip={{
 				content: <TooltipContent title={_t("commands.font_family")} />,
 			}}
@@ -74,7 +73,6 @@ export const FontFamilyDropdownButton = ({ editor }: Props) => {
 				isOpen: isOpen,
 				setIsOpen: setIsOpen,
 			}}
-			// text={<span>{fontFamily ? fontFamily : "sans-serif"}</span>}
 		/>
 	);
 };

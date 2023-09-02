@@ -13,16 +13,18 @@ function shortcut(text: string) {
 export const defaultStrings: Record<any, any> = {
 	en: {
 		commands: {
-			background_color: "Background color",
-			blockquote: "Blockquote", // DONE
-			bold: "Bold", // DONE
+			background_color: {
+				title: "Background color",
+				description: "Set background color to the last used color",
+			},
+			blockquote: "Blockquote",
+			bold: "Bold",
 			clear_formatting: {
 				title: "Clear formatting",
 				description:
 					"Allows you to remove all formatting in the selection, leaving only plain, unformatted text",
 			},
 			code_block: {
-				// DONE
 				title: "Code block",
 				description: "Multiline block of code with syntax highlighting",
 			},
@@ -48,14 +50,13 @@ export const defaultStrings: Record<any, any> = {
 			help: "Help",
 			horizontal_rule: "Horizontal rule",
 			code: {
-				// DONE
 				title: "Inline code",
 				description: "Single line code span for use within a block of text",
 			},
 			image: { title: "Image" },
 			indent: "Indent",
-			italic: "Italic", // DONE
-			keyboard: "Keyboard", // DONE
+			italic: "Italic",
+			keyboard: "Keyboard",
 			link: {
 				title: "Link",
 			},
@@ -95,10 +96,10 @@ export const defaultStrings: Record<any, any> = {
 				delete: "Delete",
 			},
 			preview: "Preview",
-			redo: "Redo", // DONE
-			spoiler: "Spoiler", // DONE
-			subscript: "Subscript", // DONE
-			superscript: "Superscript", // DONE
+			redo: "Redo",
+			spoiler: "Spoiler",
+			subscript: "Subscript",
+			superscript: "Superscript",
 			strikethrough: "Strikethrough",
 			table: {
 				title: "Table",
@@ -124,9 +125,12 @@ export const defaultStrings: Record<any, any> = {
 				right: "Right",
 				justify: "Justify",
 			},
-			text_color: "Text color",
-			underline: "Underline", // DONE
-			undo: "Undo", // DONE
+			text_color: {
+				title: "Text color",
+				description: "Set text color to the last used color",
+			},
+			underline: "Underline",
+			undo: "Undo",
 			unordered_list: {
 				title: "Bullet list",
 				disc: "Disc",
@@ -229,16 +233,18 @@ export const defaultStrings: Record<any, any> = {
 
 	pl: {
 		commands: {
-			background_color: "Kolor tła",
-			blockquote: "Cytat", // DONE
-			bold: "Pogrubienie", // DONE
+			background_color: {
+				title: "Kolor tła",
+				description: "Ustaw kolor tła na ostatnio użyty kolor",
+			},
+			blockquote: "Cytat",
+			bold: "Pogrubienie",
 			clear_formatting: {
 				title: "Wyczyść całe formatowanie",
 				description:
 					"Umożliwia usunięcie całego formatowania w zaznaczeniu, co spowoduje pozostawienie tylko zwykłego, niesformatowanego tekstu",
 			},
 			code_block: {
-				// DONE
 				title: "Blok kodu",
 				description: "Wieloliniowy blok kodu z podświetleniem składni",
 			},
@@ -264,14 +270,13 @@ export const defaultStrings: Record<any, any> = {
 			help: "Pomoc",
 			horizontal_rule: "Linia pozioma",
 			code: {
-				// DONE
 				title: "Kod jednoliniowy",
 				description: "Pojedyncza linia kodu do użycia w bloku tekstu",
 			},
 			image: { title: "Image" },
 			indent: "Zwiększ wcięcie",
-			italic: "Kursywa", // DONE
-			keyboard: "Klawiatura", // DONE
+			italic: "Kursywa",
+			keyboard: "Klawiatura",
 			link: {
 				title: "Link",
 			},
@@ -311,10 +316,10 @@ export const defaultStrings: Record<any, any> = {
 				delete: "Usuń",
 			},
 			preview: "Podgląd",
-			redo: "Powtórz", // DONE
-			spoiler: "Spojler", // DONE
-			subscript: "Indeks dolny", // DONE
-			superscript: "Indeks górny", // DONE
+			redo: "Powtórz",
+			spoiler: "Spojler",
+			subscript: "Indeks dolny",
+			superscript: "Indeks górny",
 			strikethrough: "Przekreślenie",
 			table: {
 				title: "Tabela",
@@ -340,9 +345,12 @@ export const defaultStrings: Record<any, any> = {
 				right: "Wyrównaj do prawej",
 				justify: "Wyjustuj",
 			},
-			text_color: "Kolor czcionki",
-			underline: "Podkreślenie", // DONE
-			undo: "Cofnij", // DONE
+			text_color: {
+				title: "Kolor czcionki",
+				description: "Ustaw kolor czcionki na ostatnio użyty kolor",
+			},
+			underline: "Podkreślenie",
+			undo: "Cofnij",
 			unordered_list: {
 				title: "Lista wypunktowana",
 				disc: "Koło",

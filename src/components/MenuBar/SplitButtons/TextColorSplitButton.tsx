@@ -64,7 +64,11 @@ export const TextColorButton = ({ editor }: Props) => {
 			disabled={!editor.can().setColor("black")}
 			tooltip={{
 				content: (
-					<TooltipContent title={_t("commands.text_color")} shortcut="Alt-T" />
+					<TooltipContent
+						title={_t("commands.text_color.title")}
+						description={_t("commands.text_color.description")}
+						shortcut="Alt-C"
+					/>
 				),
 			}}
 		/>

@@ -9,6 +9,7 @@ import "./styles/math.scss";
 import "./styles/tippy.scss";
 import "./styles/prose.scss";
 import "./styles/stacks.scss";
+import "./styles/extensions.scss";
 
 import "tippy.js/animations/scale-extreme.css";
 import "tippy.js/animations/shift-toward-subtle.css";

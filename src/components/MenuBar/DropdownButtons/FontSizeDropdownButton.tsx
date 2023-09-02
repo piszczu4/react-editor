@@ -216,6 +216,7 @@ export const FontSizeDropdownButton = ({ editor }: Props) => {
 				setIsOpen(!isOpen);
 				return true;
 			}}
+			active={isOpen}
 			disabled={!editor.can().toggleFontSize(16)}
 			tooltip={{
 				content: <TooltipContent title={_t("commands.font_size.title")} />,
