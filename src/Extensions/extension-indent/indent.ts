@@ -101,7 +101,7 @@ export const Indent = Extension.create<IndentOptions, never>({
 
 	addKeyboardShortcuts() {
 		return {
-			Tab: getIndent(),
+			// Tab: getIndent(),
 			"Shift-Tab": getOutdent(false),
 			Backspace: getOutdent(true),
 			"Mod-]": getIndent(),

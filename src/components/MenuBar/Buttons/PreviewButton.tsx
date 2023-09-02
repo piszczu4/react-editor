@@ -3,9 +3,10 @@ import { MenuButton } from "../MenuButton";
 import { PreviewIcon, RedoIcon } from "../../Icons";
 import { TooltipContent } from "../../TooltipContent";
 import { _t } from "../../../helpers/strings";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EyeIcon from "../../Icons/EyeIcon";
 import { Modal } from "../../Modal";
+import { handleSpoilers } from "../../../main";
 
 type Props = {
 	editor: Editor;
@@ -21,6 +22,9 @@ export const PreviewButton = ({ editor }: Props) => {
 		return true;
 	};
 
+	useEffect(() => {
+		handleSpoilers();
+	});
 	// editor.setEditable(false);
 
 	return (
@@ -35,9 +39,9 @@ export const PreviewButton = ({ editor }: Props) => {
 			{exists && (
 				<Modal isOpen={isOpen} onOutsideClick={() => setIsOpen(false)}>
 					<div
-						style={{ width: "800px" }}
+						style={{ maxWidth: "800px" }}
 						className="s-prose ProseMirror preview"
-						dangerouslySetInnerHTML={{ __html: editor.view.dom.innerHTML }}
+						dangerouslySetInnerHTML={{ __html: editor.getHTML() }}
 					></div>
 				</Modal>
 			)}

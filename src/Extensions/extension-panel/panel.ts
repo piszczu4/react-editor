@@ -2,6 +2,14 @@ import { mergeAttributes, Node } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 import { PanelNodeView } from "./PanelNodeView";
 
+import { TrashIcon } from "../../components/Icons";
+import ErrorIcon from "../../components/Icons/ErrorIcon";
+import InfoIcon from "../../components/Icons/InfoIcon";
+import NoteIcon from "../../components/Icons/NoteIcon";
+import SuccessIcon from "../../components/Icons/SuccessIcon";
+import TipIcon from "../../components/Icons/TipIcon";
+import WarningIcon from "../../components/Icons/WarningIcon";
+
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
 		panel: {
@@ -17,6 +25,36 @@ declare module "@tiptap/core" {
 			}) => ReturnType;
 		};
 	}
+}
+
+
+
+function getColor(panelType: PanelType) {
+	return panelType === PanelType.INFO
+		? "rgb(233, 242, 255)"
+		: panelType === PanelType.ERROR
+		? "rgb(255, 237, 235)"
+		: panelType === PanelType.NOTE
+		? "rgb(243, 240, 255)"
+		: panelType === PanelType.SUCCESS
+		? "rgb(223, 252, 240)"
+		: panelType === PanelType.WARNING
+		? "rgb(255, 247, 214)"
+		: "";
+}
+
+function getIconColor(panelType: PanelType) {
+	return panelType === PanelType.INFO
+		? "#1D7AFC"
+		: panelType === PanelType.ERROR
+		? "#E34935"
+		: panelType === PanelType.NOTE
+		? "#8270DB"
+		: panelType === PanelType.SUCCESS
+		? "#22A06B"
+		: panelType === PanelType.WARNING
+		? "#D97008"
+		: "";
 }
 
 export enum PanelType {
@@ -38,6 +76,14 @@ export const Panel = Node.create<PanelOptions, never>({
 	group: "block",
 	selectable: true,
 
+	addOptions() {
+		return {
+			HTMLAttributes: {
+				className: "mw-panel",
+			},
+		};
+	},
+
 	parseHTML() {
 		return [
 			{
@@ -49,6 +95,8 @@ export const Panel = Node.create<PanelOptions, never>({
 	renderHTML({ HTMLAttributes }) {
 		const contentAttrs: Record<string, string> = {
 			"data-panel-content": "true",
+			"className": "mw-panel--content",
+			'style': ""
 		};
 
 		return [

@@ -74,7 +74,7 @@ export const Image = Node.create<ImageOptions>({
 				default: "auto",
 				parseHTML: (element: HTMLElement) => element.getAttribute("height"),
 				renderHTML: ({ height }) => ({
-					height: height,
+					height: "auto",
 				}),
 			},
 			"data-rotate": {

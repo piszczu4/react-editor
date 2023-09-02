@@ -133,7 +133,7 @@ export const MathPanel = Node.create<MathPanelOptions>({
 					)[0];
 
 					let pos = bodyNode.pos + node?.start! + bodyNode.node.content.size;
-					this.editor
+					return this.editor
 						.chain()
 						.focus()
 						.command(({ tr }) => {
@@ -143,7 +143,7 @@ export const MathPanel = Node.create<MathPanelOptions>({
 						.run();
 				}
 
-				return true;
+				return false;
 			},
 			"Mod-Alt-t": () => this.editor.commands.setMathPanel(PanelType.THEOREM),
 			"Mod-Alt-d": () =>

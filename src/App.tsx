@@ -32,14 +32,14 @@ import FontFamily from "@tiptap/extension-font-family";
 import { FontSize } from "./extensions/extension-font-size";
 import Heading from "@tiptap/extension-heading";
 import { Iframe } from "./extensions/extension-iframe";
-import { Link } from "./extensions/extension-link/link";
-import ListItem from "@tiptap/extension-list-item";
 import { HelpButton } from "./components/MenuBar/Buttons/InfoButton";
 import { Highlight } from "./extensions/extension-highlight";
 import { HorizontalRule } from "./extensions/extension-horizontal-rule";
 import { Image } from "./extensions/extension-image";
 import { Indent } from "./extensions/extension-indent";
 import { Keyboard } from "./extensions/extension-keyboard";
+import { Link } from "./extensions/extension-link/link";
+import ListItem from "@tiptap/extension-list-item";
 import { MathDisplay } from "./extensions/extension-math/math-display";
 import { MathInline } from "./extensions/extension-math/math-inline";
 import { MathPanel } from "./extensions/extension-math-panel/math-panel";
@@ -112,6 +112,7 @@ const App = () => {
 				codeBlock: false,
 				blockquote: false,
 				horizontalRule: false,
+				listItem: false,
 				// document: false,
 			}),
 			// Doc,
@@ -132,12 +133,12 @@ const App = () => {
 			FontSize,
 			Link,
 			ClearFormatting,
-
 			Mention.configure({ suggestion }),
 			OrderedList,
 			BulletList,
 			Iframe,
 			Indent,
+			ListItem,
 			MathPanelName,
 			MathPanelBody,
 			MathPanel,

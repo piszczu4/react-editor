@@ -21,14 +21,28 @@
 	border: 1.5px solid black;
 	background-color: rgba(170, 153, 57, 0.288);
 
-	&.is-open {
+	&.is-open,
+	&[open] {
 		outline: 0 0 3px var(--su-static4) lightgrey;
-		box-shadow: 0 0 3px var(--su-static4) lightgrey; //var(--_in-bs-focus);
-		// border-color: var(--_in-bc-focus);
+		box-shadow: 0 0 3px var(--su-static4) lightgrey;
+	}
+
+	&:not([open]) > summary::before {
+		content: "\25B6";
+		margin-right: 6px;
+	}
+
+	&[open] [data-type="detailsContent"] {
+		padding-left: 18.4px !important;
 	}
 
 	&.is-open > button::before {
 		content: "\25BC";
+	}
+
+	&[open] > summary::before {
+		content: "\25BC";
+		margin-right: 6px;
 	}
 
 	> button {

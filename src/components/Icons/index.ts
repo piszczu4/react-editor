@@ -22,6 +22,8 @@ export { default as TrashIcon } from "./TrashIcon";
 export { default as UnderlineIcon } from "./UnderlineIcon";
 export { default as TableIcon } from "./TableIcon";
 export { default as SubscriptIcon } from "./SubscriptIcon";
+export { default as SuperscriptIcon } from "./SuperscriptIcon";
+
 export { default as ImagesIcon } from "./ImagesIcon";
 export { default as FlagIcon } from "./FlagIcon";
 export { default as MinusIcon } from "./MinusIcon";
@@ -35,6 +37,7 @@ export { default as MirrorHorizontalIcon } from "./MirrorHorizontalIcon";
 export { default as CpationIcon } from "./CaptionIcon";
 export { default as VideoIcon } from "./VideoIcon";
 export { default as PreviewIcon } from "./PreviewIcon";
+export { default as ClearFormattingIcon } from "./ClearFormattingIcon";
 
 export { default as BorderIcon } from "./BoldIcon";
 export { default as CodeViewIcon } from "./BoldIcon";
@@ -42,8 +45,6 @@ export { default as KeyboardIcon } from "./BoldIcon";
 export { default as PanelIcon } from "./BoldIcon";
 export { default as SpoilerIcon } from "./BoldIcon";
 export { default as DetailsIcon } from "./BoldIcon";
-export { default as SuperscriptIcon } from "./BoldIcon";
-export { default as ClearFormattingIcon } from "./BoldIcon";
 export { default as TaskListIcon } from "./BoldIcon";
 export { default as LowercaseIcon } from "./BoldIcon";
 export { default as UppercaseIcon } from "./BoldIcon";

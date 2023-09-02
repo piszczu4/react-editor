@@ -9,17 +9,24 @@ $padding: 0.2rem 0.12rem;
 		font-family: monospace;
 		padding: $padding;
 		margin: 0;
+
+		> :focus-visible {
+			outline: none !important;
+		}
 	}
-}
 
-.math-render {
-	padding: $padding;
-	border-radius: $border-radius;
-	cursor: pointer;
-}
+	.math-render {
+		padding: $padding;
+		border-radius: $border-radius;
+		cursor: pointer;
+		&:hover {
+			background-color: #eee;
+		}
+	}
 
-.math-render:hover {
-	background-color: #eee;
+	&.ProseMirror-selectednode {
+		box-shadow: none !important;
+	}
 }
 
 math-display.ProseMirror-selectednode {
@@ -27,16 +34,6 @@ math-display.ProseMirror-selectednode {
 	border-radius: $border-radius !important;
 	padding: 4px;
 }
-
-.math-src > :focus-visible {
-	outline: none !important;
-}
-
-.math-node.ProseMirror-selectednode {
-	box-shadow: none !important;
-}
-
-/* ================================ */
 
 #math-preview {
 	.label {
@@ -46,5 +43,15 @@ math-display.ProseMirror-selectednode {
 	p {
 		margin-bottom: 0 !important;
 		margin-block-start: 0 !important;
+	}
+}
+
+// Static HTML
+.preview {
+	.math-render {
+		cursor: unset;
+		&:hover {
+			background-color: initial;
+		}
 	}
 }

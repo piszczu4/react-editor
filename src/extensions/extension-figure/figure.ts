@@ -115,6 +115,74 @@ export const Figure = Node.create<FigureOptions>({
 		};
 	},
 
+	parseHTML() {
+		return [
+			{
+				tag: "figure",
+			},
+		];
+	},
+
+	renderHTML({ node, HTMLAttributes }) {
+		let dom = document.createElement("figure");
+		let contentDOM = document.createElement("div");
+
+		let { type, width, caption, dataAlign, dataFloat } = node.attrs;
+		let mediaWidth;
+		let isMediaWidthInPx;
+		let isWidthInPercentages = typeof width === "string" && width.endsWith("%");
+
+		if (type === "image" || type === "iframe") {
+			mediaWidth = this.editor?.getAttributes(type)["width"];
+			isMediaWidthInPx = mediaWidth && typeof mediaWidth !== "string";
+		}
+
+		dom.className = `figure-node-view ${
+			dataFloat
+				? "f-" + node.attrs.dataFloat
+				: dataAlign
+				? "justify-" + node.attrs.dataAlign
+				: ""
+		}`;
+		dom.dataset.type = type;
+		dom.dataset.caption = caption;
+		if (type === "table") dom.style.overflowX = "auto";
+
+		if (isMediaWidthInPx) {
+			dom.style.width = mediaWidth + "px";
+		} else if (isWidthInPercentages) {
+			dom.style.width = width;
+		}
+
+		dom.style.height = "auto";
+
+		if (
+			(isWidthInPercentages && dataAlign === "left") ||
+			dataAlign === "center"
+		)
+			dom.style.marginRight = "auto";
+		if (
+			(isWidthInPercentages && dataAlign === "right") ||
+			dataAlign === "center"
+		)
+			dom.style.marginLeft = "auto";
+
+		if (isWidthInPercentages && !isMediaWidthInPx && type !== "image")
+			contentDOM.style.width = "100%";
+
+		dom.appendChild(contentDOM);
+		return {
+			dom,
+			contentDOM,
+		};
+
+		return [
+			"figure",
+			mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+			0,
+		];
+	},
+
 	addCommands() {
 		return {
 			setImageFigure:
@@ -225,22 +293,6 @@ export const Figure = Node.create<FigureOptions>({
 					}
 				},
 		};
-	},
-
-	parseHTML() {
-		return [
-			{
-				tag: "figure",
-			},
-		];
-	},
-
-	renderHTML({ HTMLAttributes }) {
-		return [
-			"figure",
-			mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-			0,
-		];
 	},
 
 	addNodeView() {

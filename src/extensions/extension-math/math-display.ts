@@ -44,6 +44,8 @@ declare module "@tiptap/core" {
 // 	};
 // }
 
+import katex from "katex";
+
 export const MathDisplay = Node.create({
 	name: "math_display",
 	group: "block math",
@@ -54,17 +56,33 @@ export const MathDisplay = Node.create({
 	parseHTML() {
 		return [
 			{
-				tag: "math-display", // important!
+				tag: "math-display",
+				contentElement: "span.math-src",
 			},
 		];
 	},
 
-	renderHTML({ HTMLAttributes }) {
-		return [
-			"math-display",
-			mergeAttributes({ class: "math-node" }, HTMLAttributes),
-			0,
-		];
+	renderHTML({ HTMLAttributes, node }) {
+		let dom = document.createElement("math-display");
+		dom.className = "math-node";
+
+		let tex = node.textContent;
+		let src = document.createElement("span");
+		src.className = "math-src";
+		src.innerText = tex;
+
+		let render = document.createElement("span");
+		render.className = "math-render";
+
+		katex.render(tex, render, {
+			displayMode: true,
+			globalGroup: true,
+		});
+
+		dom.appendChild(src);
+		dom.appendChild(render);
+
+		return dom;
 	},
 
 	addProseMirrorPlugins() {
@@ -77,8 +95,8 @@ export const MathDisplay = Node.create({
 
 	addStorage() {
 		return {
-			lastCursor: 0
-		}
+			lastCursor: 0,
+		};
 	},
 
 	addCommands() {

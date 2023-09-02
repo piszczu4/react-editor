@@ -9,5 +9,16 @@
 	<body>
 		<div id="root"></div>
 		<script type="module" src="/src/main.tsx"></script>
+
+		<script type="module">
+			import { handleSpoilers } from "./src/main.ts";
+
+			document.addEventListener("DOMContentLoaded", function (event) {
+				handleSpoilers();
+			});
+			document.querySelector("body").onload = function () {
+				handleSpoilers();
+			};
+		</script>
 	</body>
 </html>

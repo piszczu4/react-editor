@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react";
 import { useState } from "react";
-import { TextColorIcon } from "../../Icons";
+import { BackgroundColorIcon } from "../../Icons";
 import { MenuButton } from "../MenuButton";
 
 import { ColorPalette } from "../../ColorPalette";
@@ -58,7 +58,7 @@ export const BackgroundColorButton = ({ editor }: Props) => {
 	let lastColor = editor.storage.highlight.lastColor;
 	return (
 		<MenuButton
-			icon={<TextColorIcon color={lastColor} />}
+			icon={<BackgroundColorIcon color={lastColor} />}
 			command={() =>
 				editor.chain().focus().setHighlight({ color: lastColor }).run()
 			}

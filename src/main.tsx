@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import { TagSelector } from "./TagSelector/TagSelector.tsx";
-import "./TagSelector/styles.scss";
+
 import "./App.scss";
 import "./styles/buttons.scss";
 import "./styles/details.scss";
 import "./styles/math.scss";
 import "./styles/tippy.scss";
-import "./styles/editor.scss";
+import "./styles/prose.scss";
 import "./styles/stacks.scss";
 
 import "tippy.js/animations/scale-extreme.css";

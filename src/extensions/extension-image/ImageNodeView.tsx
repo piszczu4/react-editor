@@ -27,7 +27,7 @@ export function ImageNodeView({
 
 	const mediaSetupOnLoad = () => {
 		// ! TODO: move this to extension storage
-		const proseMirrorContainerDiv = document.querySelector(".ProseMirror");
+		const proseMirrorContainerDiv = document.getElementById("editor-container");
 
 		if (proseMirrorContainerDiv)
 			setProseMirrorContainerWidth(proseMirrorContainerDiv?.clientWidth);

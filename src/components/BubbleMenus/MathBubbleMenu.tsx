@@ -79,7 +79,7 @@ export function MathBubbleMenu({ editor }: MathBubbleMenuProps) {
 				<p>
 					<span className="label">Preview</span>
 				</p>
-				<p ref={textRef} className="preview"></p>
+				<p ref={textRef}></p>
 			</div>
 		</BubbleMenu>
 	);

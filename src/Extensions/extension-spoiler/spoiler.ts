@@ -3,6 +3,7 @@ import { EditorState, Plugin, PluginKey } from "@tiptap/pm/state";
 import { _t } from "../../helpers/strings";
 import { docChanged } from "../../utils";
 import { updateSpoilers } from "./utils";
+import { DOMSerializer } from "@tiptap/pm/model";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
@@ -64,11 +65,41 @@ export const Spoiler = Node.create<SpoilerOptions>({
 	},
 
 	renderHTML({ HTMLAttributes }) {
-		return [
-			"spoiler",
-			mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-			0,
-		];
+		let dom = document.createElement("spoiler");
+		dom.className = "spoiler";
+		dom.dataset.spoiler = "reveal-spoiler";
+		dom.addEventListener("click", () => {
+			console.log("Hi");
+			if (!dom.classList.contains("is-visible")) {
+				dom.classList.add("is-visible");
+			}
+		});
+
+		dom.onclick = () => {
+			if (!dom.classList.contains("is-visible")) {
+				dom.classList.add("is-visible");
+			}
+		};
+
+		let contentDOM = document.createElement("div");
+		dom.appendChild(contentDOM);
+
+		return {
+			dom,
+			contentDOM,
+		};
+	},
+
+	addNodeView() {
+		return ({ editor, node }) => {
+			let dom = document.createElement("spoiler");
+			dom.className = "spoiler";
+			dom.dataset.spoiler = _t("nodes.spoiler_reveal_text");
+			if (node.attrs.revealed && !dom.classList.contains("is-visible"))
+				dom.classList.add("is-visible");
+
+			return { dom: dom, contentDOM: dom };
+		};
 	},
 
 	addCommands() {

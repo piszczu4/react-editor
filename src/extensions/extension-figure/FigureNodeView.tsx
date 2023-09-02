@@ -33,12 +33,7 @@ export function FigureNodeView({ node, editor }: NodeViewProps) {
 		<NodeViewWrapper
 			as="figure"
 			className={
-				"figure-node-view " +
-				(isFloat
-					? "f-" + node.attrs.dataFloat
-					: isAlign
-					? "justify-" + node.attrs.dataAlign
-					: "")
+				"figure-node-view " + (isFloat ? "f-" + node.attrs.dataFloat : "")
 			}
 			data-type={type}
 			data-caption={node.attrs.caption}
@@ -52,13 +47,11 @@ export function FigureNodeView({ node, editor }: NodeViewProps) {
 				height: "auto",
 
 				marginRight:
-					(isWidthInPercentages && node.attrs.dataAlign === "left") ||
-					node.attrs.dataAlign === "center"
+					node.attrs.dataAlign === "left" || node.attrs.dataAlign === "center"
 						? "auto"
 						: undefined,
 				marginLeft:
-					(isWidthInPercentages && node.attrs.dataAlign === "right") ||
-					node.attrs.dataAlign === "center"
+					node.attrs.dataAlign === "right" || node.attrs.dataAlign === "center"
 						? "auto"
 						: undefined,
 			}}

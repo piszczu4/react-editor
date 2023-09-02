@@ -24,6 +24,9 @@ import { joinBackward } from "../../commands/joinBackward";
 
 import { isAtEndOfNode } from "../../commands/isAtEndOfNode";
 import { findNode, findNodePos } from "../../utils";
+
+import katex from "katex";
+
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
 		math_inline: {
@@ -44,17 +47,33 @@ export const MathInline = Node.create({
 	parseHTML() {
 		return [
 			{
-				tag: "math-inline", // important!
+				tag: "math-inline",
+				contentElement: "span.math-src",
 			},
 		];
 	},
 
-	renderHTML({ HTMLAttributes }) {
-		return [
-			"math-inline",
-			mergeAttributes({ class: "math-node" }, HTMLAttributes),
-			0,
-		];
+	renderHTML({ HTMLAttributes, node }) {
+		let dom = document.createElement("math-inline");
+		dom.className = "math-node";
+
+		let tex = node.textContent;
+		let src = document.createElement("span");
+		src.className = "math-src";
+		src.innerText = tex;
+
+		let render = document.createElement("span");
+		render.className = "math-render";
+
+		katex.render(tex, render, {
+			displayMode: false,
+			globalGroup: true,
+		});
+
+		dom.appendChild(src);
+		dom.appendChild(render);
+
+		return dom;
 	},
 
 	addProseMirrorPlugins() {
