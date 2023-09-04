@@ -23,7 +23,7 @@ export function collapseMathCmd(
 	outerView: EditorView,
 	dir: 1 | -1,
 	requireOnBorder: boolean,
-	requireEmptySelection: boolean = true
+	requireEmptySelection: boolean = false
 ): Command {
 	// create a new ProseMirror command based on the input conditions
 	return (

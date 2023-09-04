@@ -4,31 +4,24 @@
  *--------------------------------------------------------*/
 
 // prosemirror imports
-import { Node as ProseNode } from "prosemirror-model";
 import {
 	EditorState,
-	Transaction,
-	TextSelection,
-	NodeSelection,
 	PluginKey,
-	Command,
+	TextSelection,
+	Transaction,
 } from "@tiptap/pm/state";
-import { NodeView, EditorView, Decoration } from "prosemirror-view";
-import { StepMap } from "prosemirror-transform";
-import { keymap } from "prosemirror-keymap";
 import {
-	newlineInCode,
 	chainCommands,
 	deleteSelection,
-	liftEmptyBlock,
+	newlineInCode,
 } from "prosemirror-commands";
+import { keymap } from "prosemirror-keymap";
+import { Node as ProseNode } from "prosemirror-model";
+import { StepMap } from "prosemirror-transform";
+import { Decoration, EditorView, NodeView } from "prosemirror-view";
 
 // katex
-import katex, { ParseError, KatexOptions } from "katex";
-import {
-	nudgeCursorBackCmd,
-	nudgeCursorForwardCmd,
-} from "./commands/move-cursor-cmd";
+import katex, { KatexOptions } from "katex";
 import { collapseMathCmd } from "./commands/collapse-math-cmd";
 import { IMathPluginState } from "./math-plugin";
 
@@ -100,7 +93,7 @@ export class MathView implements NodeView, ICursorPosObserver {
 
 		// options
 		this._katexOptions = Object.assign(
-			{ globalGroup: true, throwOnError: false },
+			{ globalGroup: true, throwOnError: true },
 			options.katexOptions
 		);
 		this._tagName = options.tagName || this._node.type.name.replace("_", "-");
@@ -237,12 +230,7 @@ export class MathView implements NodeView, ICursorPosObserver {
 		}
 
 		// get tex string to render
-		let content = this._node.textContent;
-		let texString = "";
-		texString = content;
-		// if (content.length > 0 && content[0].textContent !== null) {
-		// 	texString = content[0].textContent.trim();
-		// }
+		let texString = this._node.textContent;
 
 		// empty math?
 		if (texString.length < 1) {
@@ -263,7 +251,8 @@ export class MathView implements NodeView, ICursorPosObserver {
 			this._mathRenderElt.classList.remove("parse-error");
 			this.dom.setAttribute("title", "");
 		} catch (err) {
-			if (err instanceof ParseError) {
+			console.log(err);
+			if (err instanceof katex.ParseError) {
 				console.error(err);
 				this._mathRenderElt.classList.add("parse-error");
 				this.dom.setAttribute("title", err.toString());
@@ -350,6 +339,13 @@ export class MathView implements NodeView, ICursorPosObserver {
 						ArrowRight: collapseMathCmd(this._outerView, +1, true),
 						ArrowUp: collapseMathCmd(this._outerView, -1, true),
 						ArrowDown: collapseMathCmd(this._outerView, +1, true),
+						"Ctrl-a": (state, dispatch, view) => {
+							let tr = state.tr.setSelection(
+								TextSelection.create(state.doc, 0, this._node.content.size)
+							);
+							dispatch!(tr);
+							return true;
+						},
 					}),
 				],
 			}),

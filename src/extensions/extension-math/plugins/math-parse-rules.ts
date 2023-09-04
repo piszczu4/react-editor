@@ -2,8 +2,8 @@
  * Note that for some of the `ParseRule`s defined below,
  * we define a `getAttrs` function, which, other than
  * defining node attributes, can be used to describe complex
- * match conditions for a rule.  
- 
+ * match conditions for a rule.
+
  * Returning `false` from `ParseRule.getAttrs` prevents the
  * rule from matching, while returning `null` indicates that
  * the default set of note attributes should be used.
@@ -14,7 +14,6 @@ import {
 	Fragment,
 	ParseRule,
 	Schema,
-	NodeType,
 } from "prosemirror-model";
 
 ////////////////////////////////////////////////////////////
@@ -32,11 +31,8 @@ function getFirstMatch(
 	return false;
 }
 
-function makeTextFragment<S extends Schema<any, any>>(
-	text: string,
-	schema: S
-): Fragment<S> {
-	return Fragment.from(schema.text(text) as ProseNode<S>);
+function makeTextFragment(text: string, schema: Schema): Fragment {
+	return Fragment.from(schema.text(text) as ProseNode);
 }
 
 ////////////////////////////////////////////////////////////
@@ -141,7 +137,7 @@ export const wikipediaBlockMathParseRule: ParseRule = {
 		// success!  proceed to `getContent` for further processing
 		return null;
 	},
-	getContent<S extends Schema<any, any>>(p: Node, schema: S): Fragment<S> {
+	getContent(p: Node, schema: Schema): Fragment {
 		// search the matched element for a TeX string
 		let match: false | string = matchWikipedia(p as Element);
 		// return a fragment representing the math node's children
@@ -179,7 +175,7 @@ export const wikipediaInlineMathParseRule: ParseRule = {
 		// success!  proceed to `getContent` for further processing
 		return null;
 	},
-	getContent<S extends Schema<any, any>>(p: Node, schema: S): Fragment<S> {
+	getContent(p: Node, schema: Schema): Fragment {
 		// search the matched element for a TeX string
 		let match: false | string = matchWikipedia(p as Element);
 		// return a fragment representing the math node's children

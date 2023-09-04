@@ -105,6 +105,9 @@ import { VideoBubbleMenu } from "./components/BubbleMenus/VideoFigureBubbleMenu"
 const App = () => {
 	const editor = useEditor({
 		extensions: [
+			MathDisplay,
+			MathInline,
+
 			StarterKit.configure({
 				bulletList: false,
 				orderedList: false,
@@ -178,8 +181,6 @@ const App = () => {
 			}),
 			TableCell,
 			TableRow,
-			MathInline,
-			MathDisplay,
 			TableHeader,
 			TrailingNode,
 			new CodeView({

@@ -1,32 +1,19 @@
 /* eslint-disable */
-import { Node, mergeAttributes } from "@tiptap/core";
-
-import { inputRules } from "prosemirror-inputrules";
-
-import { insertMathCmd } from "@benrbray/prosemirror-math";
-import { setBlockType } from "@tiptap/pm/commands";
-
-import { Transform } from "@tiptap/pm/transform";
-import { Editor, getNodeAttributes } from "@tiptap/react";
+import { Node, PasteRule, createNodeFromContent } from "@tiptap/core";
+import { InputRule, inputRules } from "@tiptap/pm/inputrules";
+import { NodeType } from "@tiptap/pm/model";
 import {
-	makeInlineMathInputRule,
-	REGEX_INLINE_MATH_DOLLARS,
-	mathPlugin,
-} from "@benrbray/prosemirror-math";
-import { NodeSelection, TextSelection, Selection } from "@tiptap/pm/state";
-import { NodeRange } from "@tiptap/pm/model";
-import { selectionToInsertionEnd } from "@tiptap/react";
-import { findChildren, findParentNode } from "@tiptap/react";
-
-import { getNodeAtPosition } from "../extension-commands";
-import { mathBackspace } from "./commands";
-import { joinBackward } from "../../commands/joinBackward";
-
-import { isAtEndOfNode } from "../../commands/isAtEndOfNode";
-import { findNode, findNodePos } from "../../utils";
+	NodeSelection,
+	TextSelection,
+	Plugin,
+	PluginKey,
+} from "@tiptap/pm/state";
 
 import katex from "katex";
-import { createMathView } from "./math-plugin";
+import { mathBackspace, mathPasteHandler } from "./commands";
+import { createMathView, mathPlugin } from "./math-plugin";
+
+import { defaultInlineMathParseRules } from "./plugins/math-parse-rules";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
@@ -35,6 +22,38 @@ declare module "@tiptap/core" {
 			unsetMathInline: () => ReturnType;
 		};
 	}
+}
+
+const REGEX_INLINE_MATH_DOLLARS_INPUT = /(?<!\$)\$([^$]+)\$(?!\$)/;
+///\$(.+)\$/;
+const REGEX_INLINE_MATH_DOLLARS_PASTE = new RegExp(
+	REGEX_INLINE_MATH_DOLLARS_INPUT,
+	"g"
+);
+const REGEX_INLINE_MATH_BRACKETS_PASTE = /\\\((.+)\\\)/g;
+
+function makeInlineMathInputRule(
+	pattern: RegExp,
+	nodeType: NodeType,
+	getAttrs?: any
+) {
+	return new InputRule(pattern, (state, match, start, end) => {
+		let $start = state.doc.resolve(start);
+		let index = $start.index();
+		let $end = state.doc.resolve(end);
+		// get attrs
+		let attrs = getAttrs instanceof Function ? getAttrs(match) : getAttrs;
+		// check if replacement valid
+		if (!$start.parent.canReplaceWith(index, $end.index(), nodeType)) {
+			return null;
+		}
+		// perform replacement
+		return state.tr.replaceRangeWith(
+			start,
+			end,
+			nodeType.create(attrs, nodeType.schema.text(match[1]))
+		);
+	});
 }
 
 export const MathInline = Node.create({
@@ -51,10 +70,11 @@ export const MathInline = Node.create({
 				tag: "math-inline",
 				contentElement: "span.math-src",
 			},
+			...defaultInlineMathParseRules,
 		];
 	},
 
-	renderHTML({ HTMLAttributes, node }) {
+	renderHTML({ node }) {
 		let dom = document.createElement("math-inline");
 		dom.className = "math-node";
 
@@ -79,10 +99,63 @@ export const MathInline = Node.create({
 
 	addProseMirrorPlugins() {
 		const inputRulePlugin = inputRules({
-			rules: [makeInlineMathInputRule(REGEX_INLINE_MATH_DOLLARS, this.type)],
+			rules: [
+				makeInlineMathInputRule(REGEX_INLINE_MATH_DOLLARS_INPUT, this.type),
+			],
 		});
 
-		return [mathPlugin, inputRulePlugin];
+		const pasteMathPlugin = new Plugin({
+			key: new PluginKey("pasteMathPlugin"),
+			props: {
+				handlePaste: (view, event) => {
+					if (!event.clipboardData) {
+						return false;
+					}
+
+					// don’t create a new math block within math block
+					if (this.editor.isActive(this.type.name)) {
+						return false;
+					}
+
+					let text = event.clipboardData.getData("text/plain");
+					if (!text) return false;
+
+					let doc = createNodeFromContent(text, view.state.schema, {
+						slice: true,
+					}).toJSON();
+
+					if (
+						doc.length === 1 &&
+						(doc[0].type === "math_inline" || doc[0].type === "math_display")
+					) {
+						let { editor } = this;
+						editor.commands.insertContent(doc);
+						return true;
+					}
+
+					return false;
+				},
+			},
+		});
+
+		return [mathPlugin, pasteMathPlugin, inputRulePlugin];
+	},
+
+	addPasteRules() {
+		return [
+			new PasteRule({
+				find: REGEX_INLINE_MATH_DOLLARS_PASTE,
+				handler: mathPasteHandler(this.name),
+			}),
+			new PasteRule({
+				find: REGEX_INLINE_MATH_BRACKETS_PASTE,
+				handler: mathPasteHandler(this.name),
+			}),
+		];
+	},
+
+	addNodeView() {
+		return createMathView(false);
 	},
 
 	addStorage() {

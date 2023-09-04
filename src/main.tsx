@@ -15,7 +15,6 @@ import "tippy.js/animations/scale-extreme.css";
 import "tippy.js/animations/shift-toward-subtle.css";
 import "tippy.js/animations/shift-toward-subtle.css";
 
-import "@benrbray/prosemirror-math/style/math.css";
 import "katex/dist/katex.min.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

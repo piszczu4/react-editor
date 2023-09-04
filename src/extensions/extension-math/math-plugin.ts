@@ -4,7 +4,7 @@
  *--------------------------------------------------------*/
 
 // prosemirror imports
-import { Schema, Node as ProseNode } from "prosemirror-model";
+import { Node as ProseNode } from "prosemirror-model";
 import {
 	Plugin as ProsePlugin,
 	PluginKey,
@@ -12,6 +12,7 @@ import {
 } from "prosemirror-state";
 import { MathView } from "./math-nodeview";
 import { EditorView } from "prosemirror-view";
+import { NodeViewRendererProps } from "@tiptap/react";
 
 ////////////////////////////////////////////////////////////
 
@@ -36,11 +37,8 @@ const MATH_PLUGIN_KEY = new PluginKey<IMathPluginState>("prosemirror-math");
  * @see https://prosemirror.net/docs/ref/#view.EditorProps.nodeViews
  */
 export function createMathView(displayMode: boolean) {
-	return (
-		node: ProseNode,
-		view: EditorView,
-		getPos: () => number | undefined
-	): MathView => {
+	return ({ editor, node, getPos }: NodeViewRendererProps): MathView => {
+		let view = editor.view;
 		/** @todo is this necessary?
 		 * Docs says that for any function proprs, the current plugin instance
 		 * will be bound to `this`.  However, the typings don't reflect this.
@@ -91,12 +89,6 @@ let mathPluginSpec: PluginSpec<IMathPluginState> = {
 		/** @todo (8/21/20) implement serialization for math plugin */
 		// toJSON(value) { },
 		// fromJSON(config, value, state){ return {}; }
-	},
-	props: {
-		nodeViews: {
-			math_inline: createMathView(false),
-			math_display: createMathView(true),
-		},
 	},
 };
 

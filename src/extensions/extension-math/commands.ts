@@ -28,3 +28,22 @@ export const mathBackspace = (state: EditorState, view: EditorView) => {
 	}
 	return false;
 };
+
+export const mathPasteHandler =
+	(type: string) =>
+	({ match, chain, range }: any) => {
+		if (match[1]) {
+			chain()
+				.deleteRange(range)
+				.insertContentAt(range.from, {
+					type: type,
+					attrs: {},
+					content: [
+						{
+							type: "text",
+							text: match[1],
+						},
+					],
+				});
+		}
+	};

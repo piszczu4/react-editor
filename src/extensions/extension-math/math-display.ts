@@ -1,14 +1,42 @@
 /* eslint-disable */
-import { Node, mergeAttributes } from "@tiptap/core";
+import { Node, PasteRule } from "@tiptap/core";
 
-import { inputRules } from "prosemirror-inputrules";
+import { InputRule, inputRules } from "@tiptap/pm/inputrules";
+import { NodeSelection, TextSelection } from "@tiptap/pm/state";
+import { NodeType } from "@tiptap/pm/model";
 
-import { TextSelection } from "@tiptap/pm/state";
+import { createMathView } from "./math-plugin";
+import katex from "katex";
 
-import {
-	REGEX_BLOCK_MATH_DOLLARS,
-	makeBlockMathInputRule,
-} from "@benrbray/prosemirror-math";
+import { defaultBlockMathParseRules } from "./plugins/math-parse-rules";
+import { mathPasteHandler } from "./commands";
+
+const REGEX_BLOCK_MATH_DOLLARS_INPUT = /\$\$\s+$/;
+const REGEX_BLOCK_MATH_DOLLARS_PASTE = /\$\$(.+)\$\$/g;
+const REGEX_BLOCK_MATH_BRACKETS_PASTE = /\\\[(.+)\\\]/g;
+
+function makeBlockMathInputRule(
+	pattern: RegExp,
+	nodeType: NodeType,
+	getAttrs?: any
+) {
+	return new InputRule(pattern, (state, match, start, end) => {
+		let $start = state.doc.resolve(start);
+		let attrs = getAttrs instanceof Function ? getAttrs(match) : getAttrs;
+		if (
+			!$start
+				.node(-1)
+				.canReplaceWith($start.index(-1), $start.indexAfter(-1), nodeType)
+		)
+			return null;
+		let tr = state.tr
+			.delete(start, end)
+			.setBlockType(start, start, nodeType, attrs);
+		return tr.setSelection(
+			NodeSelection.create(tr.doc, tr.mapping.map($start.pos - 1))
+		);
+	});
+}
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
@@ -44,8 +72,6 @@ declare module "@tiptap/core" {
 // 	};
 // }
 
-import katex from "katex";
-
 export const MathDisplay = Node.create({
 	name: "math_display",
 	group: "block math",
@@ -59,6 +85,7 @@ export const MathDisplay = Node.create({
 				tag: "math-display",
 				contentElement: "span.math-src",
 			},
+			...defaultBlockMathParseRules,
 		];
 	},
 
@@ -87,10 +114,29 @@ export const MathDisplay = Node.create({
 
 	addProseMirrorPlugins() {
 		const inputRulePlugin = inputRules({
-			rules: [makeBlockMathInputRule(REGEX_BLOCK_MATH_DOLLARS, this.type)],
+			rules: [
+				makeBlockMathInputRule(REGEX_BLOCK_MATH_DOLLARS_INPUT, this.type),
+			],
 		});
 
 		return [inputRulePlugin];
+	},
+
+	addPasteRules() {
+		return [
+			new PasteRule({
+				find: REGEX_BLOCK_MATH_DOLLARS_PASTE,
+				handler: mathPasteHandler(this.name),
+			}),
+			new PasteRule({
+				find: REGEX_BLOCK_MATH_BRACKETS_PASTE,
+				handler: mathPasteHandler(this.name),
+			}),
+		];
+	},
+
+	addNodeView() {
+		return createMathView(true);
 	},
 
 	addStorage() {
