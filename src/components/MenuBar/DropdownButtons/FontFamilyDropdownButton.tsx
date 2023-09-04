@@ -60,7 +60,7 @@ export const FontFamilyDropdownButton = ({ editor }: Props) => {
 			icon={<FontFamilyIcon />}
 			command={() => {
 				setIsOpen(!isOpen);
-				return true;
+				return editor.commands.focus();
 			}}
 			disabled={!editor.can().setFontFamily("Arial")}
 			active={isOpen}

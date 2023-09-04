@@ -111,7 +111,7 @@ export const OrderedListDropdownButton = ({ editor }: Props) => {
 		<MenuButton
 			command={() => {
 				setIsOpen(!isOpen);
-				return true;
+				return editor.commands.focus();
 			}}
 			disabled={!editor.can().toggleOrderedList()}
 			dropdown={{

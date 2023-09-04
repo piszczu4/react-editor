@@ -26,6 +26,7 @@ import { isAtEndOfNode } from "../../commands/isAtEndOfNode";
 import { findNode, findNodePos } from "../../utils";
 
 import katex from "katex";
+import { createMathView } from "./math-plugin";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {

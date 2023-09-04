@@ -11,7 +11,7 @@ type Props = {
 export const ClearFormattingButton = ({ editor }: Props) => {
 	return (
 		<MenuButton
-			icon={<ClearFormattingIcon />}
+			icon={<ClearFormattingIcon className="clear-formatting-icon" />}
 			command={() => editor.chain().focus().unsetAllMarks().run()}
 			disabled={!editor.can().unsetAllMarks()}
 			tooltip={{

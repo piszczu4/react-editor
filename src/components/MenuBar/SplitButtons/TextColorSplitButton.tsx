@@ -29,7 +29,7 @@ export const TextColorDropdownButton = ({ editor }: Props) => {
 		<MenuButton
 			command={() => {
 				setIsOpen(!isOpen);
-				return true;
+				return editor.commands.focus();
 			}}
 			disabled={!editor.can().setColor("black")}
 			active={isOpen}

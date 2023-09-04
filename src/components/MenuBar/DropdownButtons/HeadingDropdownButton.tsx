@@ -67,7 +67,6 @@ export const HeadingDropdownButton = ({ editor }: Props) => {
 				key={key}
 				command={() => {
 					setIsOpen(false);
-
 					return editor
 						.chain()
 						.focus()
@@ -99,7 +98,7 @@ export const HeadingDropdownButton = ({ editor }: Props) => {
 			icon={getIcon(level)}
 			command={() => {
 				setIsOpen(!isOpen);
-				return true;
+				return editor.commands.focus();
 			}}
 			disabled={!editor.can().chain().focus().setParagraph()}
 			tooltip={{

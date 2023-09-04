@@ -87,7 +87,7 @@ export const BulletListDropdownButton = ({ editor }: Props) => {
 
 	let dropdownContent = (
 		<MenuDropdown
-			id="ordered-list-dropdown"
+			id="unordered-list-dropdown"
 			children={bulletListDropdownItems}
 			nCols={3}
 		/>
@@ -97,7 +97,7 @@ export const BulletListDropdownButton = ({ editor }: Props) => {
 		<MenuButton
 			command={() => {
 				setIsOpen(!isOpen);
-				return true;
+				return editor.commands.focus();
 			}}
 			disabled={!editor.can().toggleBulletList()}
 			active={isOpen}

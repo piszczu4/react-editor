@@ -54,7 +54,7 @@ export const MenuButton = ({
 				${dropdown?.isDropdownButton ? "mw-btn-dropdown " : ""} ${
 					className ? className : ""
 				}
-			} ${active ? "is-active " : ""} ${disabled ? "is-disabled " : ""}`}
+			${active ? "is-active " : ""} ${disabled ? "is-disabled " : ""}`}
 			onClick={!disabled ? command : () => false}
 			title={typeof tooltip === "string" ? tooltip : undefined}
 		>

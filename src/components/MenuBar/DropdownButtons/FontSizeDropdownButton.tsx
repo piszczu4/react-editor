@@ -214,7 +214,7 @@ export const FontSizeDropdownButton = ({ editor }: Props) => {
 			icon={<FontSizeIcon />}
 			command={() => {
 				setIsOpen(!isOpen);
-				return true;
+				return editor.commands.focus();
 			}}
 			active={isOpen}
 			disabled={!editor.can().toggleFontSize(16)}

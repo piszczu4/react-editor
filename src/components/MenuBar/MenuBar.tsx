@@ -85,28 +85,28 @@ export const MenuBar = ({
 						<TaskListButton editor={editor} />
 					</MenuBlock>
 
-					<MenuBlock>
+					{/* <MenuBlock>
 						<CodeButton editor={editor} />
-						{/* dBlock! */}
 						<CodeBlockButton editor={editor} />
-					</MenuBlock>
+					</MenuBlock> */}
+
 					<MenuBlock>
 						<BlockquoteButton editor={editor} />
 						<SpoilerButton editor={editor} />
 						<HorizontalRuleButton editor={editor} />
 						<DetailsButton editor={editor} />
-						<MathInlineButton editor={editor} />
-						<MathDisplayButton editor={editor} />
+						{/* <MathInlineButton editor={editor} />
+						<MathDisplayButton editor={editor} /> */}
 					</MenuBlock>
 
-					<MenuBlock>
+					{/* <MenuBlock>
 						<PanelButton editor={editor} />
 						<MathPanelButton editor={editor} />
 						<LinkButton editor={editor} />
 						<ImageButton editor={editor} />
 						<VideoButton editor={editor} />
 						<TableButton editor={editor} />
-					</MenuBlock>
+					</MenuBlock> */}
 
 					<MenuBlock>
 						<FullscreenButton

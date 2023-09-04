@@ -119,7 +119,7 @@ export const AlignDropdownButton = ({ editor }: Props) => {
 			icon={getIcon(align)}
 			command={() => {
 				setIsOpen(!isOpen);
-				return true;
+				return editor.commands.focus();
 			}}
 			disabled={!editor.can().setTextAlign("center")}
 			active={false}

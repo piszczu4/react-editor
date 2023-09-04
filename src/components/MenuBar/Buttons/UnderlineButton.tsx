@@ -11,7 +11,7 @@ type Props = {
 export const UnderlineButton = ({ editor }: Props) => {
 	return (
 		<MenuButton
-			icon={<UnderlineIcon />}
+			icon={<UnderlineIcon className="underline-icon" />}
 			command={() => editor.chain().focus().toggleUnderline().run()}
 			disabled={!editor.can().toggleUnderline()}
 			active={editor.isActive("underline")}

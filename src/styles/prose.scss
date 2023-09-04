@@ -3,7 +3,7 @@
 	text-underline-position: under;
 
 	/* Horizontal rule */
-	hr:hover {
+	hr {
 		cursor: pointer;
 	}
 
@@ -119,5 +119,11 @@
 	&[contenteditable="false"]:not(.s-markdown-preview) .ProseMirror-widget,
 	&[contenteditable="false"]:not(.s-markdown-preview) .ProseMirror-widget * {
 		background-color: inherit;
+	}
+}
+
+.preview {
+	hr {
+		cursor: default;
 	}
 }

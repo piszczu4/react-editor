@@ -155,6 +155,7 @@ const App = () => {
 			TaskList,
 			TaskItem.configure({
 				nested: true,
+				onReadOnlyChecked: () => false,
 			}),
 			TextAlign.configure({ types: ["paragraph", "heading"] }),
 			Details.configure({

@@ -2,9 +2,10 @@ type Props = {
 	className?: string;
 };
 
-export default ({}: Props) => {
+export default ({ className }: Props) => {
 	return (
 		<svg
+			className={className}
 			version="1.1"
 			id="Warstwa_1"
 			xmlns="http://www.w3.org/2000/svg"

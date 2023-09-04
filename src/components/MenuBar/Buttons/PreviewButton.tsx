@@ -6,7 +6,7 @@ import { _t } from "../../../helpers/strings";
 import { useState, useEffect } from "react";
 import EyeIcon from "../../Icons/EyeIcon";
 import { Modal } from "../../Modal";
-import { handleSpoilers } from "../../../main";
+import { handleSpoilers, handleTaskItems } from "../../../main";
 
 type Props = {
 	editor: Editor;
@@ -19,13 +19,14 @@ export const PreviewButton = ({ editor }: Props) => {
 	let handleClick = () => {
 		setExists(true);
 		setIsOpen(true);
+		editor.setEditable(false);
 		return true;
 	};
 
 	useEffect(() => {
 		handleSpoilers();
+		handleTaskItems();
 	});
-	// editor.setEditable(false);
 
 	return (
 		<div>
@@ -37,7 +38,13 @@ export const PreviewButton = ({ editor }: Props) => {
 				}}
 			/>
 			{exists && (
-				<Modal isOpen={isOpen} onOutsideClick={() => setIsOpen(false)}>
+				<Modal
+					isOpen={isOpen}
+					onOutsideClick={() => {
+						setIsOpen(false);
+						editor.setEditable(true);
+					}}
+				>
 					<div
 						style={{ maxWidth: "800px" }}
 						className="s-prose ProseMirror preview"

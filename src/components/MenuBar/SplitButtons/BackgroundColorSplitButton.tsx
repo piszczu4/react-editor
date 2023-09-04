@@ -29,7 +29,7 @@ export const BackgroundColorDropdownButton = ({ editor }: Props) => {
 		<MenuButton
 			command={() => {
 				setIsOpen(!isOpen);
-				return true;
+				return editor.commands.focus();
 			}}
 			active={isOpen}
 			dropdown={{
