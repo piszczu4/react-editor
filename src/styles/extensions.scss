@@ -113,3 +113,20 @@ span[style*="background-color"] {
 		margin-bottom: 10px !important;
 	}
 }
+
+// Placeholder
+.mw-math-panel-v2--name h3.is-empty::before {
+	color: #adb5bd;
+	content: "Title";
+	float: left;
+	height: 0;
+	pointer-events: none;
+}
+
+.mw-math-panel-v2--body p:first-of-type.is-empty::before {
+	color: #adb5bd;
+	content: "Content";
+	float: left;
+	height: 0;
+	pointer-events: none;
+}

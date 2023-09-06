@@ -204,16 +204,16 @@ const App = () => {
 			}),
 			Placeholder.configure({
 				includeChildren: true,
-				showOnlyCurrent: true,
+				showOnlyCurrent: false,
 
-				placeholder: ({ node }) => {
+				placeholder: ({ node, editor }) => {
 					if (node.type.name === "detailsSummary") {
 						return "Summary";
 					}
 
 					if (
 						node.type.name === "paragraph" &&
-						editor?.state.doc.textContent.length === 0
+						editor.state.doc.textContent.length === 0
 					)
 						return _t("placeholders.empty_editor");
 				},

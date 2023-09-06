@@ -123,7 +123,7 @@ export const MathPanelV2 = Node.create<MathPanelOptions>({
 	addKeyboardShortcuts() {
 		return {
 			Tab: () => {
-				if (this.editor.isActive("mathPanelName")) {
+				if (this.editor.isActive("mathPanelNameV2")) {
 					let node = findParentNode((node) => node.type.name === "mathPanelV2")(
 						this.editor.state.selection
 					);

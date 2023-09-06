@@ -64,7 +64,7 @@ export function IframeNodeView({
 		width < 100 || height < 100;
 
 	const documentHorizontalMouseMove = (e: MouseEvent) => {
-		setTimeout(() => onHorizontalMouseMove(e));
+		requestAnimationFrame(() => onHorizontalMouseMove(e));
 	};
 
 	const startHorizontalResize = (e: { clientX: number }) => {

@@ -102,12 +102,13 @@ export const MenuBar = ({
 
 					<MathPanelV2Button editor={editor} />
 
+					<VideoButton editor={editor} />
+
 					{/* <MenuBlock>
 						<PanelButton editor={editor} />
 						<MathPanelButton editor={editor} />
 						<LinkButton editor={editor} />
 						<ImageButton editor={editor} />
-						<VideoButton editor={editor} />
 						<TableButton editor={editor} />
 					</MenuBlock> */}
 

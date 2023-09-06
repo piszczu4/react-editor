@@ -47,7 +47,7 @@ export const KeyboardShortcuts = Extension.create({
 				let parentNode = $from.node(-1);
 
 				if (
-					currentNode.type.name !== "paragraph" ||
+					!["paragraph", "heading"].includes(currentNode.type.name) ||
 					currentNode.content.size !== 0
 				)
 					return false;
