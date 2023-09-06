@@ -101,12 +101,16 @@ import { Resizer } from "./components/Resizer";
 
 import { TableBubbleMenu } from "./components/BubbleMenus/TableBubbleMenu";
 import { VideoBubbleMenu } from "./components/BubbleMenus/VideoFigureBubbleMenu";
+import { Math } from "./extensions/extension-math/math";
+import { KeyboardShortcuts } from "./extensions/extension-keyboard-shortcuts";
 
 const App = () => {
 	const editor = useEditor({
 		extensions: [
 			MathDisplay,
 			MathInline,
+			Math,
+			KeyboardShortcuts,
 
 			StarterKit.configure({
 				bulletList: false,

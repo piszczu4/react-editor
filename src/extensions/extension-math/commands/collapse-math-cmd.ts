@@ -1,10 +1,12 @@
 import {
-	Command,
-	EditorState,
-	TextSelection,
-	Transaction,
+    Command,
+    EditorState,
+    TextSelection,
+    Transaction,
 } from "@tiptap/pm/state";
 import { EditorView } from "@tiptap/pm/view";
+
+import { selectionToInsertionEnd } from "@tiptap/react";
 
 /**
  * A ProseMirror command for determining whether to exit a math block, based on
@@ -61,11 +63,23 @@ export function collapseMathCmd(
 			// set outer selection to be outside of the nodeview
 			let targetPos: number = dir > 0 ? outerTo : outerFrom;
 
-			outerView.dispatch(
-				outerState.tr.setSelection(
-					TextSelection.create(outerState.doc, targetPos)
-				)
-			);
+			let tr = outerState.tr;
+
+			// Is there a node after? If not - add paragraph
+			let index = outerState.selection.$from.index();
+			let node = outerState.selection.$from.parent.child(index);
+			let nodeAfter = outerState.selection.$from.parent.maybeChild(index + 1);
+			if (!nodeAfter && node.type.name === "math_display") {
+				tr = tr.insert(
+					targetPos,
+					outerView.state.schema.nodes["paragraph"].createAndFill()!
+				);
+				selectionToInsertionEnd(tr, tr.steps.length - 1, -1);
+			} else {
+				tr.setSelection(TextSelection.create(tr.doc, targetPos));
+			}
+
+			outerView.dispatch(tr);
 
 			// must return focus to the outer view, otherwise no cursor will appear
 			outerView.focus();

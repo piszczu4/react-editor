@@ -288,6 +288,23 @@ export class MathView implements NodeView, ICursorPosObserver {
 		}
 	}
 
+	toggleMath() {
+		let tex = this._node.textContent;
+
+		this._outerView.dispatch(this._outerView.state.tr.insertText(tex));
+		this._outerView.focus();
+		this._outerView.dispatch(
+			this._outerView.state.tr.setSelection(
+				TextSelection.create(
+					this._outerView.state.doc,
+					this._outerView.state.tr.selection.to - tex.length,
+					this._outerView.state.tr.selection.to
+				)
+			)
+		);
+		return true;
+	}
+
 	openEditor() {
 		if (this._innerView) {
 			throw Error("inner view should not exist!");
@@ -339,13 +356,8 @@ export class MathView implements NodeView, ICursorPosObserver {
 						ArrowRight: collapseMathCmd(this._outerView, +1, true),
 						ArrowUp: collapseMathCmd(this._outerView, -1, true),
 						ArrowDown: collapseMathCmd(this._outerView, +1, true),
-						"Ctrl-a": (state, dispatch, view) => {
-							let tr = state.tr.setSelection(
-								TextSelection.create(state.doc, 0, this._node.content.size)
-							);
-							dispatch!(tr);
-							return true;
-						},
+						"Ctrl-m": () => this.toggleMath(),
+						"Ctrl-d": () => this.toggleMath(),
 					}),
 				],
 			}),
@@ -369,6 +381,7 @@ export class MathView implements NodeView, ICursorPosObserver {
 		// compute position that cursor should appear within the expanded math node
 		let innerPos =
 			prevCursorPos <= this._getPos() ? 0 : this._node.nodeSize - 2;
+
 		this._innerView.dispatch(
 			innerState.tr.setSelection(TextSelection.create(innerState.doc, innerPos))
 		);

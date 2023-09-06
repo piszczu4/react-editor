@@ -4,15 +4,9 @@
  *--------------------------------------------------------*/
 
 // prosemirror imports
-import { Node as ProseNode } from "prosemirror-model";
-import {
-	Plugin as ProsePlugin,
-	PluginKey,
-	PluginSpec,
-} from "prosemirror-state";
-import { MathView } from "./math-nodeview";
-import { EditorView } from "prosemirror-view";
 import { NodeViewRendererProps } from "@tiptap/react";
+import { PluginKey, PluginSpec, Plugin as ProsePlugin } from "@tiptap/pm/state";
+import { MathView } from "./math-nodeview";
 
 ////////////////////////////////////////////////////////////
 
@@ -78,12 +72,21 @@ let mathPluginSpec: PluginSpec<IMathPluginState> = {
 		},
 		apply(tr, value, oldState, newState) {
 			// produce updated state field for this plugin
+			let node = tr.doc.nodeAt(oldState.selection.from);
+			let pos;
+			if (
+				node?.type.name === "math_inline" ||
+				node?.type.name === "math_display"
+			)
+				pos = value.prevCursorPos;
+			else pos = oldState.selection.from;
+
 			return {
 				// these values are left unchanged
 				activeNodeViews: value.activeNodeViews,
 				macros: value.macros,
 				// update with the second-most recent cursor pos
-				prevCursorPos: oldState.selection.from,
+				prevCursorPos: pos,
 			};
 		},
 		/** @todo (8/21/20) implement serialization for math plugin */
