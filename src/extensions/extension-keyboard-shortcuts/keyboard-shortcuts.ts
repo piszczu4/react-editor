@@ -4,9 +4,9 @@ import { Extension } from "@tiptap/react";
 export const KeyboardShortcuts = Extension.create({
 	addOptions() {
 		return {
-			blocksToEscapeForward: ["mathPanelBody"],
-			blocksToEscapeBackward: ["mathPanelBody"],
-			blocksToRemove: ["mathPanelName"],
+			blocksToEscapeForward: ["mathPanelBody", "mathPanelBodyV2"],
+			blocksToEscapeBackward: ["mathPanelBody", "mathPanelBodyV2"],
+			blocksToRemove: ["mathPanelName", "mathPanelNameV2"],
 		};
 	},
 	addKeyboardShortcuts() {

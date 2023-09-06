@@ -103,6 +103,11 @@ import { TableBubbleMenu } from "./components/BubbleMenus/TableBubbleMenu";
 import { VideoBubbleMenu } from "./components/BubbleMenus/VideoFigureBubbleMenu";
 import { Math } from "./extensions/extension-math/math";
 import { KeyboardShortcuts } from "./extensions/extension-keyboard-shortcuts";
+import {
+	MathPanelBodyV2,
+	MathPanelNameV2,
+	MathPanelV2,
+} from "./extensions/extension-math-panel-v2";
 
 const App = () => {
 	const editor = useEditor({
@@ -151,6 +156,9 @@ const App = () => {
 			MathPanelName,
 			MathPanelBody,
 			MathPanel,
+			MathPanelV2,
+			MathPanelNameV2,
+			MathPanelBodyV2,
 			Spoiler,
 			CodeIndent,
 			Panel,

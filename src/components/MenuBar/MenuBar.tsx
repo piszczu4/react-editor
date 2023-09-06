@@ -35,6 +35,7 @@ import { TextColorSplitButton } from "./SplitButtons/TextColorSplitButton";
 import { UnderlineButton } from "./Buttons/UnderlineButton";
 import { VideoButton } from "./ModalButtons/VideoButton";
 import { PreviewButton } from "./Buttons/PreviewButton";
+import { MathPanelV2Button } from "./Buttons/MathPanelV2Button";
 
 type MenuBarProps = {
 	editor: Editor;
@@ -98,6 +99,8 @@ export const MenuBar = ({
 						{/* <MathInlineButton editor={editor} />
 						<MathDisplayButton editor={editor} /> */}
 					</MenuBlock>
+
+					<MathPanelV2Button editor={editor} />
 
 					{/* <MenuBlock>
 						<PanelButton editor={editor} />
