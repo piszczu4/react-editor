@@ -46,19 +46,18 @@ export const Spoiler = Node.create<SpoilerOptions>({
 	defining: true,
 
 	addAttributes() {
+		let { editor } = this;
 		return {
 			revealed: {
 				default: false,
-				renderHTML: (attributes) => {
-					return {
-						class:
-							"spoiler" +
-							(attributes.revealed && this.editor?.isEditable
-								? " is-visible"
-								: ""),
-						"data-spoiler": _t("nodes.spoiler_reveal_text"),
-					};
-				},
+				// renderHTML: (attributes) => {
+				// 	return {
+				// 		class:
+				// 			"spoiler" +
+				// 			(attributes.revealed && editor?.isEditable ? " is-visible" : ""),
+				// 		"data-spoiler": _t("nodes.spoiler_reveal_text"),
+				// 	};
+				// },
 			},
 		};
 	},
@@ -67,25 +66,20 @@ export const Spoiler = Node.create<SpoilerOptions>({
 		return [{ tag: "spoiler" }];
 	},
 
-	renderHTML({ HTMLAttributes }) {
+	renderHTML({ HTMLAttributes, node }) {
+		let attrs: Record<string, string> = {};
+		let { editor } = this;
+		attrs["class"] = "spoiler ";
+		if (node.attrs.revealed && editor?.isEditable)
+			attrs["class"] += "is-visible ";
+		attrs["data-spoiler"] = _t("nodes.spoiler_reveal_text");
+
 		return [
 			"spoiler",
-			mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+			mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, attrs),
 			0,
 		];
 	},
-
-	// addNodeView() {
-	// 	return ({ node }) => {
-	// 		let dom = document.createElement("spoiler");
-	// 		dom.className = "spoiler";
-	// 		dom.dataset.spoiler = _t("nodes.spoiler_reveal_text");
-	// 		if (node.attrs.revealed && !dom.classList.contains("is-visible"))
-	// 			dom.classList.add("is-visible");
-
-	// 		return { dom: dom, contentDOM: dom };
-	// 	};
-	// },
 
 	addCommands() {
 		return {

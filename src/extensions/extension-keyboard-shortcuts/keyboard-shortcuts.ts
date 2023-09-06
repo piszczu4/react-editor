@@ -2,6 +2,7 @@ import { NodeSelection, TextSelection } from "@tiptap/pm/state";
 import { Extension } from "@tiptap/react";
 
 export const KeyboardShortcuts = Extension.create({
+	name: "keyboardShortcuts",
 	addOptions() {
 		return {
 			blocksToEscapeForward: ["mathPanelBody", "mathPanelBodyV2"],
