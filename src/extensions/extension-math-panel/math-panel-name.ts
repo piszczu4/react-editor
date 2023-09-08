@@ -1,6 +1,5 @@
 import { mergeAttributes, Node } from "@tiptap/core";
 
-
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {}
 }
@@ -18,7 +17,7 @@ export const MathPanelName = Node.create<MathPanelNameOptions>({
 
 	draggable: false,
 
-	content: "paragraph",
+	content: "paragraph|heading",
 
 	selectable: true,
 

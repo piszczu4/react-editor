@@ -1,16 +1,11 @@
 import { mergeAttributes, Node } from "@tiptap/core";
 import { Selection } from "@tiptap/pm/state";
-import { ReactNodeViewRenderer } from "@tiptap/react";
-import {
-	findParentNode,
-	findChildren,
-	findParentNodeClosestToPos,
-} from "@tiptap/react";
+import { findChildren, findParentNode } from "@tiptap/react";
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
 		mathPanel: {
-			setMathPanel: (panelType: PanelType) => ReturnType;
+			setMathPanel: (panelType: PanelType, version: number) => ReturnType;
 		};
 	}
 }
@@ -59,6 +54,12 @@ export const MathPanel = Node.create<MathPanelOptions>({
 
 	addAttributes() {
 		return {
+			version: {
+				default: 1,
+				renderHTML: (attributes) => ({
+					"data-version": attributes.version,
+				}),
+			},
 			panelType: {
 				default: "definition",
 				renderHTML: (attributes) => ({
@@ -73,7 +74,7 @@ export const MathPanel = Node.create<MathPanelOptions>({
 	addCommands() {
 		return {
 			setMathPanel:
-				(panelType) =>
+				(panelType, version) =>
 				({ chain }) => {
 					return chain()
 						.insertContent({
@@ -82,9 +83,10 @@ export const MathPanel = Node.create<MathPanelOptions>({
 							content: [
 								{
 									type: "mathPanelName",
+									attrs: version === 1 ? {} : { level: 3 },
 									content: [
 										{
-											type: "paragraph",
+											type: version === 1 ? "paragraph" : "heading",
 										},
 									],
 								},

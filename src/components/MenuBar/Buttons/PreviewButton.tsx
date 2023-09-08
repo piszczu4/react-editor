@@ -6,7 +6,11 @@ import { _t } from "../../../helpers/strings";
 import { useState, useEffect } from "react";
 import EyeIcon from "../../Icons/EyeIcon";
 import { Modal } from "../../Modal";
-import { handleSpoilers, handleTaskItems } from "../../../main";
+import {
+	handleCodeBlocks,
+	handleSpoilers,
+	handleTaskItems,
+} from "../../../main";
 
 type Props = {
 	editor: Editor;
@@ -26,6 +30,7 @@ export const PreviewButton = ({ editor }: Props) => {
 	useEffect(() => {
 		handleSpoilers();
 		handleTaskItems();
+		handleCodeBlocks();
 	});
 
 	return (

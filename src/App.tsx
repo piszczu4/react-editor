@@ -68,6 +68,10 @@ import { MathBubbleMenu } from "./components/BubbleMenus/MathBubbleMenu";
 import { MathPanelBubbleMenu } from "./components/BubbleMenus/MathPanelBubbleMenu";
 import { PanelBubbleMenu } from "./components/BubbleMenus/PanelBubbleMenu";
 
+import { common, createLowlight } from "lowlight";
+// load all highlight.js languages
+const lowlight = createLowlight(common);
+
 // import {
 // 	Details,
 // 	DetailsSummary,
@@ -103,11 +107,6 @@ import { TableBubbleMenu } from "./components/BubbleMenus/TableBubbleMenu";
 import { VideoBubbleMenu } from "./components/BubbleMenus/VideoFigureBubbleMenu";
 import { Math } from "./extensions/extension-math/math";
 import { KeyboardShortcuts } from "./extensions/extension-keyboard-shortcuts";
-import {
-	MathPanelBodyV2,
-	MathPanelNameV2,
-	MathPanelV2,
-} from "./extensions/extension-math-panel-v2";
 
 const App = () => {
 	const editor = useEditor({
@@ -137,7 +136,11 @@ const App = () => {
 			Underline,
 			Blockquote,
 			Code,
-			CodeBlock,
+			CodeBlock.configure({
+				lowlight,
+				defaultLanguage: "csharp",
+				HTMLAttributes: { class: "s-code-block" },
+			}),
 			Commands,
 			Subscript,
 			Superscript,
@@ -156,9 +159,6 @@ const App = () => {
 			MathPanelName,
 			MathPanelBody,
 			MathPanel,
-			MathPanelV2,
-			MathPanelNameV2,
-			MathPanelBodyV2,
 			Spoiler,
 			CodeIndent,
 			Panel,
@@ -211,10 +211,7 @@ const App = () => {
 						return "Summary";
 					}
 
-					if (
-						node.type.name === "paragraph" &&
-						editor.state.doc.textContent.length === 0
-					)
+					if (node.type.name === "paragraph" && editor.state.doc.nodeSize === 4)
 						return _t("placeholders.empty_editor");
 				},
 			}),

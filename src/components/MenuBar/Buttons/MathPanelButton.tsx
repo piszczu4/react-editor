@@ -14,9 +14,9 @@ export const MathPanelButton = ({ editor }: Props) => {
 		<MenuButton
 			icon={<MathPanelIcon />}
 			command={() =>
-				editor.chain().setMathPanel(PanelType.DEFINITION).focus().run()
+				editor.chain().setMathPanel(PanelType.DEFINITION, 1).focus().run()
 			}
-			disabled={!editor.can().setMathPanel(PanelType.DEFINITION)}
+			// disabled={!editor.can().setMathPanel(PanelType.DEFINITION)}
 			active={editor.isActive("mathPanel")}
 			tooltip={{
 				content: (

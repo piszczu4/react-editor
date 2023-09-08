@@ -12,7 +12,7 @@ export const MathInlineButton = ({ editor }: Props) => {
 	return (
 		<MenuButton
 			icon={<MathInlineIcon />}
-			command={() => editor.chain().toggleMathInline().run()}
+			command={() => editor.chain().insertMathInline().run()}
 			disabled={false}
 			active={editor.isActive("math_inline")}
 			tooltip={{

@@ -12,8 +12,12 @@ export const MathDisplayButton = ({ editor }: Props) => {
 	return (
 		<MenuButton
 			icon={<MathDisplayIcon />}
-			command={() => editor.chain().toggleMathDisplay().run()}
-			disabled={false}
+			command={() => {
+				if (!editor.isActive("math_display"))
+					return editor.chain().insertMathDisplay().run();
+				return false;
+			}}
+			disabled={editor.isActive("math_display")}
 			active={editor.isActive("math_display")}
 			tooltip={{
 				content: (
