@@ -108,6 +108,8 @@ import { VideoBubbleMenu } from "./components/BubbleMenus/VideoFigureBubbleMenu"
 import { Math } from "./extensions/extension-math/math";
 import { KeyboardShortcuts } from "./extensions/extension-keyboard-shortcuts";
 
+import { stackOverflowValidateLink } from "./extensions/extension-link/utils";
+
 const App = () => {
 	const editor = useEditor({
 		extensions: [
@@ -148,7 +150,11 @@ const App = () => {
 			HorizontalRule,
 			FontFamily,
 			FontSize,
-			Link,
+			Link.configure({
+				openOnClick: false,
+				validate: stackOverflowValidateLink,
+				autolink: false,
+			}),
 			ClearFormatting,
 			Mention.configure({ suggestion }),
 			OrderedList,

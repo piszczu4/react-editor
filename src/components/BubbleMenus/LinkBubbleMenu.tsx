@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { TextSelection } from "prosemirror-state";
 import { useRef } from "react";
 import { _t } from "../../helpers/strings";
 
@@ -9,7 +8,7 @@ import { findNode } from "../../utils";
 
 import "tippy.js/dist/svg-arrow.css";
 
-import { getMarkAttributes, getMarkRange } from "@tiptap/react";
+import { getMarkAttributes } from "@tiptap/react";
 import { EditIcon, TrashIcon } from "../Icons";
 import { LinkModal } from "../Modals/LinkModal";
 
@@ -20,8 +19,6 @@ type LinkBubbleMenuProps = {
 
 export function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
 	let ref = useRef<any>(null);
-	const popoverId = "link-tooltip-popover";
-
 	const linkAttrs = getMarkAttributes(editor.state, "link");
 
 	let [isOpen, setIsOpen] = useState(false);
@@ -31,25 +28,6 @@ export function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
 		setExists(true);
 		setIsOpen(true);
 		return true;
-	};
-
-	let unlink = () => {
-		let pos = editor.state.selection.$anchor.pos;
-		const range = getMarkRange(
-			editor.state.doc.resolve(pos),
-			editor.schema.marks.link
-		);
-
-		if (!range) return false;
-		const $start = editor.state.doc.resolve(range.from);
-		const $end = editor.state.doc.resolve(range.to);
-
-		editor
-			.chain()
-			.focus()
-			.setTextSelection(new TextSelection($start, $end))
-			.unsetLink()
-			.run();
 	};
 
 	return (
@@ -77,7 +55,7 @@ export function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
 			className="mw-5"
 		>
 			<span ref={ref}>
-				<div id={popoverId} role="menu">
+				<div id="link-tooltip-popover" role="menu">
 					<div className="d-flex ai-center">
 						<a
 							href={linkAttrs.href}
@@ -102,7 +80,7 @@ export function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
 							type="button"
 							className="flex--item s-btn js-link-tooltip-remove"
 							title={_t("link_tooltip.remove_button_title")}
-							onClick={() => unlink()}
+							onClick={() => editor.chain().focus().unsetLink().run()}
 						>
 							<TrashIcon />
 						</button>
@@ -110,8 +88,6 @@ export function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
 						{exists && (
 							<LinkModal
 								editor={editor}
-								href={linkAttrs.href}
-								text={linkAttrs.text}
 								isOpen={isOpen}
 								destroy={() => setExists(false)}
 								hide={() => setExists(false)}

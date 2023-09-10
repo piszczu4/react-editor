@@ -74,9 +74,9 @@ export const MenuBar = ({
 					</MenuBlock>
 
 					<MenuBlock>
-						<HeadingDropdownButton editor={editor} />
 						<AlignDropdownButton editor={editor} />
 						<FontSizeDropdownButton editor={editor} />
+						<HeadingDropdownButton editor={editor} />
 						<FontFamilyDropdownButton editor={editor} />
 					</MenuBlock>
 
@@ -105,13 +105,12 @@ export const MenuBar = ({
 						<MathPanelButton editor={editor} />
 					</MenuBlock>
 
-					<VideoButton editor={editor} />
-
-					{/* <MenuBlock>
+					<MenuBlock>
 						<LinkButton editor={editor} />
 						<ImageButton editor={editor} />
+						<VideoButton editor={editor} />
 						<TableButton editor={editor} />
-					</MenuBlock> */}
+					</MenuBlock>
 
 					<MenuBlock>
 						<FullscreenButton

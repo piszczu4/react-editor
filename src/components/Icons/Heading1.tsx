@@ -5,13 +5,20 @@ type Props = {
 export default ({ className }: Props) => {
 	return (
 		<svg
-			className={className}
+			id="Layer_1"
+			data-name="Layer 1"
 			xmlns="http://www.w3.org/2000/svg"
-			height="24"
-			viewBox="0 -960 960 960"
-			width="24"
+			viewBox="0 0 18 18"
+			height="18"
 		>
-			<path d="M176.499-266.108v-427.219H277.5v162.826h138.999v-162.826H517.5v427.219H416.499v-163.391H277.5v163.391H176.499Zm506.001 0v-326.218h-80v-101.001h181.001v427.219H682.5Z" />
+			<path
+				className="cls-1"
+				d="m1.25,3h2.6v4.68h4.83V3h2.6v12h-2.6v-5.19H3.84v5.19H1.25V3Z"
+			/>
+			<path
+				className="cls-1"
+				d="m14.22,15V6.44c-.53.25-1.5.45-2.07.5v-1.86c1.09-.2,2.18-.82,2.84-1.54h1.76v11.46h-2.53Z"
+			/>
 		</svg>
 	);
 };

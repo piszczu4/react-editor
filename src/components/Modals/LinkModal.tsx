@@ -1,11 +1,10 @@
 import { EditorView } from "@tiptap/pm/view";
-import { Editor } from "@tiptap/react";
+import { Editor, selectionToInsertionEnd } from "@tiptap/react";
 import { TextSelection } from "prosemirror-state";
 import { useEffect, useRef, useState } from "react";
 import { _t } from "../../helpers/strings";
 import { Modal } from "../Modal";
-
-import "tippy.js/dist/svg-arrow.css";
+import { getMarkRange } from "@tiptap/react";
 
 import { validateLink } from "../../utils";
 import CloseIcon from "../Icons/CloseIcon";
@@ -14,19 +13,27 @@ type Props = {
 	isOpen: boolean;
 	hide: () => void;
 	destroy: () => void;
-	editor?: Editor;
-	href?: string;
-	text?: string;
+	editor: Editor;
 };
 
-export function LinkModal({
-	isOpen,
-	hide,
-	destroy,
-	editor,
-	href = "",
-	text = "",
-}: Props) {
+export function LinkModal({ isOpen, hide, destroy, editor }: Props) {
+	let href: string = "";
+	let text: string = "";
+	if (editor.isActive("link")) {
+		let attrs = editor.getAttributes("link");
+		href = attrs["href"];
+		let linkRange = getMarkRange(
+			editor.state.selection.$from,
+			editor.state.schema.marks.link
+		)!;
+		text = editor.state.doc.textBetween(linkRange.from, linkRange.to);
+	} else if (!editor.state.selection.empty) {
+		text = editor?.state.doc.textBetween(
+			editor.state.selection.from,
+			editor.state.selection.to
+		);
+	}
+
 	let [_href, setHref] = useState(href);
 	let [isValid, setIsValid] = useState(false);
 
@@ -36,44 +43,44 @@ export function LinkModal({
 		setIsValid(validateLink(href));
 	};
 
-	let handleSave = (view: EditorView) => {
-		const text = textInputRef.current!.value || _href;
-		const node = view.state.schema.text(text!, []);
+	let handleSave = () => {
 		destroy();
-		let tr = view.state.tr;
-		// set the text first, inheriting all marks
-		tr = tr.replaceSelectionWith(node, true);
-		// reselect the now unselected text
-		tr = tr.setSelection(
-			TextSelection.create(
-				tr.doc,
-				tr.selection.from - text!.length,
-				tr.selection.to
-			)
-		);
-		// drop any link marks that might already exist
-		tr = tr.removeMark(
-			tr.selection.from,
-			tr.selection.to,
-			view.state.schema.marks.link
-		);
-		// add our link mark back onto the selection
-		tr = tr.addMark(
-			tr.selection.from,
-			tr.selection.to,
-			view.state.schema.marks.link.create({ href: _href, text: text })
-		);
-		view.dispatch(tr);
+
+		editor
+			.chain()
+			.focus()
+			.command(({ tr, state }) => {
+				const text = textInputRef.current!.value || _href;
+				let mark = state.schema.marks.link.create({ href: _href });
+				const node = editor.state.schema.text(text!, [mark]);
+
+				let range = getMarkRange(tr.selection.$from, state.schema.marks.link)!;
+				if (range) {
+					tr = tr.setSelection(
+						TextSelection.create(tr.doc, range.from, range.to)
+					);
+					// drop any link marks that might already exist
+					tr = tr.removeMark(
+						tr.selection.from,
+						tr.selection.to,
+						state.schema.marks.link
+					);
+				}
+				tr = tr.replaceSelectionWith(node, false);
+				return true;
+			})
+			.run();
 	};
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		e.stopPropagation();
-		handleSave(editor!.view!);
+		handleSave();
 	};
 
-	const handleReset = (e: any) => {
+	const handleCancel = () => {
 		destroy();
+		editor.commands.focus();
 	};
 
 	const handleHrefInput = (e: any) => {
@@ -87,8 +94,8 @@ export function LinkModal({
 	}, [href]);
 
 	return (
-		<Modal isOpen={isOpen} onOutsideClick={() => hide()}>
-			<form id="mw-link-modal" onSubmit={handleSubmit} onReset={handleReset}>
+		<Modal isOpen={isOpen} onOutsideClick={handleCancel}>
+			<form id="mw-link-modal" onSubmit={handleSubmit} onReset={handleCancel}>
 				<div className="mw-modal--header">
 					<h1>Link</h1>
 				</div>
@@ -144,13 +151,13 @@ export function LinkModal({
 						>
 							{_t("link_editor.save_button")}
 						</button>
-						<button className="s-btn" type="reset" onClick={() => destroy()}>
+						<button className="s-btn" type="reset" onClick={handleCancel}>
 							{_t("link_editor.cancel_button")}
 						</button>
 					</div>
 				</div>
 
-				<button className="mw-btn mw-modal--close" onClick={() => destroy()}>
+				<button className="mw-btn mw-modal--close" onClick={handleCancel}>
 					<CloseIcon />
 				</button>
 			</form>
